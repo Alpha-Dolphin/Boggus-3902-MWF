@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+/*
 namespace LOZ.DeprecatedFiles
 {
     internal class MouseClass : IController
@@ -43,3 +43,4 @@ namespace LOZ.DeprecatedFiles
         }
     }
 }
+*/

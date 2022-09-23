@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+/*
 namespace LOZ.DeprecatedFiles
 {
     internal class KeyboardClass : IController
@@ -42,3 +42,4 @@ namespace LOZ.DeprecatedFiles
         }
     }
 }
+*/
