@@ -10,6 +10,7 @@ namespace Pong
 {
     internal interface ISprite
     {
+        // Push test...
         void Draw(SpriteBatch _spriteBatch);
         void Update(GameTime gameTime);
     }
