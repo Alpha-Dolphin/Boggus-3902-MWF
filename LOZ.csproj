@@ -24,13 +24,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\SpriteSheets\" />
-    <Folder Include="Tools\EnvironmentObjects\" />
-    <Folder Include="Tools\ItemObjects\" />
-    <Folder Include="Tools\EnemyObjects\" />
-    <Folder Include="Tools\DamagingProjectileObjects\" />
-    <Folder Include="Tools\NeutralProjectileObjects\" />
-    <Folder Include="Tools\NPCObjects\" />
-    <Folder Include="Tools\PlayerObjects\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
