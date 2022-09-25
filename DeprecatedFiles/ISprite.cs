@@ -6,11 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-namespace Pong
+namespace LOZ.DeprecatedFiles
 {
     internal interface ISprite
     {
-        // Push test...
         void Draw(SpriteBatch _spriteBatch);
         void Update(GameTime gameTime);
     }
