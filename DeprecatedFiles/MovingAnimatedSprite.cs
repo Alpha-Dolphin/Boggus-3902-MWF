@@ -8,7 +8,7 @@ using System;
 using System.Diagnostics;
 using System.Reflection;
 
-public class MovingAnimatedSprite : ISprite
+public class MovingAnimatedSprite //: ISprite
 {
     /*
      Debug switch

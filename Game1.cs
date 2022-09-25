@@ -1,7 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LOZ.Tools.Command;
+using LOZ.Tools.PlayerObjects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+
+using LOZ.Tools.Controller;
 
 namespace LOZ
 {
@@ -9,6 +13,11 @@ namespace LOZ
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
+        private IPlayer link;
+        private IController controller;
+        private ICommand command;
+
+        public static Texture2D LINK_SPRITESHEET;
 
         private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
 
@@ -27,7 +36,15 @@ namespace LOZ
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            LoadContent();
 
+            Link_Constants.Initialize();
+
+            link = new Link(Link_Constants.DEFAULT_X, Link_Constants.DEFAULT_Y, Link_Constants.DEFAULT_ITEMS, Link_Constants.MAX_HEALTH, 
+                Link_Constants.DEFAULT_STATE, Link_Constants.DEFAULT_DIRECTION, Game1.LINK_SPRITESHEET);
+            command = new LinkCommand((Link) link);
+
+            controller = new KeyboardController();
 
             base.Initialize();
         }
@@ -36,7 +53,7 @@ namespace LOZ
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            
+            LINK_SPRITESHEET = Content.Load<Texture2D>(Link_Constants.LINK_SPRITESHEET_NAME);
         }
 
         protected override void Update(GameTime gameTime)
@@ -50,6 +67,10 @@ namespace LOZ
              */
 
             base.Update(gameTime);
+
+            List<Keys> pressed = controller.update();
+
+            command.Execute(pressed);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -58,14 +79,15 @@ namespace LOZ
 
             spriteBatch.Begin();
 
-           
-            /*Sprites to draw need to be in order in spritesToDrawList by here*/
-            foreach (var item in spritesToDraw)
-            {
-                item.draw(spriteBatch);
-            }
 
-            spritesToDraw.Clear();
+            /*Sprites to draw need to be in order in spritesToDrawList by here*/
+            //foreach (var item in spritesToDraw)
+            //{
+            //    item.Draw(spriteBatch);
+            //}
+
+            //spritesToDraw.Clear();
+            link.Draw(spriteBatch);
 
             spriteBatch.End();
 

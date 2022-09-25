@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-/*
-namespace LOZ.DeprecatedFiles
+using Microsoft.Xna.Framework.Input;
+
+namespace LOZ.Tools.Controller
 {
     internal interface IController
     {
-        ISprite KeyboardInput(DoomGame doomGame);
-        ISprite MouseInput(DoomGame doomGame);
+        List<Keys> update();
     }
 }
-*/

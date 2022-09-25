@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-namespace LOZ.DeprecatedFiles
+namespace LOZ.Tools.Sprites
 {
     internal interface ISprite
     {
