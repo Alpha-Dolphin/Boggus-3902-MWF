@@ -13,11 +13,14 @@ namespace LOZ
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
+        private ItemFactory itemFactory;
         private IPlayer link;
         private IController controller;
         private ICommand linkCommandHandler;
 
         public static Texture2D LINK_SPRITESHEET;
+
+        public static Texture2D REGULAR_ENEMIES;
 
         private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
 
@@ -52,8 +55,12 @@ namespace LOZ
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
+            itemFactory = new ItemFactory(0, ItemSpriteSheet);
+            itemFactory.CreateItem();
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(Link_Constants.LINK_SPRITESHEET_NAME);
+            REGULAR_ENEMIES = Content.Load<Texture2D>(@"SpriteSheets\Dungeon Enemies");
         }
 
         protected override void Update(GameTime gameTime)
@@ -80,6 +87,10 @@ namespace LOZ
             spriteBatch.Begin();
 
 
+            itemFactory.Draw(spriteBatch);
+
+
+            spritesToDraw.Clear();
             /*Sprites to draw need to be in order in spritesToDrawList by here*/
             //foreach (var item in spritesToDraw)
             //{

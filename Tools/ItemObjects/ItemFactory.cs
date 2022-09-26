@@ -12,7 +12,7 @@ namespace LOZ.Tools.ItemObjects
     {
         private int currentItemNum = 0;
         private IItem currentItem;
-        private int numItems = 1;
+        private int numItems = 4;
         private int x = 300;
         private int y = 300;
         private Texture2D spriteSheet;
@@ -23,7 +23,7 @@ namespace LOZ.Tools.ItemObjects
             this.currentItem = new Compass(spritesheet, this.x, this.y);
         }
 
-        void Update(char c)
+        public void Update(char c)
         {
             if (c.Equals('u') || c.Equals('U'))
             {
@@ -68,6 +68,6 @@ namespace LOZ.Tools.ItemObjects
         {
             this.currentItem.Draw(_spritebatch);
         }
-      
+       
     }
 }
