@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using Microsoft.Xna.Framework.Input;
 
-public class MouseController : IController
+public class MouseController //: IController
 {
     MouseState mouseState;
     public int lastMousePosition { get; private set; } = 1;

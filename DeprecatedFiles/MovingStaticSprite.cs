@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 
-public class MovingStaticSprite : ISprite
+public class MovingStaticSprite //: ISprite
 {
     /*
         Debug switch
