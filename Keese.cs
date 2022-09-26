@@ -53,8 +53,6 @@ namespace Workspace
 
         public void Move(GameTime gameTime)
         {
-            
-            if (moveCounter == -1) moveCounter = rand.NextInt64(100, 500);
             if (0 < moveCounter)
             {
                 position.X += direction.X;
@@ -64,7 +62,6 @@ namespace Workspace
                 direction.X = rand.Next() % 400 / 100 - 2;
                 direction.Y = rand.Next() % 400 / 100 - 2;
             }
-            moveCounter -= gameTime.ElapsedGameTime.Milliseconds;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
@@ -89,13 +86,13 @@ namespace Workspace
         public void Update(GameTime gameTime)
         {
             if (moveCheck <= 0) {
-                if (moveCounter < 0 && (rand.Next() % 90 + 10) < timeToMove)
+                if (moveCounter < 0 && (rand.Next(50, 5000)) < timeToMove)
                 {
-                    moveCounter = -1;
+                    moveCounter = rand.NextInt64(100, 500);
                     timeToMove = 0;
                 } else if (moveCounter < 0)
                 {
-                    moveCheck = 1000;
+                    moveCheck = 5;
                     timeToMove += moveCheck;
                 }
             } else
@@ -111,6 +108,7 @@ namespace Workspace
                 animCounter = gameTime.TotalGameTime.TotalSeconds;
             }
             animCounter -= gameTime.ElapsedGameTime.TotalSeconds;
+            moveCounter -= gameTime.ElapsedGameTime.Milliseconds;
         }
     }
 }
