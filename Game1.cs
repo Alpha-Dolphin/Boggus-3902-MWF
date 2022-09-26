@@ -22,7 +22,11 @@ namespace LOZ
         private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
 
         /*Declaration of controllers*/
+
+        /*Lists for various things to cycle through for sprint 2*/
+
         
+
         /*Container for sprites to draw in order*/
         private HashSet<ISprite> spritesToDraw = new HashSet<ISprite>();
 
