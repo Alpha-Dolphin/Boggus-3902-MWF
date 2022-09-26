@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
 using LOZ.Tools.Controller;
+using LOZ.Tools.ItemObjects;
+
 
 namespace LOZ
 {
