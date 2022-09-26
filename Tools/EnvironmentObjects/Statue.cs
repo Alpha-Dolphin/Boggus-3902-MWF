@@ -1,12 +1,21 @@
 ﻿/*Statue object*/
 
+using LOZ;
+using LOZ.Tools.EnvironmentObjects;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
+
 
 class Statue : IEnvironment
 {
+    public EnviroSprite enviroSprite;
+
+    
     public void draw(SpriteBatch spriteBatch)
     {
-        throw new System.NotImplementedException();
+        enviroSprite.loadSpriteSheet(Game1.Dungeon_SpriteSheet);
+
+        enviroSprite.draw(spriteBatch);
     }
 
     public void update()
