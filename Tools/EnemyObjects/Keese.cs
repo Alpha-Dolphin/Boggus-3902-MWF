@@ -11,9 +11,8 @@ using SharpDX.Direct2D1;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
-using LOZ.Tools.Interfaces;
 
-namespace LOZ.Tools.EnemyObjects
+namespace Workspace
 {
     internal class Keese : Enemy
     {
@@ -21,7 +20,8 @@ namespace LOZ.Tools.EnemyObjects
 
         Vector2 direction;
         Vector2 position;
-        readonly Random rand = new();
+
+        readonly Random rand;
 
         bool animState;
 
@@ -36,6 +36,7 @@ namespace LOZ.Tools.EnemyObjects
             position.Y = height / 2;
             direction.X = rand.Next() % 400 / 100 - 2;
             direction.Y = rand.Next() % 400 / 100 - 2;
+            rand = new();
             moveCounter = 0.0;
             animCounter = 0.0;
             timeToMove = 0.0;
@@ -58,8 +59,7 @@ namespace LOZ.Tools.EnemyObjects
             {
                 position.X += direction.X;
                 position.Y += direction.Y;
-            }
-            else
+            } else
             {
                 direction.X = rand.Next() % 400 / 100 - 2;
                 direction.Y = rand.Next() % 400 / 100 - 2;
@@ -92,27 +92,25 @@ namespace LOZ.Tools.EnemyObjects
                 {
                     moveCounter = rand.NextInt64(100, 500);
                     timeToMove = 0;
-                }
-                else if (moveCounter < 0)
+                } else if (moveCounter < 0)
                 {
                     moveCheck = 5;
                     timeToMove += moveCheck;
                 }
-            }
-            else
+            } else
             {
                 moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
             }
-            Rectangle KeeseSpread = new Rectangle(183, 11, 16, 16);
-            Rectangle KeeseFolded = new Rectangle(200, 11, 16, 16);
+            Rectangle KeeseSpread = new (183, 11, 16, 16);
+            Rectangle KeeseFolded = new (200, 11, 16, 16);
             if (animCounter + 0.2 < gameTime.TotalGameTime.TotalSeconds)
             {
-                anim = animState ? KeeseSpread : KeeseFolded;
+                anim = (animState) ? KeeseSpread : KeeseFolded;
                 animState = !animState;
                 animCounter = gameTime.TotalGameTime.TotalSeconds;
             }
             animCounter -= gameTime.ElapsedGameTime.TotalSeconds;
-            moveCounter -= gameTime.ElapsedGameTime.Milliseconds;
+            moveCounter -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
     }
 }
