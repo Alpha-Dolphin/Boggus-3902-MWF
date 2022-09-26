@@ -89,13 +89,13 @@ namespace Workspace
         public void Update(GameTime gameTime)
         {
             if (moveCheck <= 0) {
-                if (moveCounter < 0 && (rand.Next() % 8000 + 1000) < timeToMove)
+                if (moveCounter < 0 && (rand.Next() % 90 + 10) < timeToMove)
                 {
                     moveCounter = -1;
                     timeToMove = 0;
                 } else if (moveCounter < 0)
                 {
-                    moveCheck = 5;
+                    moveCheck = 1000;
                     timeToMove += moveCheck;
                 }
             } else
