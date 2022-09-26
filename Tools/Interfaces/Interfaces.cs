@@ -5,21 +5,10 @@ Interfaces for game
 
 using Microsoft.Xna.Framework.Graphics;
 
-interface IController{
-    void update();
-
-}
-
 interface ISprite
 {
-    void update();
-    void initialize();
+    void Update(int x, int y);
+    //void initialize();
 
-    void draw(SpriteBatch spriteBatch);
-}
-
-interface IEnvironment
-{
-    void update();
-    void draw(SpriteBatch spriteBatch);
+    void Draw(SpriteBatch spriteBatch);
 }
