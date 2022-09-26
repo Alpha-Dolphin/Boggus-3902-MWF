@@ -12,7 +12,9 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
 
-namespace Workspace
+using LOZ.Tools.Interfaces;
+
+namespace LOZ.Tools
 {
     internal class Stalfos : Enemy
     {
