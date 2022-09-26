@@ -15,7 +15,7 @@ namespace LOZ
         private SpriteBatch spriteBatch;
         private IPlayer link;
         private IController controller;
-        private ICommand command;
+        private ICommand linkCommandHandler;
 
         public static Texture2D LINK_SPRITESHEET;
 
@@ -46,7 +46,7 @@ namespace LOZ
 
             link = new Link(Link_Constants.DEFAULT_X, Link_Constants.DEFAULT_Y, Link_Constants.DEFAULT_ITEMS, Link_Constants.MAX_HEALTH, 
                 Link_Constants.DEFAULT_STATE, Link_Constants.DEFAULT_DIRECTION, Game1.LINK_SPRITESHEET);
-            command = new LinkCommand((Link) link);
+            linkCommandHandler = new LinkCommand((Link) link);
 
             controller = new KeyboardController();
 
@@ -74,7 +74,7 @@ namespace LOZ
 
             List<Keys> pressed = controller.update();
 
-            command.Execute(pressed);
+            linkCommandHandler.Execute(pressed);
         }
 
         protected override void Draw(GameTime gameTime)

@@ -27,7 +27,7 @@ namespace LOZ.Tools.Controller
 
             keyState = Keyboard.GetState();
 
-            foreach (Keys key in Link_Constants.LINK_KEYS){
+            foreach (Keys key in Enum.GetValues(typeof(Keys))){
                 if(keyState.IsKeyDown(key))
                 {
                     pressed.Add(key);
