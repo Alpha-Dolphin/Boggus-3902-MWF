@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,10 +24,10 @@ namespace Workspace
 
         bool animState;
 
-        double frame;
         double animCounter;
         double moveCounter;
         double timeToMove;
+        double moveCheck;
 
         public Keese(int width, int height)
         {
@@ -36,8 +36,9 @@ namespace Workspace
             direction.X = rand.Next() % 400 / 100 - 2;
             direction.Y = rand.Next() % 400 / 100 - 2;
             moveCounter = 0.0;
-            frame = 0.0;
             animCounter = 0.0;
+            timeToMove = 0.0;
+            moveCheck = 0.0;
         }
 
         public void Attack(GameTime gameTime)
@@ -53,7 +54,7 @@ namespace Workspace
         public void Move(GameTime gameTime)
         {
             
-            if (moveCounter == -1) moveCounter = gameTime.ElapsedGameTime.Milliseconds * (rand.NextInt64(0, 50));
+            if (moveCounter == -1) moveCounter = rand.NextInt64(100, 500);
             if (0 < moveCounter)
             {
                 position.X += direction.X;
@@ -87,13 +88,19 @@ namespace Workspace
 
         public void Update(GameTime gameTime)
         {
-            if (moveCounter < 0 && (rand.Next() % 2000) > timeToMove)
-            {
-                moveCounter = -1;
-                timeToMove = gameTime.ElapsedGameTime.TotalMilliseconds * 200;
+            if (moveCheck <= 0) { 
+                if (moveCounter < 0 && (rand.Next() % 8000 + 1000) < timeToMove)
+                {
+                    moveCounter = -1;
+                    timeToMove = 0;
+                } else if (moveCounter < 0)
+                {
+                    timeToMove += 5 + gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
+                moveCheck = 5;
             } else
             {
-                timeToMove -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             Rectangle KeeseSpread = new Rectangle(183, 11, 16, 16);
             Rectangle KeeseFolded = new Rectangle(200, 11, 16, 16);
@@ -104,7 +111,6 @@ namespace Workspace
                 animCounter = gameTime.TotalGameTime.TotalSeconds;
             }
             animCounter -= gameTime.ElapsedGameTime.TotalSeconds;
-            frame += gameTime.ElapsedGameTime.TotalSeconds;
         }
     }
 }
