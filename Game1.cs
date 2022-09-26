@@ -22,6 +22,8 @@ namespace LOZ
 
         public static Texture2D LINK_SPRITESHEET;
 
+        public static Texture2D REGULAR_ENEMIES;
+
         private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
 
         /*Declaration of controllers*/
@@ -51,7 +53,7 @@ namespace LOZ
                 Link_Constants.DEFAULT_STATE, Link_Constants.DEFAULT_DIRECTION, Game1.LINK_SPRITESHEET);
             command = new LinkCommand((Link) link);
 
-            controller = new KeyboardController();
+            //controller = new KeyboardController();
 
             base.Initialize();
         }
@@ -64,6 +66,7 @@ namespace LOZ
             itemFactory.CreateItem();
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(Link_Constants.LINK_SPRITESHEET_NAME);
+            REGULAR_ENEMIES = Content.Load<Texture2D>(@"SpriteSheets\Dungeon Enemies");
         }
 
         protected override void Update(GameTime gameTime)
@@ -78,9 +81,9 @@ namespace LOZ
 
             base.Update(gameTime);
 
-            List<Keys> pressed = controller.update();
+            //List<Keys> pressed = controller.update();
 
-            command.Execute(pressed);
+            //command.Execute(pressed);
         }
 
         protected override void Draw(GameTime gameTime)

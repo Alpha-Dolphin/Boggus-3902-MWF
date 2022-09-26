@@ -4,9 +4,11 @@
 
 class environmentFactory
 {
+    /*
     IEnvironment GetEnvironment(int environment)
     {
 
         return new Statue();
     }
+    */
 }
