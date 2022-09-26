@@ -12,19 +12,19 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace LOZ.Tools.ItemObjects
 {
-    internal class Compass : IItem
+    internal class Key : IItem
     {
         private Vector2 position;
         private StationaryStaticSprite sprite = new();
-        private Vector2 DefaultSize = new(16, 16);
-        public Compass(Texture2D spritesheet, int x, int y)
+        private Vector2 DefaultSize = new(8, 16);
+        public Key(Texture2D spritesheet, int x, int y)
         {
             this.position.X = x;
             this.position.Y = y;
             this.sprite.initialize();
             this.sprite.loadSpriteSheet(spritesheet);
-            this.sprite.setPositionRectangle(x, y, (int)DefaultSize.X*2, (int)DefaultSize.Y*2);
-            this.sprite.setFrameRectangle(257, 1, (int)DefaultSize.X, (int)DefaultSize.Y);
+            this.sprite.setPositionRectangle(x, y, (int)DefaultSize.X * 2, (int)DefaultSize.Y * 2);
+            this.sprite.setFrameRectangle(240, 0, (int)DefaultSize.X, (int)DefaultSize.Y);
         }
 
 

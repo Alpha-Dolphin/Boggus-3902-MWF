@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using System.Reflection.Metadata;
-using SharpDX.Direct3D9;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct2D1;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
@@ -70,6 +68,7 @@ namespace LOZ.Tools.EnemyObjects
         {
             _spriteBatch.Begin();
 
+            /*
             _spriteBatch.Draw(
                 Game1.Sheet1,
                 position,
@@ -80,7 +79,11 @@ namespace LOZ.Tools.EnemyObjects
                 Vector2.One,
                 SpriteEffects.None,
                 0f
+            
+
             );
+
+            */
 
             _spriteBatch.End();
         }

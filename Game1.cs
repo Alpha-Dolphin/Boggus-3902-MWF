@@ -32,7 +32,7 @@ namespace LOZ
         }
 
         protected override void Initialize()
-        {
+        { 
             // TODO: Add your initialization logic here
 
 
@@ -43,7 +43,7 @@ namespace LOZ
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
-            itemFactory = new ItemFactory(0, ItemSpriteSheet);
+            itemFactory = new ItemFactory(3, ItemSpriteSheet);
             itemFactory.CreateItem();
 
             

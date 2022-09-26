@@ -54,9 +54,13 @@ namespace LOZ.Tools.ItemObjects
         {
             switch(this.currentItemNum)
             {
-                case 0:
-                    currentItem = new Compass(this.spriteSheet, x, y);
-                    break;
+                case 0: currentItem = new Compass(this.spriteSheet, x, y); break;
+
+                case 1: currentItem = new Map(this.spriteSheet, x, y); break;
+
+                case 2: currentItem = new Key(this.spriteSheet, x, y); break;
+
+                case 3: currentItem = new HeartContainer(this.spriteSheet, x, y); break;
             }
         }
 
