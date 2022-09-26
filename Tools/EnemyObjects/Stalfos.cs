@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +20,8 @@ namespace Workspace
 
         Vector2 direction;
         Vector2 position;
-        readonly Random rand = new();
+
+        readonly Random rand;
 
         bool animState;
 
@@ -35,6 +36,7 @@ namespace Workspace
             direction.Y = 0;
             animCounter = 0.0;
             moveCheck = -1;
+            rand = new();
             anim = new Rectangle(1, 59, 16, 16);
         }
 
