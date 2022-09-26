@@ -21,7 +21,7 @@ namespace LOZ.Tools.EnemyObjects
 
         Vector2 direction;
         Vector2 position;
-        Random rand = new Random();
+        readonly Random rand = new();
 
         bool animState;
 
