@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LOZ.Tools.ItemObjects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace LOZ
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
+        private ItemFactory itemFactory;
 
         private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
 
@@ -36,7 +38,10 @@ namespace LOZ
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Texture2D ItemSpriteSheet = Content.Load<Texture2D>("SpriteSheets/Items");
+            Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
+            itemFactory = new ItemFactory(0, ItemSpriteSheet);
+            itemFactory.CreateItem();
+
             
         }
 
@@ -65,6 +70,9 @@ namespace LOZ
             {
                 item.draw(spriteBatch);
             }
+
+            itemFactory.Draw(spriteBatch);
+
 
             spritesToDraw.Clear();
 

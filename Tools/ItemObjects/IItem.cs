@@ -11,7 +11,7 @@ namespace LOZ.Tools.ItemObjects
 {
     internal interface IItem
     {
-        void Draw(SpriteBatch _spriteBatch);
+        void Draw(SpriteBatch spriteBatch);
         void Update(GameTime gametime);
 
     }

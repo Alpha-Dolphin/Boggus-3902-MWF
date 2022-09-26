@@ -16,10 +16,11 @@ namespace LOZ.Tools.ItemObjects
         private int x = 300;
         private int y = 300;
         private Texture2D spriteSheet;
-        ItemFactory(int x, Texture2D spritesheet)
+        public ItemFactory(int itemnum, Texture2D spritesheet)
         {
-            this.currentItemNum = x;
+            this.currentItemNum = itemnum;
             this.spriteSheet = spritesheet;
+            this.currentItem = new Compass(spritesheet, this.x, this.y);
         }
 
         void Update(char c)
@@ -49,18 +50,19 @@ namespace LOZ.Tools.ItemObjects
             }
         }
 
-        void CreateItem(Texture2D spritesheet)
+        public void CreateItem()
         {
             switch(this.currentItemNum)
             {
                 case 0:
-                    currentItem = new Compass(spritesheet, x, y);
-                    break;
-                case 1:
-                    break;
-                case 2:
+                    currentItem = new Compass(this.spriteSheet, x, y);
                     break;
             }
+        }
+
+        public void Draw(SpriteBatch _spritebatch)
+        {
+            this.currentItem.Draw(_spritebatch);
         }
       
     }
