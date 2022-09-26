@@ -96,7 +96,7 @@ namespace Workspace
                     timeToMove = 0;
                 } else if (moveCounter < 0)
                 {
-                    timeToMove += moveCheck + gameTime.ElapsedGameTime.TotalMilliseconds;
+                    timeToMove += moveCheck;
                 }
             } else
             {
