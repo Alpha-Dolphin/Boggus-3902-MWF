@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Net.Mime;
 
 namespace LOZ
 {
@@ -35,7 +36,7 @@ namespace LOZ
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            Texture2D ItemSpriteSheet = Content.Load<Texture2D>("SpriteSheets/Items");
             
         }
 
