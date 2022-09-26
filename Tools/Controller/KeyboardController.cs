@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Microsoft.Xna;
 using Microsoft.Xna.Framework.Input;
 
 using LOZ.Tools.PlayerObjects;
@@ -27,7 +28,7 @@ namespace LOZ.Tools.Controller
 
             keyState = Keyboard.GetState();
 
-            foreach (Keys key in Link_Constants.LINK_KEYS){
+            foreach (Keys key in Enum.GetValues(typeof(Keys))){
                 if(keyState.IsKeyDown(key))
                 {
                     pressed.Add(key);
