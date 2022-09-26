@@ -34,9 +34,9 @@ namespace Workspace
         {
             position.X = width / 2;
             position.Y = height / 2;
+            rand = new();
             direction.X = rand.Next() % 400 / 100 - 2;
             direction.Y = rand.Next() % 400 / 100 - 2;
-            rand = new();
             moveCounter = 0.0;
             animCounter = 0.0;
             timeToMove = 0.0;
@@ -71,7 +71,7 @@ namespace Workspace
             _spriteBatch.Begin();
 
             _spriteBatch.Draw(
-                Game1.Sheet1,
+                Game1.REGULAR_ENEMIES,
                 position,
                 anim,
                 Color.White,
@@ -88,9 +88,9 @@ namespace Workspace
         public void Update(GameTime gameTime)
         {
             if (moveCheck <= 0) {
-                if (moveCounter < 0 && (rand.Next(50, 5000)) < timeToMove)
+                if (moveCounter < 0 && rand.Next() % 4950 + 50 < timeToMove)
                 {
-                    moveCounter = rand.NextInt64(100, 500);
+                    moveCounter = rand.Next() % 400 + 100;
                     timeToMove = 0;
                 } else if (moveCounter < 0)
                 {
