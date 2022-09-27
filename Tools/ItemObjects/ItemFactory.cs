@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Input;
 
 namespace LOZ.Tools.ItemObjects
 {
@@ -23,31 +24,34 @@ namespace LOZ.Tools.ItemObjects
             this.currentItem = new Compass(spritesheet, this.x, this.y);
         }
 
-        public void Update(char c)
+        public void Update(List<Keys> keys)
         {
-            if (c.Equals('u') || c.Equals('U'))
+            foreach(Keys key in keys)
             {
-                if (this.currentItemNum == 0)
+                if (key.ToString().ToUpper().Equals("U"))
                 {
-                    this.currentItemNum = numItems - 1;
+                    if (this.currentItemNum == 0)
+                    {
+                        this.currentItemNum = numItems - 1;
+                    }
+                    else
+                    {
+                        this.currentItemNum--;
+                    }
                 }
-                else
+                else if (key.ToString().ToUpper().Equals("I"))
                 {
-                    this.currentItemNum--;
+                    if (this.currentItemNum == numItems - 1)
+                    {
+                        this.currentItemNum = 0;
+                    }
+                    else
+                    {
+                        this.currentItemNum++;
+                    }
                 }
+            }
 
-            }
-            else if (c.Equals('i') || c.Equals('I'))
-            {
-                if (this.currentItemNum == numItems - 1)
-                {
-                    this.currentItemNum = 0;
-                }
-                else
-                {
-                    this.currentItemNum++;
-                }
-            }
         }
 
         public void CreateItem()
@@ -61,6 +65,7 @@ namespace LOZ.Tools.ItemObjects
                 case 2: currentItem = new Key(this.spriteSheet, x, y); break;
 
                 case 3: currentItem = new HeartContainer(this.spriteSheet, x, y); break;
+
             }
         }
 

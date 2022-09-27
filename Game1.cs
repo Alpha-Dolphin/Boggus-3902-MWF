@@ -5,9 +5,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
 using LOZ.Tools.Controller;
-using LOZ.Tools.ItemObjects;
+
 
 
 namespace LOZ
@@ -81,6 +80,8 @@ namespace LOZ
             List<Keys> pressed = controller.update();
 
             linkCommandHandler.Execute(pressed);
+
+            itemFactory.Update(pressed);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -89,7 +90,7 @@ namespace LOZ
 
             spriteBatch.Begin();
 
-
+            itemFactory.CreateItem();
             itemFactory.Draw(spriteBatch);
 
 
