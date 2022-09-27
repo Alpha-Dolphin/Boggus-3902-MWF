@@ -19,18 +19,41 @@ namespace LOZ.Tools.Controller
         public int lastKeyPressed { get; private set; } = 1;
         public DateTime lastInputTime;
 
-        public List<Keys> pressed;
+        public List<Keys> pressed =  new List<Keys>();
+        public List<Keys> held = new List<Keys>();
 
         public List<Keys> update()
         {
-            pressed = new List<Keys>();
+            
 
             keyState = Keyboard.GetState();
+
 
             foreach (Keys key in Enum.GetValues(typeof(Keys))){
                 if(keyState.IsKeyDown(key))
                 {
-                    pressed.Add(key);
+                    if (pressed.Contains(key))
+                    {
+                        held.Add(key);
+                    }
+
+                    if (!pressed.Contains(key))
+                    {
+                        pressed.Add(key);
+                    }
+                    
+                }
+                else
+                {
+                    if (held.Contains(key))
+                    {
+                        held.Remove(key);
+                        
+                    }
+                    if (pressed.Contains(key))
+                    { 
+                        pressed.Remove(key);
+                    }
                 }
             }
 
