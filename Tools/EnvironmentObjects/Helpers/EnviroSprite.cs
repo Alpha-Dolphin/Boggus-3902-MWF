@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LOZ.Tools.EnvironmentObjects
+namespace LOZ.Tools.EnvironmentObjects.Helpers
 {
     internal class EnviroSprite : ISprite
     {
         /*
         Debug switch
         */
-        private bool DEBUG = true;
+        private bool DEBUG = false;
         /*
          * Data for source of sprite information for each frame to animate
          */
@@ -35,11 +35,11 @@ namespace LOZ.Tools.EnvironmentObjects
 
         public void initialize()
         {
-            this.sourceFileDirectory = "";
-            this.sourceX = 0;
-            this.sourceY = 0;
-            this.sourceWidth = 0;
-            this.sourceHeight = 0;
+            sourceFileDirectory = "";
+            sourceX = 0;
+            sourceY = 0;
+            sourceWidth = 0;
+            sourceHeight = 0;
 
 
             /*
@@ -47,15 +47,15 @@ namespace LOZ.Tools.EnvironmentObjects
              */
 
 
-            this.positionX = 0;
-            this.positionY = 0;
-            this.width = 0;
-            this.height = 0;
+            positionX = 0;
+            positionY = 0;
+            width = 0;
+            height = 0;
         }
 
-        public void update()
+        public void Update(int x, int y)
         {
-            throw new NotImplementedException();
+
         }
         public void draw(SpriteBatch spriteBatch)
         {
@@ -86,32 +86,34 @@ namespace LOZ.Tools.EnvironmentObjects
 
         public void setPositionRectangle(int x, int y, int w, int h)
         {
-            this.positionX = x;
-            this.positionY = y;
-            this.width = w;
-            this.height = h;
+            positionX = x;
+            positionY = y;
+            width = w;
+            height = h;
         }
 
         public void setFrameRectangle(int x, int y, int w, int h)
         {
-            this.sourceX = x;
-            this.sourceY = y;
-            this.sourceWidth = w;
-            this.sourceHeight = h;
+            sourceX = x;
+            sourceY = y;
+            sourceWidth = w;
+            sourceHeight = h;
         }
 
         public void setSourceDirectory(string directory)
         {
-            this.sourceFileDirectory = directory;
+            sourceFileDirectory = directory;
         }
         public string getSourceDirectory()
         {
             if (DEBUG)
             {
-                Debug.WriteLine("getSourceDirectory called on moving animated sprite, Directory returned: " + this.sourceFileDirectory);
+                Debug.WriteLine("getSourceDirectory called on moving animated sprite, Directory returned: " + sourceFileDirectory);
             }
 
-            return this.sourceFileDirectory;
+            return sourceFileDirectory;
         }
+
+
     }
 }

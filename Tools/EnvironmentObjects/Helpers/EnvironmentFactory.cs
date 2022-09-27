@@ -2,9 +2,9 @@
 
 /*TODO: Implement case logic for all environment blocks*/
 
-class environmentFactory
+class EnvironmentFactory
 {
-    private IEnvironment GetEnvironment(Environment environment)
+    public IEnvironment getEnvironment(Environment environment)
     {
         switch (environment)
         {
@@ -12,7 +12,7 @@ class environmentFactory
                 return new Statue();
 
             case Environment.SquareBlock:
-                return new Statue();
+                return new SquareBlock();
 
             case Environment.PushBlock:
                 return new Statue();

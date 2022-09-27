@@ -16,4 +16,5 @@ interface IEnvironment
 {
     void update();
     void draw(SpriteBatch spriteBatch);
+    void load();
 }
