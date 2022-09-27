@@ -49,7 +49,7 @@
 /processorParam:TextureFormat=Color
 /build:SpriteSheets/Dungeon Tileset.png
 
-#begin SpriteSheets/Link_EmptyBackground.png
+#begin SpriteSheets/Items.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -59,7 +59,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:SpriteSheets/Link_EmptyBackground.png
+/build:SpriteSheets/Items.png
 
 #begin SpriteSheets/Link_EmptyBackground.png
 /importer:TextureImporter

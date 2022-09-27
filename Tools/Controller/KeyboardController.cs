@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Microsoft.Xna;
 using Microsoft.Xna.Framework.Input;
 
 using LOZ.Tools.PlayerObjects;

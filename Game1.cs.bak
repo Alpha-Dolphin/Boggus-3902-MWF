@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using LOZ.Tools.Controller;
-using LOZ.Tools;
 
 
 
@@ -26,11 +25,14 @@ namespace LOZ
         public static Texture2D ENVIRONMENT_SPRITESHEET;
         public static Texture2D REGULAR_ENEMIES;
 
+        public static Texture2D REGULAR_ENEMIES;
 
         private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
 
         /*Declaration of controllers*/
-
+<<<<<<< HEAD
+        
+=======
 
         /*Lists for various things to cycle through for sprint 2*/
 
@@ -40,6 +42,7 @@ namespace LOZ
 
         EnvironmentFactory environmentFactory = new EnvironmentFactory();
 
+>>>>>>> main
         /*Container for sprites to draw in order*/
         private HashSet<ISprite> spritesToDraw = new HashSet<ISprite>();
 
@@ -82,6 +85,9 @@ namespace LOZ
             itemFactory.CreateItem();
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(Link_Constants.LINK_SPRITESHEET_NAME);
+<<<<<<< HEAD
+            REGULAR_ENEMIES = Content.Load<Texture2D>(@"SpriteSheets\Dungeon Enemies");
+=======
             ENVIRONMENT_SPRITESHEET = Content.Load<Texture2D>(Constants.DungeonSpriteSheetLocation);
             REGULAR_ENEMIES = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
 
@@ -90,6 +96,7 @@ namespace LOZ
                 environmentObject.load();
                 environmentObject.update();
             }
+>>>>>>> main
         }
 
         protected override void Update(GameTime gameTime)
@@ -110,10 +117,12 @@ namespace LOZ
             List<Keys> pressed = controller.update();
 
             linkCommandHandler.Execute(pressed);
+<<<<<<< HEAD
 
             itemFactory.Update(pressed, gameTime);
-
+=======
             environmentCommandHandler.executeNewPressedOnly(pressed, controller.held);
+>>>>>>> main
         }
 
         protected override void Draw(GameTime gameTime)
@@ -125,6 +134,7 @@ namespace LOZ
             itemFactory.CreateItem();
             itemFactory.Draw(spriteBatch);
 
+<<<<<<< HEAD
 
             spritesToDraw.Clear();
             /*Sprites to draw need to be in order in spritesToDrawList by here*/
@@ -132,9 +142,10 @@ namespace LOZ
             //{
             //    item.Draw(spriteBatch);
             //}
-
+=======
             environmentObjectList[environmentCommandHandler.environmentBlockIndex].draw(spriteBatch);
 
+>>>>>>> main
 
             link.Draw(spriteBatch);
 
