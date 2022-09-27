@@ -1,5 +1,6 @@
 ﻿using LOZ.Tools.Command;
 using LOZ.Tools.PlayerObjects;
+using LOZ.Tools.ItemObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
