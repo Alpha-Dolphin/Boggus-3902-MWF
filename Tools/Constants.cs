@@ -18,3 +18,12 @@ public enum Environment
     KeyholeLockedDoor,
     DiamondSymbolLockedDoor,
 }
+
+public class Constants
+{
+    public const string DungeonSpriteSheetLocation = "./SpriteSheets/Dungeon Tileset";
+    public const string RegEnemySpriteSheetLocation = "SpriteSheets/Dungeon Enemies";
+    public const int objectScale = 2;
+    public const int numEnviroObjectsAvailable = 2;
+
+}

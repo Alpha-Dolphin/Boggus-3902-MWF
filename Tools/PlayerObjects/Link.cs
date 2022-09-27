@@ -124,7 +124,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            this.sprite.Draw(spriteBatch);
+            this.sprite.draw(spriteBatch);
         }
     }
 }

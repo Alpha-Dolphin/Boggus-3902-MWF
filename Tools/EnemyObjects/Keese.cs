@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using System.Reflection.Metadata;
+
 using Microsoft.Xna.Framework.Graphics;
+
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
@@ -70,7 +72,6 @@ namespace LOZ
         {
             _spriteBatch.Begin();
 
-            
             _spriteBatch.Draw(
                 Game1.REGULAR_ENEMIES,
                 position,
@@ -81,11 +82,7 @@ namespace LOZ
                 Vector2.One,
                 SpriteEffects.None,
                 0f
-            
-
             );
-
-            
 
             _spriteBatch.End();
         }
