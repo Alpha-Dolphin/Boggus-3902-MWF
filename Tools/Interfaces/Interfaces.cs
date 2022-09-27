@@ -9,11 +9,11 @@ interface ISprite
 {
     void Update(int x, int y);
     //void initialize();
-    void draw(SpriteBatch spriteBatch);
+    void Draw(SpriteBatch spriteBatch);
 }
 
 interface IEnvironment
 {
-    void update();
-    void draw(SpriteBatch spriteBatch);
+    void Update();
+    void Draw(SpriteBatch spriteBatch);
 }

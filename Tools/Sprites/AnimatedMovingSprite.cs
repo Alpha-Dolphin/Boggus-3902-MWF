@@ -29,7 +29,7 @@ namespace CSE3902_Sprint0.Sprites
             this.frames = frames;
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle currentRectangle = frames[currentFrame / 10];
             spriteBatch.Draw(picture, new Rectangle(x, y, currentRectangle.Width*3, currentRectangle.Height*3), currentRectangle, Link_Constants.DEFAULT_PICTURE_COLOR);

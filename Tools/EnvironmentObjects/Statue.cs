@@ -4,12 +4,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 class Statue : IEnvironment
 {
-    public void draw(SpriteBatch spriteBatch)
+    public void Draw(SpriteBatch spriteBatch)
     {
         throw new System.NotImplementedException();
     }
 
-    public void update()
+    public void Update()
     {
         throw new System.NotImplementedException();
     }

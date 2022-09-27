@@ -30,7 +30,7 @@ namespace CSE3902_Sprint0.Sprites
             this.frame = frames[0];
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(picture, new Vector2(x, y), frame, Link_Constants.DEFAULT_PICTURE_COLOR);
         }
