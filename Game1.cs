@@ -81,7 +81,7 @@ namespace LOZ
 
             linkCommandHandler.Execute(pressed);
 
-            itemFactory.Update(pressed);
+            itemFactory.Update(pressed, gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
