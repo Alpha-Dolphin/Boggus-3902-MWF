@@ -184,8 +184,8 @@ namespace LOZ.Tools.PlayerObjects
         public static Rectangle LINK_ATTACKDOWN_FRAME4 = new Rectangle(LINK_ATTACKDOWNX4, LINK_ATTACKDOWNY, LINK_ATTACKDOWNWIDTH4, LINK_ATTACKDOWNHEIGHT4);
 
         public static List<Rectangle> LINK_ATTACKLEFT_FRAMES = new List<Rectangle>();
-        public static Rectangle LINK_ATTACKLEFT_FRAME1 = new Rectangle(LINK_ATTACKX1, LINK_ATTACKSIDEY, LINK_ATTACKSIDEWIDTH1, LINK_ATTACKSIDEHEIGHT1);
-        public static Rectangle LINK_ATTACKLEFT_FRAME2 = new Rectangle(LINK_ATTACKX2, LINK_ATTACKSIDEY, LINK_ATTACKSIDEWIDTH2, LINK_ATTACKSIDEHEIGHT2);
+        public static Rectangle LINK_ATTACKLEFT_FRAME1 = new Rectangle(LINK_ATTACKLEFTX1, LINK_ATTACKSIDEY, LINK_ATTACKSIDEWIDTH1, LINK_ATTACKSIDEHEIGHT1);
+        public static Rectangle LINK_ATTACKLEFT_FRAME2 = new Rectangle(LINK_ATTACKLEFTX2, LINK_ATTACKSIDEY, LINK_ATTACKSIDEWIDTH2, LINK_ATTACKSIDEHEIGHT2);
         public static Rectangle LINK_ATTACKLEFT_FRAME3 = new Rectangle(LINK_ATTACKLEFTX3, LINK_ATTACKSIDEY, LINK_ATTACKSIDEWIDTH3, LINK_ATTACKSIDEHEIGHT3);
         public static Rectangle LINK_ATTACKLEFT_FRAME4 = new Rectangle(LINK_ATTACKLEFTX4, LINK_ATTACKSIDEY4, LINK_ATTACKSIDEWIDTH4, LINK_ATTACKSIDEHEIGHT4);
 
@@ -200,6 +200,53 @@ namespace LOZ.Tools.PlayerObjects
         public static Rectangle LINK_ATTACKUP_FRAME2 = new Rectangle(LINK_ATTACKX2, LINK_ATTACK_UPY2, LINK_ATTACKUPWIDTH2, LINK_ATTACKUPHEIGHT2);
         public static Rectangle LINK_ATTACKUP_FRAME3 = new Rectangle(LINK_ATTACKUPX3, LINK_ATTACK_UPY3, LINK_ATTACKUPWIDTH3, LINK_ATTACKUPHEIGHT3);
         public static Rectangle LINK_ATTACKUP_FRAME4 = new Rectangle(LINK_ATTACKUPX4, LINK_ATTACK_UPY4, LINK_ATTACKUPWIDTH4, LINK_ATTACKUPHEIGHT4);
+
+
+        public const int SWORD_WIDTH = 7;
+        public const int SWORD_HEIGHT = 16;
+
+        public const int SWORD_MAGICAL_BLUE_UPX = 36;
+        public const int SWORD_MAGICAL_BLUE_UPY = 154;
+        public static Rectangle SWORD_MAGICAL_BLUE_UP = new Rectangle(SWORD_MAGICAL_BLUE_UPX, SWORD_MAGICAL_BLUE_UPY, SWORD_WIDTH, SWORD_HEIGHT);
+
+        public const int SWORD_MAGICAL_BLUE_LEFTX = 681;
+        public const int SWORD_MAGICAL_BLUE_LEFTY = 159;
+        public static Rectangle SWORD_MAGICAL_BLUE_LEFT = new Rectangle(SWORD_MAGICAL_BLUE_LEFTX, SWORD_MAGICAL_BLUE_LEFTY, SWORD_HEIGHT, SWORD_WIDTH);
+
+        public const int SWORD_MAGICAL_BLUE_RIGHTX = 45;
+        public const int SWORD_MAGICAL_BLUE_RIGHTY = 159;
+        public static Rectangle SWORD_MAGICAL_BLUE_RIGHT = new Rectangle(SWORD_MAGICAL_BLUE_RIGHTX, SWORD_MAGICAL_BLUE_RIGHTY, SWORD_HEIGHT, SWORD_WIDTH);
+
+        public const int SWORD_MAGICAL_BLUE_DOWNX = 319;
+        public const int SWORD_MAGICAL_BLUE_DOWNY = 154;
+        public static Rectangle SWORD_MAGICAL_BLUE_DOWN = new Rectangle(SWORD_MAGICAL_BLUE_DOWNX, SWORD_MAGICAL_BLUE_DOWNY, SWORD_WIDTH, SWORD_HEIGHT);
+
+        public const int SWORD_MAGICAL_RED_UPX = 71;
+        public const int SWORD_MAGICAL_RED_UPY = 154;
+        public static Rectangle SWORD_MAGICAL_RED_UP = new Rectangle(SWORD_MAGICAL_RED_UPX, SWORD_MAGICAL_RED_UPY, SWORD_WIDTH, SWORD_HEIGHT);
+
+        public const int SWORD_MAGICAL_RED_LEFTX = 646;
+        public const int SWORD_MAGICAL_RED_LEFTY = 159;
+        public static Rectangle SWORD_MAGICAL_RED_LEFT = new Rectangle(SWORD_MAGICAL_RED_LEFTX, SWORD_MAGICAL_RED_LEFTY, SWORD_HEIGHT, SWORD_WIDTH);
+
+        public const int SWORD_MAGICAL_RED_RIGHTX = 80;
+        public const int SWORD_MAGICAL_RED_RIGHTY = 159;
+        public static Rectangle SWORD_MAGICAL_RED_RIGHT = new Rectangle(SWORD_MAGICAL_RED_RIGHTX, SWORD_MAGICAL_RED_RIGHTY, SWORD_HEIGHT, SWORD_WIDTH);
+
+        public const int SWORD_MAGICAL_RED_DOWNX = 319;
+        public const int SWORD_MAGICAL_RED_DOWNY = 154;
+        public static Rectangle SWORD_MAGICAL_RED_DOWN = new Rectangle(SWORD_MAGICAL_RED_DOWNX, SWORD_MAGICAL_RED_DOWNY, SWORD_WIDTH, SWORD_HEIGHT);
+
+        public static List<Rectangle> LINK_SWORDBEAM_UP_FRAMES = new List<Rectangle>();
+        public static List<Rectangle> LINK_SWORDBEAM_LEFT_FRAMES = new List<Rectangle>();
+        public static List<Rectangle> LINK_SWORDBEAM_RIGHT_FRAMES = new List<Rectangle>();
+        public static List<Rectangle> LINK_SWORDBEAM_DOWN_FRAMES = new List<Rectangle>();
+
+        public const int MAX_WOODEN_ARROW_RANGE = 100;
+        public const int MAX_BLUE_ARROW_RANGE = 200;
+        public const int MAX_SWORDBEAM_RANGE = 200;
+
+        public const int PROJECTILE_VELOCITY = 2;
 
         public static void Initialize()
         {
@@ -234,6 +281,18 @@ namespace LOZ.Tools.PlayerObjects
             LINK_ATTACKUP_FRAMES.Add(LINK_ATTACKUP_FRAME2);
             LINK_ATTACKUP_FRAMES.Add(LINK_ATTACKUP_FRAME3);
             LINK_ATTACKUP_FRAMES.Add(LINK_ATTACKUP_FRAME4);
+
+            LINK_SWORDBEAM_UP_FRAMES.Add(SWORD_MAGICAL_BLUE_UP);
+            LINK_SWORDBEAM_UP_FRAMES.Add(SWORD_MAGICAL_RED_UP);
+
+            LINK_SWORDBEAM_LEFT_FRAMES.Add(SWORD_MAGICAL_BLUE_LEFT);
+            LINK_SWORDBEAM_LEFT_FRAMES.Add(SWORD_MAGICAL_RED_LEFT);
+            
+            LINK_SWORDBEAM_RIGHT_FRAMES.Add(SWORD_MAGICAL_BLUE_RIGHT);
+            LINK_SWORDBEAM_RIGHT_FRAMES.Add(SWORD_MAGICAL_RED_RIGHT);
+            
+            LINK_SWORDBEAM_DOWN_FRAMES.Add(SWORD_MAGICAL_BLUE_DOWN);
+            LINK_SWORDBEAM_DOWN_FRAMES.Add(SWORD_MAGICAL_RED_DOWN);
         }
     }
 }

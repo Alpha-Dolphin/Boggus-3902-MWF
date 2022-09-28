@@ -13,6 +13,8 @@ namespace LOZ.Tools.Command
     internal class LinkCommand : ICommand
     {
         private Link link;
+        bool moved = false;
+
         public LinkCommand(Link link)
         {
             this.link = link;
@@ -20,16 +22,26 @@ namespace LOZ.Tools.Command
 
         public void Execute(List<Keys> keys)
         {
+            moved = false;
+
+            if(keys.Count == 0)
+            {
+                link.Update(Link_States.Normal, link.getDirection());
+            }
+
             foreach(Keys key in keys)
             {
                 if (Link_Constants.MOVEMENT_KEYS.Contains(key))
                 {
-                    switch (key)
+                    if (!moved)
                     {
-                        case Link_Constants.MOVE_DOWN_KEY: ExecuteMove(Link_Constants.Direction.Down); break;
-                        case Link_Constants.MOVE_LEFT_KEY: ExecuteMove(Link_Constants.Direction.Left); break;
-                        case Link_Constants.MOVE_RIGHT_KEY: ExecuteMove(Link_Constants.Direction.Right); break;
-                        case Link_Constants.MOVE_UP_KEY: ExecuteMove(Link_Constants.Direction.Up); break;
+                        switch (key)
+                        {
+                            case Link_Constants.MOVE_DOWN_KEY: ExecuteMove(Link_Constants.Direction.Down); break;
+                            case Link_Constants.MOVE_LEFT_KEY: ExecuteMove(Link_Constants.Direction.Left); break;
+                            case Link_Constants.MOVE_RIGHT_KEY: ExecuteMove(Link_Constants.Direction.Right); break;
+                            case Link_Constants.MOVE_UP_KEY: ExecuteMove(Link_Constants.Direction.Up); break;
+                        }
                     }
                 } else if (Link_Constants.SWORD_ATTACK_KEYS.Contains(key))
                 {
@@ -71,11 +83,14 @@ namespace LOZ.Tools.Command
 
         private void ExecuteMove(Link_Constants.Direction direction)
         {
+            link.Update(Link_States.Walking, direction);
             link.Move(direction);
+            moved = true;
         }
 
         private void ExecuteAttack()
         {
+            link.Update(Link_States.Attacking, link.getDirection());
             link.Attack();
         }
 
