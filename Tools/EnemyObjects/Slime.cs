@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using System.Reflection.Metadata;
-using SharpDX.Direct3D9;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct2D1;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools
 {

@@ -82,12 +82,12 @@ namespace LOZ
             itemFactory.CreateItem();
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(Link_Constants.LINK_SPRITESHEET_NAME);
-            ENVIRONMENT_SPRITESHEET = Content.Load<Texture2D>(Constants.DungeonSpriteSheetLocation);
-            REGULAR_ENEMIES = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
+            ENVIRONMENT_SPRITESHEET = Content.Load<Texture2D>("Dungeon Enemies");
+            REGULAR_ENEMIES = Content.Load<Texture2D>("Bosses");
 
             foreach (IEnvironment environmentObject in environmentObjectList)
             {
-                environmentObject.load();
+/*                environmentObject.load();*/
                 environmentObject.update();
             }
         }

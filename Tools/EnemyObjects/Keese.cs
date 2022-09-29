@@ -26,8 +26,8 @@ namespace LOZ
         readonly Random rand;
 
         bool animState;
-
         double animCounter;
+
         double moveCounter;
         double timeToMove;
         double moveCheck;
@@ -61,7 +61,8 @@ namespace LOZ
             {
                 position.X += direction.X;
                 position.Y += direction.Y;
-            } else
+            }
+            else
             {
                 direction.X = rand.Next() % 400 / 100 - 2;
                 direction.Y = rand.Next() % 400 / 100 - 2;
@@ -89,22 +90,25 @@ namespace LOZ
 
         public void Update(GameTime gameTime)
         {
-            if (moveCheck <= 0) {
+            if (moveCheck <= 0)
+            {
                 if (moveCounter < 0 && rand.Next() % 4950 + 50 < timeToMove)
                 {
                     moveCounter = rand.Next() % 400 + 100;
                     timeToMove = 0;
-                } else if (moveCounter < 0)
+                }
+                else if (moveCounter < 0)
                 {
                     moveCheck = 5;
                     timeToMove += moveCheck;
                 }
-            } else
+            }
+            else
             {
                 moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
             }
-            Rectangle KeeseSpread = new (183, 11, 16, 16);
-            Rectangle KeeseFolded = new (200, 11, 16, 16);
+            Rectangle KeeseSpread = new(183, 11, 16, 16);
+            Rectangle KeeseFolded = new(200, 11, 16, 16);
             if (animCounter + 0.2 < gameTime.TotalGameTime.TotalSeconds)
             {
                 anim = (animState) ? KeeseSpread : KeeseFolded;
