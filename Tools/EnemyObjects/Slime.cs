@@ -12,7 +12,7 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
 
-namespace Workspace
+namespace LOZ.Tools
 {
     internal class Slime : Enemy
     {
@@ -64,7 +64,7 @@ namespace Workspace
             _spriteBatch.Begin();
 
             _spriteBatch.Draw(
-                Game1.Sheet1,
+                Game1.REGULAR_ENEMIES,
                 position,
                 anim,
                 Color.White,
