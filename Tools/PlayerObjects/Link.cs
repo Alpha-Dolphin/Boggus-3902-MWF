@@ -20,6 +20,7 @@ namespace LOZ.Tools.PlayerObjects
         private List<IProjectile> projectiles;
 
         private int health;
+        private TextSprite healthText;
 
         private Texture2D spriteSheet;
         private AnimatedMovingSprite sprite;
@@ -37,16 +38,19 @@ namespace LOZ.Tools.PlayerObjects
             direction = Link_Constants.Direction.Up;
         }
 
-        public Link(int xPos, int yPos, string[] items, int health, Link_Constants.Link_States state, Link_Constants.Direction direction, Texture2D picture)
+        public Link(int xPos, int yPos, string[] items, int health, Link_Constants.Link_States state, Link_Constants.Direction direction, Texture2D picture, SpriteFont font)
         {
             this.position = new Vector2(xPos, yPos);
             this.items = items;
             currentItem = items[0];
             this.projectiles = new List<IProjectile>();
             this.health = health;
+            this.healthText = new TextSprite();
             this.state = state;
             this.direction = direction;
 
+            this.healthText.setFont(font);
+            this.healthText.setPosition(0, 0);
             this.spriteSheet = picture;
             updateSprite();
         }
@@ -95,24 +99,23 @@ namespace LOZ.Tools.PlayerObjects
         }
         private void createAttackingSprite()
         {
-            List<Rectangle> frames = new List<Rectangle>();
             switch (this.direction)
             {
-                case Link_Constants.Direction.Up: frames = Link_Constants.LINK_ATTACKUP_FRAMES; break;
-                case Link_Constants.Direction.Left: frames = Link_Constants.LINK_ATTACKLEFT_FRAMES; break;
-                case Link_Constants.Direction.Right: frames = Link_Constants.LINK_ATTACKRIGHT_FRAMES; break;
-                case Link_Constants.Direction.Down: frames = Link_Constants.LINK_ATTACKDOWN_FRAMES; break;
+                case Link_Constants.Direction.Up: this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, 
+                    Link_Constants.LINK_SWORD_ATTACKUP_FRAMES, Link_Constants.LINK_SWORD_ATTACKUP_LOCATIONSHIFT); break;
+                case Link_Constants.Direction.Left: this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, 
+                    Link_Constants.LINK_SWORD_ATTACKLEFT_FRAMES, Link_Constants.LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT); break;
+                case Link_Constants.Direction.Right: this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, 
+                    Link_Constants.LINK_SWORD_ATTACKRIGHT_FRAMES); break;
+                case Link_Constants.Direction.Down: this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, 
+                    Link_Constants.LINK_SWORD_ATTACKDOWN_FRAMES); break;
             }
-
-            sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, frames);
         }
 
         public void Move(Link_Constants.Direction direction)
         {
             int xDiff = 0;
             int yDiff = 0;
-
-            this.direction = direction;
 
             switch (direction)
             {
@@ -129,12 +132,17 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Attack()
         {
-            if (health == Link_Constants.MAX_HEALTH) CreateSwordBeam();
+            if (health == Link_Constants.MAX_HEALTH) CreateProjectile(new Swordbeam());
         }
 
         public void ChangeItem(int input)
         {
-            currentItem = items[input];
+            switch (input)
+            {
+                case 1: break;
+                case 2: UpdateState(Link_Constants.Link_States.UseItem, this.direction);  CreateProjectile(new ArrowProjectile()); break;
+                default: break;
+            }
         }
 
         public void Damage()
@@ -144,15 +152,19 @@ namespace LOZ.Tools.PlayerObjects
             if (this.health <= 0) this.state = Link_Constants.Link_States.Dead;
         }
 
-        private void CreateSwordBeam()
+        private void CreateProjectile(IProjectile projectileType)
         {
-            bool containsSwordBeam = false;
+            bool containsProjectile = false;
             foreach(IProjectile projectile in projectiles)
             {
-                if (projectile is Swordbeam) containsSwordBeam = true; break;
+                if (projectile.GetProjectileType().Equals(projectileType.GetProjectileType()))
+                {
+                    containsProjectile = true; 
+                    break;
+                }
             }
 
-            if (!containsSwordBeam)
+            if (!containsProjectile)
             {
                 Vector2 velocity = new Vector2(0, 0);
                 switch (this.direction)
@@ -163,13 +175,19 @@ namespace LOZ.Tools.PlayerObjects
                     case Link_Constants.Direction.Down: velocity = new Vector2(0, 1); break;
                 }
 
-                this.projectiles.Add(new Swordbeam(this.spriteSheet, position, Link_Constants.PROJECTILE_VELOCITY * velocity));
+                switch (projectileType.GetProjectileType()) {
+                    case Link_Constants.Link_Projectiles.SwordBeam: this.projectiles.Add(
+                        new Swordbeam(this.spriteSheet, position, Link_Constants.PROJECTILE_VELOCITY * velocity)); break;
+                    case Link_Constants.Link_Projectiles.Arrow: this.projectiles.Add(
+                        new ArrowProjectile(this.spriteSheet, position, Link_Constants.PROJECTILE_VELOCITY * velocity)); break;
+                }
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             this.sprite.Draw(spriteBatch);
+            this.healthText.Draw(spriteBatch);
 
             foreach (IProjectile projectile in projectiles)
             {
@@ -177,7 +195,7 @@ namespace LOZ.Tools.PlayerObjects
             }
         }
 
-        public void Update(Link_Constants.Link_States state, Link_Constants.Direction direction)
+        public void UpdateState(Link_Constants.Link_States state, Link_Constants.Direction direction)
         {
             if (this.sprite.finished() || this.state != Link_Constants.Link_States.Attacking)
             {
@@ -188,8 +206,12 @@ namespace LOZ.Tools.PlayerObjects
                     updateSprite();
                 }
             }
+        }
 
+        public void UpdateVisual()
+        {
             this.sprite.Update((int)position.X, (int)position.Y);
+            this.healthText.setText(health + "");
 
             for (int i = 0; i < projectiles.Count; i++)
             {
@@ -197,7 +219,8 @@ namespace LOZ.Tools.PlayerObjects
                 {
                     projectiles.RemoveAt(i);
                     i--;
-                }else projectiles[i].Update();
+                }
+                else projectiles[i].Update();
             }
         }
 

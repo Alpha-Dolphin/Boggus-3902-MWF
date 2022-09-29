@@ -16,6 +16,7 @@ namespace CSE3902_Sprint0.Sprites
         private Texture2D picture;
 
         private List<Rectangle> frames;
+        private List<Vector2> locationShift;
 
         private int x;
         private int y;
@@ -27,7 +28,6 @@ namespace CSE3902_Sprint0.Sprites
         private bool finish = false;
 
         private int currentFrame = 0;
-
         public AnimatedMovingSprite(Texture2D picture, int x, int y, List<Rectangle> frames)
         {
             this.picture = picture;
@@ -36,12 +36,37 @@ namespace CSE3902_Sprint0.Sprites
             this.frames = frames;
 
             if (frames.Count <= 1) finish = true;
+
+            this.locationShift = new List<Vector2>();
+
+            for(int i = 0; i < frames.Count; i++)
+            {
+                locationShift.Add(Link_Constants.DEFAULT_LOCATIONSHIFT);
+            }
+        }
+        public AnimatedMovingSprite(Texture2D picture, int x, int y, List<Rectangle> frames, List<Vector2> locationShift)
+        {
+            this.picture = picture;
+            this.x = x;
+            this.y = y;
+            this.frames = frames;
+
+            if (frames.Count <= 1) finish = true;
+            this.locationShift = locationShift;
+
+            while(locationShift.Count < frames.Count)
+            {
+                locationShift.Add(locationShift[0]);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle currentRectangle = frames[currentFrame / framerate];
-            spriteBatch.Draw(picture, new Rectangle(x, y, currentRectangle.Width*scale, currentRectangle.Height*scale), currentRectangle, Link_Constants.DEFAULT_PICTURE_COLOR);
+            Vector2 currentLocationShift = locationShift[currentFrame / framerate];
+            int currentX = x + (int)currentLocationShift.X * scale;
+            int currentY = y + (int)currentLocationShift.Y * scale;
+            spriteBatch.Draw(picture, new Rectangle(currentX, currentY, currentRectangle.Width*scale, currentRectangle.Height*scale), currentRectangle, Link_Constants.DEFAULT_PICTURE_COLOR);
         }
 
         public void Update(int x, int y)

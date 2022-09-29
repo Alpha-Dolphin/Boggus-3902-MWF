@@ -23,6 +23,7 @@ namespace LOZ
         private EnvironmentCommandHandler environmentCommandHandler;
 
         public static Texture2D LINK_SPRITESHEET;
+        public static SpriteFont FONT;
         public static Texture2D ENVIRONMENT_SPRITESHEET;
         public static Texture2D REGULAR_ENEMIES;
 
@@ -58,7 +59,7 @@ namespace LOZ
             Link_Constants.Initialize();
 
             link = new Link(Link_Constants.DEFAULT_X, Link_Constants.DEFAULT_Y, Link_Constants.DEFAULT_ITEMS, Link_Constants.MAX_HEALTH, 
-                Link_Constants.DEFAULT_STATE, Link_Constants.DEFAULT_DIRECTION, Game1.LINK_SPRITESHEET);
+                Link_Constants.DEFAULT_STATE, Link_Constants.DEFAULT_DIRECTION, Game1.LINK_SPRITESHEET, FONT);
             linkCommandHandler = new LinkCommand((Link) link); 
 
             controller = new KeyboardController();
@@ -82,6 +83,7 @@ namespace LOZ
             itemFactory.CreateItem();
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(Link_Constants.LINK_SPRITESHEET_NAME);
+            FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
             ENVIRONMENT_SPRITESHEET = Content.Load<Texture2D>(Constants.DungeonSpriteSheetLocation);
             REGULAR_ENEMIES = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
 

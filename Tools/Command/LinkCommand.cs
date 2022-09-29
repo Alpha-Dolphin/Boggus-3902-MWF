@@ -13,7 +13,9 @@ namespace LOZ.Tools.Command
     internal class LinkCommand : ICommand
     {
         private Link link;
+        bool attacked = false;
         bool moved = false;
+        int damageInvincibility = 10;
 
         public LinkCommand(Link link)
         {
@@ -23,30 +25,34 @@ namespace LOZ.Tools.Command
         public void Execute(List<Keys> keys)
         {
             moved = false;
+            attacked = false;
 
-            if(keys.Count == 0)
+            if (keys.Count == 0)
             {
-                link.Update(Link_States.Normal, link.getDirection());
+                link.UpdateState(Link_States.Normal, link.getDirection());
             }
 
-            foreach(Keys key in keys)
+            foreach (Keys key in keys)
             {
                 if (Link_Constants.MOVEMENT_KEYS.Contains(key))
                 {
-                    if (!moved)
+                    switch (key)
                     {
-                        switch (key)
-                        {
-                            case Link_Constants.MOVE_DOWN_KEY: ExecuteMove(Link_Constants.Direction.Down); break;
-                            case Link_Constants.MOVE_LEFT_KEY: ExecuteMove(Link_Constants.Direction.Left); break;
-                            case Link_Constants.MOVE_RIGHT_KEY: ExecuteMove(Link_Constants.Direction.Right); break;
-                            case Link_Constants.MOVE_UP_KEY: ExecuteMove(Link_Constants.Direction.Up); break;
-                        }
+                        case Link_Constants.MOVE_UP_KEY: ExecuteMove(Link_Constants.Direction.Up); break;
+                        case Link_Constants.MOVE_UPARROW_KEY: ExecuteMove(Link_Constants.Direction.Up); break;
+                        case Link_Constants.MOVE_LEFT_KEY: ExecuteMove(Link_Constants.Direction.Left); break;
+                        case Link_Constants.MOVE_LEFTARROW_KEY: ExecuteMove(Link_Constants.Direction.Left); break;
+                        case Link_Constants.MOVE_RIGHT_KEY: ExecuteMove(Link_Constants.Direction.Right); break;
+                        case Link_Constants.MOVE_RIGHTARROW_KEY: ExecuteMove(Link_Constants.Direction.Right); break;
+                        case Link_Constants.MOVE_DOWN_KEY: ExecuteMove(Link_Constants.Direction.Down); break;
+                        case Link_Constants.MOVE_DOWNARROW_KEY: ExecuteMove(Link_Constants.Direction.Down); break;
                     }
-                } else if (Link_Constants.SWORD_ATTACK_KEYS.Contains(key))
+                }
+                else if (Link_Constants.SWORD_ATTACK_KEYS.Contains(key))
                 {
                     ExecuteAttack();
-                } else if (Link_Constants.ITEM_KEYS.Contains(key))
+                }
+                else if (Link_Constants.ITEM_KEYS.Contains(key))
                 {
                     int input = 0;
 
@@ -74,34 +80,50 @@ namespace LOZ.Tools.Command
                         case Link_Constants.ITEM_PAD0: input = 0; break;
                     }
                     ExecuteChangeItem(input);
-                } else if (Link_Constants.DAMAGE_KEYS.Contains(key))
+                }
+                else if (Link_Constants.DAMAGE_KEYS.Contains(key))
                 {
                     ExecuteDamage();
                 }
             }
+
+            link.UpdateVisual();
         }
 
         private void ExecuteMove(Link_Constants.Direction direction)
         {
-            link.Update(Link_States.Walking, direction);
-            link.Move(direction);
-            moved = true;
+            if (!moved)
+            {
+                link.UpdateState(Link_States.Walking, direction);
+                link.Move(direction);
+                moved = true;
+            }
         }
 
         private void ExecuteAttack()
         {
-            link.Update(Link_States.Attacking, link.getDirection());
-            link.Attack();
+            if (!attacked)
+            {
+                link.UpdateState(Link_States.Attacking, link.getDirection());
+                link.Attack();
+                attacked = true;
+            }
         }
 
         private void ExecuteChangeItem(int input)
         {
+            link.UpdateState(Link_States.UseItem, link.getDirection());
             link.ChangeItem(input);
         }
 
         private void ExecuteDamage()
         {
-            link.Damage();
+            if (damageInvincibility == 0)
+            {
+                link.Damage();
+                damageInvincibility = 10;
+            }
+            else damageInvincibility--;
         }
     }
 }
