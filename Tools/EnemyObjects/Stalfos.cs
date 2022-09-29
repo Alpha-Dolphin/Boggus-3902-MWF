@@ -5,16 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using System.Reflection.Metadata;
-
 using Microsoft.Xna.Framework.Graphics;
-
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
-
 using LOZ.Tools.Interfaces;
+using LOZ;
 
-namespace LOZ.Tools
+namespace Workspace
 {
     internal class Stalfos : Enemy
     {
@@ -79,26 +77,32 @@ namespace LOZ.Tools
 
         public void Update(GameTime gameTime)
         {
-            if (moveCheck <= 0) {
+            if (moveCheck <= 0)
+            {
                 moveCheck = 25;
                 if (true)
                 {
                     //Please just let not zero equal true
                     int speed = 1;
 
-                    if (rand.Next() % 2 == 1) {
-                        if (rand.Next() % 2 == 1) direction.X = speed; 
-                        else direction.X = -speed; 
-                    } else direction.X = 0;
+                    if (rand.Next() % 2 == 1)
+                    {
+                        if (rand.Next() % 2 == 1) direction.X = speed;
+                        else direction.X = -speed;
+                    }
+                    else direction.X = 0;
 
-                    if (rand.Next() % 2 == 1){ 
+                    if (rand.Next() % 2 == 1)
+                    {
                         if (rand.Next() % 2 == 1) direction.Y = speed;
                         else direction.Y = -speed;
-                    } else direction.Y = 0;
+                    }
+                    else direction.Y = 0;
 
                     moveCheck = 1000;
                 }
-            } else
+            }
+            else
             {
                 moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
             }

@@ -5,18 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using System.Reflection.Metadata;
-
 using Microsoft.Xna.Framework.Graphics;
-
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
-
 using LOZ.Tools.Interfaces;
 
-namespace LOZ
+namespace LOZ.Tools
 {
-    internal class Keese : Enemy
+    internal class Slime : Enemy
     {
         Rectangle anim;
 
@@ -28,21 +25,21 @@ namespace LOZ
         bool animState;
         double animCounter;
 
-        double moveCounter;
-        double timeToMove;
         double moveCheck;
+        double moveTime;
+        double moveProb;
 
-        public Keese(int width, int height)
+        const double moveDelay = 1000;
+
+        public Slime(int width, int height)
         {
             position.X = width / 2;
             position.Y = height / 2;
-            rand = new();
-            direction.X = rand.Next() % 400 / 100 - 2;
-            direction.Y = rand.Next() % 400 / 100 - 2;
-            moveCounter = 0.0;
+            direction.X = 0;
+            direction.Y = 0;
             animCounter = 0.0;
-            timeToMove = 0.0;
-            moveCheck = 0.0;
+            moveCheck = -1;
+            rand = new();
         }
 
         public void Attack(GameTime gameTime)
@@ -57,16 +54,8 @@ namespace LOZ
 
         public void Move(GameTime gameTime)
         {
-            if (0 < moveCounter)
-            {
-                position.X += direction.X;
-                position.Y += direction.Y;
-            }
-            else
-            {
-                direction.X = rand.Next() % 400 / 100 - 2;
-                direction.Y = rand.Next() % 400 / 100 - 2;
-            }
+            position.X += direction.X;
+            position.Y += direction.Y;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
@@ -90,33 +79,54 @@ namespace LOZ
 
         public void Update(GameTime gameTime)
         {
-            if (moveCheck <= 0)
+            if (moveTime <= 0 && moveCheck <= 0)
             {
-                if (moveCounter < 0 && rand.Next() % 4950 + 50 < timeToMove)
+                moveCheck = 25;
+                if (rand.Next() % 4950 + 50 > moveProb)
                 {
-                    moveCounter = rand.Next() % 400 + 100;
-                    timeToMove = 0;
+                    //Please just let not zero equal true
+                    int speed = 1;
+
+                    if (rand.Next() % 2 == 1)
+                    {
+                        if (rand.Next() % 2 == 1) direction.X = speed;
+                        else direction.X = -speed;
+                    }
+                    else direction.X = 0;
+
+                    if (rand.Next() % 2 == 1)
+                    {
+                        if (rand.Next() % 2 == 1) direction.Y = speed;
+                        else direction.Y = -speed;
+                    }
+                    else direction.Y = 0;
+
+                    moveTime = rand.Next() % 2000 + 200;
+                    moveCheck = moveDelay;
+                    moveProb = 0;
                 }
-                else if (moveCounter < 0)
-                {
-                    moveCheck = 5;
-                    timeToMove += moveCheck;
-                }
+                moveProb -= gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             else
             {
-                moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (moveTime > 0) moveTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                else
+                {
+                    moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                    direction.X = 0;
+                    direction.Y = 0;
+                }
             }
-            Rectangle KeeseSpread = new(183, 11, 16, 16);
-            Rectangle KeeseFolded = new(200, 11, 16, 16);
+
+            Rectangle SlimeSquished = new(1, 11, 8, 16);
+            Rectangle SlimeStreched = new(10, 11, 8, 16);
             if (animCounter + 0.2 < gameTime.TotalGameTime.TotalSeconds)
             {
-                anim = (animState) ? KeeseSpread : KeeseFolded;
+                anim = (animState) ? SlimeSquished : SlimeStreched;
                 animState = !animState;
                 animCounter = gameTime.TotalGameTime.TotalSeconds;
             }
             animCounter -= gameTime.ElapsedGameTime.TotalSeconds;
-            moveCounter -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
     }
 }
