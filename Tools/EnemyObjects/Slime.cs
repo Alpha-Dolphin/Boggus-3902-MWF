@@ -91,15 +91,14 @@ namespace LOZ.Tools
                     {
                         if (rand.Next() % 2 == 1) direction.X = speed;
                         else direction.X = -speed;
+                        direction.Y = 0;
                     }
-                    else direction.X = 0;
-
-                    if (rand.Next() % 2 == 1)
+                    else
                     {
                         if (rand.Next() % 2 == 1) direction.Y = speed;
                         else direction.Y = -speed;
+                        direction.X = 0;
                     }
-                    else direction.Y = 0;
 
                     moveTime = rand.Next() % 2000 + 200;
                     moveCheck = moveDelay;
