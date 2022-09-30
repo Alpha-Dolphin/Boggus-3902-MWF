@@ -89,7 +89,7 @@ namespace LOZ
 
             foreach (IEnvironment environmentObject in environmentObjectList)
             {
-/*                environmentObject.load();*/
+                environmentObject.load();
                 environmentObject.update();
             }
         }
