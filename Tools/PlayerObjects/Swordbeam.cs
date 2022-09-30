@@ -22,6 +22,7 @@ namespace LOZ.Tools.PlayerObjects
 
         private bool exists = true;
 
+        public Swordbeam() { }
         public Swordbeam(Texture2D spriteSheet, Vector2 position, Vector2 velocity)
         {
             this.originalPosition = position;
@@ -37,16 +38,20 @@ namespace LOZ.Tools.PlayerObjects
             {
                 if (velocity.Y < 0)
                 {
-                    sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, Link_Constants.LINK_SWORDBEAM_UP_FRAMES);
+                    sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, 
+                        Link_Constants.SWORDBEAM_UP_FRAMES, Link_Constants.SWORDBEAM_UP_LOCATIONSHIFT);
                 }
-                else sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, Link_Constants.LINK_SWORDBEAM_DOWN_FRAMES);
+                else sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, 
+                    Link_Constants.SWORDBEAM_DOWN_FRAMES, Link_Constants.SWORDBEAM_DOWN_LOCATIONSHIFT);
             } else
             {
                 if(velocity.X < 0)
                 {
-                    sprite = new AnimatedMovingSprite(spriteSheet, (int) position.X, (int) position.Y, Link_Constants.LINK_SWORDBEAM_LEFT_FRAMES);
+                    sprite = new AnimatedMovingSprite(spriteSheet, (int) position.X, (int) position.Y, 
+                        Link_Constants.SWORDBEAM_LEFT_FRAMES, Link_Constants.SWORDBEAM_LEFT_LOCATIONSHIFT);
                 }
-                else sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, Link_Constants.LINK_SWORDBEAM_RIGHT_FRAMES);
+                else sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, 
+                    Link_Constants.SWORDBEAM_RIGHT_FRAMES, Link_Constants.SWORDBEAM_RIGHT_LOCATIONSHIFT);
             }
         }
 
@@ -64,6 +69,11 @@ namespace LOZ.Tools.PlayerObjects
             this.sprite.Update((int)position.X, (int)position.Y);
 
             return this.position;
+        }
+
+        public Link_Constants.Link_Projectiles GetProjectileType()
+        {
+            return Link_Constants.Link_Projectiles.SwordBeam;
         }
 
         public void Draw(SpriteBatch spriteBatch)

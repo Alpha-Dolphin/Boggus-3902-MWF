@@ -5,16 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using System.Reflection.Metadata;
-
 using Microsoft.Xna.Framework.Graphics;
-
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
-
 using LOZ.Tools.Interfaces;
+using LOZ;
 
-namespace LOZ.Tools
+namespace Workspace
 {
     internal class Stalfos : Enemy
     {
@@ -26,9 +24,11 @@ namespace LOZ.Tools
         readonly Random rand;
 
         bool animState;
-
         double animCounter;
+
         double moveCheck;
+        double moveTime;
+        double moveProb;
 
         public Stalfos(int width, int height)
         {
@@ -79,28 +79,36 @@ namespace LOZ.Tools
 
         public void Update(GameTime gameTime)
         {
-            if (moveCheck <= 0) {
+            if (moveTime <= 0 && moveCheck <= 0)
+            {
                 moveCheck = 25;
-                if (true)
+                if (rand.Next() % (4950 / 2) + 50 > moveProb)
                 {
                     //Please just let not zero equal true
                     int speed = 1;
 
-                    if (rand.Next() % 2 == 1) {
-                        if (rand.Next() % 2 == 1) direction.X = speed; 
-                        else direction.X = -speed; 
-                    } else direction.X = 0;
-
-                    if (rand.Next() % 2 == 1){ 
+                    if (rand.Next() % 2 == 1)
+                    {
+                        if (rand.Next() % 2 == 1) direction.X = speed;
+                        else direction.X = -speed;
+                        direction.Y = 0;
+                    }
+                    else
+                    {
                         if (rand.Next() % 2 == 1) direction.Y = speed;
                         else direction.Y = -speed;
-                    } else direction.Y = 0;
+                        direction.X = 0;
+                    }
 
-                    moveCheck = 1000;
+                    moveTime = rand.Next() % 2000 + 200;
+                    moveProb = 0;
                 }
-            } else
+                moveProb -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
+            else
             {
-                moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (moveTime > 0) moveTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                else moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             if (animCounter + 0.2 < gameTime.TotalGameTime.TotalSeconds)
             {
