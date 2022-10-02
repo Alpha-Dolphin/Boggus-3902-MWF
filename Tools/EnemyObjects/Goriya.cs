@@ -117,7 +117,7 @@ namespace LOZ
 
             if (attacking)
             {
-                _spriteBatch.Draw(
+            _spriteBatch.Draw(
                 Game1.REGULAR_ENEMIES,
                 boomerangPosition,
                 boomerang,
@@ -126,7 +126,7 @@ namespace LOZ
                 new Vector2(boomerang.Width / 2, boomerang.Height / 2),
                 Vector2.One,
                 SpriteEffects.None,
-                0
+                0f
             );
             }
 
