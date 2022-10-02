@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    public class Link_Constants
+    public class LinkConstants
     {
         public enum Link_States
         {
@@ -31,7 +31,8 @@ namespace LOZ.Tools.PlayerObjects
         public enum Link_Projectiles
         {
             Arrow,
-            SwordBeam
+            SwordBeam,
+            Boomerang
         }
         public enum Direction
         {
@@ -48,8 +49,8 @@ namespace LOZ.Tools.PlayerObjects
         public const int DEFAULT_Y = GAME_HEIGHT / 2;
 
         public static string[] DEFAULT_ITEMS = new string[] { "test" };
-        public const Link_Constants.Link_States DEFAULT_STATE = Link_Constants.Link_States.Normal;
-        public const Link_Constants.Direction DEFAULT_DIRECTION = Link_Constants.Direction.Down;
+        public const LinkConstants.Link_States DEFAULT_STATE = LinkConstants.Link_States.Normal;
+        public const LinkConstants.Direction DEFAULT_DIRECTION = LinkConstants.Direction.Down;
 
         public const string LINK_SPRITESHEET_NAME = "SpriteSheets/Link_EmptyBackground";
         public static Color DEFAULT_PICTURE_COLOR = Color.White;
@@ -102,6 +103,8 @@ namespace LOZ.Tools.PlayerObjects
         public const Keys DAMAGE_KEY = Keys.E;
 
         public const int MAX_HEALTH = 8;
+
+        public const int DEFAULT_FRAMERATE = 10;
 
         public static Vector2 DEFAULT_LOCATIONSHIFT = new Vector2(0, 0);
 
@@ -225,6 +228,12 @@ namespace LOZ.Tools.PlayerObjects
         public static Rectangle LINK_SWORD_ATTACKDOWN_FRAME4 = new Rectangle(LINK_SWORD_ATTACKDOWNX4, LINK_SWORD_ATTACKDOWNY, LINK_SWORD_ATTACKDOWNWIDTH4, LINK_SWORD_ATTACKDOWNHEIGHT4);
         public static List<Rectangle> LINK_SWORD_ATTACKDOWN_FRAMES = new List<Rectangle> { LINK_SWORD_ATTACKDOWN_FRAME1, LINK_SWORD_ATTACKDOWN_FRAME2, LINK_SWORD_ATTACKDOWN_FRAME3, LINK_SWORD_ATTACKDOWN_FRAME4 };
 
+        public static Rectangle DAMAGED_RED = new Rectangle(143, 258, 15, 16);
+        public static List<Rectangle> DAMAGED = new List<Rectangle> { LINK_MOVEDOWN_FRAME1, DAMAGED_RED };
+        public const int DAMAGED_FRAMERATE = 5;
+
+        public const int INVINCIBILITY_FRAMES = 30;
+
         public const int USE_ITEM_UPX = 141;
         public const int USE_ITEM_UPY = 11;
         public const int USE_ITEM_UPWIDTH = 16;
@@ -326,7 +335,26 @@ namespace LOZ.Tools.PlayerObjects
         public const int MAX_BLUE_ARROW_RANGE = 200;
         public const int MAX_SWORDBEAM_RANGE = 200;
 
-        public const int PROJECTILE_VELOCITY = 2;
+        public const int PROJECTILE_SPEED = 2;
+        public const int BOOMERANG_SPEED = 7;
+
+        public const int BOOMERANG_WOOD_WIDTH = 8;
+        public const int BOOMERANG_WOOD_HEIGHT = 5;
+
+        static Rectangle BOOMERANG_WOOD_FRAME1 = new Rectangle(65, 189, BOOMERANG_WOOD_HEIGHT, BOOMERANG_WOOD_WIDTH);
+        static Rectangle BOOMERANG_WOOD_FRAME2 = new Rectangle(73, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
+        static Rectangle BOOMERANG_WOOD_FRAME3 = new Rectangle(82, 191, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_HEIGHT);
+        static Rectangle BOOMERANG_WOOD_FRAME4 = new Rectangle(661, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
+        static Rectangle BOOMERANG_WOOD_FRAME5 = new Rectangle(672, 189, BOOMERANG_WOOD_HEIGHT, BOOMERANG_WOOD_HEIGHT);
+        static Rectangle BOOMERANG_WOOD_FRAME6 = new Rectangle(341, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
+        static Rectangle BOOMERANG_WOOD_FRAME7 = new Rectangle(368, 190, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_HEIGHT);
+        static Rectangle BOOMERANG_WOOD_FRAME8 = new Rectangle(354, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
+        public static List<Rectangle> BOOMERANG_WOOD_FRAMES = new List<Rectangle> { BOOMERANG_WOOD_FRAME1, BOOMERANG_WOOD_FRAME2, BOOMERANG_WOOD_FRAME3,
+            BOOMERANG_WOOD_FRAME4, BOOMERANG_WOOD_FRAME5, BOOMERANG_WOOD_FRAME6, BOOMERANG_WOOD_FRAME7, BOOMERANG_WOOD_FRAME8 };
+
+        public const float BOOMERANG_SPEEDCHANGE = 0.1f;
+        public const int BOOMERANG_RETURNSPEEDCHANGE = 300;
+        public const int BOOMERANG_RETURNRANGE = 30;
 
         public static void Initialize()
         {

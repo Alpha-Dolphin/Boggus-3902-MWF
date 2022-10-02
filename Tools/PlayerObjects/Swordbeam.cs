@@ -39,19 +39,19 @@ namespace LOZ.Tools.PlayerObjects
                 if (velocity.Y < 0)
                 {
                     sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, 
-                        Link_Constants.SWORDBEAM_UP_FRAMES, Link_Constants.SWORDBEAM_UP_LOCATIONSHIFT);
+                        LinkConstants.SWORDBEAM_UP_FRAMES, LinkConstants.SWORDBEAM_UP_LOCATIONSHIFT);
                 }
                 else sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, 
-                    Link_Constants.SWORDBEAM_DOWN_FRAMES, Link_Constants.SWORDBEAM_DOWN_LOCATIONSHIFT);
+                    LinkConstants.SWORDBEAM_DOWN_FRAMES, LinkConstants.SWORDBEAM_DOWN_LOCATIONSHIFT);
             } else
             {
                 if(velocity.X < 0)
                 {
                     sprite = new AnimatedMovingSprite(spriteSheet, (int) position.X, (int) position.Y, 
-                        Link_Constants.SWORDBEAM_LEFT_FRAMES, Link_Constants.SWORDBEAM_LEFT_LOCATIONSHIFT);
+                        LinkConstants.SWORDBEAM_LEFT_FRAMES, LinkConstants.SWORDBEAM_LEFT_LOCATIONSHIFT);
                 }
                 else sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, 
-                    Link_Constants.SWORDBEAM_RIGHT_FRAMES, Link_Constants.SWORDBEAM_RIGHT_LOCATIONSHIFT);
+                    LinkConstants.SWORDBEAM_RIGHT_FRAMES, LinkConstants.SWORDBEAM_RIGHT_LOCATIONSHIFT);
             }
         }
 
@@ -62,7 +62,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public Vector2 Update()
         {
-            if ((this.originalPosition - this.position).Length() > Link_Constants.MAX_SWORDBEAM_RANGE) this.Split();
+            if ((this.originalPosition - this.position).Length() > LinkConstants.MAX_SWORDBEAM_RANGE) this.Split();
 
             this.position += velocity;
 
@@ -71,9 +71,9 @@ namespace LOZ.Tools.PlayerObjects
             return this.position;
         }
 
-        public Link_Constants.Link_Projectiles GetProjectileType()
+        public LinkConstants.Link_Projectiles GetProjectileType()
         {
-            return Link_Constants.Link_Projectiles.SwordBeam;
+            return LinkConstants.Link_Projectiles.SwordBeam;
         }
 
         public void Draw(SpriteBatch spriteBatch)
