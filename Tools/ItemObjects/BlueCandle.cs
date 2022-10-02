@@ -15,7 +15,7 @@ namespace LOZ.Tools.ItemObjects
     internal class BlueCandle : IItem
     {
         private Vector2 position;
-        private StationaryAnimatedSprite sprite = new();
+        private StationaryStaticSprite sprite = new();
         private Vector2 DefaultSize = new(5, 16);
         public BlueCandle(Texture2D spritesheet, int x, int y)
         {

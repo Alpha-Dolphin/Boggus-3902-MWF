@@ -15,7 +15,7 @@ namespace LOZ.Tools.ItemObjects
     internal class BluePotion : IItem
     {
         private Vector2 position;
-        private StationaryAnimatedSprite sprite = new();
+        private StationaryStaticSprite sprite = new();
         private Vector2 DefaultSize = new(8, 16);
         public BluePotion(Texture2D spritesheet, int x, int y)
         {
