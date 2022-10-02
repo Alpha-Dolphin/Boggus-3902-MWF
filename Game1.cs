@@ -26,6 +26,7 @@ namespace LOZ
         public static SpriteFont FONT;
         public static Texture2D ENVIRONMENT_SPRITESHEET;
         public static Texture2D REGULAR_ENEMIES;
+        public static Texture2D BOSSES;
 
 
         private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
@@ -86,6 +87,7 @@ namespace LOZ
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
             ENVIRONMENT_SPRITESHEET = Content.Load<Texture2D>(Constants.DungeonSpriteSheetLocation);
             REGULAR_ENEMIES = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
+            BOSSES = Content.Load<Texture2D>(Constants.BossesSpriteSheetLocation);
 
             foreach (IEnvironment environmentObject in environmentObjectList)
             {
