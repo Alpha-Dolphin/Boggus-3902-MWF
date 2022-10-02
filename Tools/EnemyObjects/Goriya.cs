@@ -63,7 +63,7 @@ namespace LOZ
         {
             //Leaving this in just in case the mathematical rotation/motion causes problems
             //Goodnight sweet prince
-            //(int, SpriteEffects)[] boomerangFrame = new[] { (0, SpriteEffects.None), (1, SpriteEffects.None), (2, SpriteEffects.None), (1, SpriteEffects.FlipHorizontally), (0, SpriteEffects.FlipHorizontally), (1, SpriteEffects.None), (2, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically), (1, SpriteEffects.FlipVertically), };
+            //(int, SpriteEffects)[] boomerangFrame = new[] { (0, SpriteEffects.None), (1, SpriteEffects.None), (2, SpriteEffects.None), (1, SpriteEffects.FlipHorizontally), (0, SpriteEffects.FlipHorizontally), (1, SpriteEffects.None), (2, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically), (1, SpriteEffects.FlipVertically) };
             Rectangle[] frames = new[] { new Rectangle(290, 11, 8, 16), new Rectangle(299, 11, 8, 16), new Rectangle(308, 11, 8, 16) };
             if (attackTime > attackLength / 2)
             {
