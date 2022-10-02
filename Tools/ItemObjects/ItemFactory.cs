@@ -87,10 +87,6 @@ namespace LOZ.Tools.ItemObjects
 
                 case 12: this.currentItem = new Clock(this.spriteSheet, x, y); break;
 
-                case 13: this.currentItem = new BlueCandle(this.spriteSheet, x, y); break;
-
-                case 14: this.currentItem = new BluePotion(this.spriteSheet, x, y); break;
-
                 default: this.currentItem = new Compass(this.spriteSheet, x, y); break;
 
 
