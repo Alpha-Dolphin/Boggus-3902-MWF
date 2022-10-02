@@ -1,6 +1,7 @@
 ﻿using LOZ.Tools.Command;
 using LOZ.Tools.PlayerObjects;
 using LOZ.Tools.ItemObjects;
+using LOZ.Tools.NPCObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,6 +18,7 @@ namespace LOZ
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
         private ItemFactory itemFactory;
+        private NPCFactory NPCFactory;
         private IPlayer link;
         private KeyboardController controller;
         private ICommand linkCommandHandler;
@@ -80,8 +82,11 @@ namespace LOZ
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
+            Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
             itemFactory = new ItemFactory(0, ItemSpriteSheet);
+            NPCFactory = new NPCFactory(0, NPCSpriteSheet);
             itemFactory.CreateItem();
+            NPCFactory.CreateNPC();
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(LinkConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
@@ -117,6 +122,8 @@ namespace LOZ
 
             itemFactory.Update(pressed, gameTime);
 
+            NPCFactory.Update(pressed, gameTime);
+
             environmentCommandHandler.executeNewPressedOnly(pressed, controller.held);
         }
 
@@ -128,6 +135,9 @@ namespace LOZ
 
             itemFactory.CreateItem();
             itemFactory.Draw(spriteBatch);
+
+            NPCFactory.CreateNPC();
+            NPCFactory.Draw(spriteBatch);
 
 
             spritesToDraw.Clear();

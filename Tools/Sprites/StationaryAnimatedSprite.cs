@@ -168,7 +168,7 @@ public class StationaryAnimatedSprite //: ISprite
 
         }
 
-        if (currentTime > timeFlag + 300)
+        if (currentTime > timeFlag + 30)
         {
             currentFrame = (currentFrame + 1) % 2;
             timeFlag = currentTime;
