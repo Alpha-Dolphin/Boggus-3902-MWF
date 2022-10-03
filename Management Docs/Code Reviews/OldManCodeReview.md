@@ -1,7 +1,7 @@
 ﻿Author: Nate Crowder
 Date: 10/3/22
 Sprint#: 2
-File Reviewed: ./Tools/NPCObjects/NPCFactory.cs
+File Reviewed: ./Tools/NPCObjects/OldMan.cs
 File Author: Sounak Dey
 Time Taken For Review: 25 Minutes
 
