@@ -134,20 +134,7 @@ namespace LOZ
             /*Initialize sprite drawing*/
             spriteBatch.Begin();
 
-            itemFactory.CreateItem();
-            itemFactory.Draw(spriteBatch);
-
-            NPCFactory.CreateNPC();
-            NPCFactory.Draw(spriteBatch);
-
-
-            spritesToDraw.Clear();
-            /*Sprites to draw need to be in order in spritesToDrawList by here*/
-            //foreach (var item in spritesToDraw)
-            //{
-            //    item.Draw(spriteBatch);
-            //}
-
+            /*Draw Environment*/
             environmentObjectList[environmentCommandHandler.environmentBlockIndex].draw(spriteBatch);
 
             /*Draw items*/
