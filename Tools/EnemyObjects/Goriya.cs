@@ -5,15 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using System.Reflection.Metadata;
+
 using Microsoft.Xna.Framework.Graphics;
+
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
+
 using LOZ.Tools.Interfaces;
 using LOZ;
 
 namespace LOZ.Tools
 {
+
     internal class Goriya : Enemy
     {
         Rectangle anim;
@@ -29,8 +33,12 @@ namespace LOZ.Tools
 
         readonly Random rand;
 
+        bool attacking;
         const int attackLength = 3000;
         double attackTime;
+
+        bool animState;
+        double animCounter;
 
         double moveCheck;
         double moveTime;
@@ -47,6 +55,8 @@ namespace LOZ.Tools
 
             attackTime = -1.0;
 
+            animState = false;
+            animCounter = 0.0;
             moveCheck = -1;
         }
 
@@ -74,6 +84,7 @@ namespace LOZ.Tools
             boomerang = boomerangFrames[1];
             boomerangRotation = (float)((attackLength - attackTime) / 50 % 8 * Math.PI / 4);
             attackTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (attackTime <= 0.0) attacking = false;
         }
 
         public void Die(GameTime gameTime)
@@ -108,17 +119,17 @@ namespace LOZ.Tools
 
             if (attackTime > 0.0)
             {
-                _spriteBatch.Draw(
-                    Game1.REGULAR_ENEMIES,
-                    boomerangPosition,
-                    boomerang,
-                    Color.White,
-                    boomerangRotation,
-                    new Vector2(boomerang.Width / 2, boomerang.Height / 2),
-                    Vector2.One,
-                    SpriteEffects.None,
-                    0f
-                );
+            _spriteBatch.Draw(
+                Game1.REGULAR_ENEMIES,
+                boomerangPosition,
+                boomerang,
+                Color.White,
+                boomerangRotation,
+                new Vector2(boomerang.Width / 2, boomerang.Height / 2),
+                Vector2.One,
+                SpriteEffects.None,
+                0f
+            );
             }
 
             _spriteBatch.End();
@@ -136,6 +147,7 @@ namespace LOZ.Tools
             if (attackTime > 0.0) Attack(gameTime);
             else if (rand.Next() % 4950 <= 25)
             {
+                attacking = true;
                 attackTime = attackLength;
                 boomerangPosition = enemyPosition;
             }
