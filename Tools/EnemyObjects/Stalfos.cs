@@ -21,25 +21,25 @@ namespace Workspace
         Vector2 direction;
         Vector2 position;
 
-        readonly Random rand;
+        readonly Random rand = new();
 
-        bool animState;
-        double animCounter;
+        SpriteEffects animState;
 
         double moveCheck;
         double moveTime;
         double moveProb;
 
-        public Stalfos(int width, int height)
+        public Stalfos(int X, int Y)
         {
-            position.X = width / 2;
-            position.Y = height / 2;
+            anim = new Rectangle(1, 59, 16, 16);
+
+            position.X = X;
+            position.Y = Y;
+
             direction.X = 0;
             direction.Y = 0;
-            animCounter = 0.0;
+
             moveCheck = -1;
-            rand = new();
-            anim = new Rectangle(1, 59, 16, 16);
         }
 
         public void Attack(GameTime gameTime)
@@ -70,7 +70,7 @@ namespace Workspace
                 0f,
                 new Vector2(anim.Width / 2, anim.Height / 2),
                 Vector2.One,
-                animState ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
+                animState,
                 0f
             );
 
@@ -78,6 +78,17 @@ namespace Workspace
         }
 
         public void Update(GameTime gameTime)
+        {
+            MovementUpdate(gameTime);
+            AnimationUpdate(gameTime);
+        }
+
+        private void AnimationUpdate(GameTime gameTime)
+        {
+            animState = (((int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2) == 0) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+        }
+
+        private void MovementUpdate(GameTime gameTime)
         {
             if (moveTime <= 0 && moveCheck <= 0)
             {
@@ -110,12 +121,6 @@ namespace Workspace
                 if (moveTime > 0) moveTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 else moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
             }
-            if (animCounter + 0.2 < gameTime.TotalGameTime.TotalSeconds)
-            {
-                animState = !animState;
-                animCounter = gameTime.TotalGameTime.TotalSeconds;
-            }
-            animCounter -= gameTime.ElapsedGameTime.TotalSeconds;
         }
     }
 }

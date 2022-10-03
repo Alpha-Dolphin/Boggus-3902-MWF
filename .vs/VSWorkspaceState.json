@@ -1,12 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Tools",
-    "\\Tools\\Interfaces",
-    "\\Tools\\ItemObjects",
-    "\\Tools\\PlayerObjects",
-    "\\Tools\\Sprites"
+    "\\Content",
+    "\\Tools"
   ],
-  "SelectedNode": "\\Tools\\Interfaces\\Interfaces.cs",
   "PreviewInSolutionExplorer": false
 }

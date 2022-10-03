@@ -17,13 +17,10 @@ namespace LOZ.Tools
     {
         Rectangle anim;
 
-        Vector2 direction;
-        Vector2 position;
+        Vector2 enemyDirection;
+        Vector2 enemyPosition;
 
-        readonly Random rand;
-
-        bool animState;
-        double animCounter;
+        readonly Random rand = new();
 
         double moveCheck;
         double moveTime;
@@ -31,15 +28,15 @@ namespace LOZ.Tools
 
         const double moveDelay = 1000;
 
-        public Slime(int width, int height)
+        public Slime(int X, int Y)
         {
-            position.X = width / 2;
-            position.Y = height / 2;
-            direction.X = 0;
-            direction.Y = 0;
-            animCounter = 0.0;
+            enemyDirection.X = 0;
+            enemyDirection.Y = 0;
+
+            enemyPosition.X = X;
+            enemyPosition.Y = Y;
+
             moveCheck = -1;
-            rand = new();
         }
 
         public void Attack(GameTime gameTime)
@@ -54,8 +51,8 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
-            position.X += direction.X;
-            position.Y += direction.Y;
+            enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+            enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
         }
 
         public void Draw(SpriteBatch _spriteBatch)
@@ -64,7 +61,7 @@ namespace LOZ.Tools
 
             _spriteBatch.Draw(
                 Game1.REGULAR_ENEMIES,
-                position,
+                enemyPosition,
                 anim,
                 Color.White,
                 0f,
@@ -79,6 +76,18 @@ namespace LOZ.Tools
 
         public void Update(GameTime gameTime)
         {
+            MovementUpdate(gameTime);
+            AnimationUpdate(gameTime);
+        }
+
+        private void AnimationUpdate(GameTime gameTime)
+        {
+            Rectangle[] SlimeFrames = new[] { new Rectangle(1, 11, 8, 16), new Rectangle(10, 11, 8, 16) };
+            anim = SlimeFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2];
+        }
+
+        private void MovementUpdate(GameTime gameTime)
+        {
             if (moveTime <= 0 && moveCheck <= 0)
             {
                 moveCheck = 25;
@@ -89,15 +98,15 @@ namespace LOZ.Tools
 
                     if (rand.Next() % 2 == 1)
                     {
-                        if (rand.Next() % 2 == 1) direction.X = speed;
-                        else direction.X = -speed;
-                        direction.Y = 0;
+                        if (rand.Next() % 2 == 1) enemyDirection.X = speed;
+                        else enemyDirection.X = -speed;
+                        enemyDirection.Y = 0;
                     }
                     else
                     {
-                        if (rand.Next() % 2 == 1) direction.Y = speed;
-                        else direction.Y = -speed;
-                        direction.X = 0;
+                        if (rand.Next() % 2 == 1) enemyDirection.Y = speed;
+                        else enemyDirection.Y = -speed;
+                        enemyDirection.X = 0;
                     }
 
                     moveTime = rand.Next() % 2000 + 200;
@@ -112,20 +121,10 @@ namespace LOZ.Tools
                 else
                 {
                     moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
-                    direction.X = 0;
-                    direction.Y = 0;
+                    enemyDirection.X = 0;
+                    enemyDirection.Y = 0;
                 }
             }
-
-            Rectangle SlimeSquished = new(1, 11, 8, 16);
-            Rectangle SlimeStreched = new(10, 11, 8, 16);
-            if (animCounter + 0.2 < gameTime.TotalGameTime.TotalSeconds)
-            {
-                anim = (animState) ? SlimeSquished : SlimeStreched;
-                animState = !animState;
-                animCounter = gameTime.TotalGameTime.TotalSeconds;
-            }
-            animCounter -= gameTime.ElapsedGameTime.TotalSeconds;
         }
     }
 }
