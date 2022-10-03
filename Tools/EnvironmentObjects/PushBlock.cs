@@ -5,17 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LOZ;
 
-
-    public class SquareBlock:IEnvironment
+namespace LOZ.Tools.EnvironmentObjects
+{
+    internal class PushBlock : IEnvironment
     {
         private EnviroSprite enviroSprite = new EnviroSprite();
 
         /*Update must be called at least once before drawing*/
         public void draw(SpriteBatch spriteBatch)
         {
-            enviroSprite.draw(spriteBatch);
+            enviroSprite.Draw(spriteBatch);
         }
         /*Sets the source and location rectangles*/
         public void update()
@@ -30,4 +30,4 @@ using LOZ;
             enviroSprite.loadSpriteSheet(Game1.ENVIRONMENT_SPRITESHEET);
         }
     }
-
+}
