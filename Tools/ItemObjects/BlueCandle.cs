@@ -16,7 +16,7 @@ namespace LOZ.Tools.ItemObjects
     {
         private Vector2 position;
         private StationaryStaticSprite sprite = new();
-        private Vector2 DefaultSize = new(5, 16);
+        private Vector2 DefaultSize = new(8, 16);
         public BlueCandle(Texture2D spritesheet, int x, int y)
         {
             this.position.X = x;
@@ -24,7 +24,7 @@ namespace LOZ.Tools.ItemObjects
             this.sprite.initialize();
             this.sprite.loadSpriteSheet(spritesheet);
             this.sprite.setPositionRectangle(x, y, (int)DefaultSize.X * 2, (int)DefaultSize.Y * 2);
-            this.sprite.setFrameRectangle(154, 16, (int)DefaultSize.X, (int)DefaultSize.Y);
+            this.sprite.setFrameRectangle(160, 16, (int)DefaultSize.X, (int)DefaultSize.Y);
         }
 
 
