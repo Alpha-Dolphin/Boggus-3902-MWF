@@ -3,7 +3,7 @@ Date: 10/3/22
 Sprint#: 0
 File Reviewed: ./Tools/ItemObjects/Arrow.cs
 File Author: Nate Crowder
-Time Taken For Review: 
+Time Taken For Review: 25 Minutes
 
 Readability:
 
