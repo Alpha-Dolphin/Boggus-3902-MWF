@@ -333,11 +333,11 @@ namespace LOZ.Tools.PlayerObjects
         public static List<Rectangle> ARROW_WOOD_DOWN_FRAMES = new List<Rectangle> { ARROW_WOOD_DOWN };
         public static List<Vector2> ARROW_DOWN_LOCATIONSHIFT = new List<Vector2>(new Vector2[] { new Vector2(7, 15) });
 
-        public const int MAX_WOODEN_ARROW_RANGE = 100;
-        public const int MAX_BLUE_ARROW_RANGE = 200;
-        public const int MAX_SWORDBEAM_RANGE = 200;
+        public const int MAX_WOODEN_ARROW_RANGE = 200;
+        public const int MAX_BLUE_ARROW_RANGE = 400;
+        public const int MAX_SWORDBEAM_RANGE = 300;
 
-        public const int PROJECTILE_SPEED = 2;
+        public const int PROJECTILE_SPEED = 5;
         public const int BOOMERANG_SPEED = 7;
         public const int BOMB_EXPLOSION_DELAY = 10;
 
