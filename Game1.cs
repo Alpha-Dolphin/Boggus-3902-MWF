@@ -120,7 +120,7 @@ namespace LOZ
 
             linkCommandHandler.Execute(pressed);
 
-            itemFactory.Update(pressed, gameTime);
+            itemFactory.Update(pressed, controller.held, gameTime);
 
             NPCFactory.Update(pressed, gameTime);
 
