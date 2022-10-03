@@ -20,27 +20,25 @@ namespace LOZ
     {
         Rectangle anim;
 
-        Vector2 direction;
-        Vector2 position;
+        Vector2 enemyDirection;
+        Vector2 enemyPosition;
 
-        readonly Random rand;
+        readonly Random rand = new();
 
-        bool animState;
-
-        double animCounter;
         double moveCounter;
         double timeToMove;
         double moveCheck;
 
-        public Keese(int width, int height)
+        public Keese(int X, int Y)
         {
-            position.X = width / 2;
-            position.Y = height / 2;
-            rand = new();
-            direction.X = rand.Next() % 400 / 100 - 2;
-            direction.Y = rand.Next() % 400 / 100 - 2;
+            enemyDirection.X = rand.Next() % 400 / 100 - 2;
+            enemyDirection.Y = rand.Next() % 400 / 100 - 2;
+
+            enemyPosition.X = X;
+            enemyPosition.Y = Y;
+
             moveCounter = 0.0;
-            animCounter = 0.0;
+
             timeToMove = 0.0;
             moveCheck = 0.0;
         }
@@ -59,12 +57,13 @@ namespace LOZ
         {
             if (0 < moveCounter)
             {
-                position.X += direction.X;
-                position.Y += direction.Y;
-            } else
+                enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+                enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+            }
+            else
             {
-                direction.X = rand.Next() % 400 / 100 - 2;
-                direction.Y = rand.Next() % 400 / 100 - 2;
+                enemyDirection.X = rand.Next() % 400 / 100 - 2;
+                enemyDirection.Y = rand.Next() % 400 / 100 - 2;
             }
         }
 
@@ -74,7 +73,7 @@ namespace LOZ
 
             _spriteBatch.Draw(
                 Game1.REGULAR_ENEMIES,
-                position,
+                enemyPosition,
                 anim,
                 Color.White,
                 0f,
@@ -89,29 +88,35 @@ namespace LOZ
 
         public void Update(GameTime gameTime)
         {
-            if (moveCheck <= 0) {
+            MovementUpdate(gameTime);
+            AnimationUpdate(gameTime);
+        }
+
+        private void AnimationUpdate(GameTime gameTime)
+        {
+            Rectangle[] KeeseFrames = new[] { new Rectangle(183, 11, 16, 16), new Rectangle(200, 11, 16, 16) };
+            anim = KeeseFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2];
+        }
+
+        private void MovementUpdate(GameTime gameTime)
+        {
+            if (moveCheck <= 0)
+            {
                 if (moveCounter < 0 && rand.Next() % 4950 + 50 < timeToMove)
                 {
                     moveCounter = rand.Next() % 400 + 100;
                     timeToMove = 0;
-                } else if (moveCounter < 0)
+                }
+                else if (moveCounter < 0)
                 {
                     moveCheck = 5;
                     timeToMove += moveCheck;
                 }
-            } else
+            }
+            else
             {
                 moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
             }
-            Rectangle KeeseSpread = new (183, 11, 16, 16);
-            Rectangle KeeseFolded = new (200, 11, 16, 16);
-            if (animCounter + 0.2 < gameTime.TotalGameTime.TotalSeconds)
-            {
-                anim = (animState) ? KeeseSpread : KeeseFolded;
-                animState = !animState;
-                animCounter = gameTime.TotalGameTime.TotalSeconds;
-            }
-            animCounter -= gameTime.ElapsedGameTime.TotalSeconds;
             moveCounter -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
     }

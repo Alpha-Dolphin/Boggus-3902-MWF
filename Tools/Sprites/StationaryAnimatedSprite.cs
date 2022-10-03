@@ -115,8 +115,6 @@ public class StationaryAnimatedSprite //: ISprite
 
             case 1: return new Rectangle(sourceX2, sourceY2, sourceWidth2, sourceHeight2);
 
-            case 2: return new Rectangle(sourceX3, sourceY3, sourceWidth3, sourceHeight3);
-
             default: return new Rectangle(0, 0, 0, 0);
 
         }
@@ -144,13 +142,7 @@ public class StationaryAnimatedSprite //: ISprite
         this.sourceWidth2 = w;
         this.sourceHeight2 = h;
     }
-    public void setFrame3Rectangle(int x, int y, int w, int h)
-    {
-        this.sourceX3 = x;
-        this.sourceY3 = y;
-        this.sourceWidth3 = w;
-        this.sourceHeight3 = h;
-    }
+
     public void setSourceDirectory(string directory)
     {
         this.sourceFileDirectory = directory;
@@ -176,9 +168,9 @@ public class StationaryAnimatedSprite //: ISprite
 
         }
 
-        if (currentTime > timeFlag + 300)
+        if (currentTime > timeFlag + 30)
         {
-            currentFrame = (currentFrame + 1) % 3;
+            currentFrame = (currentFrame + 1) % 2;
             timeFlag = currentTime;
         }
         if (DEBUG)

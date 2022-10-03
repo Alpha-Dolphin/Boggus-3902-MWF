@@ -1,13 +1,11 @@
 ﻿using LOZ.Tools.Command;
 using LOZ.Tools.PlayerObjects;
 using LOZ.Tools.ItemObjects;
-using LOZ.Tools.NPCObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using LOZ.Tools.Controller;
-using System;
 
 
 
@@ -18,24 +16,23 @@ namespace LOZ
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
         private ItemFactory itemFactory;
-        private NPCFactory NPCFactory;
         private IPlayer link;
         private KeyboardController controller;
         private ICommand linkCommandHandler;
         private EnvironmentCommandHandler environmentCommandHandler;
 
         public static Texture2D LINK_SPRITESHEET;
-        public static SpriteFont FONT;
         public static Texture2D ENVIRONMENT_SPRITESHEET;
         public static Texture2D REGULAR_ENEMIES;
-        public static Texture2D BOSSES;
-        public static Texture2D NPC_SPRITESHEET;
 
-        /* hanging onto to save time later
-       private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
-        */
+        public static Texture2D REGULAR_ENEMIES;
 
+        private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
 
+        /*Declaration of controllers*/
+<<<<<<< HEAD
+        
+=======
 
         /*Lists for various things to cycle through for sprint 2*/
 
@@ -45,6 +42,9 @@ namespace LOZ
 
         EnvironmentFactory environmentFactory = new EnvironmentFactory();
 
+>>>>>>> main
+        /*Container for sprites to draw in order*/
+        private HashSet<ISprite> spritesToDraw = new HashSet<ISprite>();
 
         public Game1()
         {
@@ -58,21 +58,17 @@ namespace LOZ
             // TODO: Add your initialization logic here
             LoadContent();
 
-            LinkConstants.Initialize();
+            Link_Constants.Initialize();
 
-            link = new Link(LinkConstants.DEFAULT_X, LinkConstants.DEFAULT_Y, LinkConstants.DEFAULT_ITEMS, LinkConstants.MAX_HEALTH, 
-                LinkConstants.DEFAULT_STATE, LinkConstants.DEFAULT_DIRECTION, Game1.LINK_SPRITESHEET, FONT);
+            link = new Link(Link_Constants.DEFAULT_X, Link_Constants.DEFAULT_Y, Link_Constants.DEFAULT_ITEMS, Link_Constants.MAX_HEALTH, 
+                Link_Constants.DEFAULT_STATE, Link_Constants.DEFAULT_DIRECTION, Game1.LINK_SPRITESHEET);
             linkCommandHandler = new LinkCommand((Link) link); 
 
-            /*Declaration of controllers*/
             controller = new KeyboardController();
 
             /*Here we will fill in the environment object list with one of every completed environment object*/
-            foreach (Environment environment in Enum.GetValues(typeof(Environment)))
-            {
-            environmentObjectList.Add(environmentFactory.getEnvironment(environment));
-            }
-            
+            environmentObjectList.Add(environmentFactory.getEnvironment(Environment.Statues));
+            environmentObjectList.Add(environmentFactory.getEnvironment(Environment.SquareBlock));
 
             /*Here we create the command handler for the environment display management*/
 
@@ -85,61 +81,60 @@ namespace LOZ
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
-            Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
             itemFactory = new ItemFactory(0, ItemSpriteSheet);
-            NPCFactory = new NPCFactory(0, NPCSpriteSheet);
             itemFactory.CreateItem();
-            NPCFactory.CreateNPC();
 
-            LINK_SPRITESHEET = Content.Load<Texture2D>(LinkConstants.LINK_SPRITESHEET_NAME);
-            FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
+            LINK_SPRITESHEET = Content.Load<Texture2D>(Link_Constants.LINK_SPRITESHEET_NAME);
+<<<<<<< HEAD
+            REGULAR_ENEMIES = Content.Load<Texture2D>(@"SpriteSheets\Dungeon Enemies");
+=======
             ENVIRONMENT_SPRITESHEET = Content.Load<Texture2D>(Constants.DungeonSpriteSheetLocation);
-            NPC_SPRITESHEET = Content.Load<Texture2D>(Constants.NPCSpriteSheetLocation);
             REGULAR_ENEMIES = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
-            BOSSES = Content.Load<Texture2D>(Constants.BossesSpriteSheetLocation);
 
             foreach (IEnvironment environmentObject in environmentObjectList)
             {
                 environmentObject.load();
                 environmentObject.update();
             }
+>>>>>>> main
         }
 
         protected override void Update(GameTime gameTime)
         {
             
             /*
-             * Update logic here
+             * Update logic here, the objects here will 
+             * also need to add the sprites to draw to 
+             * the sprites to draw list
+             * or will need to draw them themselves, IN ORDER AS APPROPRIATE
              */
+
+            /*Here we update the environment placement for existing environment objects*/
+            
 
             base.Update(gameTime);
 
             List<Keys> pressed = controller.update();
 
             linkCommandHandler.Execute(pressed);
+<<<<<<< HEAD
 
             itemFactory.Update(pressed, gameTime);
-
-            NPCFactory.Update(pressed, gameTime);
-
-            /*Here we update the environment placement for existing environment objects*/
+=======
             environmentCommandHandler.executeNewPressedOnly(pressed, controller.held);
+>>>>>>> main
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            /*Clean display*/
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            /*Initialize sprite drawing*/
             spriteBatch.Begin();
 
             itemFactory.CreateItem();
             itemFactory.Draw(spriteBatch);
 
-            NPCFactory.CreateNPC();
-            NPCFactory.Draw(spriteBatch);
-
+<<<<<<< HEAD
 
             spritesToDraw.Clear();
             /*Sprites to draw need to be in order in spritesToDrawList by here*/
@@ -147,18 +142,11 @@ namespace LOZ
             //{
             //    item.Draw(spriteBatch);
             //}
-
+=======
             environmentObjectList[environmentCommandHandler.environmentBlockIndex].draw(spriteBatch);
 
-            /*Draw items*/
-            itemFactory.CreateItem();
-            itemFactory.Draw(spriteBatch);
+>>>>>>> main
 
-            /*Draw NPCs*/
-            NPCFactory.CreateNPC();
-            NPCFactory.Draw(spriteBatch);
-
-            /*Draw PC*/
             link.Draw(spriteBatch);
 
             spriteBatch.End();

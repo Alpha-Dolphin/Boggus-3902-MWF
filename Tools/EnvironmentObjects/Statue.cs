@@ -13,7 +13,7 @@ class Statue : IEnvironment
     /*Update must be called at least once before drawing*/
     public void draw(SpriteBatch spriteBatch)
     {
-        enviroSprite.draw(spriteBatch);
+        enviroSprite.Draw(spriteBatch);
     }
     /*Sets the source and location rectangles*/
     public void update()

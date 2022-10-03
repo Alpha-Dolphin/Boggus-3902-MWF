@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Content",
+    "\\Content\\SpriteSheets",
+    "\\Tools",
+    "\\Tools\\EnvironmentObjects",
+    "\\Tools\\EnvironmentObjects\\Helpers",
+    "\\Tools\\Interfaces",
+    "\\Tools\\NeutralProjectileObjects",
+    "\\Tools\\NPCObjects",
+    "\\Tools\\Sprites"
+  ],
+  "SelectedNode": "\\Tools\\ItemObjects\\Rupee.cs",
+  "PreviewInSolutionExplorer": false
+}

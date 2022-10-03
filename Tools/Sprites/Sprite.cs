@@ -30,14 +30,19 @@ namespace CSE3902_Sprint0.Sprites
             this.frame = frames[0];
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(picture, new Vector2(x, y), frame, Link_Constants.DEFAULT_PICTURE_COLOR);
+            spriteBatch.Draw(picture, new Rectangle(x, y, frame.Width * 3, frame.Height * 3), frame, LinkConstants.DEFAULT_PICTURE_COLOR);
         }
 
         public void Update(int x, int y)
         {
-            //No implementation since this sprite does not change
+            //Do nothing
+        }
+
+        public bool finished()
+        {
+            return true;
         }
     }
 }

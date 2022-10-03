@@ -1,45 +1,41 @@
+﻿using LOZ.Tools.Interfaces;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using System.Reflection.Metadata;
-using Microsoft.Xna.Framework.Graphics;
-using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
-using System.IO;
-using Microsoft.Xna.Framework.Content;
-using LOZ.Tools.Interfaces;
-using LOZ;
 
-namespace Workspace
+namespace LOZ.Tools.EnemyObjects
 {
-    internal class Stalfos : Enemy
+    internal class Rope : Enemy
     {
         Rectangle anim;
 
         Vector2 direction;
         Vector2 position;
 
-        readonly Random rand = new();
+        readonly Random rand;
 
-        SpriteEffects animState;
+        bool animState;
+        double animCounter;
 
         double moveCheck;
         double moveTime;
         double moveProb;
 
-        public Stalfos(int X, int Y)
+        const double moveDelay = 1000;
+
+        public Rope(int width, int height)
         {
-            anim = new Rectangle(1, 59, 16, 16);
-
-            position.X = X;
-            position.Y = Y;
-
+            position.X = width / 2;
+            position.Y = height / 2;
             direction.X = 0;
             direction.Y = 0;
-
+            animCounter = 0.0;
             moveCheck = -1;
+            rand = new();
         }
 
         public void Attack(GameTime gameTime)
@@ -70,7 +66,7 @@ namespace Workspace
                 0f,
                 new Vector2(anim.Width / 2, anim.Height / 2),
                 Vector2.One,
-                animState,
+                SpriteEffects.None,
                 0f
             );
 
@@ -79,21 +75,10 @@ namespace Workspace
 
         public void Update(GameTime gameTime)
         {
-            MovementUpdate(gameTime);
-            AnimationUpdate(gameTime);
-        }
-
-        private void AnimationUpdate(GameTime gameTime)
-        {
-            animState = (((int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2) == 0) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-        }
-
-        private void MovementUpdate(GameTime gameTime)
-        {
             if (moveTime <= 0 && moveCheck <= 0)
             {
                 moveCheck = 25;
-                if (rand.Next() % (4950 / 2) + 50 > moveProb)
+                if (rand.Next() % 4950 + 50 > moveProb)
                 {
                     //Please just let not zero equal true
                     int speed = 1;
@@ -112,6 +97,7 @@ namespace Workspace
                     }
 
                     moveTime = rand.Next() % 2000 + 200;
+                    moveCheck = moveDelay;
                     moveProb = 0;
                 }
                 moveProb -= gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -119,8 +105,23 @@ namespace Workspace
             else
             {
                 if (moveTime > 0) moveTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
-                else moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                else
+                {
+                    moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                    direction.X = 0;
+                    direction.Y = 0;
+                }
             }
+
+            Rectangle RopeSquished = new(126, 59, 16, 16);
+            Rectangle RopeStreched = new(143, 59, 16, 16);
+            if (animCounter + 0.2 < gameTime.TotalGameTime.TotalSeconds)
+            {
+                anim = (animState) ? RopeSquished : RopeStreched;
+                animState = !animState;
+                animCounter = gameTime.TotalGameTime.TotalSeconds;
+            }
+            animCounter -= gameTime.ElapsedGameTime.TotalSeconds;
         }
     }
 }

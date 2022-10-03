@@ -11,7 +11,7 @@ public class TextSprite //: ISprite
     private string text;
     private Vector2 position;
 
-    public void draw(SpriteBatch spriteBatch)
+    public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.DrawString(font, text, position, Color.Black);
     }

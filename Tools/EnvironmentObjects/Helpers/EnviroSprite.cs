@@ -57,7 +57,7 @@ namespace LOZ.Tools.EnvironmentObjects.Helpers
         {
 
         }
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(spriteSheet, getPositionRectangle(), getSourceRectangle(), Color.White);
         }
@@ -112,6 +112,11 @@ namespace LOZ.Tools.EnvironmentObjects.Helpers
             }
 
             return sourceFileDirectory;
+        }
+
+        public bool finished()
+        {
+            return true;
         }
 
 
