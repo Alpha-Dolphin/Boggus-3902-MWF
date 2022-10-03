@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using LOZ.Tools.PlayerObjects;
 using Microsoft.Xna.Framework.Input;
-using static LOZ.Tools.PlayerObjects.Link_Constants;
+using static LOZ.Tools.PlayerObjects.LinkConstants;
 
 namespace LOZ.Tools.Command
 {
@@ -15,7 +15,6 @@ namespace LOZ.Tools.Command
         private Link link;
         bool attacked = false;
         bool moved = false;
-        int damageInvincibility = 10;
 
         public LinkCommand(Link link)
         {
@@ -34,54 +33,54 @@ namespace LOZ.Tools.Command
 
             foreach (Keys key in keys)
             {
-                if (Link_Constants.MOVEMENT_KEYS.Contains(key))
+                if (LinkConstants.MOVEMENT_KEYS.Contains(key))
                 {
                     switch (key)
                     {
-                        case Link_Constants.MOVE_UP_KEY: ExecuteMove(Link_Constants.Direction.Up); break;
-                        case Link_Constants.MOVE_UPARROW_KEY: ExecuteMove(Link_Constants.Direction.Up); break;
-                        case Link_Constants.MOVE_LEFT_KEY: ExecuteMove(Link_Constants.Direction.Left); break;
-                        case Link_Constants.MOVE_LEFTARROW_KEY: ExecuteMove(Link_Constants.Direction.Left); break;
-                        case Link_Constants.MOVE_RIGHT_KEY: ExecuteMove(Link_Constants.Direction.Right); break;
-                        case Link_Constants.MOVE_RIGHTARROW_KEY: ExecuteMove(Link_Constants.Direction.Right); break;
-                        case Link_Constants.MOVE_DOWN_KEY: ExecuteMove(Link_Constants.Direction.Down); break;
-                        case Link_Constants.MOVE_DOWNARROW_KEY: ExecuteMove(Link_Constants.Direction.Down); break;
+                        case LinkConstants.MOVE_UP_KEY: ExecuteMove(LinkConstants.Direction.Up); break;
+                        case LinkConstants.MOVE_UPARROW_KEY: ExecuteMove(LinkConstants.Direction.Up); break;
+                        case LinkConstants.MOVE_LEFT_KEY: ExecuteMove(LinkConstants.Direction.Left); break;
+                        case LinkConstants.MOVE_LEFTARROW_KEY: ExecuteMove(LinkConstants.Direction.Left); break;
+                        case LinkConstants.MOVE_RIGHT_KEY: ExecuteMove(LinkConstants.Direction.Right); break;
+                        case LinkConstants.MOVE_RIGHTARROW_KEY: ExecuteMove(LinkConstants.Direction.Right); break;
+                        case LinkConstants.MOVE_DOWN_KEY: ExecuteMove(LinkConstants.Direction.Down); break;
+                        case LinkConstants.MOVE_DOWNARROW_KEY: ExecuteMove(LinkConstants.Direction.Down); break;
                     }
                 }
-                else if (Link_Constants.SWORD_ATTACK_KEYS.Contains(key))
+                else if (LinkConstants.SWORD_ATTACK_KEYS.Contains(key))
                 {
                     ExecuteAttack();
                 }
-                else if (Link_Constants.ITEM_KEYS.Contains(key))
+                else if (LinkConstants.ITEM_KEYS.Contains(key))
                 {
                     int input = 0;
 
                     switch (key)
                     {
-                        case Link_Constants.ITEM_1: input = 1; break;
-                        case Link_Constants.ITEM_PAD1: input = 1; break;
-                        case Link_Constants.ITEM_2: input = 2; break;
-                        case Link_Constants.ITEM_PAD2: input = 2; break;
-                        case Link_Constants.ITEM_3: input = 3; break;
-                        case Link_Constants.ITEM_PAD3: input = 3; break;
-                        case Link_Constants.ITEM_4: input = 4; break;
-                        case Link_Constants.ITEM_PAD4: input = 4; break;
-                        case Link_Constants.ITEM_5: input = 5; break;
-                        case Link_Constants.ITEM_PAD5: input = 5; break;
-                        case Link_Constants.ITEM_6: input = 6; break;
-                        case Link_Constants.ITEM_PAD6: input = 6; break;
-                        case Link_Constants.ITEM_7: input = 7; break;
-                        case Link_Constants.ITEM_PAD7: input = 7; break;
-                        case Link_Constants.ITEM_8: input = 8; break;
-                        case Link_Constants.ITEM_PAD8: input = 8; break;
-                        case Link_Constants.ITEM_9: input = 9; break;
-                        case Link_Constants.ITEM_PAD9: input = 9; break;
-                        case Link_Constants.ITEM_0: input = 0; break;
-                        case Link_Constants.ITEM_PAD0: input = 0; break;
+                        case LinkConstants.ITEM_1: input = 1; break;
+                        case LinkConstants.ITEM_PAD1: input = 1; break;
+                        case LinkConstants.ITEM_2: input = 2; break;
+                        case LinkConstants.ITEM_PAD2: input = 2; break;
+                        case LinkConstants.ITEM_3: input = 3; break;
+                        case LinkConstants.ITEM_PAD3: input = 3; break;
+                        case LinkConstants.ITEM_4: input = 4; break;
+                        case LinkConstants.ITEM_PAD4: input = 4; break;
+                        case LinkConstants.ITEM_5: input = 5; break;
+                        case LinkConstants.ITEM_PAD5: input = 5; break;
+                        case LinkConstants.ITEM_6: input = 6; break;
+                        case LinkConstants.ITEM_PAD6: input = 6; break;
+                        case LinkConstants.ITEM_7: input = 7; break;
+                        case LinkConstants.ITEM_PAD7: input = 7; break;
+                        case LinkConstants.ITEM_8: input = 8; break;
+                        case LinkConstants.ITEM_PAD8: input = 8; break;
+                        case LinkConstants.ITEM_9: input = 9; break;
+                        case LinkConstants.ITEM_PAD9: input = 9; break;
+                        case LinkConstants.ITEM_0: input = 0; break;
+                        case LinkConstants.ITEM_PAD0: input = 0; break;
                     }
                     ExecuteChangeItem(input);
                 }
-                else if (Link_Constants.DAMAGE_KEYS.Contains(key))
+                else if (LinkConstants.DAMAGE_KEYS.Contains(key))
                 {
                     ExecuteDamage();
                 }
@@ -90,7 +89,7 @@ namespace LOZ.Tools.Command
             link.UpdateVisual();
         }
 
-        private void ExecuteMove(Link_Constants.Direction direction)
+        private void ExecuteMove(LinkConstants.Direction direction)
         {
             if (!moved)
             {
@@ -118,12 +117,8 @@ namespace LOZ.Tools.Command
 
         private void ExecuteDamage()
         {
-            if (damageInvincibility == 0)
-            {
-                link.Damage();
-                damageInvincibility = 10;
-            }
-            else damageInvincibility--;
+            link.UpdateState(Link_States.Damaged, link.getDirection());
+            link.Damage();
         }
     }
 }

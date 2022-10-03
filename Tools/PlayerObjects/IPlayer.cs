@@ -10,7 +10,7 @@ namespace LOZ.Tools.PlayerObjects
 {
     internal interface IPlayer
     {
-        void Move(Link_Constants.Direction direction);
+        void Move(LinkConstants.Direction direction);
 
         void Attack();
 
