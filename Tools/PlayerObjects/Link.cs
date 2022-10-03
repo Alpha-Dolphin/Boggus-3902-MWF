@@ -24,7 +24,7 @@ namespace LOZ.Tools.PlayerObjects
         private int invincibilityFrames = 0;
         private TextSprite healthText;
 
-        private Texture2D spriteSheet;
+        private Texture2D spriteSheet = Game1.LINK_SPRITESHEET;
         private AnimatedMovingSprite sprite;
 
         private LinkConstants.Link_States state;
@@ -40,7 +40,7 @@ namespace LOZ.Tools.PlayerObjects
             direction = LinkConstants.Direction.Up;
         }
 
-        public Link(int xPos, int yPos, string[] items, int health, LinkConstants.Link_States state, LinkConstants.Direction direction, Texture2D picture, SpriteFont font)
+        public Link(int xPos, int yPos, string[] items, int health, LinkConstants.Link_States state, LinkConstants.Direction direction, SpriteFont font)
         {
             Link.position = new Vector2(xPos, yPos);
             this.items = items;
@@ -53,7 +53,6 @@ namespace LOZ.Tools.PlayerObjects
 
             this.healthText.setFont(font);
             this.healthText.setPosition(0, 0);
-            this.spriteSheet = picture;
             this.projectileFactory = new ProjectileFactory(0, this.spriteSheet);
             updateSprite();
         }
@@ -144,7 +143,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Attack()
         {
-            if (health == LinkConstants.MAX_HEALTH) CreateProjectile(new Swordbeam());
+            if (health == LinkConstants.MAX_HEALTH) CreateProjectile(LinkConstants.Link_Projectiles.SwordBeam);
         }
 
         public void UseItem(int input)
@@ -152,10 +151,10 @@ namespace LOZ.Tools.PlayerObjects
             switch (input)
             {
                 case 1: break;
-                case 2: UpdateState(LinkConstants.Link_States.UseItem, this.direction);  CreateProjectile(new ArrowProjectile()); break;
-                case 3: UpdateState(LinkConstants.Link_States.UseItem, this.direction);  CreateProjectile(new Boomerang()); break;
-                case 4: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(new CandleFlame()); break;
-                case 5: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(new Bomb()); break;
+                case 2: UpdateState(LinkConstants.Link_States.UseItem, this.direction);  CreateProjectile(LinkConstants.Link_Projectiles.Arrow); break;
+                case 3: UpdateState(LinkConstants.Link_States.UseItem, this.direction);  CreateProjectile(LinkConstants.Link_Projectiles.Boomerang); break;
+                case 4: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(LinkConstants.Link_Projectiles.CandleFlame); break;
+                case 5: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(LinkConstants.Link_Projectiles.Bomb); break;
                 default: break;
             }
         }
@@ -170,12 +169,12 @@ namespace LOZ.Tools.PlayerObjects
             }
         }
 
-        private void CreateProjectile(IProjectile projectileType)
+        private void CreateProjectile(LinkConstants.Link_Projectiles projectileType)
         {
             bool containsProjectile = false;
             foreach(IProjectile projectile in projectiles)
             {
-                if (projectile.GetProjectileType().Equals(projectileType.GetProjectileType()))
+                if (projectile.GetProjectileType().Equals(projectileType))
                 {
                     if (projectile.GetProjectileType().Equals(LinkConstants.Link_Projectiles.Bomb)) projectile.Destroy();
                     containsProjectile = true; 
@@ -194,7 +193,7 @@ namespace LOZ.Tools.PlayerObjects
                     case LinkConstants.Direction.Down: velocity = new Vector2(0, 1); break;
                 }
 
-                this.projectileFactory.Update(projectileType.GetProjectileType());
+                this.projectileFactory.Update(projectileType);
                 this.projectiles.Add(this.projectileFactory.CreateProjectile(velocity));
             }
         }
