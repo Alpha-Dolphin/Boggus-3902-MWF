@@ -4,26 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using System.Reflection.Metadata;
-using Microsoft.Xna.Framework.Graphics;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
-using System.IO;
-using Microsoft.Xna.Framework.Content;
 using LOZ.Tools.Interfaces;
+using LOZ.Tools;
 
 namespace LOZ.Tools
 {
     internal class Slime : Enemy
     {
-        Rectangle anim;
+        Vector2 enemyDirection;
+        Vector2 enemyPosition;
 
-        Vector2 direction;
-        Vector2 position;
+        readonly ISpriteEnemy slimeSprite;
 
         readonly Random rand;
-
-        bool animState;
-        double animCounter;
 
         double moveCheck;
         double moveTime;
@@ -31,15 +25,19 @@ namespace LOZ.Tools
 
         const double moveDelay = 1000;
 
-        public Slime(int width, int height)
+        public Slime(int X, int Y)
         {
-            position.X = width / 2;
-            position.Y = height / 2;
-            direction.X = 0;
-            direction.Y = 0;
-            animCounter = 0.0;
-            moveCheck = -1;
+            enemyDirection.X = 0;
+            enemyDirection.Y = 0;
+
+            slimeSprite = new SlimeSprite();
+
             rand = new();
+
+            enemyPosition.X = X;
+            enemyPosition.Y = Y;
+
+            moveCheck = -1;
         }
 
         public void Attack(GameTime gameTime)
@@ -54,30 +52,22 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
-            position.X += direction.X;
-            position.Y += direction.Y;
+            enemyPosition.X += enemyDirection.X;
+            enemyPosition.Y += enemyDirection.Y;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Begin();
-
-            _spriteBatch.Draw(
-                Game1.REGULAR_ENEMIES,
-                position,
-                anim,
-                Color.White,
-                0f,
-                new Vector2(anim.Width / 2, anim.Height / 2),
-                Vector2.One,
-                SpriteEffects.None,
-                0f
-            );
-
-            _spriteBatch.End();
+            slimeSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
+        {
+            MovementUpdate(gameTime);
+            slimeSprite.Update(gameTime);
+        }
+
+        private void MovementUpdate(GameTime gameTime)
         {
             if (moveTime <= 0 && moveCheck <= 0)
             {
@@ -89,15 +79,15 @@ namespace LOZ.Tools
 
                     if (rand.Next() % 2 == 1)
                     {
-                        if (rand.Next() % 2 == 1) direction.X = speed;
-                        else direction.X = -speed;
-                        direction.Y = 0;
+                        if (rand.Next() % 2 == 1) enemyDirection.X = speed;
+                        else enemyDirection.X = -speed;
+                        enemyDirection.Y = 0;
                     }
                     else
                     {
-                        if (rand.Next() % 2 == 1) direction.Y = speed;
-                        else direction.Y = -speed;
-                        direction.X = 0;
+                        if (rand.Next() % 2 == 1) enemyDirection.Y = speed;
+                        else enemyDirection.Y = -speed;
+                        enemyDirection.X = 0;
                     }
 
                     moveTime = rand.Next() % 2000 + 200;
@@ -112,20 +102,10 @@ namespace LOZ.Tools
                 else
                 {
                     moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
-                    direction.X = 0;
-                    direction.Y = 0;
+                    enemyDirection.X = 0;
+                    enemyDirection.Y = 0;
                 }
             }
-
-            Rectangle SlimeSquished = new(1, 11, 8, 16);
-            Rectangle SlimeStreched = new(10, 11, 8, 16);
-            if (animCounter + 0.2 < gameTime.TotalGameTime.TotalSeconds)
-            {
-                anim = (animState) ? SlimeSquished : SlimeStreched;
-                animState = !animState;
-                animCounter = gameTime.TotalGameTime.TotalSeconds;
-            }
-            animCounter -= gameTime.ElapsedGameTime.TotalSeconds;
         }
     }
 }
