@@ -29,7 +29,7 @@ namespace LOZ.Tools.EnemyObjects
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
 
-            RopeSprite = new ZolSprite();
+            RopeSprite = new RopeSprite();
 
             rand = new();
 
