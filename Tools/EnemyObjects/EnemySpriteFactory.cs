@@ -16,7 +16,7 @@ namespace LOZ.Tools
     internal class EnemySpriteFactory
     {
         readonly int X = 100;
-        readonly int Y = 100;
+        readonly int Y = 300;
         int curr;
 
         public EnemySpriteFactory()

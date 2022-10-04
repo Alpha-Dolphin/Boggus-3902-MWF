@@ -11,7 +11,6 @@ using LOZ.Tools.Controller;
 using System;
 
 
-=======
 using LOZ.Tools;
 using LOZ.Tools.Interfaces;
 
@@ -41,7 +40,6 @@ namespace LOZ
         /* hanging onto to save time later
        private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
         */
-=======
         Enemy enemy;
 
 
@@ -165,7 +163,7 @@ namespace LOZ
             NPCFactory.CreateNPC();
             NPCFactory.Draw(spriteBatch);
 
-            spritesToDraw.Clear();
+            //spritesToDraw.Clear();
             /*Sprites to draw need to be in order in spritesToDrawList by here*/
             //foreach (var item in spritesToDraw)
             //{
