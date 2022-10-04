@@ -25,32 +25,15 @@ namespace LOZ.Tools.NPCObjects
             this.currentNPC = new OldMan(spritesheet, this.x, this.y);
         }
 
-        public void Update(List<Keys> keys, GameTime gametime)
+        public void Update(List<Keys> pressed, List<Keys> held, GameTime gametime)
         {
-            foreach (Keys key in keys)
+            if (pressed.Contains(Keys.O) && !held.Contains(Keys.O)) /*Increment with rollover*/
             {
-                if (key.ToString().ToUpper().Equals("O"))
-                {
-                    if (this.currentNPCNum == 0)
-                    {
-                        this.currentNPCNum = numNPC - 1;
-                    }
-                    else
-                    {
-                        this.currentNPCNum--;
-                    }
-                }
-                else if (key.ToString().ToUpper().Equals("P"))
-                {
-                    if (this.currentNPCNum == numNPC - 1)
-                    {
-                        this.currentNPCNum = 0;
-                    }
-                    else
-                    {
-                        this.currentNPCNum++;
-                    }
-                }
+                currentNPCNum = (currentNPCNum + 1) % numNPC;
+            }
+            if (pressed.Contains(Keys.P) && !held.Contains(Keys.P)) /*Decrement with rollover*/
+            {
+                currentNPCNum = (numNPC + (currentNPCNum - 1)) % numNPC;
             }
 
             this.currentNPC.Update(gametime);

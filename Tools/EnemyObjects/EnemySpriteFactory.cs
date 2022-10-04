@@ -30,13 +30,13 @@ namespace LOZ.Tools
             {
                 //I don't know why, but the modulo operator wouldn't work so I'm doing this
                 curr++;
-                if (curr > 3) curr = 0;
+                if (curr > 4) curr = 0;
                 return true;
             }
             else if (pressed.Contains(Keys.P) && !held.Contains(Keys.P))
             {
                 curr--;
-                if (curr < 0) curr = 3;
+                if (curr < 0) curr = 4;
                 return true;
             }
             return false;
@@ -46,9 +46,11 @@ namespace LOZ.Tools
         {
             if (curr == 0) return CreateKeese();
             else if (curr == 1) return CreateSlime();
-            else if (curr == 2) return CreateGoriya();
-            else if (curr == 3) return CreateAquamentus();
+            else if (curr == 2) return CreateStalfos();
+            else if (curr == 3) return CreateGoriya();
             else return CreateAquamentus();
+
+            //Cobbling together broken NPC code
         }
 
         public Enemy CreateKeese()

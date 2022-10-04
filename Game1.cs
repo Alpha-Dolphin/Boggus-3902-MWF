@@ -136,7 +136,7 @@ namespace LOZ
 
             itemFactory.Update(pressed, controller.held, gameTime);
 
-            NPCFactory.Update(pressed, gameTime);
+            NPCFactory.Update(pressed, controller.held, gameTime);
 
             /*Here we update the environment placement for existing environment objects*/
             environmentCommandHandler.executeNewPressedOnly(pressed, controller.held);
