@@ -18,7 +18,7 @@ namespace LOZ.Tools
                 Color.White,
                 0f,
                 new Vector2(ball.Width / 2, ball.Height / 2),
-                Vector2.One,
+                2,
                 SpriteEffects.None,
                 0f
             );
