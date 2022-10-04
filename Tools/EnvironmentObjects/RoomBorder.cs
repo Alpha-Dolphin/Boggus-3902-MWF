@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LOZ;
 
-
-    public class SquareBlock:IEnvironment
+namespace LOZ.Tools.EnvironmentObjects
+{
+    internal class RoomBorder : IEnvironment
     {
         private EnviroSprite enviroSprite = new EnviroSprite();
 
@@ -21,13 +21,13 @@ using LOZ;
         public void update()
         {
 
-            enviroSprite.setFrameRectangle(1001, 11, 16, 16);
+            enviroSprite.setFrameRectangle(521, 11, 256, 176);
 
-            enviroSprite.setPositionRectangle(Constants.enviroDefaultX, Constants.enviroDefaultY, 16 * Constants.objectScale, 16 * Constants.objectScale);
+            enviroSprite.setPositionRectangle(Constants.enviroDefaultX, Constants.enviroDefaultY, 256 , 176 );
         }
         public void load()
         {
             enviroSprite.loadSpriteSheet(Game1.ENVIRONMENT_SPRITESHEET);
         }
     }
-
+}

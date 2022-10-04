@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LOZ;
 
-
-    public class SquareBlock:IEnvironment
+namespace LOZ.Tools.EnvironmentObjects
+{
+    internal class Fire : IEnvironment
     {
         private EnviroSprite enviroSprite = new EnviroSprite();
 
@@ -21,13 +21,13 @@ using LOZ;
         public void update()
         {
 
-            enviroSprite.setFrameRectangle(1001, 11, 16, 16);
+            enviroSprite.setFrameRectangle(52, 11, 16, 16);
 
             enviroSprite.setPositionRectangle(Constants.enviroDefaultX, Constants.enviroDefaultY, 16 * Constants.objectScale, 16 * Constants.objectScale);
         }
         public void load()
         {
-            enviroSprite.loadSpriteSheet(Game1.ENVIRONMENT_SPRITESHEET);
+            enviroSprite.loadSpriteSheet(Game1.NPC_SPRITESHEET);
         }
     }
-
+}

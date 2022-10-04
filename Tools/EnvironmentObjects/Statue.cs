@@ -21,7 +21,7 @@ class Statue : IEnvironment
 
         enviroSprite.setFrameRectangle(1018, 11, 16, 16);
 
-        enviroSprite.setPositionRectangle(400,400,16 * Constants.objectScale, 16 * Constants.objectScale);
+        enviroSprite.setPositionRectangle(Constants.enviroDefaultX,Constants.enviroDefaultY,16 * Constants.objectScale, 16 * Constants.objectScale);
     }
     public void load()
     {

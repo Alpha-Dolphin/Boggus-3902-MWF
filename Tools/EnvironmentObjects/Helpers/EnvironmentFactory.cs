@@ -2,6 +2,8 @@
 
 /*TODO: Implement case logic for all environment blocks*/
 
+using LOZ.Tools.EnvironmentObjects;
+
 class EnvironmentFactory
 {
     public IEnvironment getEnvironment(Environment environment)
@@ -15,43 +17,43 @@ class EnvironmentFactory
                 return new SquareBlock();
 
             case Environment.PushBlock:
-                return new Statue();
+                return new PushBlock();
 
             case Environment.Fire:
-                return new Statue();
+                return new Fire();
 
             case Environment.WalkableBlueGap:
-                return new Statue();
+                return new WalkableBlueGap();
                 
             case Environment.Stairs:
-                return new Statue();
+                return new Stairs();
                 
             case Environment.WhiteBrick:
-                return new Statue();
+                return new WhiteBrick();
                 
             case Environment.Ladders:
-                return new Statue();
+                return new Ladders();
                 
             case Environment.BlueFloor:
-                return new Statue();
+                return new BlueFloor();
                 
             case Environment.BlueSand:
-                return new Statue();
+                return new BlueSand();
             
             case Environment.RoomBorder:
-                return new Statue();
+                return new RoomBorder();
 
             case Environment.OpenDoor:
-                return new Statue();
+                return new OpenDoor();
 
             case Environment.BombedWallOpening:
-                return new Statue();
+                return new BombedWallOpening();
 
             case Environment.KeyholeLockedDoor:
-                return new Statue();
+                return new KeyholeLockedDoor();
 
             case Environment.DiamondSymbolLockedDoor:
-                return new Statue();
+                return new DiamondSymbolLockedDoor();
             
             default:
                 return new Statue();
