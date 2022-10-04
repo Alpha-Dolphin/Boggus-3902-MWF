@@ -86,7 +86,7 @@ namespace LOZ.Tools.PlayerObjects
         private void AttackUpdate(GameTime gameTime)
         {
             if (attackTime > 0.0) Attack(gameTime);
-            else if (rand.Next() % 4950 <= 25)
+            else if (rand.Next() % 4950 <= 25 && false)
             {
                 attackTime = attackLength;
                 boomerangPosition = enemyPosition;
