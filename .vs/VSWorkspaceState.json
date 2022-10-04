@@ -1,14 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Content",
-    "\\Content\\SpriteSheets",
     "\\Tools",
+    "\\Tools\\EnvironmentObjects",
     "\\Tools\\EnvironmentObjects\\Helpers",
-    "\\Tools\\ItemObjects",
-    "\\Tools\\NPCObjects",
-    "\\Tools\\Sprites"
+    "\\Tools\\NPCObjects"
   ],
-  "SelectedNode": "\\Game1.cs",
+  "SelectedNode": "\\LOZ.sln",
   "PreviewInSolutionExplorer": false
 }
