@@ -4,10 +4,8 @@
     "\\Content",
     "\\Content\\SpriteSheets",
     "\\Tools",
-    "\\Tools\\EnvironmentObjects",
     "\\Tools\\EnvironmentObjects\\Helpers",
-    "\\Tools\\Interfaces",
-    "\\Tools\\NeutralProjectileObjects",
+    "\\Tools\\ItemObjects",
     "\\Tools\\NPCObjects",
     "\\Tools\\Sprites"
   ],
