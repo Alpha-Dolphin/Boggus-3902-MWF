@@ -62,7 +62,7 @@ namespace LOZ
             LinkConstants.Initialize();
 
             link = new Link(LinkConstants.DEFAULT_X, LinkConstants.DEFAULT_Y, LinkConstants.DEFAULT_ITEMS, LinkConstants.MAX_HEALTH, 
-                LinkConstants.DEFAULT_STATE, LinkConstants.DEFAULT_DIRECTION, Game1.LINK_SPRITESHEET, FONT);
+                LinkConstants.DEFAULT_STATE, LinkConstants.DEFAULT_DIRECTION, FONT);
             linkCommandHandler = new LinkCommand((Link) link); 
 
             controller = new KeyboardController();
@@ -120,7 +120,7 @@ namespace LOZ
 
             linkCommandHandler.Execute(pressed);
 
-            itemFactory.Update(pressed, gameTime);
+            itemFactory.Update(pressed, controller.held, gameTime);
 
             NPCFactory.Update(pressed, gameTime);
 
