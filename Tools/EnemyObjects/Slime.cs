@@ -4,23 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using System.Reflection.Metadata;
-using Microsoft.Xna.Framework.Graphics;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
-using System.IO;
-using Microsoft.Xna.Framework.Content;
 using LOZ.Tools.Interfaces;
+using LOZ.Tools;
 
 namespace LOZ.Tools
 {
     internal class Slime : Enemy
     {
-        Rectangle anim;
-
         Vector2 enemyDirection;
         Vector2 enemyPosition;
 
-        readonly Random rand = new();
+        readonly ISpriteEnemy slimeSprite;
+
+        readonly Random rand;
 
         double moveCheck;
         double moveTime;
@@ -32,6 +29,10 @@ namespace LOZ.Tools
         {
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
+
+            slimeSprite = new SlimeSprite();
+
+            rand = new();
 
             enemyPosition.X = X;
             enemyPosition.Y = Y;
@@ -51,39 +52,19 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
-            enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
-            enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+            enemyPosition.X += enemyDirection.X;
+            enemyPosition.Y += enemyDirection.Y;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Begin();
-
-            _spriteBatch.Draw(
-                Game1.REGULAR_ENEMIES,
-                enemyPosition,
-                anim,
-                Color.White,
-                0f,
-                new Vector2(anim.Width / 2, anim.Height / 2),
-                Vector2.One,
-                SpriteEffects.None,
-                0f
-            );
-
-            _spriteBatch.End();
+            slimeSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
         {
             MovementUpdate(gameTime);
-            AnimationUpdate(gameTime);
-        }
-
-        private void AnimationUpdate(GameTime gameTime)
-        {
-            Rectangle[] SlimeFrames = new[] { new Rectangle(1, 11, 8, 16), new Rectangle(10, 11, 8, 16) };
-            anim = SlimeFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2];
+            slimeSprite.Update(gameTime);
         }
 
         private void MovementUpdate(GameTime gameTime)
