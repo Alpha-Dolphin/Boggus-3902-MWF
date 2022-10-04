@@ -7,8 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using LOZ.Tools.Controller;
+
 using System;
 
+
+=======
+using LOZ.Tools;
+using LOZ.Tools.Interfaces;
 
 
 namespace LOZ
@@ -19,6 +24,7 @@ namespace LOZ
         private SpriteBatch spriteBatch;
         private ItemFactory itemFactory;
         private NPCFactory NPCFactory;
+        private EnemySpriteFactory enemySpriteFactory;
         private IPlayer link;
         private KeyboardController controller;
         private ICommand linkCommandHandler;
@@ -31,9 +37,12 @@ namespace LOZ
         public static Texture2D BOSSES;
         public static Texture2D NPC_SPRITESHEET;
 
+
         /* hanging onto to save time later
        private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
         */
+=======
+        Enemy enemy;
 
 
 
@@ -60,8 +69,8 @@ namespace LOZ
 
             LinkConstants.Initialize();
 
-            link = new Link(LinkConstants.DEFAULT_X, LinkConstants.DEFAULT_Y, LinkConstants.DEFAULT_ITEMS, LinkConstants.MAX_HEALTH, 
-                LinkConstants.DEFAULT_STATE, LinkConstants.DEFAULT_DIRECTION, Game1.LINK_SPRITESHEET, FONT);
+            link = new Link(LinkConstants.DEFAULT_X, LinkConstants.DEFAULT_Y, LinkConstants.DEFAULT_ITEMS, LinkConstants.MAX_HEALTH,
+                LinkConstants.DEFAULT_STATE, LinkConstants.DEFAULT_DIRECTION,FONT);
             linkCommandHandler = new LinkCommand((Link) link); 
 
             /*Declaration of controllers*/
@@ -88,8 +97,10 @@ namespace LOZ
             Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
             itemFactory = new ItemFactory(0, ItemSpriteSheet);
             NPCFactory = new NPCFactory(0, NPCSpriteSheet);
+            enemySpriteFactory = new();
             itemFactory.CreateItem();
             NPCFactory.CreateNPC();
+            enemy = enemySpriteFactory.CreateKeese();
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(LinkConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
@@ -118,7 +129,14 @@ namespace LOZ
 
             linkCommandHandler.Execute(pressed);
 
-            itemFactory.Update(pressed, gameTime);
+            if (enemySpriteFactory.Update(pressed, controller.held)) enemy = enemySpriteFactory.NewEnemy();
+            else
+            {
+                enemy.Update(gameTime);
+                enemy.Move(gameTime);
+            }
+
+            itemFactory.Update(pressed, controller.held, gameTime);
 
             NPCFactory.Update(pressed, gameTime);
 
@@ -136,7 +154,9 @@ namespace LOZ
 
             /*Draw Environment*/
             environmentObjectList[environmentCommandHandler.environmentBlockIndex].draw(spriteBatch);
-
+            
+            enemy.Draw(spriteBatch);
+            
             /*Draw items*/
             itemFactory.CreateItem();
             itemFactory.Draw(spriteBatch);
@@ -145,7 +165,15 @@ namespace LOZ
             NPCFactory.CreateNPC();
             NPCFactory.Draw(spriteBatch);
 
-            /*Draw PC*/
+            spritesToDraw.Clear();
+            /*Sprites to draw need to be in order in spritesToDrawList by here*/
+            //foreach (var item in spritesToDraw)
+            //{
+            //    item.Draw(spriteBatch);
+            //}
+
+            environmentObjectList[environmentCommandHandler.environmentBlockIndex].draw(spriteBatch);
+
             link.Draw(spriteBatch);
 
             spriteBatch.End();

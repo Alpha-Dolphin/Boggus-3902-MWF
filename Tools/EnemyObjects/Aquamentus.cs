@@ -12,12 +12,13 @@ namespace LOZ.Tools
 {
     internal class Aquamentus : Enemy
     {
-        Rectangle anim;
-
         Vector2 enemyDirection;
         Vector2 enemyPosition;
 
-        Rectangle ball;
+        readonly ISpriteEnemy aquamentusSprite;
+
+        readonly BallSprite ballSprite;
+
         Vector2 ball1Position;
         Vector2 ball2Position;
         Vector2 ball3Position;
@@ -35,21 +36,23 @@ namespace LOZ.Tools
         {
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
+
             enemyPosition.X = X;
             enemyPosition.Y = Y;
 
-            rand = new();
+            aquamentusSprite = new AquementusSprite();
 
-            ballLife = 0.0;
+            ballSprite = new BallSprite();
+
+            ballLife = -1.0;
+
+            rand = new();
 
             moveCheck = -1;
         }
 
         public void Attack(GameTime gameTime)
         {
-            Rectangle[] ballFrames = new[] { new Rectangle(101, 11, 8, 16), new Rectangle(110, 11, 8, 16), new Rectangle(119, 11, 8, 16), new Rectangle(128, 11, 8, 16) };
-            ball = ballFrames[((int)(ballDespawnMS - ballLife) / 200) % 4];
-
             int ballSpeedRecip = 10;
             ballLife -= gameTime.ElapsedGameTime.TotalMilliseconds;
             ball1Position.X -= (float)(gameTime.ElapsedGameTime.TotalMilliseconds / ballSpeedRecip);
@@ -72,86 +75,34 @@ namespace LOZ.Tools
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Begin();
+            aquamentusSprite.Draw(_spriteBatch, enemyPosition);
 
-            _spriteBatch.Draw(
-                Game1.BOSSES,
-                enemyPosition,
-                anim,
-                Color.White,
-                0f,
-                new Vector2(anim.Width / 2, anim.Height / 2),
-                Vector2.One,
-                SpriteEffects.None,
-                0f
-            );
-
-            if (ballLife > 0)
+            if (ballLife > 0.0)
             {
-                _spriteBatch.Draw(
-                    Game1.BOSSES,
-                    ball1Position,
-                    ball,
-                    Color.White,
-                    0f,
-                    new Vector2(ball.Width / 2, ball.Height / 2),
-                    Vector2.One,
-                    SpriteEffects.None,
-                    0f
-                );
-                _spriteBatch.Draw(
-                    Game1.BOSSES,
-                    ball2Position,
-                    ball,
-                    Color.White,
-                    0f,
-                    new Vector2(ball.Width / 2, ball.Height / 2),
-                    Vector2.One,
-                    SpriteEffects.None,
-                    0f
-                );
-                _spriteBatch.Draw(
-                    Game1.BOSSES,
-                    ball3Position,
-                    ball,
-                    Color.White,
-                    0f,
-                    new Vector2(ball.Width / 2, ball.Height / 2),
-                    Vector2.One,
-                    SpriteEffects.None,
-                    0f
-                );
+                ballSprite.Draw(_spriteBatch, ball1Position);
+                ballSprite.Draw(_spriteBatch, ball2Position);
+                ballSprite.Draw(_spriteBatch, ball3Position);
             }
-
-            _spriteBatch.End();
         }
 
         public void Update(GameTime gameTime)
         {
             MovementUpdate(gameTime);
-            AnimationUpdate(gameTime);
+            aquamentusSprite.Update(gameTime);
+            ballSprite.Update(gameTime, ballLife);
             AttackUpdate(gameTime);
         }
 
         private void AttackUpdate(GameTime gameTime)
         {
             if (ballLife > 0.0) Attack(gameTime);
-            else if (rand.Next() % 4950 <= 25)
+            else if (rand.Next() % 4950 <= 25 && ballLife < 0.0)
             {
                 ballLife = ballDespawnMS;
                 ball1Position = enemyPosition;
                 ball2Position = enemyPosition;
                 ball3Position = enemyPosition;
             }
-        }
-
-        private void AnimationUpdate(GameTime gameTime)
-        {
-            Rectangle[] aquementusFrames = new[] { new Rectangle(1, 11, 24, 32), new Rectangle(26, 11, 24, 32), new Rectangle(51, 11, 24, 32), new Rectangle(76, 11, 24, 32) };
-
-            //Currently this method does not know about nor care about if the enemy is attacking, which is a good thing, but probably hard to maintain
-
-            anim = aquementusFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / 200) % 4];
         }
 
         private void MovementUpdate(GameTime gameTime)

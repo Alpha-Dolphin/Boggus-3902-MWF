@@ -16,7 +16,7 @@ namespace LOZ.Tools.PlayerObjects
 
         void Damage();
 
-        void ChangeItem(int input);
+        void UseItem(int input);
 
         void Draw(SpriteBatch spriteBatch);
     }

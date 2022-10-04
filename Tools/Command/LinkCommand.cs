@@ -112,7 +112,7 @@ namespace LOZ.Tools.Command
         private void ExecuteChangeItem(int input)
         {
             link.UpdateState(Link_States.UseItem, link.getDirection());
-            link.ChangeItem(input);
+            link.UseItem(input);
         }
 
         private void ExecuteDamage()

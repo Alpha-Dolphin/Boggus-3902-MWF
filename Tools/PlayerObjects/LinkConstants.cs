@@ -32,7 +32,9 @@ namespace LOZ.Tools.PlayerObjects
         {
             Arrow,
             SwordBeam,
-            Boomerang
+            Boomerang,
+            Bomb,
+            CandleFlame
         }
         public enum Direction
         {
@@ -331,12 +333,13 @@ namespace LOZ.Tools.PlayerObjects
         public static List<Rectangle> ARROW_WOOD_DOWN_FRAMES = new List<Rectangle> { ARROW_WOOD_DOWN };
         public static List<Vector2> ARROW_DOWN_LOCATIONSHIFT = new List<Vector2>(new Vector2[] { new Vector2(7, 15) });
 
-        public const int MAX_WOODEN_ARROW_RANGE = 100;
-        public const int MAX_BLUE_ARROW_RANGE = 200;
-        public const int MAX_SWORDBEAM_RANGE = 200;
+        public const int MAX_WOODEN_ARROW_RANGE = 200;
+        public const int MAX_BLUE_ARROW_RANGE = 400;
+        public const int MAX_SWORDBEAM_RANGE = 300;
 
-        public const int PROJECTILE_SPEED = 2;
+        public const int PROJECTILE_SPEED = 5;
         public const int BOOMERANG_SPEED = 7;
+        public const int BOMB_EXPLOSION_DELAY = 10;
 
         public const int BOOMERANG_WOOD_WIDTH = 8;
         public const int BOOMERANG_WOOD_HEIGHT = 5;
@@ -345,7 +348,7 @@ namespace LOZ.Tools.PlayerObjects
         static Rectangle BOOMERANG_WOOD_FRAME2 = new Rectangle(73, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
         static Rectangle BOOMERANG_WOOD_FRAME3 = new Rectangle(82, 191, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_HEIGHT);
         static Rectangle BOOMERANG_WOOD_FRAME4 = new Rectangle(661, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
-        static Rectangle BOOMERANG_WOOD_FRAME5 = new Rectangle(672, 189, BOOMERANG_WOOD_HEIGHT, BOOMERANG_WOOD_HEIGHT);
+        static Rectangle BOOMERANG_WOOD_FRAME5 = new Rectangle(672, 189, BOOMERANG_WOOD_HEIGHT, BOOMERANG_WOOD_WIDTH);
         static Rectangle BOOMERANG_WOOD_FRAME6 = new Rectangle(341, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
         static Rectangle BOOMERANG_WOOD_FRAME7 = new Rectangle(368, 190, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_HEIGHT);
         static Rectangle BOOMERANG_WOOD_FRAME8 = new Rectangle(354, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
@@ -355,6 +358,21 @@ namespace LOZ.Tools.PlayerObjects
         public const float BOOMERANG_SPEEDCHANGE = 0.1f;
         public const int BOOMERANG_RETURNSPEEDCHANGE = 300;
         public const int BOOMERANG_RETURNRANGE = 30;
+
+        const int CANDLEFLAME_WIDTH = 16;
+        const int CANDLEFLAME_HEIGHT = 16;
+        static Rectangle CANDLEFLAME_FRAME1 = new Rectangle(191, 185, CANDLEFLAME_WIDTH, CANDLEFLAME_HEIGHT);
+        static Rectangle CANDLEFLAME_FRAME2 = new Rectangle(535, 185, CANDLEFLAME_WIDTH, CANDLEFLAME_HEIGHT);
+        public static List<Rectangle> CANDLEFLAME_FRAMES = new List<Rectangle> { CANDLEFLAME_FRAME1, CANDLEFLAME_FRAME2 };
+
+        public static Rectangle BOMB_FRAME = new Rectangle(129, 185, 8, 14);
+
+        const int BOMB_EXPLOSIONY = 185;
+        const int BOMB_EXPLOSION_WIDTH = 16;
+        static Rectangle BOMB_EXPLOSION_FRAME1 = new Rectangle(138, BOMB_EXPLOSIONY, BOMB_EXPLOSION_WIDTH, BOMB_EXPLOSION_WIDTH);
+        static Rectangle BOMB_EXPLOSION_FRAME2 = new Rectangle(155, BOMB_EXPLOSIONY, BOMB_EXPLOSION_WIDTH, BOMB_EXPLOSION_WIDTH);
+        static Rectangle BOMB_EXPLOSION_FRAME3 = new Rectangle(172, BOMB_EXPLOSIONY, BOMB_EXPLOSION_WIDTH, BOMB_EXPLOSION_WIDTH);
+        public static List<Rectangle> BOMB_EXPLOSION_FRAMES = new List<Rectangle> { BOMB_EXPLOSION_FRAME1, BOMB_EXPLOSION_FRAME2, BOMB_EXPLOSION_FRAME3 };
 
         public static void Initialize()
         {

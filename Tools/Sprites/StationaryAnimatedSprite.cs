@@ -46,7 +46,7 @@ public class StationaryAnimatedSprite //: ISprite
     /*
      Frame Counter
      */
-    private int currentFrame = 0;
+    public int currentFrame = 0;
     private double timeFlag;
 
     Texture2D spriteSheet;
@@ -159,7 +159,7 @@ public class StationaryAnimatedSprite //: ISprite
 
     public void updateCurrentFrame(GameTime gameTime)
     {
-        double currentTime = gameTime.TotalGameTime.TotalMilliseconds;
+        double currentTime = gameTime.ElapsedGameTime.TotalMilliseconds;
         if (DEBUG)
         {
             Debug.WriteLine("UpdateCurrentFrame Called. Current Frame Prior to Check: " + currentFrame);
@@ -168,7 +168,7 @@ public class StationaryAnimatedSprite //: ISprite
 
         }
 
-        if (currentTime > timeFlag + 30)
+        if (currentTime > 100)
         {
             currentFrame = (currentFrame + 1) % 2;
             timeFlag = currentTime;
