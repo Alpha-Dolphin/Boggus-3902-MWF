@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using LOZ.Tools.ItemObjects;
 using Microsoft.Xna.Framework.Graphics;
+using LOZ.Tools.EnemyObjects;
+using LOZ.Tools.PlayerObjects;
 
 namespace LOZ.Tools
 {
@@ -48,6 +50,9 @@ namespace LOZ.Tools
             else if (curr == 1) return CreateSlime();
             else if (curr == 2) return CreateStalfos();
             else if (curr == 3) return CreateGoriya();
+            else if (curr == 4) return CreateZol();
+            else if (curr == 5) return CreateRope();
+            else if (curr == 6) return CreateDodongo();
             else return CreateAquamentus();
 
             //Cobbling together broken NPC code
@@ -74,6 +79,18 @@ namespace LOZ.Tools
         public Enemy CreateStalfos()
         {
             return new Stalfos(X, Y);
+        }
+        public Enemy CreateZol()
+        {
+            return new Zol(X, Y);
+        }
+        public Enemy CreateRope()
+        {
+            return new Rope(X, Y);
+        }
+        public Enemy CreateDodongo()
+        {
+            return new Dodongo(X, Y);
         }
     }
 }
