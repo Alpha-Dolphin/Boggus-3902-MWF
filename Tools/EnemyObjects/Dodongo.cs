@@ -1,4 +1,5 @@
 ﻿using CSE3902_Sprint0.Sprites;
+using LOZ.Tools.EnemyObjects;
 using LOZ.Tools.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -14,127 +15,40 @@ namespace LOZ.Tools.PlayerObjects
 {
     internal class Dodongo : Enemy
     {
-        public static Vector2 position;
+        public Vector2 enemyDirection;
+        public Vector2 enemyPosition;
 
-        private int health;
-        private int invincibilityFrames = 0;
+        Vector2 boomerangPosition;
 
-        private Texture2D spriteSheet = Game1.BOSSES;
+        readonly DodongoSprite dodongoSprite;
+        readonly BoomerangeSprite boomerangSprite;
 
-        private AnimatedMovingSprite sprite;
+        readonly Random rand;
 
-        private Dodo_States state;
+        const int attackLength = 3000;
+        double attackTime;
 
-        private Dodo_Direction direction;
+        double moveCheck;
+        double moveTime;
+        double moveProb;
 
-        private enum Dodo_States
+        public Dodongo(int X, int Y)
         {
-            Normal,
-            Walking,
-            Damaged,
-            Dead
+            enemyDirection.X = 0;
+            enemyDirection.Y = 0;
+
+            enemyPosition.X = X;
+            enemyPosition.Y = Y;
+
+            rand = new();
+
+            attackTime = -1;
+
+            dodongoSprite = new DodongoSprite();
+            boomerangSprite = new BoomerangeSprite();
+
+            moveCheck = -1;
         }
-       
-        private enum Dodo_Direction
-        {
-            Up,
-            Down,
-            Left,
-            Right
-        }
-        public Dodongo()
-        {
-            Dodongo.position = new Vector2(0, 0);
-            
-            health = 2;
-            direction = Dodo_Direction.Up;
-        }
-
-        public Dodongo(int xPos, int yPos)
-        {
-            Dodongo.position = new Vector2(xPos, yPos);
-            /*
-            this.health = health;
-            */
-            
-            
-
-     
-            updateSprite();
-        }
-
-        private void updateSprite()
-        {
-            switch (this.state)
-            {
-                case Dodo_States.Normal: createStationarySprite(); break;
-                case Dodo_States.Walking: createWalkingSprite(); break;
-                
-                case Dodo_States.Damaged: createDamagedSprite(); break;
-                case Dodo_States.Dead: break;
-
-            }
-        }
-
-        private static Rectangle DODO_MOVEUP_FRAME1 = new Rectangle(35, 58, 16, 16);
-        private static Rectangle DODO_MOVEUP_FRAME2 = new Rectangle(937, 58, 16, 16);
-        private static List<Rectangle> DODO_MOVEUP_FRAMES = new List<Rectangle> { DODO_MOVEUP_FRAME1, DODO_MOVEUP_FRAME2 };
-
-        private static Rectangle DODO_MOVELEFT_FRAME1 = new Rectangle(854, 58, 16, 16);
-        private static Rectangle DODO_MOVELEFT_FRAME2 = new Rectangle(887, 58, 16, 16);
-        private static List<Rectangle> DODO_MOVELEFT_FRAMES = new List<Rectangle> { DODO_MOVELEFT_FRAME1, DODO_MOVELEFT_FRAME2 };
-
-        private static Rectangle DODO_MOVERIGHT_FRAME1 = new Rectangle(69, 58, 32, 16);
-        private static Rectangle DODO_MOVERIGHT_FRAME2 = new Rectangle(102, 58, 32, 16);
-        private static List<Rectangle> DODO_MOVERIGHT_FRAMES = new List<Rectangle> { DODO_MOVERIGHT_FRAME1, DODO_MOVERIGHT_FRAME2 };
-        
-
-        private static Rectangle DODO_MOVEDOWN_FRAME1 = new Rectangle(1, 58, 16, 16);
-        private static Rectangle DODO_MOVEDOWN_FRAME2 = new Rectangle(971, 58, 16,16);
-        private static List<Rectangle> DODO_MOVEDOWN_FRAMES = new List<Rectangle> { DODO_MOVEDOWN_FRAME1, DODO_MOVEDOWN_FRAME2 };
-
-        private static Rectangle DODO_DAMAGEDUP_FRAME1 = new Rectangle(52, 58, 16, 16);
-        private static List<Rectangle> DODO_DEMAGEDUP_FRAMES = new List<Rectangle> { DODO_MOVEUP_FRAME1, DODO_DAMAGEDUP_FRAME1 };
-
-        private static Rectangle DODO_DAMAGEDLEFT_FRAME1 = new Rectangle(821, 58, 32, 16);
-        private static List<Rectangle> DODO_DEMAGEDLEFT_FRAMES = new List<Rectangle> { DODO_MOVELEFT_FRAME1, DODO_DAMAGEDLEFT_FRAME1 };
-
-        private static Rectangle DODO_DAMAGEDRIGHT_FRAME1 = new Rectangle(135, 58, 32, 16);
-        private static List<Rectangle> DODO_DEMAGEDRIGHT_FRAMES = new List<Rectangle> { DODO_MOVERIGHT_FRAME1, DODO_DAMAGEDRIGHT_FRAME1 };
-
-        private static Rectangle DODO_DAMAGEDDOWN_FRAME1 = new Rectangle(18, 58, 16, 16);
-        private static List<Rectangle> DODO_DEMAGEDDOWN_FRAMES = new List<Rectangle> { DODO_MOVEDOWN_FRAME1, DODO_DAMAGEDDOWN_FRAME1 };
-        private void createStationarySprite()
-        {
-            Rectangle frame = new Rectangle();
-            switch (this.direction)
-            {
-                case Dodo_Direction.Up: frame = DODO_MOVEUP_FRAME1; break;               
-                case Dodo_Direction.Left: frame = DODO_MOVELEFT_FRAME1; break;
-                case Dodo_Direction.Right: frame = DODO_MOVERIGHT_FRAME1; break;
-                case Dodo_Direction.Down: frame = DODO_MOVEDOWN_FRAME1; break;
-            }
-
-            List<Rectangle> frames = new List<Rectangle>();
-            frames.Add(frame);
-
-            sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, frames);
-        }
-
-        private void createWalkingSprite()
-        {
-            List<Rectangle> frames = new List<Rectangle>();
-            switch (this.direction)
-            {
-                case Dodo_Direction.Up: frames =DODO_MOVEUP_FRAMES; break;
-                case Dodo_Direction.Left: frames = DODO_MOVELEFT_FRAMES; break;
-                case Dodo_Direction.Right: frames = DODO_MOVERIGHT_FRAMES; break;
-                case Dodo_Direction.Down: frames = DODO_MOVEDOWN_FRAMES; break;
-            }
-
-            sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, frames);
-        }
-
 
         public void Attack(GameTime gameTime)
         {
@@ -143,78 +57,75 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Die(GameTime gameTime)
         {
-            if (this.health <= 0) this.state = Dodo_States.Dead;
-        }
-        private void createDamagedSprite()
-        {
-            switch (this.direction)
-            {
-                case Dodo_Direction.Up:
-                    this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, DODO_DEMAGEDUP_FRAMES, 5) ; break;
-                case Dodo_Direction.Left:
-                    this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, DODO_DEMAGEDLEFT_FRAMES, 5); break;
-                case Dodo_Direction.Right:
-                    this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, DODO_DEMAGEDRIGHT_FRAMES, 5); break;
-                case Dodo_Direction.Down:
-                    this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, DODO_DEMAGEDDOWN_FRAMES, 5); break;
-            }
+            //Nothing
         }
 
         public void Move(GameTime gameTime)
         {
-            if (this.invincibilityFrames == 0)
+            if (attackTime < 0.0)
             {
-                int xDiff = 0;
-                int yDiff = 0;
-
-                switch (direction)
-                {
-                    case Dodo_Direction.Left: xDiff = -(int)(float)(gameTime.ElapsedGameTime.TotalMilliseconds / 25); break;
-                    case Dodo_Direction.Right: xDiff = (int)(float)(gameTime.ElapsedGameTime.TotalMilliseconds / 25); break;
-                    case Dodo_Direction.Down: yDiff = (int)(float)(gameTime.ElapsedGameTime.TotalMilliseconds / 25); break;
-                    case Dodo_Direction.Up: yDiff = -(int)(float)(gameTime.ElapsedGameTime.TotalMilliseconds / 25); break;
-                    default: xDiff = 0; yDiff = 0; break;
-                }
-
-                //Boundary check
-                Dodongo.position += new Vector2(xDiff, yDiff);
+                enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+                enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
             }
         }
 
-    
-
-        
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch _spriteBatch)
         {
-            this.sprite.Draw(spriteBatch);
-        
+            if (attackTime > 0.0) boomerangSprite.Draw(_spriteBatch, boomerangPosition);
+            dodongoSprite.Draw(_spriteBatch, enemyPosition);
         }
+
         public void Update(GameTime gameTime)
         {
-            UpdateState(gameTime);
-            UpdateVisual(gameTime);
+            dodongoSprite.Update(gameTime, enemyDirection);
+            AttackUpdate(gameTime);
+            if (attackTime < 0.0) MovementUpdate(gameTime);
+            else boomerangSprite.Update(gameTime, attackLength, attackTime);
         }
 
-        private void UpdateState(GameTime gameTime)
+        private void AttackUpdate(GameTime gameTime)
         {
-            if (this.invincibilityFrames == 0)
+            if (attackTime > 0.0) Attack(gameTime);
+            else if (rand.Next() % 4950 <= 25)
             {
-                updateSprite();
+                attackTime = attackLength;
+                boomerangPosition = enemyPosition;
             }
         }
 
-        public void UpdateVisual(GameTime gameTime)
+        private void MovementUpdate(GameTime gameTime)
         {
-            this.sprite.Update((int)position.X, (int)position.Y);
-           
-            if (this.invincibilityFrames > 0) this.invincibilityFrames--;
+            if (moveTime <= 0 && moveCheck <= 0)
+            {
+                moveCheck = 25;
+                if (rand.Next() % (4950 / 2) + 50 > moveProb)
+                {
+                    //Please just let not zero equal true
+                    int speed = 1;
 
-            
-        }
+                    if (rand.Next() % 2 == 1)
+                    {
+                        if (rand.Next() % 2 == 1) enemyDirection.X = speed;
+                        else enemyDirection.X = -speed;
+                        enemyDirection.Y = 0;
+                    }
+                    else
+                    {
+                        if (rand.Next() % 2 == 1) enemyDirection.Y = speed;
+                        else enemyDirection.Y = -speed;
+                        enemyDirection.X = 0;
+                    }
 
-        private Dodo_Direction getDirection()
-        {
-            return this.direction;
+                    moveTime = rand.Next() % 2000 + 200;
+                    moveProb = 0;
+                }
+                moveProb -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
+            else
+            {
+                if (moveTime > 0) moveTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                else moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
         }
     }
 }
