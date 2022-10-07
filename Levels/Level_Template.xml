@@ -1,6 +1,6 @@
 ﻿<?xml version ="1.0"?>
 <level num ="1">
-	<!--Room number accessed as attribue-->
+	<!--Room number accessed as attribue, add a room for every room in a level-->
 	<room num ="1">
 		<!--Boolean True or False describes if border is drawn at edges-->
 		<border>
