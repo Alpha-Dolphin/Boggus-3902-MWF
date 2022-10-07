@@ -1,6 +1,6 @@
 ﻿<?xml version ="1.0"?>
 <!--Level number accessed as attribue-->
-<level num ="1">
+<room num ="1">
 	<!--Boolean True or False describes if border is drawn at edges-->
 	<border>
 		true 
@@ -75,4 +75,12 @@
 			</yPlacement>
 		</item>
 	</items>
-</level>
+	<!--neighbors contains the labels for adjacent rooms-->
+	<neighbors>
+		<!--id indicates room number-->
+		<north id="0"/>
+		<south id ="none"/>
+		<east id ="none"/>
+		<west id ="none"/>
+	</neighbors>
+</room>
