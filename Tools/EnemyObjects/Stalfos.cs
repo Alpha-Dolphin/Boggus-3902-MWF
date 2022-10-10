@@ -4,26 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using System.Reflection.Metadata;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
 using LOZ.Tools.Interfaces;
-using LOZ;
+using LOZ.Tools;
 
-namespace Workspace
+namespace LOZ.Tools
 {
     internal class Stalfos : Enemy
     {
-        Rectangle anim;
+        Vector2 enemyDirection;
+        Vector2 enemyPosition;
 
-        Vector2 direction;
-        Vector2 position;
+        readonly ISpriteEnemy stalfosSprite;
 
         readonly Random rand = new();
-
-        SpriteEffects animState;
 
         double moveCheck;
         double moveTime;
@@ -31,13 +28,14 @@ namespace Workspace
 
         public Stalfos(int X, int Y)
         {
-            anim = new Rectangle(1, 59, 16, 16);
 
-            position.X = X;
-            position.Y = Y;
+            enemyPosition.X = X;
+            enemyPosition.Y = Y;
 
-            direction.X = 0;
-            direction.Y = 0;
+            stalfosSprite = new StalfosSprite();
+
+            enemyDirection.X = 0;
+            enemyDirection.Y = 0;
 
             moveCheck = -1;
         }
@@ -54,38 +52,19 @@ namespace Workspace
 
         public void Move(GameTime gameTime)
         {
-            position.X += direction.X;
-            position.Y += direction.Y;
+            enemyPosition.X += enemyDirection.X;
+            enemyPosition.Y += enemyDirection.Y;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Begin();
-
-            _spriteBatch.Draw(
-                Game1.REGULAR_ENEMIES,
-                position,
-                anim,
-                Color.White,
-                0f,
-                new Vector2(anim.Width / 2, anim.Height / 2),
-                Vector2.One,
-                animState,
-                0f
-            );
-
-            _spriteBatch.End();
+            stalfosSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
         {
             MovementUpdate(gameTime);
-            AnimationUpdate(gameTime);
-        }
-
-        private void AnimationUpdate(GameTime gameTime)
-        {
-            animState = (((int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2) == 0) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            stalfosSprite.Update(gameTime);
         }
 
         private void MovementUpdate(GameTime gameTime)
@@ -100,15 +79,15 @@ namespace Workspace
 
                     if (rand.Next() % 2 == 1)
                     {
-                        if (rand.Next() % 2 == 1) direction.X = speed;
-                        else direction.X = -speed;
-                        direction.Y = 0;
+                        if (rand.Next() % 2 == 1) enemyDirection.X = speed;
+                        else enemyDirection.X = -speed;
+                        enemyDirection.Y = 0;
                     }
                     else
                     {
-                        if (rand.Next() % 2 == 1) direction.Y = speed;
-                        else direction.Y = -speed;
-                        direction.X = 0;
+                        if (rand.Next() % 2 == 1) enemyDirection.Y = speed;
+                        else enemyDirection.Y = -speed;
+                        enemyDirection.X = 0;
                     }
 
                     moveTime = rand.Next() % 2000 + 200;

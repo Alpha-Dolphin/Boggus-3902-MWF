@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LOZ;
 
-
-    public class SquareBlock:IEnvironment
+namespace LOZ.Tools.EnvironmentObjects
+{
+    internal class PushBlock : IEnvironment
     {
         private EnviroSprite enviroSprite = new EnviroSprite();
 
@@ -30,4 +30,4 @@ using LOZ;
             enviroSprite.loadSpriteSheet(Game1.ENVIRONMENT_SPRITESHEET);
         }
     }
-
+}

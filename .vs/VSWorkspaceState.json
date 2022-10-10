@@ -1,16 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Content",
-    "\\Content\\SpriteSheets",
-    "\\Management Docs",
-    "\\Management Docs\\Code Reviews",
     "\\Tools",
-    "\\Tools\\EnemyObjects",
+    "\\Tools\\EnvironmentObjects",
     "\\Tools\\EnvironmentObjects\\Helpers",
-    "\\Tools\\NPCObjects",
-    "\\Tools\\Sprites"
+    "\\Tools\\NPCObjects"
   ],
-  "SelectedNode": "\\Tools\\Sprites\\StationaryAnimatedSprite.cs",
+  "SelectedNode": "\\LOZ.sln",
   "PreviewInSolutionExplorer": false
 }
