@@ -12,9 +12,6 @@ namespace LOZ.Tools
 {
     internal class Slime : IEnemy
     {
-        Vector2 enemyDirection;
-        Vector2 enemyPosition;
-
         readonly ISpriteEnemy slimeSprite;
 
         readonly Random rand;
@@ -27,15 +24,15 @@ namespace LOZ.Tools
 
         public Slime(int X, int Y)
         {
-            enemyDirection.X = 0;
-            enemyDirection.Y = 0;
+            IEnemy.enemyDirection.X = 0;
+            IEnemy.enemyDirection.Y = 0;
 
             slimeSprite = new SlimeSprite();
 
             rand = new();
 
-            enemyPosition.X = X;
-            enemyPosition.Y = Y;
+            IEnemy.enemyPosition.X = X;
+            IEnemy.enemyPosition.Y = Y;
 
             moveCheck = -1;
         }
@@ -52,13 +49,13 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
-            enemyPosition.X += enemyDirection.X;
-            enemyPosition.Y += enemyDirection.Y;
+            IEnemy.enemyPosition.X += IEnemy.enemyDirection.X;
+            IEnemy.enemyPosition.Y += IEnemy.enemyDirection.Y;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            slimeSprite.Draw(_spriteBatch, enemyPosition);
+            slimeSprite.Draw(_spriteBatch, IEnemy.enemyPosition);
         }
 
         public void Update(GameTime gameTime)
@@ -79,15 +76,15 @@ namespace LOZ.Tools
 
                     if (rand.Next() % 2 == 1)
                     {
-                        if (rand.Next() % 2 == 1) enemyDirection.X = speed;
-                        else enemyDirection.X = -speed;
-                        enemyDirection.Y = 0;
+                        if (rand.Next() % 2 == 1) IEnemy.enemyDirection.X = speed;
+                        else IEnemy.enemyDirection.X = -speed;
+                        IEnemy.enemyDirection.Y = 0;
                     }
                     else
                     {
-                        if (rand.Next() % 2 == 1) enemyDirection.Y = speed;
-                        else enemyDirection.Y = -speed;
-                        enemyDirection.X = 0;
+                        if (rand.Next() % 2 == 1) IEnemy.enemyDirection.Y = speed;
+                        else IEnemy.enemyDirection.Y = -speed;
+                        IEnemy.enemyDirection.X = 0;
                     }
 
                     moveTime = rand.Next() % 2000 + 200;
@@ -102,8 +99,8 @@ namespace LOZ.Tools
                 else
                 {
                     moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
-                    enemyDirection.X = 0;
-                    enemyDirection.Y = 0;
+                    IEnemy.enemyDirection.X = 0;
+                    IEnemy.enemyDirection.Y = 0;
                 }
             }
         }

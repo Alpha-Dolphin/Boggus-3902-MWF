@@ -8,9 +8,6 @@ namespace LOZ.Tools
 {
     internal class Keese : IEnemy
     {
-        Vector2 enemyDirection;
-        Vector2 enemyPosition;
-
         readonly Random rand = new();
 
         readonly ISpriteEnemy keeseSprite;
@@ -21,11 +18,11 @@ namespace LOZ.Tools
 
         public Keese(int X, int Y)
         {
-            enemyDirection.X = rand.Next() % 400 / 100 - 2;
-            enemyDirection.Y = rand.Next() % 400 / 100 - 2;
+            IEnemy.enemyDirection.X = rand.Next() % 400 / 100 - 2;
+            IEnemy.enemyDirection.Y = rand.Next() % 400 / 100 - 2;
 
-            enemyPosition.X = X;
-            enemyPosition.Y = Y;
+            IEnemy.enemyPosition.X = X;
+            IEnemy.enemyPosition.Y = Y;
 
             keeseSprite = new KeeseSprite();
 
@@ -48,19 +45,19 @@ namespace LOZ.Tools
         {
             if (0 < moveCounter)
             {
-                enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
-                enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+                IEnemy.enemyPosition.X += (float)(IEnemy.enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+                IEnemy.enemyPosition.Y += (float)(IEnemy.enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
             }
             else
             {
-                enemyDirection.X = rand.Next() % 400 / 100 - 2;
-                enemyDirection.Y = rand.Next() % 400 / 100 - 2;
+                IEnemy.enemyDirection.X = rand.Next() % 400 / 100 - 2;
+                IEnemy.enemyDirection.Y = rand.Next() % 400 / 100 - 2;
             }
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            keeseSprite.Draw(_spriteBatch, enemyPosition);
+            keeseSprite.Draw(_spriteBatch, IEnemy.enemyPosition);
         }
 
         public void Update(GameTime gameTime)

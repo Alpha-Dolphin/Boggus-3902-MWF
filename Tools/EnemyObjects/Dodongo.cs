@@ -15,9 +15,6 @@ namespace LOZ.Tools.PlayerObjects
 {
     internal class Dodongo : IEnemy
     {
-        public Vector2 enemyDirection;
-        public Vector2 enemyPosition;
-
         Vector2 boomerangPosition;
 
         readonly DodongoSprite dodongoSprite;
@@ -34,11 +31,11 @@ namespace LOZ.Tools.PlayerObjects
 
         public Dodongo(int X, int Y)
         {
-            enemyDirection.X = 0;
-            enemyDirection.Y = 0;
+            IEnemy.enemyDirection.X = 0;
+            IEnemy.enemyDirection.Y = 0;
 
-            enemyPosition.X = X;
-            enemyPosition.Y = Y;
+            IEnemy.enemyPosition.X = X;
+            IEnemy.enemyPosition.Y = Y;
 
             rand = new();
 
@@ -64,20 +61,20 @@ namespace LOZ.Tools.PlayerObjects
         {
             if (attackTime < 0.0)
             {
-                enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
-                enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+                IEnemy.enemyPosition.X += (float)(IEnemy.enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+                IEnemy.enemyPosition.Y += (float)(IEnemy.enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
             }
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
             if (attackTime > 0.0) boomerangSprite.Draw(_spriteBatch, boomerangPosition);
-            dodongoSprite.Draw(_spriteBatch, enemyPosition);
+            dodongoSprite.Draw(_spriteBatch, IEnemy.enemyPosition);
         }
 
         public void Update(GameTime gameTime)
         {
-            dodongoSprite.Update(gameTime, enemyDirection);
+            dodongoSprite.Update(gameTime, IEnemy.enemyDirection);
             AttackUpdate(gameTime);
             if (attackTime < 0.0) MovementUpdate(gameTime);
             else boomerangSprite.Update(gameTime, attackLength, attackTime);
@@ -89,7 +86,7 @@ namespace LOZ.Tools.PlayerObjects
             else if (rand.Next() % 4950 <= 25 && false)
             {
                 attackTime = attackLength;
-                boomerangPosition = enemyPosition;
+                boomerangPosition = IEnemy.enemyPosition;
             }
         }
 
@@ -105,15 +102,15 @@ namespace LOZ.Tools.PlayerObjects
 
                     if (rand.Next() % 2 == 1)
                     {
-                        if (rand.Next() % 2 == 1) enemyDirection.X = speed;
-                        else enemyDirection.X = -speed;
-                        enemyDirection.Y = 0;
+                        if (rand.Next() % 2 == 1) IEnemy.enemyDirection.X = speed;
+                        else IEnemy.enemyDirection.X = -speed;
+                        IEnemy.enemyDirection.Y = 0;
                     }
                     else
                     {
-                        if (rand.Next() % 2 == 1) enemyDirection.Y = speed;
-                        else enemyDirection.Y = -speed;
-                        enemyDirection.X = 0;
+                        if (rand.Next() % 2 == 1) IEnemy.enemyDirection.Y = speed;
+                        else IEnemy.enemyDirection.Y = -speed;
+                        IEnemy.enemyDirection.X = 0;
                     }
 
                     moveTime = rand.Next() % 2000 + 200;

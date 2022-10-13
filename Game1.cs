@@ -19,6 +19,11 @@ namespace LOZ
 {
     public class Game1 : Game
     {
+        private IEnemy[] enemyList;
+        private ICollision[] staicBlocks;
+        private ICollision[] dynamicBlocks;
+        private Collision collisionObject;
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
         private ItemFactory itemFactory;
@@ -116,7 +121,31 @@ namespace LOZ
 
         protected override void Update(GameTime gameTime)
         {
-            
+/*            foreach (IEnemy ene in enemyList)
+            {
+                if (collisionObject.Intersects(Link, ene)) CollisionChecker(Link, ene);
+                foreach (IEnvironment sB in staicBlocks)
+                {
+                    if (collisionObject.Intersects(sB, ene)) CollisionChecker(sB, ene);
+                }
+                foreach (IEnvironment dB in dynamicBlocks)
+                {
+                    if (collisionObject.Intersects(dB, ene)) CollisionChecker(dB, ene);
+                }
+            }
+            foreach (IEnvironment sB in staicBlocks)
+            {
+                if (collisionObject.Intersects(Link, sB)) CollisionChecker(Link, sB);
+                foreach (IEnvironment dB in dynamicBlocks)
+                {
+                    if (collisionObject.Intersects(dB, sB)) CollisionChecker(dB, sB);
+                }
+            }
+            foreach (IEnvironment dB in dynamicBlocks)
+            {
+                if (collisionObject.Intersects(Link, dB)) CollisionChecker(Link, dB);
+            }*/
+
             /*
              * Update logic here
              */

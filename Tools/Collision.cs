@@ -13,11 +13,11 @@ namespace LOZ.Tools
     internal class Collision
     {
         double damageCooldown;
-        bool Intersects(Rectangle a, Rectangle b)
+        public bool Intersects(Rectangle a, Rectangle b)
         {
             return a.Intersects(b);
         }
-        void CollisionChecker(Object a, Object b)
+        public void CollisionChecker(Object a, Object b)
         {
             //Link must always be the first object in the list if Link is in the list
             if (a is Link linka)
