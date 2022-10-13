@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.Interfaces
 {
-    internal interface Enemy
+    internal interface IEnemy
     {
         void Attack(GameTime gameTime);
         void Die(GameTime gameTime);

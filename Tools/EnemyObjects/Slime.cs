@@ -10,7 +10,7 @@ using LOZ.Tools;
 
 namespace LOZ.Tools
 {
-    internal class Slime : Enemy
+    internal class Slime : IEnemy
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;

@@ -12,28 +12,35 @@ namespace LOZ.Tools
 {
     internal class Collision
     {
-        bool CollisionChecker(Rectangle a, Rectangle b)
+        double damageCooldown;
+        bool Intersects(Rectangle a, Rectangle b)
         {
             return a.Intersects(b);
         }
-
-        void CollisionDirective(Object a, Object b)
+        void CollisionChecker(Object a, Object b)
         {
-            if (a is IEnvironment)
+            //This code could be simplified if it can be guranteed Link will always be the 1st (or last) object in the array of collidable objects
+            if (a is Link linka)
             {
-/*                if (b is Enemy b1) collide(a rect, b1 rect);*/
+                if (b is IEnemy) linka.Damage();
+                /*else if (b.Moveable()) Collide(linka.getRect(), b.getRect());
+                 else Collide(b,getRect(), linka.getRect());*/
             }
-            if (b is IEnvironment)
+            else if (a is IEnvironment && b is IEnvironment)
             {
-/*                if (a is Enemy a1) collide(b rect, a1 rect);
-                else if (a is Link a2) collide(b rect, a2 rect);*/
+                /*if (a.Moveable()) Collide(a.getRect(), b.getRect())
+                else Collide(b.getRect(), a.getRect())*/
             }
-            else if (a is Link linka && b is Enemy) linka.Damage();
+            //Wall colliding with enemy
+            else if (a is IEnvironment) /*collide(a.getRect(),b.getRect())*/;
+            else /*Collide(b.getRect(),a.getRect())*/;
         }
-
         void Collide(Rectangle unchanged, Rectangle changed)
         {
-
+            Rectangle zone = Rectangle.Intersect(unchanged, changed);
+            //If colliison is taller than wide
+            if (zone.Bottom - zone.Top > zone.Right - zone.Left) changed.X -= zone.X;
+            else changed.Y -= zone.Y;
         }
     }
 }

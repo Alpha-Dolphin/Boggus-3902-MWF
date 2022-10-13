@@ -13,7 +13,7 @@ using LOZ.Tools;
 
 namespace LOZ.Tools
 {
-    internal class Stalfos : Enemy
+    internal class Stalfos : IEnemy
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;
