@@ -19,7 +19,7 @@ namespace LOZ.Tools
         }
         void CollisionChecker(Object a, Object b)
         {
-            //This code could be simplified if it can be guranteed Link will always be the 1st (or last) object in the array of collidable objects
+            //Link must always be the first object in the list if Link is in the list
             if (a is Link linka)
             {
                 if (b is IEnemy) linka.Damage();
