@@ -28,5 +28,10 @@ namespace LOZ.Tools
             Rectangle[] SlimeFrames = new[] { new Rectangle(1, 11, 8, 16), new Rectangle(10, 11, 8, 16) };
             anim = SlimeFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2];
         }
+
+        public Rectangle GetRectangle()
+        {
+            return anim;
+        }
     }
 }

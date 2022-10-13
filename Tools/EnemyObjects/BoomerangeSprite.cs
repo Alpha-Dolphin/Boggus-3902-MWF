@@ -25,6 +25,11 @@ namespace LOZ.Tools
             );
         }
 
+        public Rectangle GetRectangle()
+        {
+            return boomerang;
+        }
+
         public void Update(GameTime gameTime)
         {
             //Nothing

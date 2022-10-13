@@ -3,6 +3,7 @@ using LOZ.Tools;
 using Microsoft.Xna.Framework;
 using System;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
+using LOZ.Tools.EnemyObjects;
 
 namespace LOZ.Tools
 {
@@ -29,6 +30,11 @@ namespace LOZ.Tools
             moveCounter = 0.0;
             timeToMove = 0.0;
             moveCheck = 0.0;
+        }
+
+        public Rectangle GetRectangle()
+        {
+            return keeseSprite.GetRectangle();
         }
 
         public void Attack(GameTime gameTime)

@@ -46,6 +46,10 @@ namespace LOZ.Tools.EnemyObjects
             //Nothing
         }
 
+        public Rectangle GetRectangle()
+        {
+            return RopeSprite.GetRectangle();
+        }
         public void Move(GameTime gameTime)
         {
             IEnemy.enemyPosition.X += IEnemy.enemyDirection.X;

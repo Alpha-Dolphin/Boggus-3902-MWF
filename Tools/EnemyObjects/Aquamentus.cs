@@ -13,8 +13,6 @@ namespace LOZ.Tools
     internal class Aquamentus : IEnemy
     {
 
-
-
         readonly ISpriteEnemy aquamentusSprite;
 
         readonly BallSprite ballSprite;
@@ -71,6 +69,11 @@ namespace LOZ.Tools
         {
             IEnemy.enemyPosition.X += (float)(IEnemy.enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
             IEnemy.enemyPosition.Y += (float)(IEnemy.enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+        }
+
+        public Rectangle GetRectangle()
+        {
+            return aquamentusSprite.GetRectangle();
         }
 
         public void Draw(SpriteBatch _spriteBatch)

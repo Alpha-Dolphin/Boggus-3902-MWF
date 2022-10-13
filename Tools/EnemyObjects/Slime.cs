@@ -36,7 +36,10 @@ namespace LOZ.Tools
 
             moveCheck = -1;
         }
-
+        public Rectangle GetRectangle()
+        {
+            return slimeSprite.GetRectangle();
+        }
         public void Attack(GameTime gameTime)
         {
             //Nothing

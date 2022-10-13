@@ -27,6 +27,12 @@ namespace LOZ.Tools
                 0f
             );
         }
+
+        public Rectangle GetRectangle()
+        {
+            return anim;
+        }
+
         public void Update(GameTime gameTime)
         {
             Rectangle[] aquementusFrames = new[] { new Rectangle(1, 11, 24, 32), new Rectangle(26, 11, 24, 32), new Rectangle(51, 11, 24, 32), new Rectangle(76, 11, 24, 32) };

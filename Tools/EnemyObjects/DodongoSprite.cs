@@ -27,6 +27,10 @@ namespace LOZ.Tools.EnemyObjects
                 0f
             );
         }
+        public Rectangle GetRectangle()
+        {
+            return anim;
+        }
         public void Update(GameTime gameTime)
         {
             //Nothing

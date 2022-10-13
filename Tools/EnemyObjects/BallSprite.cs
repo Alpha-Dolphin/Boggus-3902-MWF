@@ -23,6 +23,10 @@ namespace LOZ.Tools
                 0f
             );
         }
+        public Rectangle GetRectangle()
+        {
+            return ball;
+        }
         public void Update(GameTime gameTime)
         {
             //Nothing

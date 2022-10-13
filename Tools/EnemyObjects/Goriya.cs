@@ -43,6 +43,11 @@ namespace LOZ.Tools
             moveCheck = -1;
         }
 
+        public Rectangle GetRectangle()
+        {
+            return goriyaSprite.GetRectangle();
+        }
+
         public void Attack(GameTime gameTime)
         {
             int boomerangSpeedRecip = 25;

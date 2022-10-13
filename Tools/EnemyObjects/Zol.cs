@@ -36,6 +36,11 @@ namespace LOZ.Tools.EnemyObjects
             moveCheck = -1;
         }
 
+        public Rectangle GetRectangle()
+        {
+            return ZolSprite.GetRectangle();
+        }
+
         public void Attack(GameTime gameTime)
         {
             //Nothing

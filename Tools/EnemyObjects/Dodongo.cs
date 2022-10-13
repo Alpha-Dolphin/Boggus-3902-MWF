@@ -56,6 +56,10 @@ namespace LOZ.Tools.PlayerObjects
         {
             //Nothing
         }
+        public Rectangle GetRectangle()
+        {
+            return dodongoSprite.GetRectangle();
+        }
 
         public void Move(GameTime gameTime)
         {
