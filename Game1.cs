@@ -120,7 +120,7 @@ namespace LOZ
 
         protected override void Update(GameTime gameTime)
         {
-            UpdateCollision();
+            //UpdateCollision();
 
             /*
              * Update logic here

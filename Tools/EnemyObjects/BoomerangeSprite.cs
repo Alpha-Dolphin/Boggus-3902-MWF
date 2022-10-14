@@ -6,7 +6,7 @@ using System;
 
 namespace LOZ.Tools
 {
-    internal class BoomerangeSprite : ISpriteEnemy
+    internal class BoomerangSprite : ISpriteEnemy
     {
         Rectangle boomerang;
         float boomerangRotation;

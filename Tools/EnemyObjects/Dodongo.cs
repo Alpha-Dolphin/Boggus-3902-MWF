@@ -20,7 +20,7 @@ namespace LOZ.Tools.PlayerObjects
         Vector2 boomerangPosition;
 
         readonly DodongoSprite dodongoSprite;
-        readonly BoomerangeSprite boomerangSprite;
+        readonly BoomerangSprite boomerangSprite;
 
         readonly Random rand;
 
@@ -44,7 +44,7 @@ namespace LOZ.Tools.PlayerObjects
             attackTime = -1;
 
             dodongoSprite = new DodongoSprite();
-            boomerangSprite = new BoomerangeSprite();
+            boomerangSprite = new BoomerangSprite();
 
             moveCheck = -1;
         }
