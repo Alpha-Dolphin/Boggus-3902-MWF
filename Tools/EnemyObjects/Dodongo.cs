@@ -15,6 +15,8 @@ namespace LOZ.Tools.PlayerObjects
 {
     internal class Dodongo : IEnemy
     {
+        Vector2 enemyDirection;
+        Vector2 enemyPosition;
         Vector2 boomerangPosition;
 
         readonly DodongoSprite dodongoSprite;

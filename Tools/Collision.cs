@@ -1,4 +1,5 @@
-﻿using LOZ.Tools.Interfaces;
+﻿using LOZ.Tools.EnvironmentObjects;
+using LOZ.Tools.Interfaces;
 using LOZ.Tools.PlayerObjects;
 using Microsoft.Xna.Framework;
 using System;
@@ -12,12 +13,11 @@ namespace LOZ.Tools
 {
     internal class Collision
     {
-        double damageCooldown;
-        public bool Intersects(Rectangle a, Rectangle b)
+        public static bool Intersects(Rectangle a, Rectangle b)
         {
             return a.Intersects(b);
         }
-        public void CollisionChecker(Object a, Object b)
+        public static void CollisionChecker(Object a, Object b)
         {
             //Link must always be the first object in the list if Link is in the list
             if (a is Link linka)
@@ -26,21 +26,35 @@ namespace LOZ.Tools
                 /*else if (b.Moveable()) Collide(linka.getRect(), b.getRect());
                  else Collide(b,getRect(), linka.getRect());*/
             }
-            else if (a is IEnvironment && b is IEnvironment)
+            else if (a is IEnvironment aBlock && b is IEnvironment bBlock)
             {
-                /*if (a.Moveable()) Collide(a.getRect(), b.getRect())
-                else Collide(b.getRect(), a.getRect())*/
+                if (bBlock is PushBlock) Collide(aBlock.GetRectangle(), aBlock.GetRectangle());
+                //Otherwise a must be PushBlock
+                else Collide(bBlock.GetRectangle(), aBlock.GetRectangle());
             }
-            //Wall colliding with enemy
-            else if (a is IEnvironment) /*collide(a.getRect(),b.getRect())*/;
-            else /*Collide(b.getRect(),a.getRect())*/;
+            else if (a is IEnemy aEnemy)
+            {
+                if (b is IEnvironment bBlock2) Collide(bBlock2.GetRectangle(), aEnemy.GetRectangle());
+                else
+                {
+                    //Won't let me assign bEnemy on it's own.
+                    if (b is IEnemy bEnemy) Collide(aEnemy.GetRectangle(), bEnemy.GetRectangle());
+                }
+            }
         }
-        void Collide(Rectangle unchanged, Rectangle changed)
+        static void Collide(Rectangle unchanged, Rectangle changed)
         {
             Rectangle zone = Rectangle.Intersect(unchanged, changed);
             //If colliison is taller than wide
-            if (zone.Bottom - zone.Top > zone.Right - zone.Left) changed.X -= zone.X;
-            else changed.Y -= zone.Y;
+            if (zone.Bottom - zone.Top > zone.Right - zone.Left)
+            {
+                if (changed.Right > zone.Right) changed.X += zone.X;
+                else changed.X -= zone.X;
+            }
+            else {
+                if (changed.Top > zone.Top) changed.Y -= zone.Y;
+                else changed.Y += zone.Y;
+            }
         }
     }
 }

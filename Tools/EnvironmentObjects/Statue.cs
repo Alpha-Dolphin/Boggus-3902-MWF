@@ -1,7 +1,7 @@
 ﻿/*Statue object*/
 
 using LOZ;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics;using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using LOZ.Tools.EnvironmentObjects.Helpers;
 
@@ -26,5 +26,9 @@ class Statue : IEnvironment
     public void load()
     {
         enviroSprite.loadSpriteSheet(Game1.ENVIRONMENT_SPRITESHEET);
+    }
+    public Rectangle GetRectangle()
+    {
+        return new Rectangle(enviroSprite.positionX, enviroSprite.positionY, enviroSprite.width, enviroSprite.height);
     }
 }

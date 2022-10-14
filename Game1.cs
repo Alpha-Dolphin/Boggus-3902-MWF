@@ -22,7 +22,6 @@ namespace LOZ
         private IEnemy[] enemyList;
         private ICollision[] staticBlocks;
         private ICollision[] dynamicBlocks;
-        private Collision collisionObject;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
@@ -121,30 +120,7 @@ namespace LOZ
 
         protected override void Update(GameTime gameTime)
         {
-/*            foreach (IEnemy ene in enemyList)
-            {
-                if (collisionObject.Intersects(Link, ene.GetRectangle())) CollisionChecker(Link, ene.GetRectangle());
-                foreach (IEnvironment sB in staticBlocks)
-                {
-                    if (collisionObject.Intersects(sB, ene.GetRectangle())) CollisionChecker(sB, ene.GetRectangle());
-                }
-                foreach (IEnvironment dB in dynamicBlocks)
-                {
-                    if (collisionObject.Intersects(dB, ene.GetRectangle())) CollisionChecker(dB, ene.GetRectangle());
-                }
-            }
-            foreach (IEnvironment sB in staticBlocks)
-            {
-                if (collisionObject.Intersects(Link, sB)) CollisionChecker(Link, sB);
-                foreach (IEnvironment dB in dynamicBlocks)
-                {
-                    if (collisionObject.Intersects(dB, sB)) CollisionChecker(dB, sB);
-                }
-            }
-            foreach (IEnvironment dB in dynamicBlocks)
-            {
-                if (collisionObject.Intersects(Link, dB)) CollisionChecker(Link, dB);
-            }*/
+            UpdateCollision();
 
             /*
              * Update logic here
@@ -169,6 +145,34 @@ namespace LOZ
 
             /*Here we update the environment placement for existing environment objects*/
             environmentCommandHandler.executeNewPressedOnly(pressed, controller.held);
+        }
+
+        private void UpdateCollision()
+        {
+            foreach (IEnemy ene in enemyList)
+            {
+                //if (Collision.Intersects(link, ene.GetRectangle())) Collision.CollisionChecker(link, ene);
+                foreach (IEnvironment sB in staticBlocks)
+                {
+                    if (Collision.Intersects(sB.GetRectangle(), ene.GetRectangle())) Collision.CollisionChecker(sB, ene);
+                }
+                foreach (IEnvironment dB in dynamicBlocks)
+                {
+                    if (Collision.Intersects(dB.GetRectangle(), ene.GetRectangle())) Collision.CollisionChecker(dB, ene);
+                }
+            }
+            foreach (IEnvironment sB in staticBlocks)
+            {
+                //if (Collision.Intersects(link, sB.GetRectangle())) Collision.CollisionChecker(link, sB);
+                foreach (IEnvironment dB in dynamicBlocks)
+                {
+                    if (Collision.Intersects(dB.GetRectangle(), sB.GetRectangle())) Collision.CollisionChecker(dB, sB);
+                }
+            }
+            foreach (IEnvironment dB in dynamicBlocks)
+            {
+                //if (Collision.Intersects(link, dB.GetRectangle())) Collision.CollisionChecker(link, dB);
+            }
         }
 
         protected override void Draw(GameTime gameTime)

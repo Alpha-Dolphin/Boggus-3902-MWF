@@ -11,6 +11,8 @@ namespace LOZ.Tools
 {
     internal class Goriya : IEnemy
     {
+        Vector2 enemyDirection;
+        Vector2 enemyPosition;
         Vector2 boomerangPosition;
 
         readonly GoriyaSprite goriyaSprite;
