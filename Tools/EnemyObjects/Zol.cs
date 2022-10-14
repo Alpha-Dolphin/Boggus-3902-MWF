@@ -38,7 +38,8 @@ namespace LOZ.Tools.EnemyObjects
 
         public Rectangle GetRectangle()
         {
-            return ZolSprite.GetRectangle();
+            Vector2 wH = ZolSprite.GetWidthHeight();
+            return new Rectangle((int)IEnemy.enemyPosition.X, (int)IEnemy.enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Attack(GameTime gameTime)

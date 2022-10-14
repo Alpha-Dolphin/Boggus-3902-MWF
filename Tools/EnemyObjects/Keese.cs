@@ -34,7 +34,8 @@ namespace LOZ.Tools
 
         public Rectangle GetRectangle()
         {
-            return keeseSprite.GetRectangle();
+            Vector2 wH = keeseSprite.GetWidthHeight();
+            return new Rectangle((int)IEnemy.enemyPosition.X, (int)IEnemy.enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Attack(GameTime gameTime)

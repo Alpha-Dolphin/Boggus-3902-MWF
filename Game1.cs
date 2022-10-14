@@ -20,7 +20,7 @@ namespace LOZ
     public class Game1 : Game
     {
         private IEnemy[] enemyList;
-        private ICollision[] staicBlocks;
+        private ICollision[] staticBlocks;
         private ICollision[] dynamicBlocks;
         private Collision collisionObject;
 
@@ -124,7 +124,7 @@ namespace LOZ
 /*            foreach (IEnemy ene in enemyList)
             {
                 if (collisionObject.Intersects(Link, ene)) CollisionChecker(Link, ene);
-                foreach (IEnvironment sB in staicBlocks)
+                foreach (IEnvironment sB in staticBlocks)
                 {
                     if (collisionObject.Intersects(sB, ene)) CollisionChecker(sB, ene);
                 }
@@ -133,7 +133,7 @@ namespace LOZ
                     if (collisionObject.Intersects(dB, ene)) CollisionChecker(dB, ene);
                 }
             }
-            foreach (IEnvironment sB in staicBlocks)
+            foreach (IEnvironment sB in staticBlocks)
             {
                 if (collisionObject.Intersects(Link, sB)) CollisionChecker(Link, sB);
                 foreach (IEnvironment dB in dynamicBlocks)

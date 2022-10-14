@@ -32,9 +32,9 @@ namespace LOZ.Tools.EnemyObjects
             anim = SlimeFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2];
         }
 
-        public Rectangle GetRectangle()
+        public Vector2 GetWidthHeight()
         {
-            return anim;
+            return new Vector2(anim.Width, anim.Height);
         }
     }
 }

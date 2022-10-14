@@ -9,6 +9,6 @@ namespace LOZ.Tools
 
         void Update(GameTime gameTime);
 
-        public Rectangle GetRectangle();
+        public Vector2 GetWidthHeight();
     }
 }

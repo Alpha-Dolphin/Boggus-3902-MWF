@@ -58,7 +58,8 @@ namespace LOZ.Tools.PlayerObjects
         }
         public Rectangle GetRectangle()
         {
-            return dodongoSprite.GetRectangle();
+            Vector2 wH = dodongoSprite.GetWidthHeight();
+            return new Rectangle((int)IEnemy.enemyPosition.X, (int)IEnemy.enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Move(GameTime gameTime)

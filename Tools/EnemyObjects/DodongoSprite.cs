@@ -27,9 +27,9 @@ namespace LOZ.Tools.EnemyObjects
                 0f
             );
         }
-        public Rectangle GetRectangle()
+        public Vector2 GetWidthHeight()
         {
-            return anim;
+            return new Vector2(anim.Width, anim.Height);
         }
         public void Update(GameTime gameTime)
         {

@@ -48,7 +48,8 @@ namespace LOZ.Tools.EnemyObjects
 
         public Rectangle GetRectangle()
         {
-            return RopeSprite.GetRectangle();
+            Vector2 wH = RopeSprite.GetWidthHeight();
+            return new Rectangle((int)IEnemy.enemyPosition.X, (int)IEnemy.enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
         public void Move(GameTime gameTime)
         {

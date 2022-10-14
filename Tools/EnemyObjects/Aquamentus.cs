@@ -73,7 +73,8 @@ namespace LOZ.Tools
 
         public Rectangle GetRectangle()
         {
-            return aquamentusSprite.GetRectangle();
+            Vector2 wH = aquamentusSprite.GetWidthHeight();
+            return new Rectangle((int)IEnemy.enemyPosition.X, (int)IEnemy.enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Draw(SpriteBatch _spriteBatch)

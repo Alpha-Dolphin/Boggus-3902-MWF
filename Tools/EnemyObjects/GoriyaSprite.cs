@@ -41,9 +41,9 @@ namespace LOZ.Tools
             enemySpriteEffect = enemyDirection.Y != 0 ? (((int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2 == 1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None) : (enemyDirection.X < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
         }
 
-        public Rectangle GetRectangle()
+        public Vector2 GetWidthHeight()
         {
-            return anim;
+            return new Vector2(anim.Width, anim.Height);
         }
     }
 }

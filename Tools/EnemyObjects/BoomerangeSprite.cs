@@ -25,9 +25,9 @@ namespace LOZ.Tools
             );
         }
 
-        public Rectangle GetRectangle()
+        public Vector2 GetWidthHeight()
         {
-            return boomerang;
+            return new Vector2(boomerang.Width, boomerang.Height);
         }
 
         public void Update(GameTime gameTime)

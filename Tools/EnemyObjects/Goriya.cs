@@ -45,7 +45,8 @@ namespace LOZ.Tools
 
         public Rectangle GetRectangle()
         {
-            return goriyaSprite.GetRectangle();
+            Vector2 wH = goriyaSprite.GetWidthHeight();
+            return new Rectangle((int)IEnemy.enemyPosition.X, (int)IEnemy.enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Attack(GameTime gameTime)
