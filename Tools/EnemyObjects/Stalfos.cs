@@ -15,7 +15,7 @@ namespace LOZ.Tools
 {
     internal class Stalfos : IEnemy
     {
-        readonly ISpriteEnemy stalfosSprite;
+        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy stalfosSprite;
 
         readonly Random rand = new();
 
@@ -26,13 +26,13 @@ namespace LOZ.Tools
         public Stalfos(int X, int Y)
         {
 
-            IEnemy.enemyPosition.X = X;
-            IEnemy.enemyPosition.Y = Y;
+            enemyPosition.X = X;
+            enemyPosition.Y = Y;
 
             stalfosSprite = new StalfosSprite();
 
-            IEnemy.enemyDirection.X = 0;
-            IEnemy.enemyDirection.Y = 0;
+            enemyDirection.X = 0;
+            enemyDirection.Y = 0;
 
             moveCheck = -1;
         }
@@ -40,7 +40,7 @@ namespace LOZ.Tools
         public Rectangle GetRectangle()
         {
             Vector2 wH = stalfosSprite.GetWidthHeight();
-            return new Rectangle((int)IEnemy.enemyPosition.X, (int)IEnemy.enemyPosition.Y, (int)wH.X, (int)wH.Y);
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Attack(GameTime gameTime)
@@ -55,13 +55,13 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
-            IEnemy.enemyPosition.X += IEnemy.enemyDirection.X;
-            IEnemy.enemyPosition.Y += IEnemy.enemyDirection.Y;
+            enemyPosition.X += enemyDirection.X;
+            enemyPosition.Y += enemyDirection.Y;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            stalfosSprite.Draw(_spriteBatch, IEnemy.enemyPosition);
+            stalfosSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
@@ -82,15 +82,15 @@ namespace LOZ.Tools
 
                     if (rand.Next() % 2 == 1)
                     {
-                        if (rand.Next() % 2 == 1) IEnemy.enemyDirection.X = speed;
-                        else IEnemy.enemyDirection.X = -speed;
-                        IEnemy.enemyDirection.Y = 0;
+                        if (rand.Next() % 2 == 1) enemyDirection.X = speed;
+                        else enemyDirection.X = -speed;
+                        enemyDirection.Y = 0;
                     }
                     else
                     {
-                        if (rand.Next() % 2 == 1) IEnemy.enemyDirection.Y = speed;
-                        else IEnemy.enemyDirection.Y = -speed;
-                        IEnemy.enemyDirection.X = 0;
+                        if (rand.Next() % 2 == 1) enemyDirection.Y = speed;
+                        else enemyDirection.Y = -speed;
+                        enemyDirection.X = 0;
                     }
 
                     moveTime = rand.Next() % 2000 + 200;

@@ -123,14 +123,14 @@ namespace LOZ
         {
 /*            foreach (IEnemy ene in enemyList)
             {
-                if (collisionObject.Intersects(Link, ene)) CollisionChecker(Link, ene);
+                if (collisionObject.Intersects(Link, ene.GetRectangle())) CollisionChecker(Link, ene.GetRectangle());
                 foreach (IEnvironment sB in staticBlocks)
                 {
-                    if (collisionObject.Intersects(sB, ene)) CollisionChecker(sB, ene);
+                    if (collisionObject.Intersects(sB, ene.GetRectangle())) CollisionChecker(sB, ene.GetRectangle());
                 }
                 foreach (IEnvironment dB in dynamicBlocks)
                 {
-                    if (collisionObject.Intersects(dB, ene)) CollisionChecker(dB, ene);
+                    if (collisionObject.Intersects(dB, ene.GetRectangle())) CollisionChecker(dB, ene.GetRectangle());
                 }
             }
             foreach (IEnvironment sB in staticBlocks)

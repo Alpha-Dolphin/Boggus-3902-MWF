@@ -3,6 +3,7 @@ Interfaces for game
 
 */
 
+using LOZ.Tools.EnvironmentObjects.Helpers;
 using Microsoft.Xna.Framework.Graphics;
 
 interface ISprite
@@ -12,10 +13,9 @@ interface ISprite
     bool finished();
     void Draw(SpriteBatch spriteBatch);
 }
-
-interface IEnvironment
-{
-    void update();
-    void draw(SpriteBatch spriteBatch);
-    void load();
-}
+    interface IEnvironment
+    {
+        void update();
+        void draw(SpriteBatch spriteBatch);
+        void load();
+    }

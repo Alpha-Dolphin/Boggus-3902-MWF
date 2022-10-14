@@ -11,7 +11,7 @@ namespace LOZ.Tools
     {
         readonly Random rand = new();
 
-        readonly ISpriteEnemy keeseSprite;
+        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy keeseSprite;
 
         double moveCounter;
         double timeToMove;
@@ -19,11 +19,11 @@ namespace LOZ.Tools
 
         public Keese(int X, int Y)
         {
-            IEnemy.enemyDirection.X = rand.Next() % 400 / 100 - 2;
-            IEnemy.enemyDirection.Y = rand.Next() % 400 / 100 - 2;
+            enemyDirection.X = rand.Next() % 400 / 100 - 2;
+            enemyDirection.Y = rand.Next() % 400 / 100 - 2;
 
-            IEnemy.enemyPosition.X = X;
-            IEnemy.enemyPosition.Y = Y;
+            enemyPosition.X = X;
+            enemyPosition.Y = Y;
 
             keeseSprite = new KeeseSprite();
 
@@ -35,7 +35,7 @@ namespace LOZ.Tools
         public Rectangle GetRectangle()
         {
             Vector2 wH = keeseSprite.GetWidthHeight();
-            return new Rectangle((int)IEnemy.enemyPosition.X, (int)IEnemy.enemyPosition.Y, (int)wH.X, (int)wH.Y);
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Attack(GameTime gameTime)
@@ -52,19 +52,19 @@ namespace LOZ.Tools
         {
             if (0 < moveCounter)
             {
-                IEnemy.enemyPosition.X += (float)(IEnemy.enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
-                IEnemy.enemyPosition.Y += (float)(IEnemy.enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+                enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+                enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
             }
             else
             {
-                IEnemy.enemyDirection.X = rand.Next() % 400 / 100 - 2;
-                IEnemy.enemyDirection.Y = rand.Next() % 400 / 100 - 2;
+                enemyDirection.X = rand.Next() % 400 / 100 - 2;
+                enemyDirection.Y = rand.Next() % 400 / 100 - 2;
             }
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            keeseSprite.Draw(_spriteBatch, IEnemy.enemyPosition);
+            keeseSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)

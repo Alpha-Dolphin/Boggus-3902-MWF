@@ -11,7 +11,7 @@ namespace LOZ.Tools.EnemyObjects
 {
     internal class Rope : IEnemy
     {
-        readonly ISpriteEnemy RopeSprite;
+        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy RopeSprite;
 
         readonly Random rand;
 
@@ -23,15 +23,15 @@ namespace LOZ.Tools.EnemyObjects
 
         public Rope(int X, int Y)
         {
-            IEnemy.enemyDirection.X = 0;
-            IEnemy.enemyDirection.Y = 0;
+            enemyDirection.X = 0;
+            enemyDirection.Y = 0;
 
             RopeSprite = new RopeSprite();
 
             rand = new();
 
-            IEnemy.enemyPosition.X = X;
-            IEnemy.enemyPosition.Y = Y;
+            enemyPosition.X = X;
+            enemyPosition.Y = Y;
 
             moveCheck = -1;
         }
@@ -49,17 +49,17 @@ namespace LOZ.Tools.EnemyObjects
         public Rectangle GetRectangle()
         {
             Vector2 wH = RopeSprite.GetWidthHeight();
-            return new Rectangle((int)IEnemy.enemyPosition.X, (int)IEnemy.enemyPosition.Y, (int)wH.X, (int)wH.Y);
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
         public void Move(GameTime gameTime)
         {
-            IEnemy.enemyPosition.X += IEnemy.enemyDirection.X;
-            IEnemy.enemyPosition.Y += IEnemy.enemyDirection.Y;
+            enemyPosition.X += enemyDirection.X;
+            enemyPosition.Y += enemyDirection.Y;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            RopeSprite.Draw(_spriteBatch, IEnemy.enemyPosition);
+            RopeSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
@@ -80,15 +80,15 @@ namespace LOZ.Tools.EnemyObjects
 
                     if (rand.Next() % 2 == 1)
                     {
-                        if (rand.Next() % 2 == 1) IEnemy.enemyDirection.X = speed;
-                        else IEnemy.enemyDirection.X = -speed;
-                        IEnemy.enemyDirection.Y = 0;
+                        if (rand.Next() % 2 == 1) enemyDirection.X = speed;
+                        else enemyDirection.X = -speed;
+                        enemyDirection.Y = 0;
                     }
                     else
                     {
-                        if (rand.Next() % 2 == 1) IEnemy.enemyDirection.Y = speed;
-                        else IEnemy.enemyDirection.Y = -speed;
-                        IEnemy.enemyDirection.X = 0;
+                        if (rand.Next() % 2 == 1) enemyDirection.Y = speed;
+                        else enemyDirection.Y = -speed;
+                        enemyDirection.X = 0;
                     }
 
                     moveTime = rand.Next() % 2000 + 200;
@@ -103,8 +103,8 @@ namespace LOZ.Tools.EnemyObjects
                 else
                 {
                     moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
-                    IEnemy.enemyDirection.X = 0;
-                    IEnemy.enemyDirection.Y = 0;
+                    enemyDirection.X = 0;
+                    enemyDirection.Y = 0;
                 }
             }
         }

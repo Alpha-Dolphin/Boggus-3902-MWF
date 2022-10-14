@@ -13,7 +13,7 @@ namespace LOZ.Tools
     internal class Aquamentus : IEnemy
     {
 
-        readonly ISpriteEnemy aquamentusSprite;
+        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy aquamentusSprite;
 
         readonly BallSprite ballSprite;
 
@@ -32,11 +32,11 @@ namespace LOZ.Tools
 
         public Aquamentus(int X, int Y)
         {
-            IEnemy.enemyDirection.X = 0;
-            IEnemy.enemyDirection.Y = 0;
+            enemyDirection.X = 0;
+            enemyDirection.Y = 0;
 
-            IEnemy.enemyPosition.X = X;
-            IEnemy.enemyPosition.Y = Y;
+            enemyPosition.X = X;
+            enemyPosition.Y = Y;
 
             aquamentusSprite = new AquementusSprite();
 
@@ -67,19 +67,19 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
-            IEnemy.enemyPosition.X += (float)(IEnemy.enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
-            IEnemy.enemyPosition.Y += (float)(IEnemy.enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+            enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+            enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
         }
 
         public Rectangle GetRectangle()
         {
             Vector2 wH = aquamentusSprite.GetWidthHeight();
-            return new Rectangle((int)IEnemy.enemyPosition.X, (int)IEnemy.enemyPosition.Y, (int)wH.X, (int)wH.Y);
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            aquamentusSprite.Draw(_spriteBatch, IEnemy.enemyPosition);
+            aquamentusSprite.Draw(_spriteBatch, enemyPosition);
 
             if (ballLife > 0.0)
             {
@@ -103,9 +103,9 @@ namespace LOZ.Tools
             else if (rand.Next() % 4950 <= 25 && ballLife < 0.0)
             {
                 ballLife = ballDespawnMS;
-                ball1Position = IEnemy.enemyPosition;
-                ball2Position = IEnemy.enemyPosition;
-                ball3Position = IEnemy.enemyPosition;
+                ball1Position = enemyPosition;
+                ball2Position = enemyPosition;
+                ball3Position = enemyPosition;
             }
         }
 
@@ -122,16 +122,16 @@ namespace LOZ.Tools
                     //Movement will always be X-based
                     if (true || rand.Next() % 2 == 1)
                     {
-                        if (rand.Next() % 2 == 1) IEnemy.enemyDirection.X = speed;
-                        else IEnemy.enemyDirection.X = -speed;
-                        IEnemy.enemyDirection.Y = 0;
+                        if (rand.Next() % 2 == 1) enemyDirection.X = speed;
+                        else enemyDirection.X = -speed;
+                        enemyDirection.Y = 0;
                     }
                     //No Y-movement for this enemy
                     /*else
                     {
-                        if (rand.Next() % 2 == 1) IEnemy.enemyDirection.Y = speed;
-                        else IEnemy.enemyDirection.Y = -speed;
-                        IEnemy.enemyDirection.X = 0;
+                        if (rand.Next() % 2 == 1) enemyDirection.Y = speed;
+                        else enemyDirection.Y = -speed;
+                        enemyDirection.X = 0;
                     }*/
 
                     moveTime = rand.Next() % 2000 + 200;
