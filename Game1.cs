@@ -53,6 +53,8 @@ namespace LOZ
 
         EnvironmentFactory environmentFactory = new EnvironmentFactory();
 
+        List<IItem> itemObjectList = new List<IItem>();
+
 
         public Game1()
         {
@@ -94,10 +96,10 @@ namespace LOZ
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
             Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
-            itemFactory = new ItemFactory(0, ItemSpriteSheet);
+            itemFactory = new ItemFactory(ItemSpriteSheet);
             NPCFactory = new NPCFactory(0, NPCSpriteSheet);
             enemySpriteFactory = new();
-            itemFactory.CreateItem();
+            itemObjectList.Add(itemFactory.CreateItem(Item.Compass, 600, 400));
             NPCFactory.CreateNPC();
             enemy = enemySpriteFactory.CreateKeese();
 
@@ -135,9 +137,6 @@ namespace LOZ
                 enemy.Update(gameTime);
                 enemy.Move(gameTime);
             }
-
-            itemFactory.Update(pressed, controller.held, gameTime);
-
             NPCFactory.Update(pressed, controller.held, gameTime);
 
             /*Here we update the environment placement for existing environment objects*/
@@ -158,9 +157,12 @@ namespace LOZ
             enemy.Draw(spriteBatch);
             
             /*Draw items*/
-            itemFactory.CreateItem();
-            itemFactory.Draw(spriteBatch);
-
+            itemFactory.CreateItem(Item.Clock, 600, 400);
+            foreach(IItem i in itemObjectList)
+            {
+                i.Draw(spriteBatch);
+            }
+            
             /*Draw NPCs*/
             NPCFactory.CreateNPC();
             NPCFactory.Draw(spriteBatch);
