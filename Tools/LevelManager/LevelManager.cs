@@ -75,19 +75,25 @@ namespace LOZ.Tools.LevelManager
             /*Fill in environment object list*/
             foreach (XmlNode tile in xmlRoom.SelectSingleNode("/environment").ChildNodes)
             {
-                /*get rectangles from barrier elements*/
+                /*get environment objects from tile elements*/
                 room.environmentList.Add(getEnvironmentObject(tile));
             }
             /*Fill in enemy object list*/
             foreach (XmlNode enemy in xmlRoom.SelectSingleNode("/enemies").ChildNodes)
             {
-                /*get rectangles from barrier elements*/
+                /*get enemy objects from enemy elements*/
                 room.enemyList.Add(getEnemyObject(enemy));
             }
 
             /*Fill in NPC object list*/
+            foreach (XmlNode NPC in xmlRoom.SelectSingleNode("/NPCs").ChildNodes)
+            {
+                /*get enemy objects from enemy elements*/
+                room.NPCList.Add(getNPCObject(NPC));
+            }
 
             /*Fill in item object list*/
+
 
             /*Assign neighbors*/
 
@@ -118,6 +124,15 @@ namespace LOZ.Tools.LevelManager
             enemySpriteFactory.curr = (int)Enum.Parse(typeof(Enemy), type);
 
             return enemySpriteFactory.NewEnemy();
+        }
+        private INPC getNPCObject(XmlNode xmlNPC)
+        {
+            int xPlacement = int.Parse(xmlNPC.SelectSingleNode("/xPlacement").InnerText);
+            int yPlacement = int.Parse(xmlNPC.SelectSingleNode("/yPlacement").InnerText);
+            string type = xmlNPC.Attributes?["type"]?.Value;
+
+
+            return npcFactory.CreateNPC((NPC)Enum.Parse(typeof(NPC), type));
         }
 
     }
