@@ -35,12 +35,13 @@ namespace LOZ
         public static Texture2D REGULAR_ENEMIES;
         public static Texture2D BOSSES;
         public static Texture2D NPC_SPRITESHEET;
+        public static Texture2D ITEM_SPRITESHEET;
 
 
         /* hanging onto to save time later
        private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
         */
-        Enemy enemy;
+        IEnemy enemy;
 
 
 
@@ -106,6 +107,7 @@ namespace LOZ
             NPC_SPRITESHEET = Content.Load<Texture2D>(Constants.NPCSpriteSheetLocation);
             REGULAR_ENEMIES = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
             BOSSES = Content.Load<Texture2D>(Constants.BossesSpriteSheetLocation);
+            ITEM_SPRITESHEET = Content.Load<Texture2D>(Constants.ItemSpriteSheetLocation);
 
             foreach (IEnvironment environmentObject in environmentObjectList)
             {

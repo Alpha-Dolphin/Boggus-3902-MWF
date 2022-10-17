@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    internal class Dodongo : Enemy
+    internal class Dodongo : IEnemy
     {
         public Vector2 enemyDirection;
         public Vector2 enemyPosition;

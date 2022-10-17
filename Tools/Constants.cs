@@ -19,12 +19,31 @@ public enum Environment
     DiamondSymbolLockedDoor,
 }
 
+public enum Enemy
+{
+    Keese,
+    Slime,
+    Stalfos,
+    Goriya,
+    Zol,
+    Rope,
+    Dodongo,
+    Aquamentus,
+}
+
+public enum NPC
+{
+    OldMan,
+    OldManFlame,
+}
+
 public class Constants
 {
     public const string DungeonSpriteSheetLocation = "./SpriteSheets/Dungeon Tileset";
     public const string RegEnemySpriteSheetLocation = "SpriteSheets/Dungeon Enemies";
     public const string BossesSpriteSheetLocation = "./SpriteSheets/Bosses";
     public const string NPCSpriteSheetLocation = "./SpriteSheets/NPCs";
+    public const string ItemSpriteSheetLocation = "./SpriteSheets/Items";
     public const int objectScale = 2;
     public const int enviroDefaultX = 10;
     public const int enviroDefaultY = 10;

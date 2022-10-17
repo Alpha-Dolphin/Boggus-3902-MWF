@@ -20,7 +20,7 @@ namespace CSE3902_Sprint0.Sprites
         public int x;
         public int y;
 
-        private int currentFrame = 0;
+        /*private int currentFrame = 0;*/
 
         public Sprite(Texture2D picture, int x, int y, List<Rectangle> frames)
         {
