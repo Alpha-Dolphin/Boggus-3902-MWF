@@ -24,7 +24,7 @@ namespace LOZ.Tools.LevelManager
         EnvironmentFactory environmentFactory = new EnvironmentFactory();
         EnemySpriteFactory enemySpriteFactory = new EnemySpriteFactory();
         NPCFactory npcFactory = new NPCFactory(0, Game1.NPC_SPRITESHEET);
-        ItemFactory itemFactory = new ItemFactory(0, Game1.ITEM_SPRITESHEET);
+        ItemFactory itemFactory = new ItemFactory(Game1.ITEM_SPRITESHEET);
 
 
         /*Function to initialize level data structure and fill it in*/
