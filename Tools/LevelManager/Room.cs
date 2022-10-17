@@ -15,7 +15,7 @@ namespace LOZ.Tools.LevelManager
         /*Lists of things in room*/
         public List<Rectangle> barrierList { get; set; }
         public List<IEnvironment> environmentList { get; set; }
-        public List<Enemy> enemyList { get; set; }
+        public List<IEnemy> enemyList { get; set; }
         public List<INPC> NPCList { get; set; }
         public List<IItem> itemList { get; set; }
         public int northNeighbor { get; set; }

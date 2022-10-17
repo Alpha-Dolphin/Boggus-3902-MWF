@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using LOZ.Tools.Interfaces;
 
 
 namespace LOZ.Tools.LevelManager
@@ -78,6 +79,11 @@ namespace LOZ.Tools.LevelManager
                 room.environmentList.Add(getEnvironmentObject(tile));
             }
             /*Fill in enemy object list*/
+            foreach (XmlNode enemy in xmlRoom.SelectSingleNode("/enemies").ChildNodes)
+            {
+                /*get rectangles from barrier elements*/
+                room.enemyList.Add(getEnemyObject(enemy));
+            }
 
             /*Fill in NPC object list*/
 
@@ -95,14 +101,23 @@ namespace LOZ.Tools.LevelManager
 
             return new Rectangle(x, y, width, height);
         }
-        private IEnvironment getEnvironmentObject(XmlNode xmltile)
+        private IEnvironment getEnvironmentObject(XmlNode xmlTile)
         {
-            int xPlacement = int.Parse(xmltile.SelectSingleNode("/xPlacement").InnerText);
-            int yPlacement = int.Parse(xmltile.SelectSingleNode("/yPlacement").InnerText);
-            string type = xmltile.Attributes?["type"]?.Value;
+            int xPlacement = int.Parse(xmlTile.SelectSingleNode("/xPlacement").InnerText);
+            int yPlacement = int.Parse(xmlTile.SelectSingleNode("/yPlacement").InnerText);
+            string type = xmlTile.Attributes?["type"]?.Value;
             
 
             return environmentFactory.getEnvironment((Environment) Enum.Parse(typeof(Environment),type));
+        }
+        private IEnemy getEnemyObject(XmlNode xmlEnemy)
+        {
+            int xPlacement = int.Parse(xmlEnemy.SelectSingleNode("/xPlacement").InnerText);
+            int yPlacement = int.Parse(xmlEnemy.SelectSingleNode("/yPlacement").InnerText);
+            string type = xmlEnemy.Attributes?["type"]?.Value;
+            enemySpriteFactory.curr = (int)Enum.Parse(typeof(Enemy), type);
+
+            return enemySpriteFactory.NewEnemy();
         }
 
     }
