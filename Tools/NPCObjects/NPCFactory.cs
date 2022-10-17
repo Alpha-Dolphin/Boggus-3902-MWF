@@ -12,7 +12,7 @@ namespace LOZ.Tools.NPCObjects
 {
     internal class NPCFactory
     {
-        private int currentNPCNum = 0;
+        public  int currentNPCNum = 0;
         private INPC currentNPC;
         public int numNPC = 2;
         private int x = 600;
@@ -49,6 +49,22 @@ namespace LOZ.Tools.NPCObjects
                 case 1: this.currentNPC = new OldManFlame(this.spriteSheet, x, y); break;
 
                 default: this.currentNPC = new OldMan(this.spriteSheet, x, y); break;
+
+
+            }
+        }
+        public INPC CreateNPC(NPC NPC)
+        {
+            switch (NPC)
+            {
+                case NPC.OldMan: 
+                    return new OldMan(this.spriteSheet, x, y); 
+
+                case NPC.OldManFlame: 
+                    return new OldManFlame(this.spriteSheet, x, y); 
+
+                default: 
+                    return new OldMan(this.spriteSheet, x, y);
 
 
             }
