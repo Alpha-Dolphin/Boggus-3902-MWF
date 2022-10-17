@@ -19,6 +19,25 @@ public enum Environment
     DiamondSymbolLockedDoor,
 }
 
+public enum Item
+{
+    Compass,
+    Map,
+    Key,
+    HeartContainer,
+    TriforcePiece,
+    WoodenBoomerang,
+    Bow,
+    Heart,
+    Rupee,
+    Arrow,
+    Bomb,
+    Fairy,
+    Clock,
+    BlueCandle,
+    BluePotion,
+}
+
 public class Constants
 {
     public const string DungeonSpriteSheetLocation = "./SpriteSheets/Dungeon Tileset";
