@@ -6,7 +6,7 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace LOZ.Tools
 {
-    internal class Keese : Enemy
+    internal class Keese : IEnemy
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;

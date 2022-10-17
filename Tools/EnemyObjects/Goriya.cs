@@ -9,7 +9,7 @@ using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools
 {
-    internal class Goriya : Enemy
+    internal class Goriya : IEnemy
     {
         public Vector2 enemyDirection;
         public Vector2 enemyPosition;

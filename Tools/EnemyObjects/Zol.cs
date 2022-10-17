@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.EnemyObjects
 {
-    internal class Zol : Enemy
+    internal class Zol : IEnemy
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;

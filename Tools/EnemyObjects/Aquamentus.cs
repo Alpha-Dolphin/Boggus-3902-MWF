@@ -10,7 +10,7 @@ using LOZ;
 
 namespace LOZ.Tools
 {
-    internal class Aquamentus : Enemy
+    internal class Aquamentus : IEnemy
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;

@@ -41,7 +41,7 @@ namespace LOZ
         /* hanging onto to save time later
        private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
         */
-        Enemy enemy;
+        IEnemy enemy;
 
 
 
