@@ -174,6 +174,7 @@ namespace LOZ
             {
                 //if (Collision.Intersects(link, dB.GetRectangle())) Collision.CollisionChecker(link, dB);
             }
+
         }
 
         protected override void Draw(GameTime gameTime)
