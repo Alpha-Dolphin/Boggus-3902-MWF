@@ -19,6 +19,10 @@ namespace LOZ.Tools.EnvironmentObjects
             xPosition = x;
             yPosition = y;
         }
+        public Rectangle GetRectangle()
+        {
+            return new Rectangle(xPosition, yPosition, 16 * Constants.objectScale, 16 * Constants.objectScale);
+        }
 
         /*Update must be called at least once before drawing*/
         public void draw(SpriteBatch spriteBatch)

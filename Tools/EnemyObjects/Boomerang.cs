@@ -18,6 +18,11 @@ namespace LOZ.Tools.EnemyObjects
 
         const int attackLength = 3000;
         double attackTime;
+        public void setPosition(int x, int y)
+        {
+            enemyPosition.X = x;
+            enemyPosition.Y = y;
+        }
 
         public Boomerang()
         {

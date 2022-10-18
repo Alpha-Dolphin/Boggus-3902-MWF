@@ -16,7 +16,7 @@ namespace LOZ.Tools
         Vector2 enemyDirection;
         Vector2 enemyPosition;
 
-        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy aquamentusSprite;
+        readonly ISpriteEnemy aquamentusSprite;
 
         readonly Random rand;
 

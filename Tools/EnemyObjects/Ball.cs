@@ -20,6 +20,11 @@ namespace LOZ.Tools
         readonly BallSprite ballSprite;
 
         readonly int m;
+        public void setPosition(int x, int y)
+        {
+            enemyPosition.X = x;
+            enemyPosition.Y = y;
+        }
         public Ball(int mode)
         {
             ballLife = -1;
