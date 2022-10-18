@@ -8,12 +8,19 @@ using System.Threading.Tasks;
 using LOZ;
 
 
-    public class SquareBlock:IEnvironment
+    internal class SquareBlock:IEnvironment
     {
         private EnviroSprite enviroSprite = new EnviroSprite();
+        private int xPosition = Constants.enviroDefaultX;
+        private int yPosition = Constants.enviroDefaultY;
+        public void setPlacement(int x, int y)
+        {
+            xPosition = x;
+            yPosition = y;
+        }
 
-        /*Update must be called at least once before drawing*/
-        public void draw(SpriteBatch spriteBatch)
+    /*Update must be called at least once before drawing*/
+    public void draw(SpriteBatch spriteBatch)
         {
             enviroSprite.Draw(spriteBatch);
         }
@@ -23,7 +30,7 @@ using LOZ;
 
             enviroSprite.setFrameRectangle(1001, 11, 16, 16);
 
-            enviroSprite.setPositionRectangle(Constants.enviroDefaultX, Constants.enviroDefaultY, 16 * Constants.objectScale, 16 * Constants.objectScale);
+            enviroSprite.setPositionRectangle(xPosition, yPosition, 16 * Constants.objectScale, 16 * Constants.objectScale);
         }
         public void load()
         {

@@ -9,6 +9,13 @@ using LOZ.Tools.EnvironmentObjects.Helpers;
 class Statue : IEnvironment
 {
     private EnviroSprite enviroSprite = new EnviroSprite();
+    private int xPosition = Constants.enviroDefaultX;
+    private int yPosition = Constants.enviroDefaultY;
+    public void setPlacement(int x, int y)
+    {
+        xPosition = x;
+        yPosition = y;
+    }
 
     /*Update must be called at least once before drawing*/
     public void draw(SpriteBatch spriteBatch)
@@ -21,7 +28,7 @@ class Statue : IEnvironment
 
         enviroSprite.setFrameRectangle(1018, 11, 16, 16);
 
-        enviroSprite.setPositionRectangle(Constants.enviroDefaultX,Constants.enviroDefaultY,16 * Constants.objectScale, 16 * Constants.objectScale);
+        enviroSprite.setPositionRectangle(xPosition, yPosition, 16 * Constants.objectScale, 16 * Constants.objectScale);
     }
     public void load()
     {

@@ -12,6 +12,9 @@ namespace LOZ.Tools
 {
     internal class Aquamentus : IEnemy
     {
+        
+        Vector2 enemyDirection;
+        Vector2 enemyPosition;
 
         Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy aquamentusSprite;
 
@@ -24,7 +27,11 @@ namespace LOZ.Tools
         double moveCheck;
         double moveTime;
         double moveProb;
-
+        public void setPosition(int x, int y)
+        {
+            enemyPosition.X = x;
+            enemyPosition.Y = y;
+        }
         public Aquamentus(int X, int Y)
         {
             enemyDirection.X = 0;

@@ -14,11 +14,11 @@ interface ISprite
     bool finished();
     void Draw(SpriteBatch spriteBatch);
 }
-    interface IEnvironment
-    {
-        void update();
-        void draw(SpriteBatch spriteBatch);
-        void load();
 
-    Rectangle GetRectangle();
-    }
+interface IEnvironment
+{
+    void setPlacement(int x, int y);
+    void update();
+    void draw(SpriteBatch spriteBatch);
+    void load();
+}
