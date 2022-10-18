@@ -373,30 +373,84 @@
 					0
 				</yPlacement>
 			</tile>
+			<tile type ="KeyholeLockedDoor">
+        <xPlacement>
+          112
+        </xPlacement>
+				<yPlacement>
+          0
+        </yPlacement>
+      </tile>
+			<tile type ="WalkableBlueGap">
+        <xPlacement>
+          32
+        </xPlacement>
+        <yPlacement>
+          33
+        </yPlacement>
+      </tile>
+      <tile type ="WalkableBlueGap">
+        <xPlacement>
+          48
+        </xPlacement>
+        <yPlacement>
+          33
+        </yPlacement>
+      </tile>
+			<tile type ="WalkableBlueGap">
+        <xPlacement>
+          64
+        </xPlacement>
+        <yPlacement>
+          33
+        </yPlacement>
+      </tile>
+			<tile type="WalkableBlueGap">
+        <xPlacement>
+          80
+        </xPlacement>
+        <yPlacement>
+          33
+        </yPlacement>
+      </tile>
+			<tile type ="WalkableBlueGap">
+        <xPlacement>
+          96
+        </xPlacement>
+        <yPlacement>
+          33
+        </yPlacement>
+      </tile>
 		</environment>
 		<enemies>
 			<!--One enemy element for each enemy, type attribute is the name of the object to place-->
-			<enemy type ="keese">
+			<enemy type ="Stalfos">
 				<!--Placement info for where enemy spawns-->
 				<xPlacement>
-					0
+					57
 				</xPlacement>
 				<yPlacement>
-					0
+					47
 				</yPlacement>
 			</enemy>
+      <enemy type ="Stalfos">
+        <xPlacement>
+          80
+        </xPlacement>
+        <yPlacement>
+          86
+        </yPlacement>
+      </enemy>
+      <enemy type="Stalfos">
+        <xPlacement>
+          192
+        </xPlacement>
+        <yPlacement>
+          56
+        </yPlacement>
+      </enemy>
 		</enemies>
 		<NPCs>
-			<!--One enemy element for each NPC, type attribute is the name of the object to place-->
-			<enemy type ="oldMan">
-				<!--Placement info for where NPC spawns-->
-				<xPlacement>
-					0
-				</xPlacement>
-				<yPlacement>
-					0
-				</yPlacement>
-			</enemy>
 		</NPCs>
 		<items>
 			<!--One item element for each item, 
