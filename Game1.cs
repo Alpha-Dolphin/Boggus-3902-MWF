@@ -20,8 +20,8 @@ namespace LOZ
     public class Game1 : Game
     {
         private IEnemy[] enemyList;
-        private ICollision[] staticBlocks;
-        private ICollision[] dynamicBlocks;
+        private IEnvironment[] staticBlocks;
+        private IEnvironment[] dynamicBlocks;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
