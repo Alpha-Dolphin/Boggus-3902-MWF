@@ -124,7 +124,7 @@ namespace LOZ.Tools.LevelManager
             int yPlacement = int.Parse(xmlTile.SelectSingleNode("/yPlacement").InnerText);
             string type = xmlTile.Attributes?["type"]?.Value;
 
-            IEnvironment thisTile = environmentFactory.getEnvironment((Environment)Enum.Parse(typeof(Environment), type);
+            IEnvironment thisTile = environmentFactory.getEnvironment((Environment)Enum.Parse(typeof(Environment), type));
 
             thisTile.setPlacement(xPlacement, yPlacement);
 

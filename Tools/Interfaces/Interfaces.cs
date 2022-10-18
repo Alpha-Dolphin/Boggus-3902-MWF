@@ -18,6 +18,7 @@ interface ISprite
 interface IEnvironment
 {
     void setPlacement(int x, int y);
+    Rectangle GetRectangle();
     void update();
     void draw(SpriteBatch spriteBatch);
     void load();
