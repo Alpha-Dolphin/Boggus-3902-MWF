@@ -19,7 +19,7 @@ namespace LOZ.Tools
     {
         readonly int X = 100;
         readonly int Y = 300;
-        int curr;
+        public int curr;
 
         public EnemySpriteFactory()
         {
@@ -53,6 +53,7 @@ namespace LOZ.Tools
             else if (curr == 4) return CreateZol();
             else if (curr == 5) return CreateRope();
             else if (curr == 6) return CreateDodongo();
+            else if (curr == 7) return CreateAquamentus();
             else return CreateAquamentus();
 
             //Cobbling together broken NPC code

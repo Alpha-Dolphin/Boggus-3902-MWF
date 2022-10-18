@@ -1,0 +1,172 @@
+﻿<?xml version ="1.0"?>
+<level num ="1">
+	<!--Room number accessed as attribue, add a room for every room in a level-->
+	<room num ="1">
+		<!--Boolean True or False describes if border is drawn at edges-->
+		<border>
+			true 
+		</border>
+		<!--For if you want to paint a static background that tiles are rendered over-->
+		<background draw ="true" template ="default"/>
+		<!--Defines invisible barriers-->
+		<barriers>
+			<barrier>
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+				<width>
+					0
+				</width>
+				<height>
+					0
+				</height>
+			</barrier>
+		</barriers>
+		<!--Every environment elements starting information contained here-->
+		<environment>
+			<!--One tile element for each block that isn't background, type is the name of the object to place-->
+			<tile type ="blueFloor">
+				<!--Placement info for where object spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</tile>
+		</environment>
+		<enemies>
+			<!--One enemy element for each enemy, type attribute is the name of the object to place-->
+			<enemy type ="keese">
+				<!--Placement info for where enemy spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</enemy>
+		</enemies>
+		<NPCs>
+			<!--One enemy element for each NPC, type attribute is the name of the object to place-->
+			<enemy type ="oldMan">
+				<!--Placement info for where NPC spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</enemy>
+		</NPCs>
+		<items>
+			<!--One item element for each item, 
+			type attribute is the name of the object to place, 
+			hidden attribute is for if it renders immediately or after an event-->
+			<item type ="map" hidden ="false">
+				<!--Placement info for where item spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</item>
+		</items>
+		<!--neighbors contains the labels for adjacent rooms-->
+		<neighbors>
+			<!--id indicates room number-->
+			<north id="0"/>
+			<south id ="none"/>
+			<east id ="none"/>
+			<west id ="none"/>
+		</neighbors>
+	</room>
+	<room num ="2">
+		<!--Boolean True or False describes if border is drawn at edges-->
+		<border>
+			true 
+		</border>
+		<!--For if you want to paint a static background that tiles are rendered over-->
+		<background draw ="true" template ="default"/>
+		<!--Defines invisible barriers-->
+		<barriers>
+			<barrier>
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+				<width>
+					0
+				</width>
+				<height>
+					0
+				</height>
+			</barrier>
+		</barriers>
+		<!--Every environment elements starting information contained here-->
+		<environment>
+			<!--One tile element for each block that isn't background, type is the name of the object to place-->
+			<tile type ="blueFloor">
+				<!--Placement info for where object spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</tile>
+		</environment>
+		<enemies>
+			<!--One enemy element for each enemy, type attribute is the name of the object to place-->
+			<enemy type ="keese">
+				<!--Placement info for where enemy spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</enemy>
+		</enemies>
+		<NPCs>
+			<!--One enemy element for each NPC, type attribute is the name of the object to place-->
+			<enemy type ="oldMan">
+				<!--Placement info for where NPC spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</enemy>
+		</NPCs>
+		<items>
+			<!--One item element for each item, 
+			type attribute is the name of the object to place, 
+			hidden attribute is for if it renders immediately or after an event-->
+			<item type ="map" hidden ="false">
+				<!--Placement info for where item spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</item>
+		</items>
+		<!--neighbors contains the labels for adjacent rooms-->
+		<neighbors>
+			<!--id indicates room number-->
+			<north id="0"/>
+			<south id ="none"/>
+			<east id ="none"/>
+			<west id ="none"/>
+		</neighbors>
+	</room>
+</level>
