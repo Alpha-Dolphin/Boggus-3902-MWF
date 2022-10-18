@@ -19,6 +19,10 @@ namespace LOZ
 {
     public class Game1 : Game
     {
+        private IEnemy[] enemyList;
+        private IEnvironment[] staticBlocks;
+        private IEnvironment[] dynamicBlocks;
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
         private ItemFactory itemFactory;
@@ -120,7 +124,8 @@ namespace LOZ
 
         protected override void Update(GameTime gameTime)
         {
-            
+            //UpdateCollision();
+
             /*
              * Update logic here
              */
@@ -141,6 +146,34 @@ namespace LOZ
 
             /*Here we update the environment placement for existing environment objects*/
             environmentCommandHandler.executeNewPressedOnly(pressed, controller.held);
+        }
+
+        private void UpdateCollision()
+        {
+            foreach (IEnemy ene in enemyList)
+            {
+                //if (Collision.Intersects(link, ene.GetRectangle())) Collision.CollisionChecker(link, ene);
+                foreach (IEnvironment sB in staticBlocks)
+                {
+                    if (Collision.Intersects(sB.GetRectangle(), ene.GetRectangle())) Collision.CollisionChecker(sB, ene);
+                }
+                foreach (IEnvironment dB in dynamicBlocks)
+                {
+                    if (Collision.Intersects(dB.GetRectangle(), ene.GetRectangle())) Collision.CollisionChecker(dB, ene);
+                }
+            }
+            foreach (IEnvironment sB in staticBlocks)
+            {
+                //if (Collision.Intersects(link, sB.GetRectangle())) Collision.CollisionChecker(link, sB);
+                foreach (IEnvironment dB in dynamicBlocks)
+                {
+                    if (Collision.Intersects(dB.GetRectangle(), sB.GetRectangle())) Collision.CollisionChecker(dB, sB);
+                }
+            }
+            foreach (IEnvironment dB in dynamicBlocks)
+            {
+                //if (Collision.Intersects(link, dB.GetRectangle())) Collision.CollisionChecker(link, dB);
+            }
         }
 
         protected override void Draw(GameTime gameTime)

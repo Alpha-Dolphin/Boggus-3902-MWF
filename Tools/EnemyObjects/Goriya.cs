@@ -6,23 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using LOZ.Tools.Interfaces;
+using LOZ.Tools.PlayerObjects;
+using LOZ.Tools.EnemyObjects;
 
 namespace LOZ.Tools
 {
     internal class Goriya : IEnemy
     {
-        public Vector2 enemyDirection;
-        public Vector2 enemyPosition;
-
-        Vector2 boomerangPosition;
+        Vector2 enemyDirection;
+        Vector2 enemyPosition;
 
         readonly GoriyaSprite goriyaSprite;
-        readonly BoomerangeSprite boomerangSprite;
+
+        readonly EnemyObjects.Boomerang boomerang;
 
         readonly Random rand;
-
-        const int attackLength = 3000;
-        double attackTime;
 
         double moveCheck;
         double moveTime;
@@ -42,32 +40,22 @@ namespace LOZ.Tools
 
             rand = new();
 
-            attackTime = -1;
+            boomerang = new EnemyObjects.Boomerang();
 
             goriyaSprite = new GoriyaSprite();
-            boomerangSprite = new BoomerangeSprite();
 
             moveCheck = -1;
         }
 
+        public Rectangle GetRectangle()
+        {
+            Vector2 wH = goriyaSprite.GetWidthHeight();
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
+        }
+
         public void Attack(GameTime gameTime)
         {
-            int boomerangSpeedRecip = 25;
-            if (attackTime > attackLength / 2)
-            {
-                if (enemyDirection.X < 0) boomerangPosition.X -= (float)(gameTime.ElapsedGameTime.TotalMilliseconds / boomerangSpeedRecip);
-                else if (enemyDirection.X > 0) boomerangPosition.X += (float)(gameTime.ElapsedGameTime.TotalMilliseconds / boomerangSpeedRecip);
-                else if (enemyDirection.Y < 0) boomerangPosition.Y -= (float)(gameTime.ElapsedGameTime.TotalMilliseconds / boomerangSpeedRecip);
-                else boomerangPosition.Y += (float)(gameTime.ElapsedGameTime.TotalMilliseconds / boomerangSpeedRecip);
-            }
-            else
-            {
-                if (enemyDirection.X > 0) boomerangPosition.X -= (float)(gameTime.ElapsedGameTime.TotalMilliseconds / boomerangSpeedRecip);
-                else if (enemyDirection.X < 0) boomerangPosition.X += (float)(gameTime.ElapsedGameTime.TotalMilliseconds / boomerangSpeedRecip);
-                else if (enemyDirection.Y > 0) boomerangPosition.Y -= (float)(gameTime.ElapsedGameTime.TotalMilliseconds / boomerangSpeedRecip);
-                else boomerangPosition.Y += (float)(gameTime.ElapsedGameTime.TotalMilliseconds / boomerangSpeedRecip);
-            }
-            attackTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            boomerang.Activate(enemyDirection, enemyPosition);
         }
 
         public void Die(GameTime gameTime)
@@ -77,7 +65,7 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
-            if (attackTime < 0.0)
+            if (boomerang.GetAttackTime() < 0.0)
             {
                 enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
                 enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
@@ -86,26 +74,27 @@ namespace LOZ.Tools
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            if (attackTime > 0.0) boomerangSprite.Draw(_spriteBatch, boomerangPosition);
             goriyaSprite.Draw(_spriteBatch, enemyPosition);
+            if (boomerang.GetAttackTime() > 0.0) boomerang.Draw(_spriteBatch);
         }
 
         public void Update(GameTime gameTime)
         {
             goriyaSprite.Update(gameTime, enemyDirection);
-            AttackUpdate(gameTime);
-            if (attackTime < 0.0) MovementUpdate(gameTime);
-            else boomerangSprite.Update(gameTime, attackLength, attackTime);
+            if (boomerang.GetAttackTime() < 0.0)
+            {
+                MovementUpdate(gameTime);
+                AttackUpdate(gameTime);
+            }
+            else
+            {
+                boomerang.Update(gameTime);
+            }
         }
 
         private void AttackUpdate(GameTime gameTime)
         {
-            if (attackTime > 0.0) Attack(gameTime);
-            else if (rand.Next() % 4950 <= 25)
-            {
-                attackTime = attackLength;
-                boomerangPosition = enemyPosition;
-            }
+            if (rand.Next() % 4950 <= 25) Attack(gameTime);
         }
 
         private void MovementUpdate(GameTime gameTime)

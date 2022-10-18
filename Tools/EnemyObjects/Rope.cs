@@ -11,10 +11,7 @@ namespace LOZ.Tools.EnemyObjects
 {
     internal class Rope : IEnemy
     {
-        Vector2 enemyDirection;
-        Vector2 enemyPosition;
-
-        readonly ISpriteEnemy RopeSprite;
+        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy RopeSprite;
 
         readonly Random rand;
 
@@ -53,6 +50,11 @@ namespace LOZ.Tools.EnemyObjects
             //Nothing
         }
 
+        public Rectangle GetRectangle()
+        {
+            Vector2 wH = RopeSprite.GetWidthHeight();
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
+        }
         public void Move(GameTime gameTime)
         {
             enemyPosition.X += enemyDirection.X;

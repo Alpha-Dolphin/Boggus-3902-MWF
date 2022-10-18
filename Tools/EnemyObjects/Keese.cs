@@ -3,17 +3,15 @@ using LOZ.Tools;
 using Microsoft.Xna.Framework;
 using System;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
+using LOZ.Tools.EnemyObjects;
 
 namespace LOZ.Tools
 {
     internal class Keese : IEnemy
     {
-        Vector2 enemyDirection;
-        Vector2 enemyPosition;
-
         readonly Random rand = new();
 
-        readonly ISpriteEnemy keeseSprite;
+        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy keeseSprite;
 
         double moveCounter;
         double timeToMove;
@@ -36,6 +34,12 @@ namespace LOZ.Tools
             moveCounter = 0.0;
             timeToMove = 0.0;
             moveCheck = 0.0;
+        }
+
+        public Rectangle GetRectangle()
+        {
+            Vector2 wH = keeseSprite.GetWidthHeight();
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Attack(GameTime gameTime)

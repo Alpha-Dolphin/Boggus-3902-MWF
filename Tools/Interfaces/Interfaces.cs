@@ -3,6 +3,8 @@ Interfaces for game
 
 */
 
+using LOZ.Tools.EnvironmentObjects.Helpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 interface ISprite

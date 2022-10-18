@@ -11,10 +11,7 @@ namespace LOZ.Tools.EnemyObjects
 {
     internal class Zol : IEnemy
     {
-        Vector2 enemyDirection;
-        Vector2 enemyPosition;
-
-        readonly ISpriteEnemy ZolSprite;
+        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy ZolSprite;
 
         readonly Random rand;
 
@@ -41,6 +38,12 @@ namespace LOZ.Tools.EnemyObjects
             enemyPosition.Y = Y;
 
             moveCheck = -1;
+        }
+
+        public Rectangle GetRectangle()
+        {
+            Vector2 wH = ZolSprite.GetWidthHeight();
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Attack(GameTime gameTime)

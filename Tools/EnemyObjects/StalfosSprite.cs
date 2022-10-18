@@ -34,5 +34,10 @@ namespace LOZ.Tools
         {
             animState = (((int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2) == 0) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
         }
+
+        public Vector2 GetWidthHeight()
+        {
+            return new Vector2(anim.Width, anim.Height);
+        }
     }
 }

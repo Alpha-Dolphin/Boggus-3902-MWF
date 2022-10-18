@@ -15,10 +15,7 @@ namespace LOZ.Tools
 {
     internal class Stalfos : IEnemy
     {
-        Vector2 enemyDirection;
-        Vector2 enemyPosition;
-
-        readonly ISpriteEnemy stalfosSprite;
+        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy stalfosSprite;
 
         readonly Random rand = new();
 
@@ -42,6 +39,12 @@ namespace LOZ.Tools
             enemyDirection.Y = 0;
 
             moveCheck = -1;
+        }
+
+        public Rectangle GetRectangle()
+        {
+            Vector2 wH = stalfosSprite.GetWidthHeight();
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Attack(GameTime gameTime)

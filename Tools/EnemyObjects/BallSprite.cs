@@ -23,6 +23,10 @@ namespace LOZ.Tools
                 0f
             );
         }
+        public Vector2 GetWidthHeight()
+        {
+            return new Vector2(ball.Width, ball.Height);
+        }
         public void Update(GameTime gameTime)
         {
             //Nothing

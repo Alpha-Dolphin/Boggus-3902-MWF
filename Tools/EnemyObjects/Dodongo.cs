@@ -15,13 +15,12 @@ namespace LOZ.Tools.PlayerObjects
 {
     internal class Dodongo : IEnemy
     {
-        public Vector2 enemyDirection;
-        public Vector2 enemyPosition;
-
+        Vector2 enemyDirection;
+        Vector2 enemyPosition;
         Vector2 boomerangPosition;
 
         readonly DodongoSprite dodongoSprite;
-        readonly BoomerangeSprite boomerangSprite;
+        readonly BoomerangSprite boomerangSprite;
 
         readonly Random rand;
 
@@ -49,7 +48,7 @@ namespace LOZ.Tools.PlayerObjects
             attackTime = -1;
 
             dodongoSprite = new DodongoSprite();
-            boomerangSprite = new BoomerangeSprite();
+            boomerangSprite = new BoomerangSprite();
 
             moveCheck = -1;
         }
@@ -62,6 +61,11 @@ namespace LOZ.Tools.PlayerObjects
         public void Die(GameTime gameTime)
         {
             //Nothing
+        }
+        public Rectangle GetRectangle()
+        {
+            Vector2 wH = dodongoSprite.GetWidthHeight();
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Move(GameTime gameTime)

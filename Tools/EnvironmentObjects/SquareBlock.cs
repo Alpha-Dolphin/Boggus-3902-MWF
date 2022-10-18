@@ -1,5 +1,5 @@
 ﻿using LOZ.Tools.EnvironmentObjects.Helpers;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics;using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,5 +36,9 @@ using LOZ;
         {
             enviroSprite.loadSpriteSheet(Game1.ENVIRONMENT_SPRITESHEET);
         }
+    public Rectangle GetRectangle()
+    {
+        return new Rectangle(enviroSprite.positionX, enviroSprite.positionY, enviroSprite.width, enviroSprite.height);
     }
+}
 

@@ -12,10 +12,7 @@ namespace LOZ.Tools
 {
     internal class Slime : IEnemy
     {
-        Vector2 enemyDirection;
-        Vector2 enemyPosition;
-
-        readonly ISpriteEnemy slimeSprite;
+        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy slimeSprite;
 
         readonly Random rand;
 
@@ -43,7 +40,11 @@ namespace LOZ.Tools
 
             moveCheck = -1;
         }
-
+        public Rectangle GetRectangle()
+        {
+            Vector2 wH = slimeSprite.GetWidthHeight();
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
+        }
         public void Attack(GameTime gameTime)
         {
             //Nothing
