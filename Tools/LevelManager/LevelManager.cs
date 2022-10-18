@@ -161,7 +161,7 @@ namespace LOZ.Tools.LevelManager
             int yPlacement = int.Parse(xmlItem.SelectSingleNode("/yPlacement").InnerText);
             string type = xmlItem.Attributes?["type"]?.Value;
 
-            return itemFactory.CreateItem((Item)Enum.Parse(typeof(NPC), type),xPlacement,yPlacement);
+            return itemFactory.CreateItem((Item)Enum.Parse(typeof(Item), type),xPlacement,yPlacement);
         }
 
     }
