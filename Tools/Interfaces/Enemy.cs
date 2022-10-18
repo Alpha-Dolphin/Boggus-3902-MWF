@@ -15,5 +15,6 @@ namespace LOZ.Tools.Interfaces
         void Move(GameTime gameTime);
         void Draw(SpriteBatch _spriteBatch);
         void Update(GameTime gameTime);
+        void setPosition(int x, int y);
     }
 }

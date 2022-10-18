@@ -24,7 +24,11 @@ namespace LOZ.Tools
         double moveProb;
 
         const double moveDelay = 1000;
-
+        public void setPosition(int x, int y)
+        {
+            enemyPosition.X = x;
+            enemyPosition.Y = y;
+        }
         public Slime(int X, int Y)
         {
             enemyDirection.X = 0;

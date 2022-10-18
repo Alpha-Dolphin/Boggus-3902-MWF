@@ -27,7 +27,11 @@ namespace LOZ.Tools
         double moveCheck;
         double moveTime;
         double moveProb;
-
+        public void setPosition(int x, int y)
+        {
+            enemyPosition.X = x;
+            enemyPosition.Y = y;
+        }
         public Goriya(int X, int Y)
         {
             enemyDirection.X = 0;

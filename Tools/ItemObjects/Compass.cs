@@ -17,6 +17,11 @@ namespace LOZ.Tools.ItemObjects
         private Vector2 position;
         private StationaryStaticSprite sprite = new();
         private Vector2 DefaultSize = new(16, 16);
+        public void setPlacement(int x, int y)
+        {
+            position.X = x;
+            position.Y = y;
+        }
         public Compass(Texture2D spritesheet, int x, int y)
         {
             this.position.X = x;

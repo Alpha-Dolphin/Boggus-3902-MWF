@@ -18,7 +18,11 @@ namespace LOZ.Tools
         double moveCounter;
         double timeToMove;
         double moveCheck;
-
+        public void setPosition(int x, int y)
+        {
+            enemyPosition.X = x;
+            enemyPosition.Y = y;
+        }
         public Keese(int X, int Y)
         {
             enemyDirection.X = rand.Next() % 400 / 100 - 2;

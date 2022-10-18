@@ -16,9 +16,9 @@ namespace LOZ.Tools.LevelManager
     internal class LevelManager
     {
         /*Location data for level files*/
-        public String levelFileLocation { get; set; }
+        string levelFileLocation { get; set; }
 
-        public List<Room> roomList { get; set; }
+        List<Room> roomList { get; set; }
 
         /*Initialize needed object factories*/
         EnvironmentFactory environmentFactory = new EnvironmentFactory();
@@ -47,6 +47,7 @@ namespace LOZ.Tools.LevelManager
                 fillRoom(thisRoom, room);
 
                 /*Add the new room to the room list*/
+                roomList.Add(thisRoom);
             }
 
         
@@ -93,11 +94,21 @@ namespace LOZ.Tools.LevelManager
             }
 
             /*Fill in item object list*/
-
+            foreach (XmlNode item in xmlRoom.SelectSingleNode("/items").ChildNodes)
+            {
+                /*get enemy objects from enemy elements*/
+                room.itemList.Add(getItemObject(item));
+            }
 
             /*Assign neighbors*/
-
+            room.northNeighbor = int.Parse(xmlRoom.SelectSingleNode("/neighbors/north").Attributes["id"].Value);
+            room.southNeighbor = int.Parse(xmlRoom.SelectSingleNode("/neighbors/south").Attributes["id"].Value);
+            room.eastNeighbor = int.Parse(xmlRoom.SelectSingleNode("/neighbors/east").Attributes["id"].Value);
+            room.westNeighbor = int.Parse(xmlRoom.SelectSingleNode("/neighbors/west").Attributes["id"].Value);
         }
+
+
+        /*Helper functions*/
         private Rectangle getBarrierRectangle(XmlNode xmlBarrier)
         {
             int x = int.Parse(xmlBarrier.SelectSingleNode("/xPlacement").InnerText);
@@ -112,9 +123,12 @@ namespace LOZ.Tools.LevelManager
             int xPlacement = int.Parse(xmlTile.SelectSingleNode("/xPlacement").InnerText);
             int yPlacement = int.Parse(xmlTile.SelectSingleNode("/yPlacement").InnerText);
             string type = xmlTile.Attributes?["type"]?.Value;
-            
 
-            return environmentFactory.getEnvironment((Environment) Enum.Parse(typeof(Environment),type));
+            IEnvironment thisTile = environmentFactory.getEnvironment((Environment)Enum.Parse(typeof(Environment), type);
+
+            thisTile.setPlacement(xPlacement, yPlacement);
+
+            return thisTile;
         }
         private IEnemy getEnemyObject(XmlNode xmlEnemy)
         {
@@ -123,7 +137,11 @@ namespace LOZ.Tools.LevelManager
             string type = xmlEnemy.Attributes?["type"]?.Value;
             enemySpriteFactory.curr = (int)Enum.Parse(typeof(Enemy), type);
 
-            return enemySpriteFactory.NewEnemy();
+            IEnemy thisEnemy = enemySpriteFactory.NewEnemy();
+
+            thisEnemy.setPosition(xPlacement,yPlacement);
+
+            return thisEnemy;
         }
         private INPC getNPCObject(XmlNode xmlNPC)
         {
@@ -131,8 +149,19 @@ namespace LOZ.Tools.LevelManager
             int yPlacement = int.Parse(xmlNPC.SelectSingleNode("/yPlacement").InnerText);
             string type = xmlNPC.Attributes?["type"]?.Value;
 
+            INPC thisNPC = npcFactory.CreateNPC((NPC)Enum.Parse(typeof(NPC), type));
 
-            return npcFactory.CreateNPC((NPC)Enum.Parse(typeof(NPC), type));
+            thisNPC.setPlacement(xPlacement, yPlacement);
+
+            return thisNPC;
+        }
+        private IItem getItemObject(XmlNode xmlItem)
+        {
+            int xPlacement = int.Parse(xmlItem.SelectSingleNode("/xPlacement").InnerText);
+            int yPlacement = int.Parse(xmlItem.SelectSingleNode("/yPlacement").InnerText);
+            string type = xmlItem.Attributes?["type"]?.Value;
+
+            return itemFactory.CreateItem((Item)Enum.Parse(typeof(NPC), type),xPlacement,yPlacement);
         }
 
     }
