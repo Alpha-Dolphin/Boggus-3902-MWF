@@ -48,7 +48,7 @@ namespace LOZ.Tools.PlayerObjects
         {
             this.sprite.Update((int)position.X, (int)position.Y);
 
-            if (exploded && this.sprite.finished())
+            if (exploded && this.sprite.Finished())
             {
                 this.sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
                     new List<Rectangle> { new Rectangle(0, 0, 0, 0) });

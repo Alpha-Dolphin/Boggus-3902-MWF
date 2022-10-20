@@ -12,17 +12,17 @@ interface ISprite
 {
     void Update(int x, int y);
     //void initialize();
-    bool finished();
+    bool Finished();
     void Draw(SpriteBatch spriteBatch);
 }
 
 interface IEnvironment
 {
-    void setPlacement(int x, int y);
+    void SetPlacement(int x, int y);
     Rectangle GetRectangle();
-    void update();
-    void draw(SpriteBatch spriteBatch);
-    void load();
+    void Update();
+    void Draw(SpriteBatch spriteBatch);
+    void Load();
 }
 
 interface IHitbox{

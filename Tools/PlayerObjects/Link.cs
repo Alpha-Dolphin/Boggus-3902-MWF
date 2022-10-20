@@ -156,8 +156,8 @@ namespace LOZ.Tools.PlayerObjects
         {
             switch (input)
             {
-                case 1: break;
-                case 2: UpdateState(LinkConstants.Link_States.UseItem, this.direction);  CreateProjectile(LinkConstants.Link_Projectiles.Arrow); break;
+                case 1: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(LinkConstants.Link_Projectiles.BlueArrow); break;
+                case 2: UpdateState(LinkConstants.Link_States.UseItem, this.direction);  CreateProjectile(LinkConstants.Link_Projectiles.WoodArrow); break;
                 case 3: UpdateState(LinkConstants.Link_States.UseItem, this.direction);  CreateProjectile(LinkConstants.Link_Projectiles.Boomerang); break;
                 case 4: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(LinkConstants.Link_Projectiles.CandleFlame); break;
                 case 5: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(LinkConstants.Link_Projectiles.Bomb); break;
@@ -219,7 +219,7 @@ namespace LOZ.Tools.PlayerObjects
         {
             if (this.invincibilityFrames == 0)
             {
-                if (state == LinkConstants.Link_States.Damaged || this.sprite.finished() || this.state != LinkConstants.Link_States.Attacking)
+                if (state == LinkConstants.Link_States.Damaged || this.sprite.Finished() || this.state != LinkConstants.Link_States.Attacking)
                 {
                     if (!(this.state == state) || !(this.direction == direction))
                     {

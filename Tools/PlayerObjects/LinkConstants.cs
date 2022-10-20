@@ -31,7 +31,8 @@ namespace LOZ.Tools.PlayerObjects
         }
         public enum Link_Projectiles
         {
-            Arrow,
+            BlueArrow,
+            WoodArrow,
             SwordBeam,
             Boomerang,
             Bomb,
@@ -358,32 +359,52 @@ namespace LOZ.Tools.PlayerObjects
         private static Vector2 SWORDBEAM_DOWN_LOCATIONSHIFT_DEFAULT = new Vector2(5, 15);
         public static List<Vector2> SWORDBEAM_DOWN_LOCATIONSHIFT = new List<Vector2> { SWORDBEAM_DOWN_LOCATIONSHIFT_DEFAULT };
 
-        private const int WOODARROW_WIDTH = 5;
-        private const int WOODARROW_HEIGHT = 16;
+        private const int ARROW_WIDTH = 5;
+        private const int ARROW_HEIGHT = 16;
 
         private const int ARROW_WOOD_UPX = 3;
         private const int ARROW_WOOD_UPY = 185;
-        private static Rectangle ARROW_WOOD_UP = new Rectangle(ARROW_WOOD_UPX, ARROW_WOOD_UPY, WOODARROW_WIDTH, WOODARROW_HEIGHT);
+        private static Rectangle ARROW_WOOD_UP = new Rectangle(ARROW_WOOD_UPX, ARROW_WOOD_UPY, ARROW_WIDTH, ARROW_HEIGHT);
         public static List<Rectangle> ARROW_WOOD_UP_FRAMES = new List<Rectangle> { ARROW_WOOD_UP };
         public static List<Vector2> ARROW_UP_LOCATIONSHIFT = new List<Vector2>(new Vector2[] { new Vector2(6, 0) });
 
         private const int ARROW_WOOD_LEFTX = 716;
         private const int ARROW_WOOD_LEFTY = 190;
-        private static Rectangle ARROW_WOOD_LEFT = new Rectangle(ARROW_WOOD_LEFTX, ARROW_WOOD_LEFTY, WOODARROW_HEIGHT, WOODARROW_WIDTH);
+        private static Rectangle ARROW_WOOD_LEFT = new Rectangle(ARROW_WOOD_LEFTX, ARROW_WOOD_LEFTY, ARROW_HEIGHT, ARROW_WIDTH);
         public static List<Rectangle> ARROW_WOOD_LEFT_FRAMES = new List<Rectangle> { ARROW_WOOD_LEFT };
         public static List<Vector2> ARROW_LEFT_LOCATIONSHIFT = new List<Vector2>(new Vector2[] { new Vector2(0, 7) });
 
         private const int ARROW_WOOD_RIGHTX = 10;
         private const int ARROW_WOOD_RIGHTY = 190;
-        private static Rectangle ARROW_WOOD_RIGHT = new Rectangle(ARROW_WOOD_RIGHTX, ARROW_WOOD_RIGHTY, WOODARROW_HEIGHT, WOODARROW_WIDTH);
+        private static Rectangle ARROW_WOOD_RIGHT = new Rectangle(ARROW_WOOD_RIGHTX, ARROW_WOOD_RIGHTY, ARROW_HEIGHT, ARROW_WIDTH);
         public static List<Rectangle> ARROW_WOOD_RIGHT_FRAMES = new List<Rectangle> { ARROW_WOOD_RIGHT };
         public static List<Vector2> ARROW_RIGHT_LOCATIONSHIFT = new List<Vector2>(new Vector2[] { new Vector2(0, 7) });
 
         private const int ARROW_WOOD_DOWNX = 318;
         private const int ARROW_WOOD_DOWNY = 185;
-        private static Rectangle ARROW_WOOD_DOWN = new Rectangle(ARROW_WOOD_DOWNX, ARROW_WOOD_DOWNY, WOODARROW_WIDTH, WOODARROW_HEIGHT);
+        private static Rectangle ARROW_WOOD_DOWN = new Rectangle(ARROW_WOOD_DOWNX, ARROW_WOOD_DOWNY, ARROW_WIDTH, ARROW_HEIGHT);
         public static List<Rectangle> ARROW_WOOD_DOWN_FRAMES = new List<Rectangle> { ARROW_WOOD_DOWN };
         public static List<Vector2> ARROW_DOWN_LOCATIONSHIFT = new List<Vector2>(new Vector2[] { new Vector2(7, 15) });
+
+        private const int ARROW_BLUE_UPX = 29;
+        private const int ARROW_BLUE_UPY = 185;
+        private static Rectangle ARROW_BLUE_UP = new Rectangle(ARROW_BLUE_UPX, ARROW_BLUE_UPY, ARROW_WIDTH, ARROW_HEIGHT);
+        public static List<Rectangle> ARROW_BLUE_UP_FRAMES = new List<Rectangle> { ARROW_BLUE_UP };
+
+        private const int ARROW_BLUE_LEFTX = 690;
+        private const int ARROW_BLUE_LEFTY = 190;
+        private static Rectangle ARROW_BLUE_LEFT = new Rectangle(ARROW_BLUE_LEFTX, ARROW_BLUE_LEFTY, ARROW_HEIGHT, ARROW_WIDTH);
+        public static List<Rectangle> ARROW_BLUE_LEFT_FRAMES = new List<Rectangle> { ARROW_BLUE_LEFT };
+
+        private const int ARROW_BLUE_RIGHTX = 36;
+        private const int ARROW_BLUE_RIGHTY = 190;
+        private static Rectangle ARROW_BLUE_RIGHT = new Rectangle(ARROW_BLUE_RIGHTX, ARROW_BLUE_RIGHTY, ARROW_HEIGHT, ARROW_WIDTH);
+        public static List<Rectangle> ARROW_BLUE_RIGHT_FRAMES = new List<Rectangle> { ARROW_BLUE_RIGHT };
+
+        private const int ARROW_BLUE_DOWNX = 329;
+        private const int ARROW_BLUE_DOWNY = 185;
+        private static Rectangle ARROW_BLUE_DOWN = new Rectangle(ARROW_BLUE_DOWNX, ARROW_BLUE_DOWNY, ARROW_WIDTH, ARROW_HEIGHT);
+        public static List<Rectangle> ARROW_BLUE_DOWN_FRAMES = new List<Rectangle> { ARROW_BLUE_DOWN };
 
         public const int MAX_WOODEN_ARROW_RANGE = 200;
         public const int MAX_BLUE_ARROW_RANGE = 400;
