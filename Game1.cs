@@ -72,8 +72,6 @@ namespace LOZ
             // TODO: Add your initialization logic here
             LoadContent();
 
-            LinkConstants.Initialize();
-
             link = new Link(LinkConstants.DEFAULT_X, LinkConstants.DEFAULT_Y, LinkConstants.DEFAULT_ITEMS, LinkConstants.MAX_HEALTH,
                 LinkConstants.DEFAULT_STATE, LinkConstants.DEFAULT_DIRECTION,FONT);
             linkCommandHandler = new LinkCommand((Link) link); 

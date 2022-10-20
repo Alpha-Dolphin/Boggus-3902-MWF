@@ -17,6 +17,7 @@ namespace LOZ.Tools.PlayerObjects
             Normal,
             Walking,
             Attacking,
+            PickupItem,
             UseItem,
             Damaged,
             Dead
@@ -44,8 +45,8 @@ namespace LOZ.Tools.PlayerObjects
             Right
         }
 
-        public const int GAME_WIDTH = 800;
-        public const int GAME_HEIGHT = 480;
+        private const int GAME_WIDTH = 800;
+        private const int GAME_HEIGHT = 480;
 
         public const int DEFAULT_X = GAME_WIDTH / 2;
         public const int DEFAULT_Y = GAME_HEIGHT / 2;
@@ -58,8 +59,8 @@ namespace LOZ.Tools.PlayerObjects
         public static Color DEFAULT_PICTURE_COLOR = Color.White;
 
         public static List<Keys> LINK_KEYS = new List<Keys>(new Keys[] { MOVE_UP_KEY, MOVE_LEFT_KEY, MOVE_RIGHT_KEY, MOVE_DOWN_KEY,
-            ATTACK_SWORD1, ATTACK_SWORD2, 
-            ITEM_1, ITEM_PAD1, ITEM_2, ITEM_PAD2, ITEM_3, ITEM_PAD3, ITEM_4, ITEM_PAD4, ITEM_5, ITEM_PAD5, 
+            ATTACK_SWORD1, ATTACK_SWORD2,
+            ITEM_1, ITEM_PAD1, ITEM_2, ITEM_PAD2, ITEM_3, ITEM_PAD3, ITEM_4, ITEM_PAD4, ITEM_5, ITEM_PAD5,
             ITEM_6, ITEM_PAD6, ITEM_7, ITEM_PAD7, ITEM_8, ITEM_PAD8, ITEM_9, ITEM_PAD9, ITEM_0, ITEM_PAD0,
             DAMAGE_KEY });
 
@@ -74,9 +75,9 @@ namespace LOZ.Tools.PlayerObjects
         public const Keys MOVE_DOWN_KEY = Keys.S;
         public const Keys MOVE_DOWNARROW_KEY = Keys.Down;
 
-        public static List<Keys> SWORD_ATTACK_KEYS = new List<Keys>( new Keys[] { ATTACK_SWORD1, ATTACK_SWORD2 });
-        public const Keys ATTACK_SWORD1 = Keys.Z;
-        public const Keys ATTACK_SWORD2 = Keys.N;
+        public static List<Keys> SWORD_ATTACK_KEYS = new List<Keys>(new Keys[] { ATTACK_SWORD1, ATTACK_SWORD2 });
+        private const Keys ATTACK_SWORD1 = Keys.Z;
+        private const Keys ATTACK_SWORD2 = Keys.N;
 
         public static List<Keys> ITEM_KEYS = new List<Keys>(new Keys[] { ITEM_1, ITEM_PAD1, ITEM_2, ITEM_PAD2, ITEM_3, ITEM_PAD3, ITEM_4, ITEM_PAD4,
             ITEM_5, ITEM_PAD5, ITEM_6, ITEM_PAD6, ITEM_7, ITEM_PAD7, ITEM_8, ITEM_PAD8, ITEM_9, ITEM_PAD9, ITEM_0, ITEM_PAD0});
@@ -102,7 +103,7 @@ namespace LOZ.Tools.PlayerObjects
         public const Keys ITEM_PAD0 = Keys.NumPad0;
 
         public static List<Keys> DAMAGE_KEYS = new List<Keys>(new Keys[] { DAMAGE_KEY });
-        public const Keys DAMAGE_KEY = Keys.E;
+        private const Keys DAMAGE_KEY = Keys.E;
 
         public const int MAX_HEALTH = 8;
 
@@ -110,226 +111,277 @@ namespace LOZ.Tools.PlayerObjects
 
         public static Vector2 DEFAULT_LOCATIONSHIFT = new Vector2(0, 0);
 
-        public const int LINK_MOVEDOWNWIDTH1 = 15;
-        public const int LINK_MOVEDOWNWIDTH2 = 13;
-        public const int LINK_MOVESIDEWIDTH1 = 15;
-        public const int LINK_MOVESIDEWIDTH2 = 14;
-        public const int LINK_MOVEUPWIDTH = 12;
+        private const int LINK_MOVEDOWNWIDTH1 = 15;
+        private const int LINK_MOVEDOWNWIDTH2 = 13;
+        private const int LINK_MOVESIDEWIDTH1 = 15;
+        private const int LINK_MOVESIDEWIDTH2 = 14;
+        private const int LINK_MOVEUPWIDTH = 12;
 
-        public const int LINK_MOVEHEIGHT = 16;
-        public const int LINK_MOVESIDEHEIGHT2 = 15;
+        private const int LINK_MOVEHEIGHT = 16;
+        private const int LINK_MOVESIDEHEIGHT2 = 15;
 
-        public const int LINK_MOVEDOWNX1 = 1;
-        public const int LINK_MOVEDOWNX2 = 19;
-        public const int LINK_MOVELEFTX1 = 692;
-        public const int LINK_MOVELEFTX2 = 676;
-        public const int LINK_MOVERIGHTX1 = 35;
-        public const int LINK_MOVERIGHTX2 = 52;
-        public const int LINK_MOVEUPX1 = 71;
-        public const int LINK_MOVEUPX2 = 88;
+        private const int LINK_MOVEDOWNX1 = 1;
+        private const int LINK_MOVEDOWNX2 = 19;
+        private const int LINK_MOVELEFTX1 = 692;
+        private const int LINK_MOVELEFTX2 = 676;
+        private const int LINK_MOVERIGHTX1 = 35;
+        private const int LINK_MOVERIGHTX2 = 52;
+        private const int LINK_MOVEUPX1 = 71;
+        private const int LINK_MOVEUPX2 = 88;
 
-        public const int LINK_MOVEY = 11;
-        public const int LINK_MOVESIDEY2 = 12;
+        private const int LINK_MOVEY = 11;
+        private const int LINK_MOVESIDEY2 = 12;
 
         public static Rectangle LINK_MOVEUP_FRAME1 = new Rectangle(LINK_MOVEUPX1, LINK_MOVEY, LINK_MOVEUPWIDTH, LINK_MOVEHEIGHT);
-        public static Rectangle LINK_MOVEUP_FRAME2 = new Rectangle(LINK_MOVEUPX2, LINK_MOVEY, LINK_MOVEUPWIDTH, LINK_MOVEHEIGHT);
+        private static Rectangle LINK_MOVEUP_FRAME2 = new Rectangle(LINK_MOVEUPX2, LINK_MOVEY, LINK_MOVEUPWIDTH, LINK_MOVEHEIGHT);
         public static List<Rectangle> LINK_MOVEUP_FRAMES = new List<Rectangle> { LINK_MOVEUP_FRAME1, LINK_MOVEUP_FRAME2 };
 
         public static Rectangle LINK_MOVELEFT_FRAME1 = new Rectangle(LINK_MOVELEFTX1, LINK_MOVEY, LINK_MOVESIDEWIDTH1, LINK_MOVEHEIGHT);
-        public static Rectangle LINK_MOVELEFT_FRAME2 = new Rectangle(LINK_MOVELEFTX2, LINK_MOVESIDEY2, LINK_MOVESIDEWIDTH2, LINK_MOVESIDEHEIGHT2);
+        private static Rectangle LINK_MOVELEFT_FRAME2 = new Rectangle(LINK_MOVELEFTX2, LINK_MOVESIDEY2, LINK_MOVESIDEWIDTH2, LINK_MOVESIDEHEIGHT2);
         public static List<Rectangle> LINK_MOVELEFT_FRAMES = new List<Rectangle> { LINK_MOVELEFT_FRAME1, LINK_MOVELEFT_FRAME2 };
 
         public static Rectangle LINK_MOVERIGHT_FRAME1 = new Rectangle(LINK_MOVERIGHTX1, LINK_MOVEY, LINK_MOVESIDEWIDTH1, LINK_MOVEHEIGHT);
-        public static Rectangle LINK_MOVERIGHT_FRAME2 = new Rectangle(LINK_MOVERIGHTX2, LINK_MOVESIDEY2, LINK_MOVESIDEWIDTH2, LINK_MOVESIDEHEIGHT2);
+        private static Rectangle LINK_MOVERIGHT_FRAME2 = new Rectangle(LINK_MOVERIGHTX2, LINK_MOVESIDEY2, LINK_MOVESIDEWIDTH2, LINK_MOVESIDEHEIGHT2);
         public static List<Rectangle> LINK_MOVERIGHT_FRAMES = new List<Rectangle> { LINK_MOVERIGHT_FRAME1, LINK_MOVERIGHT_FRAME2 };
 
         public static Rectangle LINK_MOVEDOWN_FRAME1 = new Rectangle(LINK_MOVEDOWNX1, LINK_MOVEY, LINK_MOVEDOWNWIDTH1, LINK_MOVEHEIGHT);
-        public static Rectangle LINK_MOVEDOWN_FRAME2 = new Rectangle(LINK_MOVEDOWNX2, LINK_MOVEY, LINK_MOVEDOWNWIDTH2, LINK_MOVEHEIGHT);
+        private static Rectangle LINK_MOVEDOWN_FRAME2 = new Rectangle(LINK_MOVEDOWNX2, LINK_MOVEY, LINK_MOVEDOWNWIDTH2, LINK_MOVEHEIGHT);
         public static List<Rectangle> LINK_MOVEDOWN_FRAMES = new List<Rectangle> { LINK_MOVEDOWN_FRAME1, LINK_MOVEDOWN_FRAME2 };
 
-        public const int LINK_SWORD_ATTACKUPY1 = 109;
-        public const int LINK_SWORD_ATTACKUPY2 = 97;
-        public const int LINK_SWORD_ATTACKUPX3 = 37;
-        public const int LINK_SWORD_ATTACKUPY3 = 98;
-        public const int LINK_SWORD_ATTACKUPX4 = 54;
-        public const int LINK_SWORD_ATTACKUPY4 = 106;
+        private const int LINK_SWORD_ATTACKUPY1 = 109;
+        private const int LINK_SWORD_ATTACKUPY2 = 97;
+        private const int LINK_SWORD_ATTACKUPX3 = 37;
+        private const int LINK_SWORD_ATTACKUPY3 = 98;
+        private const int LINK_SWORD_ATTACKUPX4 = 54;
+        private const int LINK_SWORD_ATTACKUPY4 = 106;
 
-        public const int LINK_SWORD_ATTACKSIDEWIDTH1 = 15;
-        public const int LINK_SWORD_ATTACKSIDEHEIGHT1 = 15;
-        public const int LINK_SWORD_ATTACKSIDEWIDTH2 = 27;
-        public const int LINK_SWORD_ATTACKSIDEHEIGHT2 = 15;
-        public const int LINK_SWORD_ATTACKSIDEWIDTH3 = 23;
-        public const int LINK_SWORD_ATTACKSIDEHEIGHT3 = 15;
-        public const int LINK_SWORD_ATTACKSIDEWIDTH4 = 19;
-        public const int LINK_SWORD_ATTACKSIDEHEIGHT4 = 16;
+        private const int LINK_SWORD_ATTACKSIDEWIDTH1 = 15;
+        private const int LINK_SWORD_ATTACKSIDEHEIGHT1 = 15;
+        private const int LINK_SWORD_ATTACKSIDEWIDTH2 = 27;
+        private const int LINK_SWORD_ATTACKSIDEHEIGHT2 = 15;
+        private const int LINK_SWORD_ATTACKSIDEWIDTH3 = 23;
+        private const int LINK_SWORD_ATTACKSIDEHEIGHT3 = 15;
+        private const int LINK_SWORD_ATTACKSIDEWIDTH4 = 19;
+        private const int LINK_SWORD_ATTACKSIDEHEIGHT4 = 16;
 
-        public const int LINK_SWORD_ATTACKUPWIDTH1 = 16;
-        public const int LINK_SWORD_ATTACKUPHEIGHT1 = 16;
-        public const int LINK_SWORD_ATTACKUPWIDTH2 = 16;
-        public const int LINK_SWORD_ATTACKUPHEIGHT2 = 28;
-        public const int LINK_SWORD_ATTACKUPWIDTH3 = 12;
-        public const int LINK_SWORD_ATTACKUPHEIGHT3 = 27;
-        public const int LINK_SWORD_ATTACKUPWIDTH4 = 12;
-        public const int LINK_SWORD_ATTACKUPHEIGHT4 = 19;
+        private const int LINK_SWORD_ATTACKUPWIDTH1 = 16;
+        private const int LINK_SWORD_ATTACKUPHEIGHT1 = 16;
+        private const int LINK_SWORD_ATTACKUPWIDTH2 = 16;
+        private const int LINK_SWORD_ATTACKUPHEIGHT2 = 28;
+        private const int LINK_SWORD_ATTACKUPWIDTH3 = 12;
+        private const int LINK_SWORD_ATTACKUPHEIGHT3 = 27;
+        private const int LINK_SWORD_ATTACKUPWIDTH4 = 12;
+        private const int LINK_SWORD_ATTACKUPHEIGHT4 = 19;
 
-        public const int LINK_SWORD_ATTACKLEFTX1 = 726;
-        public const int LINK_SWORD_ATTACKLEFTX2 = 697;
-        public const int LINK_SWORD_ATTACKLEFTX3 = 673;
-        public const int LINK_SWORD_ATTACKLEFTX4 = 653;
-        public const int LINK_SWORD_ATTACKSIDEY = 78;
-        public const int LINK_SWORD_ATTACKSIDEY4 = 77;
-        public const int LINK_SWORD_ATTACKRIGHTX3 = 46;
-        public const int LINK_SWORD_ATTACKRIGHTX4 = 70;
+        private const int LINK_SWORD_ATTACKLEFTX1 = 726;
+        private const int LINK_SWORD_ATTACKLEFTX2 = 697;
+        private const int LINK_SWORD_ATTACKLEFTX3 = 673;
+        private const int LINK_SWORD_ATTACKLEFTX4 = 653;
+        private const int LINK_SWORD_ATTACKSIDEY = 78;
+        private const int LINK_SWORD_ATTACKSIDEY4 = 77;
+        private const int LINK_SWORD_ATTACKRIGHTX3 = 46;
+        private const int LINK_SWORD_ATTACKRIGHTX4 = 70;
 
-        public const int LINK_SWORD_ATTACKX1 = 1;
-        public const int LINK_SWORD_ATTACKX2 = 18;
-        public const int LINK_SWORD_ATTACKDOWNX3 = 35;
-        public const int LINK_SWORD_ATTACKDOWNX4 = 53;
-        public const int LINK_SWORD_ATTACKDOWNY = 47;
+        private const int LINK_SWORD_ATTACKX1 = 1;
+        private const int LINK_SWORD_ATTACKX2 = 18;
+        private const int LINK_SWORD_ATTACKDOWNX3 = 35;
+        private const int LINK_SWORD_ATTACKDOWNX4 = 53;
+        private const int LINK_SWORD_ATTACKDOWNY = 47;
 
-        public const int LINK_SWORD_ATTACKDOWNWIDTH1 = 16;
-        public const int LINK_SWORD_ATTACKDOWNHEIGHT1 = 15;
-        public const int LINK_SWORD_ATTACKDOWNWIDTH2 = 16;
-        public const int LINK_SWORD_ATTACKDOWNHEIGHT2 = 27;
-        public const int LINK_SWORD_ATTACKDOWNWIDTH3 = 15;
-        public const int LINK_SWORD_ATTACKDOWNHEIGHT3 = 23;
-        public const int LINK_SWORD_ATTACKDOWNWIDTH4 = 13;
-        public const int LINK_SWORD_ATTACKDOWNHEIGHT4 = 19;
+        private const int LINK_SWORD_ATTACKDOWNWIDTH1 = 16;
+        private const int LINK_SWORD_ATTACKDOWNHEIGHT1 = 15;
+        private const int LINK_SWORD_ATTACKDOWNWIDTH2 = 16;
+        private const int LINK_SWORD_ATTACKDOWNHEIGHT2 = 27;
+        private const int LINK_SWORD_ATTACKDOWNWIDTH3 = 15;
+        private const int LINK_SWORD_ATTACKDOWNHEIGHT3 = 23;
+        private const int LINK_SWORD_ATTACKDOWNWIDTH4 = 13;
+        private const int LINK_SWORD_ATTACKDOWNHEIGHT4 = 19;
 
-        public static Rectangle LINK_SWORD_ATTACKUP_FRAME1 = new Rectangle(LINK_SWORD_ATTACKX1, LINK_SWORD_ATTACKUPY1, LINK_SWORD_ATTACKUPWIDTH1, LINK_SWORD_ATTACKUPHEIGHT1);
-        public static Vector2 LINK_SWORD_ATTACKUP_LOCATIONSHIFT1 = new Vector2(0, 0);
-        public static Rectangle LINK_SWORD_ATTACKUP_FRAME2 = new Rectangle(LINK_SWORD_ATTACKX2, LINK_SWORD_ATTACKUPY2, LINK_SWORD_ATTACKUPWIDTH2, LINK_SWORD_ATTACKUPHEIGHT2);
-        public static Vector2 LINK_SWORD_ATTACKUP_LOCATIONSHIFT2 = new Vector2(0, -12);
-        public static Rectangle LINK_SWORD_ATTACKUP_FRAME3 = new Rectangle(LINK_SWORD_ATTACKUPX3, LINK_SWORD_ATTACKUPY3, LINK_SWORD_ATTACKUPWIDTH3, LINK_SWORD_ATTACKUPHEIGHT3);
-        public static Vector2 LINK_SWORD_ATTACKUP_LOCATIONSHIFT3 = new Vector2(0, -11);
-        public static Rectangle LINK_SWORD_ATTACKUP_FRAME4 = new Rectangle(LINK_SWORD_ATTACKUPX4, LINK_SWORD_ATTACKUPY4, LINK_SWORD_ATTACKUPWIDTH4, LINK_SWORD_ATTACKUPHEIGHT4);
-        public static Vector2 LINK_SWORD_ATTACKUP_LOCATIONSHIFT4 = new Vector2(0, -3);
+        private static Rectangle LINK_SWORD_ATTACKUP_FRAME1 = new Rectangle(LINK_SWORD_ATTACKX1, LINK_SWORD_ATTACKUPY1, LINK_SWORD_ATTACKUPWIDTH1, LINK_SWORD_ATTACKUPHEIGHT1);
+        private static Vector2 LINK_SWORD_ATTACKUP_LOCATIONSHIFT1 = new Vector2(0, 0);
+        private static Rectangle LINK_SWORD_ATTACKUP_FRAME2 = new Rectangle(LINK_SWORD_ATTACKX2, LINK_SWORD_ATTACKUPY2, LINK_SWORD_ATTACKUPWIDTH2, LINK_SWORD_ATTACKUPHEIGHT2);
+        private static Vector2 LINK_SWORD_ATTACKUP_LOCATIONSHIFT2 = new Vector2(0, -12);
+        private static Rectangle LINK_SWORD_ATTACKUP_FRAME3 = new Rectangle(LINK_SWORD_ATTACKUPX3, LINK_SWORD_ATTACKUPY3, LINK_SWORD_ATTACKUPWIDTH3, LINK_SWORD_ATTACKUPHEIGHT3);
+        private static Vector2 LINK_SWORD_ATTACKUP_LOCATIONSHIFT3 = new Vector2(0, -11);
+        private static Rectangle LINK_SWORD_ATTACKUP_FRAME4 = new Rectangle(LINK_SWORD_ATTACKUPX4, LINK_SWORD_ATTACKUPY4, LINK_SWORD_ATTACKUPWIDTH4, LINK_SWORD_ATTACKUPHEIGHT4);
+        private static Vector2 LINK_SWORD_ATTACKUP_LOCATIONSHIFT4 = new Vector2(0, -3);
         public static List<Rectangle> LINK_SWORD_ATTACKUP_FRAMES = new List<Rectangle> { LINK_SWORD_ATTACKUP_FRAME1, LINK_SWORD_ATTACKUP_FRAME2, LINK_SWORD_ATTACKUP_FRAME3, LINK_SWORD_ATTACKUP_FRAME4 };
         public static List<Vector2> LINK_SWORD_ATTACKUP_LOCATIONSHIFT = new List<Vector2> { LINK_SWORD_ATTACKUP_LOCATIONSHIFT1, LINK_SWORD_ATTACKUP_LOCATIONSHIFT2, LINK_SWORD_ATTACKUP_LOCATIONSHIFT3, LINK_SWORD_ATTACKUP_LOCATIONSHIFT4 };
-        
-        public static Rectangle LINK_SWORD_ATTACKLEFT_FRAME1 = new Rectangle(LINK_SWORD_ATTACKLEFTX1, LINK_SWORD_ATTACKSIDEY, LINK_SWORD_ATTACKSIDEWIDTH1, LINK_SWORD_ATTACKSIDEHEIGHT1);
-        public static Vector2 LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT1 = new Vector2(0, 0);
-        public static Rectangle LINK_SWORD_ATTACKLEFT_FRAME2 = new Rectangle(LINK_SWORD_ATTACKLEFTX2, LINK_SWORD_ATTACKSIDEY, LINK_SWORD_ATTACKSIDEWIDTH2, LINK_SWORD_ATTACKSIDEHEIGHT2);
-        public static Vector2 LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT2 = new Vector2(-12, 0);
-        public static Rectangle LINK_SWORD_ATTACKLEFT_FRAME3 = new Rectangle(LINK_SWORD_ATTACKLEFTX3, LINK_SWORD_ATTACKSIDEY, LINK_SWORD_ATTACKSIDEWIDTH3, LINK_SWORD_ATTACKSIDEHEIGHT3);
-        public static Vector2 LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT3 = new Vector2(-9, 0);
-        public static Rectangle LINK_SWORD_ATTACKLEFT_FRAME4 = new Rectangle(LINK_SWORD_ATTACKLEFTX4, LINK_SWORD_ATTACKSIDEY4, LINK_SWORD_ATTACKSIDEWIDTH4, LINK_SWORD_ATTACKSIDEHEIGHT4);
-        public static Vector2 LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT4 = new Vector2(-5, 0);
+
+        private static Rectangle LINK_SWORD_ATTACKLEFT_FRAME1 = new Rectangle(LINK_SWORD_ATTACKLEFTX1, LINK_SWORD_ATTACKSIDEY, LINK_SWORD_ATTACKSIDEWIDTH1, LINK_SWORD_ATTACKSIDEHEIGHT1);
+        private static Vector2 LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT1 = new Vector2(0, 0);
+        private static Rectangle LINK_SWORD_ATTACKLEFT_FRAME2 = new Rectangle(LINK_SWORD_ATTACKLEFTX2, LINK_SWORD_ATTACKSIDEY, LINK_SWORD_ATTACKSIDEWIDTH2, LINK_SWORD_ATTACKSIDEHEIGHT2);
+        private static Vector2 LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT2 = new Vector2(-12, 0);
+        private static Rectangle LINK_SWORD_ATTACKLEFT_FRAME3 = new Rectangle(LINK_SWORD_ATTACKLEFTX3, LINK_SWORD_ATTACKSIDEY, LINK_SWORD_ATTACKSIDEWIDTH3, LINK_SWORD_ATTACKSIDEHEIGHT3);
+        private static Vector2 LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT3 = new Vector2(-9, 0);
+        private static Rectangle LINK_SWORD_ATTACKLEFT_FRAME4 = new Rectangle(LINK_SWORD_ATTACKLEFTX4, LINK_SWORD_ATTACKSIDEY4, LINK_SWORD_ATTACKSIDEWIDTH4, LINK_SWORD_ATTACKSIDEHEIGHT4);
+        private static Vector2 LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT4 = new Vector2(-5, 0);
         public static List<Rectangle> LINK_SWORD_ATTACKLEFT_FRAMES = new List<Rectangle> { LINK_SWORD_ATTACKLEFT_FRAME1, LINK_SWORD_ATTACKLEFT_FRAME2, LINK_SWORD_ATTACKLEFT_FRAME3, LINK_SWORD_ATTACKLEFT_FRAME4 };
         public static List<Vector2> LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT = new List<Vector2> { LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT1, LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT2, LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT3, LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT4 };
 
-        public static Rectangle LINK_SWORD_ATTACKRIGHT_FRAME1 = new Rectangle(LINK_SWORD_ATTACKX1, LINK_SWORD_ATTACKSIDEY, LINK_SWORD_ATTACKSIDEWIDTH1, LINK_SWORD_ATTACKSIDEHEIGHT1);
-        public static Rectangle LINK_SWORD_ATTACKRIGHT_FRAME2 = new Rectangle(LINK_SWORD_ATTACKX2, LINK_SWORD_ATTACKSIDEY, LINK_SWORD_ATTACKSIDEWIDTH2, LINK_SWORD_ATTACKSIDEHEIGHT2);
-        public static Rectangle LINK_SWORD_ATTACKRIGHT_FRAME3 = new Rectangle(LINK_SWORD_ATTACKRIGHTX3, LINK_SWORD_ATTACKSIDEY, LINK_SWORD_ATTACKSIDEWIDTH3, LINK_SWORD_ATTACKSIDEHEIGHT3);
-        public static Rectangle LINK_SWORD_ATTACKRIGHT_FRAME4 = new Rectangle(LINK_SWORD_ATTACKRIGHTX4, LINK_SWORD_ATTACKSIDEY4, LINK_SWORD_ATTACKSIDEWIDTH4, LINK_SWORD_ATTACKSIDEHEIGHT4);
+        private static Rectangle LINK_SWORD_ATTACKRIGHT_FRAME1 = new Rectangle(LINK_SWORD_ATTACKX1, LINK_SWORD_ATTACKSIDEY, LINK_SWORD_ATTACKSIDEWIDTH1, LINK_SWORD_ATTACKSIDEHEIGHT1);
+        private static Rectangle LINK_SWORD_ATTACKRIGHT_FRAME2 = new Rectangle(LINK_SWORD_ATTACKX2, LINK_SWORD_ATTACKSIDEY, LINK_SWORD_ATTACKSIDEWIDTH2, LINK_SWORD_ATTACKSIDEHEIGHT2);
+        private static Rectangle LINK_SWORD_ATTACKRIGHT_FRAME3 = new Rectangle(LINK_SWORD_ATTACKRIGHTX3, LINK_SWORD_ATTACKSIDEY, LINK_SWORD_ATTACKSIDEWIDTH3, LINK_SWORD_ATTACKSIDEHEIGHT3);
+        private static Rectangle LINK_SWORD_ATTACKRIGHT_FRAME4 = new Rectangle(LINK_SWORD_ATTACKRIGHTX4, LINK_SWORD_ATTACKSIDEY4, LINK_SWORD_ATTACKSIDEWIDTH4, LINK_SWORD_ATTACKSIDEHEIGHT4);
         public static List<Rectangle> LINK_SWORD_ATTACKRIGHT_FRAMES = new List<Rectangle> { LINK_SWORD_ATTACKRIGHT_FRAME1, LINK_SWORD_ATTACKRIGHT_FRAME2, LINK_SWORD_ATTACKRIGHT_FRAME3, LINK_SWORD_ATTACKRIGHT_FRAME4 };
 
-        public static Rectangle LINK_SWORD_ATTACKDOWN_FRAME1 = new Rectangle(LINK_SWORD_ATTACKX1, LINK_SWORD_ATTACKDOWNY, LINK_SWORD_ATTACKDOWNWIDTH1, LINK_SWORD_ATTACKDOWNHEIGHT1);
-        public static Rectangle LINK_SWORD_ATTACKDOWN_FRAME2 = new Rectangle(LINK_SWORD_ATTACKX2, LINK_SWORD_ATTACKDOWNY, LINK_SWORD_ATTACKDOWNWIDTH2, LINK_SWORD_ATTACKDOWNHEIGHT2);
-        public static Rectangle LINK_SWORD_ATTACKDOWN_FRAME3 = new Rectangle(LINK_SWORD_ATTACKDOWNX3, LINK_SWORD_ATTACKDOWNY, LINK_SWORD_ATTACKDOWNWIDTH3, LINK_SWORD_ATTACKDOWNHEIGHT3);
-        public static Rectangle LINK_SWORD_ATTACKDOWN_FRAME4 = new Rectangle(LINK_SWORD_ATTACKDOWNX4, LINK_SWORD_ATTACKDOWNY, LINK_SWORD_ATTACKDOWNWIDTH4, LINK_SWORD_ATTACKDOWNHEIGHT4);
+        
+        private static Rectangle LINK_SWORD_ATTACKDOWN_FRAME1 = new Rectangle(LINK_SWORD_ATTACKX1, LINK_SWORD_ATTACKDOWNY, LINK_SWORD_ATTACKDOWNWIDTH1, LINK_SWORD_ATTACKDOWNHEIGHT1);
+        private static Rectangle LINK_SWORD_ATTACKDOWN_FRAME2 = new Rectangle(LINK_SWORD_ATTACKX2, LINK_SWORD_ATTACKDOWNY, LINK_SWORD_ATTACKDOWNWIDTH2, LINK_SWORD_ATTACKDOWNHEIGHT2);
+        private static Rectangle LINK_SWORD_ATTACKDOWN_FRAME3 = new Rectangle(LINK_SWORD_ATTACKDOWNX3, LINK_SWORD_ATTACKDOWNY, LINK_SWORD_ATTACKDOWNWIDTH3, LINK_SWORD_ATTACKDOWNHEIGHT3);
+        private static Rectangle LINK_SWORD_ATTACKDOWN_FRAME4 = new Rectangle(LINK_SWORD_ATTACKDOWNX4, LINK_SWORD_ATTACKDOWNY, LINK_SWORD_ATTACKDOWNWIDTH4, LINK_SWORD_ATTACKDOWNHEIGHT4);
         public static List<Rectangle> LINK_SWORD_ATTACKDOWN_FRAMES = new List<Rectangle> { LINK_SWORD_ATTACKDOWN_FRAME1, LINK_SWORD_ATTACKDOWN_FRAME2, LINK_SWORD_ATTACKDOWN_FRAME3, LINK_SWORD_ATTACKDOWN_FRAME4 };
 
-        public static Rectangle DAMAGED_RED = new Rectangle(143, 258, 15, 16);
+        private const int SWORD_ATTACKUP_HITBOXX = 5;
+        private const int SWORD_ATTACKUP_HITBOXY = 0;
+        private const int SWORD_ATTACKUP_HITBOXWIDTH = 3;
+        private const int SWORD_ATTACKUP_HITBOX2HEIGHT = 12;
+        private const int SWORD_ATTACKUP_HITBOX3HEIGHT = 11;
+        private const int SWORD_ATTACKUP_HITBOX4HEIGHT = 3;
+        private static Rectangle? SWORD_ATTACKUP_HITBOX_FRAME1 = null;
+        private static Rectangle? SWORD_ATTACKUP_HITBOX_FRAME2 = new Rectangle(SWORD_ATTACKUP_HITBOXX, SWORD_ATTACKUP_HITBOXY, SWORD_ATTACKUP_HITBOXWIDTH, SWORD_ATTACKUP_HITBOX2HEIGHT);
+        private static Rectangle? SWORD_ATTACKUP_HITBOX_FRAME3 = new Rectangle(SWORD_ATTACKUP_HITBOXX, SWORD_ATTACKUP_HITBOXY, SWORD_ATTACKUP_HITBOXWIDTH, SWORD_ATTACKUP_HITBOX3HEIGHT);
+        private static Rectangle? SWORD_ATTACKUP_HITBOX_FRAME4 = new Rectangle(SWORD_ATTACKUP_HITBOXX, SWORD_ATTACKUP_HITBOXY, SWORD_ATTACKUP_HITBOXWIDTH, SWORD_ATTACKUP_HITBOX4HEIGHT);
+        public static List<Rectangle?> SWORD_ATTACKUP_HITBOX_FRAMES = new List<Rectangle?> { SWORD_ATTACKUP_HITBOX_FRAME1, SWORD_ATTACKUP_HITBOX_FRAME2, SWORD_ATTACKUP_HITBOX_FRAME3, SWORD_ATTACKUP_HITBOX_FRAME4 };
+
+        private const int SWORD_ATTACKLEFT_HITBOXX = 0;
+        private const int SWORD_ATTACKLEFT_HITBOXY = 7;
+        private const int SWORD_ATTACKLEFT_HITBOXHEIGHT = 3;
+        private const int SWORD_ATTACKLEFT_HITBOX2WIDTH = 12;
+        private const int SWORD_ATTACKLEFT_HITBOX3WIDTH = 10;
+        private const int SWORD_ATTACKLEFT_HITBOX4WIDTH = 5;
+        private static Rectangle? SWORD_ATTACKLEFT_HITBOX_FRAME1 = null;
+        private static Rectangle? SWORD_ATTACKLEFT_HITBOX_FRAME2 = new Rectangle(SWORD_ATTACKLEFT_HITBOXX, SWORD_ATTACKLEFT_HITBOXY, SWORD_ATTACKLEFT_HITBOX2WIDTH, SWORD_ATTACKLEFT_HITBOXHEIGHT);
+        private static Rectangle? SWORD_ATTACKLEFT_HITBOX_FRAME3 = new Rectangle(SWORD_ATTACKLEFT_HITBOXX, SWORD_ATTACKLEFT_HITBOXY, SWORD_ATTACKLEFT_HITBOX3WIDTH, SWORD_ATTACKLEFT_HITBOXHEIGHT);
+        private static Rectangle? SWORD_ATTACKLEFT_HITBOX_FRAME4 = new Rectangle(SWORD_ATTACKLEFT_HITBOXX, SWORD_ATTACKLEFT_HITBOXY, SWORD_ATTACKLEFT_HITBOX4WIDTH, SWORD_ATTACKLEFT_HITBOXHEIGHT);
+        public static List<Rectangle?> SWORD_ATTACKLEFT_HITBOX_FRAMES = new List<Rectangle?> { SWORD_ATTACKLEFT_HITBOX_FRAME1, SWORD_ATTACKLEFT_HITBOX_FRAME2, SWORD_ATTACKLEFT_HITBOX_FRAME3, SWORD_ATTACKLEFT_HITBOX_FRAME4 };
+
+        private const int SWORD_ATTACKRIGHT_HITBOXX = 16;
+        private const int SWORD_ATTACKRIGHT_HITBOXY = 7;
+        private const int SWORD_ATTACKRIGHT_HITBOXHEIGHT = 3;
+        private const int SWORD_ATTACKRIGHT_HITBOX2WIDTH = 12;
+        private const int SWORD_ATTACKRIGHT_HITBOX3WIDTH = 10;
+        private const int SWORD_ATTACKRIGHT_HITBOX4WIDTH = 5;
+        private static Rectangle? SWORD_ATTACKRIGHT_HITBOX_FRAME1 = null;
+        private static Rectangle? SWORD_ATTACKRIGHT_HITBOX_FRAME2 = new Rectangle(SWORD_ATTACKRIGHT_HITBOXX, SWORD_ATTACKRIGHT_HITBOXY, SWORD_ATTACKRIGHT_HITBOX2WIDTH, SWORD_ATTACKRIGHT_HITBOXHEIGHT);
+        private static Rectangle? SWORD_ATTACKRIGHT_HITBOX_FRAME3 = new Rectangle(SWORD_ATTACKRIGHT_HITBOXX, SWORD_ATTACKRIGHT_HITBOXY, SWORD_ATTACKRIGHT_HITBOX3WIDTH, SWORD_ATTACKRIGHT_HITBOXHEIGHT);
+        private static Rectangle? SWORD_ATTACKRIGHT_HITBOX_FRAME4 = new Rectangle(SWORD_ATTACKRIGHT_HITBOXX, SWORD_ATTACKRIGHT_HITBOXY, SWORD_ATTACKRIGHT_HITBOX4WIDTH, SWORD_ATTACKRIGHT_HITBOXHEIGHT);
+        public static List<Rectangle?> SWORD_ATTACKRIGHT_HITBOX_FRAMES = new List<Rectangle?> { SWORD_ATTACKRIGHT_HITBOX_FRAME1, SWORD_ATTACKRIGHT_HITBOX_FRAME2, SWORD_ATTACKRIGHT_HITBOX_FRAME3, SWORD_ATTACKRIGHT_HITBOX_FRAME4 };
+
+        private const int SWORD_ATTACKDOWN_HITBOXX = 7;
+        private const int SWORD_ATTACKDOWN_HITBOXY = 16;
+        private const int SWORD_ATTACKDOWN_HITBOXWIDTH = 3;
+        private const int SWORD_ATTACKDOWN_HITBOX2HEIGHT = 12;
+        private const int SWORD_ATTACKDOWN_HITBOX3HEIGHT = 8;
+        private const int SWORD_ATTACKDOWN_HITBOX4HEIGHT = 4;
+        private static Rectangle? SWORD_ATTACKDOWN_HITBOX_FRAME1 = null;
+        private static Rectangle? SWORD_ATTACKDOWN_HITBOX_FRAME2 = new Rectangle(SWORD_ATTACKDOWN_HITBOXX, SWORD_ATTACKDOWN_HITBOXY, SWORD_ATTACKDOWN_HITBOXWIDTH, SWORD_ATTACKDOWN_HITBOX2HEIGHT);
+        private static Rectangle? SWORD_ATTACKDOWN_HITBOX_FRAME3 = new Rectangle(SWORD_ATTACKDOWN_HITBOXX, SWORD_ATTACKDOWN_HITBOXY, SWORD_ATTACKDOWN_HITBOXWIDTH, SWORD_ATTACKDOWN_HITBOX3HEIGHT);
+        private static Rectangle? SWORD_ATTACKDOWN_HITBOX_FRAME4 = new Rectangle(SWORD_ATTACKDOWN_HITBOXX, SWORD_ATTACKDOWN_HITBOXY, SWORD_ATTACKDOWN_HITBOXWIDTH, SWORD_ATTACKDOWN_HITBOX4HEIGHT);
+        public static List<Rectangle?> SWORD_ATTACKDOWN_HITBOX_FRAMES = new List<Rectangle?> { SWORD_ATTACKDOWN_HITBOX_FRAME1, SWORD_ATTACKDOWN_HITBOX_FRAME2, SWORD_ATTACKDOWN_HITBOX_FRAME3, SWORD_ATTACKDOWN_HITBOX_FRAME4 };
+
+        private static Rectangle DAMAGED_RED = new Rectangle(143, 258, 15, 16);
         public static List<Rectangle> DAMAGED = new List<Rectangle> { LINK_MOVEDOWN_FRAME1, DAMAGED_RED };
         public const int DAMAGED_FRAMERATE = 5;
 
         public const int INVINCIBILITY_FRAMES = 30;
 
-        public const int USE_ITEM_UPX = 141;
-        public const int USE_ITEM_UPY = 11;
-        public const int USE_ITEM_UPWIDTH = 16;
-        public const int USE_ITEM_UPHEIGHT = 16;
+        private const int USE_ITEM_UPX = 141;
+        private const int USE_ITEM_UPY = 11;
+        private const int USE_ITEM_UPWIDTH = 16;
+        private const int USE_ITEM_UPHEIGHT = 16;
         public static List<Rectangle> USE_ITEM_UP_FRAMES = new List<Rectangle> { new Rectangle(USE_ITEM_UPX, USE_ITEM_UPY, USE_ITEM_UPWIDTH, USE_ITEM_UPHEIGHT) };
 
-        public const int USE_ITEM_LEFTX = 603;
-        public const int USE_ITEM_LEFTY = 12;
-        public const int USE_ITEM_LEFTWIDTH = 15;
-        public const int USE_ITEM_LEFTHEIGHT = 15;
+        private const int USE_ITEM_LEFTX = 603;
+        private const int USE_ITEM_LEFTY = 12;
+        private const int USE_ITEM_LEFTWIDTH = 15;
+        private const int USE_ITEM_LEFTHEIGHT = 15;
         public static List<Rectangle> USE_ITEM_LEFT_FRAMES = new List<Rectangle> { new Rectangle(USE_ITEM_LEFTX, USE_ITEM_LEFTY, USE_ITEM_LEFTWIDTH, USE_ITEM_LEFTHEIGHT) };
 
-        public const int USE_ITEM_RIGHTX = 124;
-        public const int USE_ITEM_RIGHTY = 12;
-        public const int USE_ITEM_RIGHTWIDTH = 15;
-        public const int USE_ITEM_RIGHTHEIGHT = 15;
+        private const int USE_ITEM_RIGHTX = 124;
+        private const int USE_ITEM_RIGHTY = 12;
+        private const int USE_ITEM_RIGHTWIDTH = 15;
+        private const int USE_ITEM_RIGHTHEIGHT = 15;
         public static List<Rectangle> USE_ITEM_RIGHT_FRAMES = new List<Rectangle> { new Rectangle(USE_ITEM_RIGHTX, USE_ITEM_RIGHTY, USE_ITEM_RIGHTWIDTH, USE_ITEM_RIGHTHEIGHT) };
 
-        public const int USE_ITEM_DOWNX = 107;
-        public const int USE_ITEM_DOWNY = 11;
-        public const int USE_ITEM_DOWNWIDTH = 16;
-        public const int USE_ITEM_DOWNHEIGHT = 15;
+        private const int USE_ITEM_DOWNX = 107;
+        private const int USE_ITEM_DOWNY = 11;
+        private const int USE_ITEM_DOWNWIDTH = 16;
+        private const int USE_ITEM_DOWNHEIGHT = 15;
         public static List<Rectangle> USE_ITEM_DOWN_FRAMES = new List<Rectangle> { new Rectangle(USE_ITEM_DOWNX, USE_ITEM_DOWNY, USE_ITEM_DOWNWIDTH, USE_ITEM_DOWNHEIGHT) };
 
-        public const int SWORD_WIDTH = 7;
-        public const int SWORD_HEIGHT = 16;
+        private const int SWORDBEAM_WIDTH = 7;
+        private const int SWORDBEAM_HEIGHT = 16;
 
-        public const int SWORD_MAGICAL_BLUE_UPX = 36;
-        public const int SWORD_MAGICAL_BLUE_UPY = 154;
-        public static Rectangle SWORD_MAGICAL_BLUE_UP = new Rectangle(SWORD_MAGICAL_BLUE_UPX, SWORD_MAGICAL_BLUE_UPY, SWORD_WIDTH, SWORD_HEIGHT);
+        private const int SWORDBEAM_BLUE_UPX = 36;
+        private const int SWORDBEAM_BLUE_UPY = 154;
+        private static Rectangle SWORDBEAM_BLUE_UP = new Rectangle(SWORDBEAM_BLUE_UPX, SWORDBEAM_BLUE_UPY, SWORDBEAM_WIDTH, SWORDBEAM_HEIGHT);
 
-        public const int SWORD_MAGICAL_BLUE_LEFTX = 681;
-        public const int SWORD_MAGICAL_BLUE_LEFTY = 159;
-        public static Rectangle SWORD_MAGICAL_BLUE_LEFT = new Rectangle(SWORD_MAGICAL_BLUE_LEFTX, SWORD_MAGICAL_BLUE_LEFTY, SWORD_HEIGHT, SWORD_WIDTH);
+        private const int SWORDBEAM_BLUE_LEFTX = 681;
+        private const int SWORDBEAM_BLUE_LEFTY = 159;
+        private static Rectangle SWORDBEAM_BLUE_LEFT = new Rectangle(SWORDBEAM_BLUE_LEFTX, SWORDBEAM_BLUE_LEFTY, SWORDBEAM_HEIGHT, SWORDBEAM_WIDTH);
 
-        public const int SWORD_MAGICAL_BLUE_RIGHTX = 45;
-        public const int SWORD_MAGICAL_BLUE_RIGHTY = 159;
-        public static Rectangle SWORD_MAGICAL_BLUE_RIGHT = new Rectangle(SWORD_MAGICAL_BLUE_RIGHTX, SWORD_MAGICAL_BLUE_RIGHTY, SWORD_HEIGHT, SWORD_WIDTH);
+        private const int SWORDBEAM_BLUE_RIGHTX = 45;
+        private const int SWORDBEAM_BLUE_RIGHTY = 159;
+        private static Rectangle SWORDBEAM_BLUE_RIGHT = new Rectangle(SWORDBEAM_BLUE_RIGHTX, SWORDBEAM_BLUE_RIGHTY, SWORDBEAM_HEIGHT, SWORDBEAM_WIDTH);
 
-        public const int SWORD_MAGICAL_BLUE_DOWNX = 319;
-        public const int SWORD_MAGICAL_BLUE_DOWNY = 154;
-        public static Rectangle SWORD_MAGICAL_BLUE_DOWN = new Rectangle(SWORD_MAGICAL_BLUE_DOWNX, SWORD_MAGICAL_BLUE_DOWNY, SWORD_WIDTH, SWORD_HEIGHT);
+        private const int SWORDBEAM_BLUE_DOWNX = 319;
+        private const int SWORDBEAM_BLUE_DOWNY = 154;
+        private static Rectangle SWORDBEAM_BLUE_DOWN = new Rectangle(SWORDBEAM_BLUE_DOWNX, SWORDBEAM_BLUE_DOWNY, SWORDBEAM_WIDTH, SWORDBEAM_HEIGHT);
 
-        public const int SWORD_MAGICAL_RED_UPX = 71;
-        public const int SWORD_MAGICAL_RED_UPY = 154;
-        public static Rectangle SWORD_MAGICAL_RED_UP = new Rectangle(SWORD_MAGICAL_RED_UPX, SWORD_MAGICAL_RED_UPY, SWORD_WIDTH, SWORD_HEIGHT);
+        private const int SWORDBEAM_RED_UPX = 71;
+        private const int SWORDBEAM_RED_UPY = 154;
+        private static Rectangle SWORDBEAM_RED_UP = new Rectangle(SWORDBEAM_RED_UPX, SWORDBEAM_RED_UPY, SWORDBEAM_WIDTH, SWORDBEAM_HEIGHT);
 
-        public const int SWORD_MAGICAL_RED_LEFTX = 646;
-        public const int SWORD_MAGICAL_RED_LEFTY = 159;
-        public static Rectangle SWORD_MAGICAL_RED_LEFT = new Rectangle(SWORD_MAGICAL_RED_LEFTX, SWORD_MAGICAL_RED_LEFTY, SWORD_HEIGHT, SWORD_WIDTH);
+        private const int SWORDBEAM_RED_LEFTX = 646;
+        private const int SWORDBEAM_RED_LEFTY = 159;
+        private static Rectangle SWORDBEAM_RED_LEFT = new Rectangle(SWORDBEAM_RED_LEFTX, SWORDBEAM_RED_LEFTY, SWORDBEAM_HEIGHT, SWORDBEAM_WIDTH);
 
-        public const int SWORD_MAGICAL_RED_RIGHTX = 80;
-        public const int SWORD_MAGICAL_RED_RIGHTY = 159;
-        public static Rectangle SWORD_MAGICAL_RED_RIGHT = new Rectangle(SWORD_MAGICAL_RED_RIGHTX, SWORD_MAGICAL_RED_RIGHTY, SWORD_HEIGHT, SWORD_WIDTH);
+        private const int SWORDBEAM_RED_RIGHTX = 80;
+        private const int SWORDBEAM_RED_RIGHTY = 159;
+        private static Rectangle SWORDBEAM_RED_RIGHT = new Rectangle(SWORDBEAM_RED_RIGHTX, SWORDBEAM_RED_RIGHTY, SWORDBEAM_HEIGHT, SWORDBEAM_WIDTH);
 
-        public const int SWORD_MAGICAL_RED_DOWNX = 331;
-        public const int SWORD_MAGICAL_RED_DOWNY = 154;
-        public static Rectangle SWORD_MAGICAL_RED_DOWN = new Rectangle(SWORD_MAGICAL_RED_DOWNX, SWORD_MAGICAL_RED_DOWNY, SWORD_WIDTH, SWORD_HEIGHT);
+        private const int SWORDBEAM_RED_DOWNX = 331;
+        private const int SWORDBEAM_RED_DOWNY = 154;
+        private static Rectangle SWORDBEAM_RED_DOWN = new Rectangle(SWORDBEAM_RED_DOWNX, SWORDBEAM_RED_DOWNY, SWORDBEAM_WIDTH, SWORDBEAM_HEIGHT);
 
-        public static List<Rectangle> SWORDBEAM_UP_FRAMES = new List<Rectangle> { SWORD_MAGICAL_BLUE_UP, SWORD_MAGICAL_RED_UP };
-        public static Vector2 SWORDBEAM_UP_LOCATIONSHIFT_DEFAULT = new Vector2(3, 0);
+        public static List<Rectangle> SWORDBEAM_UP_FRAMES = new List<Rectangle> { SWORDBEAM_BLUE_UP, SWORDBEAM_RED_UP };
+        private static Vector2 SWORDBEAM_UP_LOCATIONSHIFT_DEFAULT = new Vector2(3, 0);
         public static List<Vector2> SWORDBEAM_UP_LOCATIONSHIFT = new List<Vector2> { SWORDBEAM_UP_LOCATIONSHIFT_DEFAULT + LINK_SWORD_ATTACKUP_LOCATIONSHIFT2 };
-        public static List<Rectangle> SWORDBEAM_LEFT_FRAMES = new List<Rectangle> { SWORD_MAGICAL_BLUE_LEFT, SWORD_MAGICAL_RED_LEFT };
-        public static Vector2 SWORDBEAM_LEFT_LOCATIONSHIFT_DEFAULT = new Vector2(0, 5);
+        public static List<Rectangle> SWORDBEAM_LEFT_FRAMES = new List<Rectangle> { SWORDBEAM_BLUE_LEFT, SWORDBEAM_RED_LEFT };
+        private static Vector2 SWORDBEAM_LEFT_LOCATIONSHIFT_DEFAULT = new Vector2(0, 5);
         public static List<Vector2> SWORDBEAM_LEFT_LOCATIONSHIFT = new List<Vector2> { SWORDBEAM_LEFT_LOCATIONSHIFT_DEFAULT + LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT2 };
-        public static List<Rectangle> SWORDBEAM_RIGHT_FRAMES = new List<Rectangle> { SWORD_MAGICAL_BLUE_RIGHT, SWORD_MAGICAL_RED_RIGHT };
-        public static List<Vector2> SWORDBEAM_RIGHT_LOCATIONSHIFT = new List<Vector2> { new Vector2(15, 5) };
-        public static List<Rectangle> SWORDBEAM_DOWN_FRAMES = new List<Rectangle> { SWORD_MAGICAL_BLUE_DOWN, SWORD_MAGICAL_RED_DOWN };
-        public static List<Vector2> SWORDBEAM_DOWN_LOCATIONSHIFT = new List<Vector2> { new Vector2(5, 15) };
+        public static List<Rectangle> SWORDBEAM_RIGHT_FRAMES = new List<Rectangle> { SWORDBEAM_BLUE_RIGHT, SWORDBEAM_RED_RIGHT };
+        private static Vector2 SWORDBEAM_RIGHT_LOCATIONSHIFT_DEFAULT = new Vector2(15, 5);
+        public static List<Vector2> SWORDBEAM_RIGHT_LOCATIONSHIFT = new List<Vector2> { SWORDBEAM_RIGHT_LOCATIONSHIFT_DEFAULT };
+        public static List<Rectangle> SWORDBEAM_DOWN_FRAMES = new List<Rectangle> { SWORDBEAM_BLUE_DOWN, SWORDBEAM_RED_DOWN };
+        private static Vector2 SWORDBEAM_DOWN_LOCATIONSHIFT_DEFAULT = new Vector2(5, 15);
+        public static List<Vector2> SWORDBEAM_DOWN_LOCATIONSHIFT = new List<Vector2> { SWORDBEAM_DOWN_LOCATIONSHIFT_DEFAULT };
 
-        public const int WOODARROW_WIDTH = 5;
-        public const int WOODARROW_HEIGHT = 16;
+        private const int WOODARROW_WIDTH = 5;
+        private const int WOODARROW_HEIGHT = 16;
 
-        public const int ARROW_WOOD_UPX = 3;
-        public const int ARROW_WOOD_UPY = 185;
-        public static Rectangle ARROW_WOOD_UP = new Rectangle(ARROW_WOOD_UPX, ARROW_WOOD_UPY, WOODARROW_WIDTH, WOODARROW_HEIGHT);
+        private const int ARROW_WOOD_UPX = 3;
+        private const int ARROW_WOOD_UPY = 185;
+        private static Rectangle ARROW_WOOD_UP = new Rectangle(ARROW_WOOD_UPX, ARROW_WOOD_UPY, WOODARROW_WIDTH, WOODARROW_HEIGHT);
         public static List<Rectangle> ARROW_WOOD_UP_FRAMES = new List<Rectangle> { ARROW_WOOD_UP };
         public static List<Vector2> ARROW_UP_LOCATIONSHIFT = new List<Vector2>(new Vector2[] { new Vector2(6, 0) });
 
-        public const int ARROW_WOOD_LEFTX = 716;
-        public const int ARROW_WOOD_LEFTY = 190;
-        public static Rectangle ARROW_WOOD_LEFT = new Rectangle(ARROW_WOOD_LEFTX, ARROW_WOOD_LEFTY, WOODARROW_HEIGHT, WOODARROW_WIDTH);
+        private const int ARROW_WOOD_LEFTX = 716;
+        private const int ARROW_WOOD_LEFTY = 190;
+        private static Rectangle ARROW_WOOD_LEFT = new Rectangle(ARROW_WOOD_LEFTX, ARROW_WOOD_LEFTY, WOODARROW_HEIGHT, WOODARROW_WIDTH);
         public static List<Rectangle> ARROW_WOOD_LEFT_FRAMES = new List<Rectangle> { ARROW_WOOD_LEFT };
         public static List<Vector2> ARROW_LEFT_LOCATIONSHIFT = new List<Vector2>(new Vector2[] { new Vector2(0, 7) });
 
-        public const int ARROW_WOOD_RIGHTX = 10;
-        public const int ARROW_WOOD_RIGHTY = 190;
-        public static Rectangle ARROW_WOOD_RIGHT = new Rectangle(ARROW_WOOD_RIGHTX, ARROW_WOOD_RIGHTY, WOODARROW_HEIGHT, WOODARROW_WIDTH);
+        private const int ARROW_WOOD_RIGHTX = 10;
+        private const int ARROW_WOOD_RIGHTY = 190;
+        private static Rectangle ARROW_WOOD_RIGHT = new Rectangle(ARROW_WOOD_RIGHTX, ARROW_WOOD_RIGHTY, WOODARROW_HEIGHT, WOODARROW_WIDTH);
         public static List<Rectangle> ARROW_WOOD_RIGHT_FRAMES = new List<Rectangle> { ARROW_WOOD_RIGHT };
         public static List<Vector2> ARROW_RIGHT_LOCATIONSHIFT = new List<Vector2>(new Vector2[] { new Vector2(0, 7) });
 
-        public const int ARROW_WOOD_DOWNX = 318;
-        public const int ARROW_WOOD_DOWNY = 185;
-        public static Rectangle ARROW_WOOD_DOWN = new Rectangle(ARROW_WOOD_DOWNX, ARROW_WOOD_DOWNY, WOODARROW_WIDTH, WOODARROW_HEIGHT);
+        private const int ARROW_WOOD_DOWNX = 318;
+        private const int ARROW_WOOD_DOWNY = 185;
+        private static Rectangle ARROW_WOOD_DOWN = new Rectangle(ARROW_WOOD_DOWNX, ARROW_WOOD_DOWNY, WOODARROW_WIDTH, WOODARROW_HEIGHT);
         public static List<Rectangle> ARROW_WOOD_DOWN_FRAMES = new List<Rectangle> { ARROW_WOOD_DOWN };
         public static List<Vector2> ARROW_DOWN_LOCATIONSHIFT = new List<Vector2>(new Vector2[] { new Vector2(7, 15) });
 
@@ -341,17 +393,17 @@ namespace LOZ.Tools.PlayerObjects
         public const int BOOMERANG_SPEED = 7;
         public const int BOMB_EXPLOSION_DELAY = 10;
 
-        public const int BOOMERANG_WOOD_WIDTH = 8;
-        public const int BOOMERANG_WOOD_HEIGHT = 5;
+        private const int BOOMERANG_WOOD_WIDTH = 8;
+        private const int BOOMERANG_WOOD_HEIGHT = 5;
 
-        static Rectangle BOOMERANG_WOOD_FRAME1 = new Rectangle(65, 189, BOOMERANG_WOOD_HEIGHT, BOOMERANG_WOOD_WIDTH);
-        static Rectangle BOOMERANG_WOOD_FRAME2 = new Rectangle(73, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
-        static Rectangle BOOMERANG_WOOD_FRAME3 = new Rectangle(82, 191, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_HEIGHT);
-        static Rectangle BOOMERANG_WOOD_FRAME4 = new Rectangle(661, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
-        static Rectangle BOOMERANG_WOOD_FRAME5 = new Rectangle(672, 189, BOOMERANG_WOOD_HEIGHT, BOOMERANG_WOOD_WIDTH);
-        static Rectangle BOOMERANG_WOOD_FRAME6 = new Rectangle(341, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
-        static Rectangle BOOMERANG_WOOD_FRAME7 = new Rectangle(368, 190, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_HEIGHT);
-        static Rectangle BOOMERANG_WOOD_FRAME8 = new Rectangle(354, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
+        private static Rectangle BOOMERANG_WOOD_FRAME1 = new Rectangle(65, 189, BOOMERANG_WOOD_HEIGHT, BOOMERANG_WOOD_WIDTH);
+        private static Rectangle BOOMERANG_WOOD_FRAME2 = new Rectangle(73, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
+        private static Rectangle BOOMERANG_WOOD_FRAME3 = new Rectangle(82, 191, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_HEIGHT);
+        private static Rectangle BOOMERANG_WOOD_FRAME4 = new Rectangle(661, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
+        private static Rectangle BOOMERANG_WOOD_FRAME5 = new Rectangle(672, 189, BOOMERANG_WOOD_HEIGHT, BOOMERANG_WOOD_WIDTH);
+        private static Rectangle BOOMERANG_WOOD_FRAME6 = new Rectangle(341, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
+        private static Rectangle BOOMERANG_WOOD_FRAME7 = new Rectangle(368, 190, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_HEIGHT);
+        private static Rectangle BOOMERANG_WOOD_FRAME8 = new Rectangle(354, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
         public static List<Rectangle> BOOMERANG_WOOD_FRAMES = new List<Rectangle> { BOOMERANG_WOOD_FRAME1, BOOMERANG_WOOD_FRAME2, BOOMERANG_WOOD_FRAME3,
             BOOMERANG_WOOD_FRAME4, BOOMERANG_WOOD_FRAME5, BOOMERANG_WOOD_FRAME6, BOOMERANG_WOOD_FRAME7, BOOMERANG_WOOD_FRAME8 };
 
@@ -373,9 +425,5 @@ namespace LOZ.Tools.PlayerObjects
         static Rectangle BOMB_EXPLOSION_FRAME2 = new Rectangle(155, BOMB_EXPLOSIONY, BOMB_EXPLOSION_WIDTH, BOMB_EXPLOSION_WIDTH);
         static Rectangle BOMB_EXPLOSION_FRAME3 = new Rectangle(172, BOMB_EXPLOSIONY, BOMB_EXPLOSION_WIDTH, BOMB_EXPLOSION_WIDTH);
         public static List<Rectangle> BOMB_EXPLOSION_FRAMES = new List<Rectangle> { BOMB_EXPLOSION_FRAME1, BOMB_EXPLOSION_FRAME2, BOMB_EXPLOSION_FRAME3 };
-
-        public static void Initialize()
-        {
-        }
     }
 }
