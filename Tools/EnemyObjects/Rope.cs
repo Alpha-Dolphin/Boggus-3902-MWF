@@ -9,12 +9,9 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.EnemyObjects
 {
-    internal class Rope : Enemy
+    internal class Rope : IEnemy
     {
-        Vector2 enemyDirection;
-        Vector2 enemyPosition;
-
-        readonly ISpriteEnemy RopeSprite;
+        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy RopeSprite;
 
         readonly Random rand;
 
@@ -23,7 +20,11 @@ namespace LOZ.Tools.EnemyObjects
         double moveProb;
 
         const double moveDelay = 1000;
-
+        public void setPosition(int x, int y)
+        {
+            enemyPosition.X = x;
+            enemyPosition.Y = y;
+        }
         public Rope(int X, int Y)
         {
             enemyDirection.X = 0;
@@ -49,6 +50,11 @@ namespace LOZ.Tools.EnemyObjects
             //Nothing
         }
 
+        public Rectangle GetRectangle()
+        {
+            Vector2 wH = RopeSprite.GetWidthHeight();
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
+        }
         public void Move(GameTime gameTime)
         {
             enemyPosition.X += enemyDirection.X;

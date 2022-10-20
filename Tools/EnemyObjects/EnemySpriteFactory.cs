@@ -19,7 +19,7 @@ namespace LOZ.Tools
     {
         readonly int X = 100;
         readonly int Y = 300;
-        int curr;
+        public int curr;
 
         public EnemySpriteFactory()
         {
@@ -44,7 +44,7 @@ namespace LOZ.Tools
             return false;
         }
 
-        public Enemy NewEnemy()
+        public IEnemy NewEnemy()
         {
             if (curr == 0) return CreateKeese();
             else if (curr == 1) return CreateSlime();
@@ -53,42 +53,43 @@ namespace LOZ.Tools
             else if (curr == 4) return CreateZol();
             else if (curr == 5) return CreateRope();
             else if (curr == 6) return CreateDodongo();
+            else if (curr == 7) return CreateAquamentus();
             else return CreateAquamentus();
 
             //Cobbling together broken NPC code
         }
 
-        public Enemy CreateKeese()
+        public IEnemy CreateKeese()
         {
             return new Keese(X, Y);
         }
 
-        public Enemy CreateSlime()
+        public IEnemy CreateSlime()
         {
             return new Slime(X, Y);
         }
 
-        public Enemy CreateGoriya()
+        public IEnemy CreateGoriya()
         {
             return new Goriya(X, Y);
         }
-        public Enemy CreateAquamentus()
+        public IEnemy CreateAquamentus()
         {
             return new Aquamentus(X, Y);
         }
-        public Enemy CreateStalfos()
+        public IEnemy CreateStalfos()
         {
             return new Stalfos(X, Y);
         }
-        public Enemy CreateZol()
+        public IEnemy CreateZol()
         {
             return new Zol(X, Y);
         }
-        public Enemy CreateRope()
+        public IEnemy CreateRope()
         {
             return new Rope(X, Y);
         }
-        public Enemy CreateDodongo()
+        public IEnemy CreateDodongo()
         {
             return new Dodongo(X, Y);
         }

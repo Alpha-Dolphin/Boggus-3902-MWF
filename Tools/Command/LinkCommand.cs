@@ -28,7 +28,7 @@ namespace LOZ.Tools.Command
 
             if (keys.Count == 0)
             {
-                link.UpdateState(Link_States.Normal, link.getDirection());
+                link.UpdateState(Link_States.Normal, link.GetDirection());
             }
 
             foreach (Keys key in keys)
@@ -103,7 +103,7 @@ namespace LOZ.Tools.Command
         {
             if (!attacked)
             {
-                link.UpdateState(Link_States.Attacking, link.getDirection());
+                link.UpdateState(Link_States.Attacking, link.GetDirection());
                 link.Attack();
                 attacked = true;
             }
@@ -111,13 +111,13 @@ namespace LOZ.Tools.Command
 
         private void ExecuteChangeItem(int input)
         {
-            link.UpdateState(Link_States.UseItem, link.getDirection());
+            link.UpdateState(Link_States.UseItem, link.GetDirection());
             link.UseItem(input);
         }
 
         private void ExecuteDamage()
         {
-            link.UpdateState(Link_States.Damaged, link.getDirection());
+            link.UpdateState(Link_States.Damaged, link.GetDirection());
             link.Damage();
         }
     }

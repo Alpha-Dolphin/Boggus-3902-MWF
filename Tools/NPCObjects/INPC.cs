@@ -14,5 +14,7 @@ namespace LOZ.Tools.NPCObjects
         void Draw(SpriteBatch spriteBatch);
 
         void Update(GameTime gametime);
+
+        void setPlacement(int x, int y);
     }
 }

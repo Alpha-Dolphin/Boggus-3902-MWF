@@ -6,7 +6,7 @@ using System;
 
 namespace LOZ.Tools
 {
-    internal class BoomerangeSprite : ISpriteEnemy
+    internal class BoomerangSprite : ISpriteEnemy
     {
         Rectangle boomerang;
         float boomerangRotation;
@@ -23,6 +23,11 @@ namespace LOZ.Tools
                 SpriteEffects.None,
                 0f
             );
+        }
+
+        public Vector2 GetWidthHeight()
+        {
+            return new Vector2(boomerang.Width, boomerang.Height);
         }
 
         public void Update(GameTime gameTime)

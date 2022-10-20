@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +15,9 @@ namespace CSE3902_Sprint0.Sprites
 {
     public class AnimatedMovingSprite : ISprite
     {
+        public const int scale = 3;
+        public int frameRate = 10;
+
         private Texture2D picture;
 
         private List<Rectangle> frames;
@@ -21,9 +26,7 @@ namespace CSE3902_Sprint0.Sprites
         private int x;
         private int y;
 
-        private int scale = 3;
-
-        private int frameRate = 10;
+        private Rectangle destinationRectangle;
 
         private bool finish = false;
 
@@ -51,6 +54,7 @@ namespace CSE3902_Sprint0.Sprites
             this.y = y;
             this.frames = frames;
             this.frameRate = frameRate;
+            this.destinationRectangle = new Rectangle();
 
             if (frames.Count <= 1) finish = true;
 
@@ -99,7 +103,8 @@ namespace CSE3902_Sprint0.Sprites
             Vector2 currentLocationShift = locationShift[currentFrame / frameRate];
             int currentX = x + (int)currentLocationShift.X * scale;
             int currentY = y + (int)currentLocationShift.Y * scale;
-            spriteBatch.Draw(picture, new Rectangle(currentX, currentY, currentRectangle.Width*scale, currentRectangle.Height*scale), currentRectangle, LinkConstants.DEFAULT_PICTURE_COLOR);
+            destinationRectangle = new Rectangle(currentX, currentY, currentRectangle.Width * scale, currentRectangle.Height * scale);
+            spriteBatch.Draw(picture, destinationRectangle, currentRectangle, LinkConstants.DEFAULT_PICTURE_COLOR);
         }
 
         public void Update(int x, int y)
@@ -120,6 +125,26 @@ namespace CSE3902_Sprint0.Sprites
         public bool finished()
         {
             return finish;
+        }
+
+        public int GetFrame()
+        {
+            return currentFrame;
+        }
+
+        public int GetX()
+        {
+            return this.x;
+        }
+
+        public int GetY()
+        {
+            return this.y;
+        }
+
+        public Rectangle GetDestinationRectangle()
+        {
+            return destinationRectangle;
         }
     }
 }

@@ -10,28 +10,28 @@ using LOZ;
 
 namespace LOZ.Tools
 {
-    internal class Aquamentus : Enemy
+    internal class Aquamentus : IEnemy
     {
+        
         Vector2 enemyDirection;
         Vector2 enemyPosition;
 
         readonly ISpriteEnemy aquamentusSprite;
 
-        readonly BallSprite ballSprite;
-
-        Vector2 ball1Position;
-        Vector2 ball2Position;
-        Vector2 ball3Position;
-
         readonly Random rand;
 
-        double ballLife;
-        const int ballDespawnMS = 3000;
+        Ball ball1;
+        Ball ball2;
+        Ball ball3;
 
         double moveCheck;
         double moveTime;
         double moveProb;
-
+        public void setPosition(int x, int y)
+        {
+            enemyPosition.X = x;
+            enemyPosition.Y = y;
+        }
         public Aquamentus(int X, int Y)
         {
             enemyDirection.X = 0;
@@ -40,11 +40,11 @@ namespace LOZ.Tools
             enemyPosition.X = X;
             enemyPosition.Y = Y;
 
+            ball1 = new Ball(1);
+            ball2 = new Ball(2);
+            ball3 = new Ball(3);
+
             aquamentusSprite = new AquementusSprite();
-
-            ballSprite = new BallSprite();
-
-            ballLife = -1.0;
 
             rand = new();
 
@@ -53,13 +53,9 @@ namespace LOZ.Tools
 
         public void Attack(GameTime gameTime)
         {
-            int ballSpeedRecip = 10;
-            ballLife -= gameTime.ElapsedGameTime.TotalMilliseconds;
-            ball1Position.X -= (float)(gameTime.ElapsedGameTime.TotalMilliseconds / ballSpeedRecip);
-            ball2Position.X -= (float)(gameTime.ElapsedGameTime.TotalMilliseconds / ballSpeedRecip);
-            ball2Position.Y += (float)(gameTime.ElapsedGameTime.TotalMilliseconds / ballSpeedRecip);
-            ball3Position.X -= (float)(gameTime.ElapsedGameTime.TotalMilliseconds / ballSpeedRecip);
-            ball3Position.Y -= (float)(gameTime.ElapsedGameTime.TotalMilliseconds / ballSpeedRecip);
+            ball1.Activate(enemyPosition.X, enemyPosition.Y);
+            ball2.Activate(enemyPosition.X, enemyPosition.Y);
+            ball3.Activate(enemyPosition.X, enemyPosition.Y);
         }
 
         public void Die(GameTime gameTime)
@@ -73,15 +69,20 @@ namespace LOZ.Tools
             enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
         }
 
+        public Rectangle GetRectangle()
+        {
+            Vector2 wH = aquamentusSprite.GetWidthHeight();
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
+        }
+
         public void Draw(SpriteBatch _spriteBatch)
         {
             aquamentusSprite.Draw(_spriteBatch, enemyPosition);
-
-            if (ballLife > 0.0)
+            if (ball1.GetBallLife() > 0.0)
             {
-                ballSprite.Draw(_spriteBatch, ball1Position);
-                ballSprite.Draw(_spriteBatch, ball2Position);
-                ballSprite.Draw(_spriteBatch, ball3Position);
+                ball1.Draw(_spriteBatch);
+                ball2.Draw(_spriteBatch);
+                ball3.Draw(_spriteBatch);
             }
         }
 
@@ -89,20 +90,15 @@ namespace LOZ.Tools
         {
             MovementUpdate(gameTime);
             aquamentusSprite.Update(gameTime);
-            ballSprite.Update(gameTime, ballLife);
             AttackUpdate(gameTime);
+            ball1.Update(gameTime);
+            ball2.Update(gameTime);
+            ball3.Update(gameTime);
         }
 
         private void AttackUpdate(GameTime gameTime)
         {
-            if (ballLife > 0.0) Attack(gameTime);
-            else if (rand.Next() % 4950 <= 25 && ballLife < 0.0)
-            {
-                ballLife = ballDespawnMS;
-                ball1Position = enemyPosition;
-                ball2Position = enemyPosition;
-                ball3Position = enemyPosition;
-            }
+            if (ball1.GetBallLife() <= 0.0 && rand.Next() % 4950 <= 25) Attack(gameTime);
         }
 
         private void MovementUpdate(GameTime gameTime)

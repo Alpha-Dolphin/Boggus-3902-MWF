@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.EnvironmentObjects.Helpers
 {
-    internal class EnviroSprite : ISprite
+    public class EnviroSprite : ISprite
     {
         /*
         Debug switch
