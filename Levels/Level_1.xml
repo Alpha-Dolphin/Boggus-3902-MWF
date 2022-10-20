@@ -1,13 +1,14 @@
 ﻿<?xml version ="1.0"?>
+<!--John is responsible for rooms 1-3-->
 <level num ="1">
 	<!--Room number accessed as attribue-->
-	<room num ="0">
+	<room num ="1">
 		<!--Boolean True or False describes if border is drawn at edges-->
 		<border>
-			true
+			false
 		</border>
 		<!--For if you want to paint a static background that tiles are rendered over-->
-		<background draw ="true" template ="default"/>
+		<background draw ="false" template ="default"/>
 		<!--Defines invisible barriers-->
 		<barriers>
 			<barrier>
@@ -28,7 +29,70 @@
 		<!--Every environment elements starting information contained here-->
 		<environment>
 			<!--One tile element for each block that isn't background, type is the name of the object to place-->
-			<tile type ="blueFloor">
+			<tile type ="whiteBrick">
+				<!--Placement info for where object spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</tile>
+			<tile type ="whiteBrick">
+				<!--Placement info for where object spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</tile>
+			<tile type ="whiteBrick">
+				<!--Placement info for where object spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</tile>
+			<tile type ="whiteBrick">
+				<!--Placement info for where object spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</tile>
+			<tile type ="whiteBrick">
+				<!--Placement info for where object spawns-->
+				<xPlacement>
+					16
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</tile>
+			<tile type ="whiteBrick">
+				<!--Placement info for where object spawns-->
+				<xPlacement>
+					16
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</tile>
+			<tile type ="whiteBrick">
+				<!--Placement info for where object spawns-->
+				<xPlacement>
+					0
+				</xPlacement>
+				<yPlacement>
+					0
+				</yPlacement>
+			</tile>
+			<tile type ="whiteBrick">
 				<!--Placement info for where object spawns-->
 				<xPlacement>
 					0
