@@ -18,17 +18,20 @@ namespace LOZ.Tools.PlayerObjects
         private Vector2 originalPosition;
         private Vector2 position;
         private Vector2 velocity;
-        private ISprite sprite;
+        private AnimatedMovingSprite sprite;
+
+        private bool wood;
 
         private bool exists = true;
 
         public ArrowProjectile() { }
 
-        public ArrowProjectile(Texture2D spriteSheet, Vector2 position, Vector2 velocity)
+        public ArrowProjectile(Texture2D spriteSheet, Vector2 position, Vector2 velocity, bool wood)
         {
             this.originalPosition = position;
             this.position = position;
             this.velocity = velocity;
+            this.wood = wood;
 
             CreateSprite(spriteSheet);
         }
@@ -39,21 +42,43 @@ namespace LOZ.Tools.PlayerObjects
             {
                 if (velocity.Y < 0)
                 {
-                    sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, 
-                        LinkConstants.ARROW_WOOD_UP_FRAMES, LinkConstants.ARROW_UP_LOCATIONSHIFT);
+                    if (wood)
+                        sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
+                            LinkConstants.ARROW_WOOD_UP_FRAMES, LinkConstants.ARROW_UP_LOCATIONSHIFT);
+                    else
+                        sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
+                            LinkConstants.ARROW_BLUE_UP_FRAMES, LinkConstants.ARROW_UP_LOCATIONSHIFT);
                 }
-                else sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, 
-                    LinkConstants.ARROW_WOOD_DOWN_FRAMES, LinkConstants.ARROW_DOWN_LOCATIONSHIFT);
+                else
+                {
+                    if(wood)
+                        sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
+                            LinkConstants.ARROW_WOOD_DOWN_FRAMES, LinkConstants.ARROW_DOWN_LOCATIONSHIFT);
+                    else
+                        sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
+                            LinkConstants.ARROW_BLUE_DOWN_FRAMES, LinkConstants.ARROW_DOWN_LOCATIONSHIFT);
+                }
             }
             else
             {
                 if (velocity.X < 0)
                 {
-                    sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, 
-                        LinkConstants.ARROW_WOOD_LEFT_FRAMES, LinkConstants.ARROW_LEFT_LOCATIONSHIFT);
+                    if (wood)
+                        sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
+                            LinkConstants.ARROW_WOOD_LEFT_FRAMES, LinkConstants.ARROW_LEFT_LOCATIONSHIFT);
+                    else
+                        sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
+                            LinkConstants.ARROW_BLUE_LEFT_FRAMES, LinkConstants.ARROW_LEFT_LOCATIONSHIFT);
                 }
-                else sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y, 
-                    LinkConstants.ARROW_WOOD_RIGHT_FRAMES, LinkConstants.ARROW_RIGHT_LOCATIONSHIFT);
+                else
+                {
+                    if (wood)
+                        sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
+                            LinkConstants.ARROW_WOOD_RIGHT_FRAMES, LinkConstants.ARROW_RIGHT_LOCATIONSHIFT);
+                    else
+                        sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
+                            LinkConstants.ARROW_BLUE_RIGHT_FRAMES, LinkConstants.ARROW_RIGHT_LOCATIONSHIFT);
+                }
             }
         }
 
@@ -75,7 +100,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public LinkConstants.Link_Projectiles GetProjectileType()
         {
-            return LinkConstants.Link_Projectiles.Arrow;
+            return wood ? LinkConstants.Link_Projectiles.WoodArrow : LinkConstants.Link_Projectiles.BlueArrow;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -91,6 +116,11 @@ namespace LOZ.Tools.PlayerObjects
         public bool stillExists()
         {
             return exists;
+        }
+
+        public List<Rectangle> GetHitboxes()
+        {
+            return new List<Rectangle>() { this.sprite.GetDestinationRectangle() };
         }
     }
 }

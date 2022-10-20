@@ -15,6 +15,7 @@ namespace LOZ.Tools.Command
         private Link link;
         bool attacked = false;
         bool moved = false;
+        bool bombLastFrame = false;
 
         public LinkCommand(Link link)
         {
@@ -28,7 +29,8 @@ namespace LOZ.Tools.Command
 
             if (keys.Count == 0)
             {
-                link.UpdateState(Link_States.Normal, link.getDirection());
+                link.UpdateState(Link_States.Normal, link.GetDirection());
+                bombLastFrame = false;
             }
 
             foreach (Keys key in keys)
@@ -78,7 +80,11 @@ namespace LOZ.Tools.Command
                         case LinkConstants.ITEM_0: input = 0; break;
                         case LinkConstants.ITEM_PAD0: input = 0; break;
                     }
-                    ExecuteChangeItem(input);
+
+                    if (!(input == 5 && bombLastFrame))
+                    {
+                        ExecuteChangeItem(input);
+                    }
                 }
                 else if (LinkConstants.DAMAGE_KEYS.Contains(key))
                 {
@@ -86,6 +92,7 @@ namespace LOZ.Tools.Command
                 }
             }
 
+            CheckBombLastFrame(keys);
             link.UpdateVisual();
         }
 
@@ -103,7 +110,7 @@ namespace LOZ.Tools.Command
         {
             if (!attacked)
             {
-                link.UpdateState(Link_States.Attacking, link.getDirection());
+                link.UpdateState(Link_States.Attacking, link.GetDirection());
                 link.Attack();
                 attacked = true;
             }
@@ -111,14 +118,19 @@ namespace LOZ.Tools.Command
 
         private void ExecuteChangeItem(int input)
         {
-            link.UpdateState(Link_States.UseItem, link.getDirection());
+            link.UpdateState(Link_States.UseItem, link.GetDirection());
             link.UseItem(input);
         }
 
         private void ExecuteDamage()
         {
-            link.UpdateState(Link_States.Damaged, link.getDirection());
+            link.UpdateState(Link_States.Damaged, link.GetDirection());
             link.Damage();
+        }
+
+        private void CheckBombLastFrame(List<Keys> keys)
+        {
+            this.bombLastFrame = (keys.Contains(LinkConstants.ITEM_5) || keys.Contains(LinkConstants.ITEM_PAD5)) ? true : false;
         }
     }
 }

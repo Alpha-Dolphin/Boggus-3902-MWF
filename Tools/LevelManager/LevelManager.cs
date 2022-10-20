@@ -9,7 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using LOZ.Tools.Interfaces;
-
+using System.Reflection;
+using System.IO;
 
 namespace LOZ.Tools.LevelManager
 {
@@ -18,7 +19,7 @@ namespace LOZ.Tools.LevelManager
         /*Location data for level files*/
         string levelFileLocation { get; set; }
 
-        List<Room> roomList { get; set; }
+        public List<Room> roomList { get; set; }
 
         /*Initialize needed object factories*/
         EnvironmentFactory environmentFactory = new EnvironmentFactory();
@@ -30,6 +31,8 @@ namespace LOZ.Tools.LevelManager
         /*Function to initialize level data structure and fill it in*/
         public void initialize()
         {
+            string path = @"..\Level_1.xml";
+            levelFileLocation = path;
             /*Check for proper file location*/
             if (levelFileLocation == null) 
             {
@@ -38,7 +41,7 @@ namespace LOZ.Tools.LevelManager
 
             /*Load xml document*/
             XmlDocument xmlLevel = new XmlDocument();
-            xmlLevel.LoadXml(levelFileLocation);
+            xmlLevel.Load(levelFileLocation);
             
             foreach(XmlNode room in xmlLevel.DocumentElement.ChildNodes)
             {
@@ -126,7 +129,7 @@ namespace LOZ.Tools.LevelManager
 
             IEnvironment thisTile = environmentFactory.getEnvironment((Environment)Enum.Parse(typeof(Environment), type));
 
-            thisTile.setPlacement(xPlacement, yPlacement);
+            thisTile.SetPlacement(xPlacement, yPlacement);
 
             return thisTile;
         }

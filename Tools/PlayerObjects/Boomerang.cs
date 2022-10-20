@@ -13,7 +13,7 @@ namespace LOZ.Tools.PlayerObjects
     {
         private Vector2 position;
         private Vector2 velocity;
-        private ISprite sprite;
+        private AnimatedMovingSprite sprite;
         private bool movingAway = true;
 
         private bool exists = true;
@@ -127,6 +127,10 @@ namespace LOZ.Tools.PlayerObjects
         public bool stillExists()
         {
             return exists;
+        }
+        public List<Rectangle> GetHitboxes()
+        {
+            return new List<Rectangle>() { this.sprite.GetDestinationRectangle() };
         }
     }
 }

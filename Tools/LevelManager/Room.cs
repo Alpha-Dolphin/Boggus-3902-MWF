@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using LOZ.Tools.Interfaces;
 using LOZ.Tools.NPCObjects;
 using LOZ.Tools.ItemObjects;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace LOZ.Tools.LevelManager
 {
@@ -25,5 +26,25 @@ namespace LOZ.Tools.LevelManager
         public int roomNumber { get; set; }
         public bool border { get; set; }
         public string template { get; set; }/*template is null if there is no template*/
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach(IEnvironment environment in environmentList)
+            {
+                environment.Draw(spriteBatch);
+            }
+            foreach (IEnemy enemy in enemyList)
+            {
+                enemy.Draw(spriteBatch);
+            }
+            foreach (INPC npc in NPCList)
+            {
+                npc.Draw(spriteBatch);
+            }
+            foreach (IItem item in itemList)
+            {
+                item.Draw(spriteBatch);
+            }
+        }
     }
 }
