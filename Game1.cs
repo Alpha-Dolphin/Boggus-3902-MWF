@@ -87,9 +87,9 @@ namespace LOZ
                 environmentObjectList.Add(environmentFactory.getEnvironment(environment));
             }
 
-            //LevelManager lm = new LevelManager();
-            //lm.initialize();
-            //rooms = lm.roomList;
+            LevelManager lm = new LevelManager();
+            lm.initialize();
+            rooms = lm.roomList;
             
 
             /*Here we create the command handler for the environment display management*/

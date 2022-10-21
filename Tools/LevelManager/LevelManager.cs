@@ -11,6 +11,7 @@ using System.Xml;
 using LOZ.Tools.Interfaces;
 using System.Reflection;
 using System.IO;
+using System.Threading;
 
 namespace LOZ.Tools.LevelManager
 {
@@ -19,7 +20,7 @@ namespace LOZ.Tools.LevelManager
         /*Location data for level files*/
         string levelFileLocation { get; set; }
 
-        public List<Room> roomList { get; set; }
+        public List<Room> roomList { get; set; } = new List<Room>();
 
         /*Initialize needed object factories*/
         EnvironmentFactory environmentFactory = new EnvironmentFactory();
@@ -31,7 +32,7 @@ namespace LOZ.Tools.LevelManager
         /*Function to initialize level data structure and fill it in*/
         public void initialize()
         {
-            string path = @"..\Level_1.xml";
+            string path = "../../../Levels/Level_1.xml";
             levelFileLocation = path;
             /*Check for proper file location*/
             if (levelFileLocation == null) 
@@ -40,17 +41,25 @@ namespace LOZ.Tools.LevelManager
             }
 
             /*Load xml document*/
-            XmlDocument xmlLevel = new XmlDocument();
-            xmlLevel.Load(levelFileLocation);
-            
-            foreach(XmlNode room in xmlLevel.DocumentElement.ChildNodes)
-            {
-                /*Load a new room object from the info in each room element*/
-                Room thisRoom = new Room();
-                fillRoom(thisRoom, room);
+            XmlDocument xmlLevelDoc = new XmlDocument();
+            xmlLevelDoc.Load(levelFileLocation);
+            XmlNode xmlRoot = xmlLevelDoc.LastChild;
+            XmlNode xmlLevel = xmlRoot.LastChild;
 
-                /*Add the new room to the room list*/
-                roomList.Add(thisRoom);
+            Debug.WriteLine("Starting to document xml");
+
+
+            foreach (XmlNode room in xmlLevel.ChildNodes)
+            {
+                if (room.NodeType != XmlNodeType.Comment)
+                {
+                    /*Load a new room object from the info in each room element*/
+                    Room thisRoom = new Room();
+                    fillRoom(thisRoom, room);
+
+                    /*Add the new room to the room list*/
+                    roomList.Add(thisRoom);
+                }
             }
 
         
@@ -63,68 +72,81 @@ namespace LOZ.Tools.LevelManager
             /*Fill in room number*/
             room.roomNumber = int.Parse(xmlRoom.Attributes?["num"]?.Value);
             /*Fill in border*/
-            room.border = bool.Parse(xmlRoom.SelectSingleNode("/border").InnerText);
+            room.border = bool.Parse(xmlRoom.SelectSingleNode("border").InnerText);
 
             /*Fill in template*/
-            if (bool.Parse(xmlRoom.SelectSingleNode("/background").Attributes?["draw"]?.Value))
+            if (bool.Parse(xmlRoom.SelectSingleNode("background").Attributes?["draw"]?.Value))
             {
-                room.template = xmlRoom.SelectSingleNode("/background").Attributes?["template"]?.Value;
+                room.template = xmlRoom.SelectSingleNode("background").Attributes?["template"]?.Value;
             }
             /*Fill in barrier list*/
-            foreach(XmlNode barrier in xmlRoom.SelectSingleNode("/barriers").ChildNodes)
+            foreach(XmlNode barrier in xmlRoom.SelectSingleNode("barriers").ChildNodes)
             {
-                /*get rectangles from barrier elements*/
-                room.barrierList.Add(getBarrierRectangle(barrier));
+                if (barrier.NodeType != XmlNodeType.Comment)
+                {
+                    /*get rectangles from barrier elements*/
+                    room.barrierList.Add(getBarrierRectangle(barrier));
+                }
             }
             /*Fill in environment object list*/
-            foreach (XmlNode tile in xmlRoom.SelectSingleNode("/environment").ChildNodes)
+            foreach (XmlNode tile in xmlRoom.SelectSingleNode("environment").ChildNodes)
             {
-                /*get environment objects from tile elements*/
-                room.environmentList.Add(getEnvironmentObject(tile));
+                if (tile.NodeType != XmlNodeType.Comment)
+                {
+                    /*get environment objects from tile elements*/
+                    room.environmentList.Add(getEnvironmentObject(tile));
+                }
             }
             /*Fill in enemy object list*/
-            foreach (XmlNode enemy in xmlRoom.SelectSingleNode("/enemies").ChildNodes)
+            foreach (XmlNode enemy in xmlRoom.SelectSingleNode("enemies").ChildNodes)
             {
-                /*get enemy objects from enemy elements*/
-                room.enemyList.Add(getEnemyObject(enemy));
+                if (enemy.NodeType != XmlNodeType.Comment)
+                {
+                    /*get enemy objects from enemy elements*/
+                    room.enemyList.Add(getEnemyObject(enemy));
+                }
             }
 
             /*Fill in NPC object list*/
-            foreach (XmlNode NPC in xmlRoom.SelectSingleNode("/NPCs").ChildNodes)
+            foreach (XmlNode NPC in xmlRoom.SelectSingleNode("NPCs").ChildNodes)
             {
-                /*get enemy objects from enemy elements*/
-                room.NPCList.Add(getNPCObject(NPC));
+                if (NPC.NodeType != XmlNodeType.Comment)
+                {
+                    /*get enemy objects from enemy elements*/
+                    room.NPCList.Add(getNPCObject(NPC));
+                }
             }
 
             /*Fill in item object list*/
-            foreach (XmlNode item in xmlRoom.SelectSingleNode("/items").ChildNodes)
+            foreach (XmlNode item in xmlRoom.SelectSingleNode("items").ChildNodes)
             {
-                /*get enemy objects from enemy elements*/
-                room.itemList.Add(getItemObject(item));
+                if (item.NodeType != XmlNodeType.Comment)
+                {
+                    /*get enemy objects from enemy elements*/
+                    room.itemList.Add(getItemObject(item));
+                }
             }
 
             /*Assign neighbors*/
-            room.northNeighbor = int.Parse(xmlRoom.SelectSingleNode("/neighbors/north").Attributes["id"].Value);
-            room.southNeighbor = int.Parse(xmlRoom.SelectSingleNode("/neighbors/south").Attributes["id"].Value);
-            room.eastNeighbor = int.Parse(xmlRoom.SelectSingleNode("/neighbors/east").Attributes["id"].Value);
-            room.westNeighbor = int.Parse(xmlRoom.SelectSingleNode("/neighbors/west").Attributes["id"].Value);
+            getNeighbors(room,xmlRoom.SelectSingleNode("neighbors"));
+            
         }
 
 
         /*Helper functions*/
         private Rectangle getBarrierRectangle(XmlNode xmlBarrier)
         {
-            int x = int.Parse(xmlBarrier.SelectSingleNode("/xPlacement").InnerText);
-            int y = int.Parse(xmlBarrier.SelectSingleNode("/yPlacement").InnerText);
-            int width = int.Parse(xmlBarrier.SelectSingleNode("/width").InnerText);
-            int height = int.Parse(xmlBarrier.SelectSingleNode("/height").InnerText);
+            int x = int.Parse(xmlBarrier.SelectSingleNode("xPlacement").InnerText);
+            int y = int.Parse(xmlBarrier.SelectSingleNode("yPlacement").InnerText);
+            int width = int.Parse(xmlBarrier.SelectSingleNode("width").InnerText);
+            int height = int.Parse(xmlBarrier.SelectSingleNode("height").InnerText);
 
             return new Rectangle(x, y, width, height);
         }
         private IEnvironment getEnvironmentObject(XmlNode xmlTile)
         {
-            int xPlacement = int.Parse(xmlTile.SelectSingleNode("/xPlacement").InnerText);
-            int yPlacement = int.Parse(xmlTile.SelectSingleNode("/yPlacement").InnerText);
+            int xPlacement = int.Parse(xmlTile.SelectSingleNode("xPlacement").InnerText);
+            int yPlacement = int.Parse(xmlTile.SelectSingleNode("yPlacement").InnerText);
             string type = xmlTile.Attributes?["type"]?.Value;
 
             IEnvironment thisTile = environmentFactory.getEnvironment((Environment)Enum.Parse(typeof(Environment), type));
@@ -135,8 +157,8 @@ namespace LOZ.Tools.LevelManager
         }
         private IEnemy getEnemyObject(XmlNode xmlEnemy)
         {
-            int xPlacement = int.Parse(xmlEnemy.SelectSingleNode("/xPlacement").InnerText);
-            int yPlacement = int.Parse(xmlEnemy.SelectSingleNode("/yPlacement").InnerText);
+            int xPlacement = int.Parse(xmlEnemy.SelectSingleNode("xPlacement").InnerText);
+            int yPlacement = int.Parse(xmlEnemy.SelectSingleNode("yPlacement").InnerText);
             string type = xmlEnemy.Attributes?["type"]?.Value;
             enemySpriteFactory.curr = (int)Enum.Parse(typeof(Enemy), type);
 
@@ -148,8 +170,8 @@ namespace LOZ.Tools.LevelManager
         }
         private INPC getNPCObject(XmlNode xmlNPC)
         {
-            int xPlacement = int.Parse(xmlNPC.SelectSingleNode("/xPlacement").InnerText);
-            int yPlacement = int.Parse(xmlNPC.SelectSingleNode("/yPlacement").InnerText);
+            int xPlacement = int.Parse(xmlNPC.SelectSingleNode("xPlacement").InnerText);
+            int yPlacement = int.Parse(xmlNPC.SelectSingleNode("yPlacement").InnerText);
             string type = xmlNPC.Attributes?["type"]?.Value;
 
             INPC thisNPC = npcFactory.CreateNPC((NPC)Enum.Parse(typeof(NPC), type));
@@ -160,11 +182,32 @@ namespace LOZ.Tools.LevelManager
         }
         private IItem getItemObject(XmlNode xmlItem)
         {
-            int xPlacement = int.Parse(xmlItem.SelectSingleNode("/xPlacement").InnerText);
-            int yPlacement = int.Parse(xmlItem.SelectSingleNode("/yPlacement").InnerText);
+            int xPlacement = int.Parse(xmlItem.SelectSingleNode("xPlacement").InnerText);
+            int yPlacement = int.Parse(xmlItem.SelectSingleNode("yPlacement").InnerText);
             string type = xmlItem.Attributes?["type"]?.Value;
 
             return itemFactory.CreateItem((Item)Enum.Parse(typeof(Item), type),xPlacement,yPlacement);
+        }
+
+        private void getNeighbors(Room room, XmlNode xmlNeigbors)
+        {
+            int parseHolder;
+            if (int.TryParse(xmlNeigbors.SelectSingleNode("north").Attributes["id"].Value,out parseHolder))
+            {
+                room.northNeighbor = parseHolder;
+            }
+            if (int.TryParse(xmlNeigbors.SelectSingleNode("south").Attributes["id"].Value, out parseHolder))
+            {
+                room.southNeighbor = parseHolder;
+            }
+            if (int.TryParse(xmlNeigbors.SelectSingleNode("east").Attributes["id"].Value, out parseHolder))
+            {
+                room.eastNeighbor = parseHolder;
+            }
+            if (int.TryParse(xmlNeigbors.SelectSingleNode("west").Attributes["id"].Value, out parseHolder))
+            {
+                room.westNeighbor = parseHolder;
+            }
         }
 
     }
