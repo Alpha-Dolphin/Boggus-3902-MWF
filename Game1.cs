@@ -13,7 +13,7 @@ using System;
 
 using LOZ.Tools;
 using LOZ.Tools.Interfaces;
-
+using LOZ.Tools.LevelManager;
 
 namespace LOZ
 {
@@ -32,6 +32,8 @@ namespace LOZ
         private KeyboardController controller;
         private ICommand linkCommandHandler;
         private EnvironmentCommandHandler environmentCommandHandler;
+        private List<Room> rooms;
+        private int currentRoom = 0;
 
         public static Texture2D LINK_SPRITESHEET;
         public static SpriteFont FONT;
@@ -82,8 +84,12 @@ namespace LOZ
             /*Here we will fill in the environment object list with one of every completed environment object*/
             foreach (Environment environment in Enum.GetValues(typeof(Environment)))
             {
-            environmentObjectList.Add(environmentFactory.getEnvironment(environment));
+                environmentObjectList.Add(environmentFactory.getEnvironment(environment));
             }
+
+            LevelManager lm = new LevelManager();
+            lm.initialize();
+            rooms = lm.roomList;
             
 
             /*Here we create the command handler for the environment display management*/
@@ -115,8 +121,8 @@ namespace LOZ
 
             foreach (IEnvironment environmentObject in environmentObjectList)
             {
-                environmentObject.load();
-                environmentObject.update();
+                environmentObject.Load();
+                environmentObject.Update();
             }
         }
 
@@ -184,7 +190,7 @@ namespace LOZ
             spriteBatch.Begin();
 
             /*Draw Environment*/
-            environmentObjectList[environmentCommandHandler.environmentBlockIndex].draw(spriteBatch);
+            environmentObjectList[environmentCommandHandler.environmentBlockIndex].Draw(spriteBatch);
             
             enemy.Draw(spriteBatch);
             
@@ -206,9 +212,11 @@ namespace LOZ
             //    item.Draw(spriteBatch);
             //}
 
-            environmentObjectList[environmentCommandHandler.environmentBlockIndex].draw(spriteBatch);
+            environmentObjectList[environmentCommandHandler.environmentBlockIndex].Draw(spriteBatch);
 
             link.Draw(spriteBatch);
+
+            //rooms[currentRoom].Draw(spriteBatch);
 
             spriteBatch.End();
 

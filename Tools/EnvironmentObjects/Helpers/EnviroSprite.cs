@@ -114,7 +114,7 @@ namespace LOZ.Tools.EnvironmentObjects.Helpers
             return sourceFileDirectory;
         }
 
-        public bool finished()
+        public bool Finished()
         {
             return true;
         }

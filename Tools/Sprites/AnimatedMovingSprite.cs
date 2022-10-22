@@ -122,7 +122,7 @@ namespace CSE3902_Sprint0.Sprites
             this.y = y;
         }
 
-        public bool finished()
+        public bool Finished()
         {
             return finish;
         }
