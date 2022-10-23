@@ -1360,6 +1360,8 @@
 					</yPlacement>
 				</enemy>
 			</enemies>
+			<NPCs>
+			</NPCs>
 			<items>
 				<!--One item element for each item, 
 				type attribute is the name of the object to place, 
@@ -1495,6 +1497,10 @@
 					</yPlacement>
 				</enemy>
 			</enemies>
+			<NPCs>
+			</NPCs>
+			<items>
+			</items>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -1562,6 +1568,8 @@
 					</yPlacement>
 				</enemy>
 			</enemies>
+			<NPCs>
+			</NPCs>
 			<items>
 				<!--One item element for each item, 
 				type attribute is the name of the object to place, 
@@ -1729,6 +1737,12 @@
 				<east id ="18"/>
 				<west id ="16"/>
 			</neighbors>
+			<enemies>
+			</enemies>
+			<NPCs>
+			</NPCs>
+			<items>
+			</items>
 		</room>
 		<room num ="18">
 			<!--Boolean True or False describes if border is drawn at edges-->
