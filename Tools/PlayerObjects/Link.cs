@@ -54,12 +54,12 @@ namespace LOZ.Tools.PlayerObjects
             this.state = state;
             this.direction = direction;
             this.hitboxes = new List<Rectangle>();
+            this.hurtbox = new Rectangle(xPos, yPos, LinkConstants.LINK_MOVEDOWN_FRAME1.Width, LinkConstants.LINK_MOVEDOWN_FRAME1.Height);
 
             this.healthText.setFont(font);
             this.healthText.setPosition(0, 0);
             this.projectileFactory = new ProjectileFactory(0, this.spriteSheet);
             UpdateSprite();
-            this.hurtbox = this.sprite.GetDestinationRectangle();
             this.swordHitbox = null;
         }
 
