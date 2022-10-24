@@ -48,18 +48,6 @@ namespace LOZ
         */
 
 
-
-        /*Lists for various things to cycle through for sprint 2*/
-
-        List<IEnvironment> environmentObjectList = new List<IEnvironment>();
-
-        /*Factories for mass object generation*/
-
-        EnvironmentFactory environmentFactory = new EnvironmentFactory();
-
-        List<IItem> itemObjectList = new List<IItem>();
-
-
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -86,11 +74,6 @@ namespace LOZ
             controller = new KeyboardController();
             mouseController = new MouseController();
 
-            /*Here we will fill in the environment object list with one of every completed environment object*/
-            foreach (Environment environment in Enum.GetValues(typeof(Environment)))
-            {
-                environmentObjectList.Add(environmentFactory.getEnvironment(environment));
-            }
 
             LevelManager lm = new LevelManager();
             lm.initialize();
@@ -106,12 +89,6 @@ namespace LOZ
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
             Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
-            itemFactory = new ItemFactory(ItemSpriteSheet);
-            NPCFactory = new NPCFactory(0, NPCSpriteSheet);
-            enemySpriteFactory = new();
-            itemObjectList.Add(itemFactory.CreateItem(Item.Compass, 600, 400));
-            NPCFactory.CreateNPC();
-            enemy = enemySpriteFactory.CreateKeese();
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(LinkConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
