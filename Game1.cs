@@ -30,10 +30,13 @@ namespace LOZ
         private EnemySpriteFactory enemySpriteFactory;
         private IPlayer link;
         private KeyboardController controller;
+        private MouseController mouseController;
         private ICommand linkCommandHandler;
         private EnvironmentCommandHandler environmentCommandHandler;
         private List<Room> rooms;
-        private int currentRoom = 14;
+        public static int currentRoom = 2;
+
+        private TextSprite currentRoomIndicator = new TextSprite();
 
         public static Texture2D LINK_SPRITESHEET;
         public static SpriteFont FONT;
@@ -86,6 +89,7 @@ namespace LOZ
 
             /*Declaration of controllers*/
             controller = new KeyboardController();
+            mouseController = new MouseController();
 
             /*Here we will fill in the environment object list with one of every completed environment object*/
             foreach (Environment environment in Enum.GetValues(typeof(Environment)))
@@ -101,6 +105,8 @@ namespace LOZ
             /*Here we create the command handler for the environment display management*/
 
             environmentCommandHandler = new EnvironmentCommandHandler();
+
+            currentRoomIndicator.setPosition(0, 20);
 
             base.Initialize();
         }
@@ -119,6 +125,7 @@ namespace LOZ
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(LinkConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
+            currentRoomIndicator.setFont(FONT);
             ENVIRONMENT_SPRITESHEET = Content.Load<Texture2D>(Constants.DungeonSpriteSheetLocation);
             NPC_SPRITESHEET = Content.Load<Texture2D>(Constants.NPCSpriteSheetLocation);
             REGULAR_ENEMIES = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
@@ -136,7 +143,8 @@ namespace LOZ
 
             base.Update(gameTime);
 
-            List<Keys> pressed = controller.update();
+            List<Keys> pressed = controller.Update();
+            mouseController.Update();
 
             linkCommandHandler.Execute(pressed);
 
@@ -150,6 +158,8 @@ namespace LOZ
 
             /*Here we update the environment placement for existing environment objects*/
             environmentCommandHandler.executeNewPressedOnly(pressed, controller.held);
+
+            currentRoomIndicator.setText("Current room number: " + currentRoom);
         }
 
         private void UpdateCollision()
@@ -223,6 +233,7 @@ namespace LOZ
 
             rooms[currentRoom].Draw(spriteBatch);
             link.Draw(spriteBatch);
+            currentRoomIndicator.Draw(spriteBatch);
 
             //spriteBatch.Draw(Game1.ENVIRONMENT_SPRITESHEET, new Rectangle(0, 0, 256, 176), new Rectangle(521, 11, 256, 176), Color.White);
             //IEnemy test = rooms[currentRoom].enemyList[0];

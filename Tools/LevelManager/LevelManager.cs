@@ -69,10 +69,8 @@ namespace LOZ.Tools.LevelManager
         {
             /*Fill in room number*/
             room.roomNumber = int.Parse(xmlRoom.Attributes?["num"]?.Value);
-            if (room.roomNumber > 0)
-            {
-                room.SetTextures(BackgroundConstants.ROOM_DOORS[room.roomNumber - 1]);
-            }
+            room.SetTextures();
+            
             /*Fill in border*/
             room.border = bool.Parse(xmlRoom.SelectSingleNode("border").InnerText);
 
