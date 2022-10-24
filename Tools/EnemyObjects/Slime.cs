@@ -23,10 +23,10 @@ namespace LOZ.Tools
         double moveProb;
 
         const double moveDelay = 1000;
-        public void SetHurtbox(int x, int y)
+        public void SetHurtbox(Rectangle rect)
         {
-            enemyPosition.X = x;
-            enemyPosition.Y = y;
+            enemyPosition.Y = rect.Y;
+            enemyPosition.X = rect.X;
         }
         public Slime(int X, int Y)
         {
@@ -38,8 +38,8 @@ namespace LOZ.Tools
 
             rand = new();
 
-            enemyPosition.X = X;
             enemyPosition.Y = Y;
+            enemyPosition.X = X;
 
             moveCheck = -1;
         }
@@ -55,7 +55,7 @@ namespace LOZ.Tools
 
         public void Die()
         {
-            //lm.enemyList.Remove(this);
+            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
         }
 
         public void Move(GameTime gameTime)

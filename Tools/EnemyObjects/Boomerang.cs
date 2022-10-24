@@ -19,10 +19,10 @@ namespace LOZ.Tools.EnemyObjects
 
         const int attackLength = 3000;
         double attackTime;
-        public void SetHurtbox(int x, int y)
+        public void SetHurtbox(Rectangle rect)
         {
-            enemyPosition.X = x;
-            enemyPosition.Y = y;
+            enemyPosition.Y = rect.Y;
+            enemyPosition.X = rect.X;
         }
 
         public Boomerang()
@@ -60,7 +60,7 @@ namespace LOZ.Tools.EnemyObjects
 
         public void Die()
         {
-            //lm.enemyList.Remove(this);
+            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
         }
 
         public void Attack(GameTime gameTime)

@@ -30,11 +30,11 @@ namespace LOZ.Tools.EnvironmentObjects
         {
             return new Rectangle(enviroSprite.x, enviroSprite.y, enviroSprite.width, enviroSprite.height);
         }
-        public void SetHurtbox(int x, int y)
+        public void SetHurtbox(Rectangle rect)
         {
-            this.xPosition = x;
-            this.yPosition = y;
-            enviroSprite.Update(x, y);
+            this.xPosition = rect.X;
+            this.yPosition = rect.Y;
+            enviroSprite.Update(rect.X, rect.Y);
         }
     }
 }

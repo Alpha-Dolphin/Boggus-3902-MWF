@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Input;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
+using LOZ.Tools.Sprites;
 
 namespace LOZ.Tools.ItemObjects
 {

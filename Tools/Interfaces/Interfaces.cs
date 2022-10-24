@@ -25,7 +25,7 @@ public interface IEnvironment : ICollidable
 
 public interface ICollidable{
     Rectangle GetHurtbox();
-    void SetHurtbox(int x, int y);
+    void SetHurtbox(Rectangle rect);
 }
 
 public interface IHurtbox
