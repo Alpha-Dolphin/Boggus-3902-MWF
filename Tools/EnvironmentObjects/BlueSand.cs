@@ -1,4 +1,5 @@
 ﻿using LOZ.Tools.EnvironmentObjects.Helpers;
+using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,16 +12,17 @@ namespace LOZ.Tools.EnvironmentObjects
 {
     internal class BlueSand : IEnvironment
     {
-        private EnviroSprite enviroSprite = new EnviroSprite();
+        private Sprite enviroSprite;
         private int xPosition = Constants.enviroDefaultX;
         private int yPosition = Constants.enviroDefaultY;
         public void SetPlacement(int x, int y)
         {
+            enviroSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, x, y, new List<Rectangle>() { new Rectangle(1001, 28, 16, 16) });
             xPosition = x;
             yPosition = y;
         }
 
-        /*Update must be called at least once before drawing*/
+        
         public void Draw(SpriteBatch spriteBatch)
         {
             enviroSprite.Draw(spriteBatch);
@@ -28,19 +30,17 @@ namespace LOZ.Tools.EnvironmentObjects
         /*Sets the source and location rectangles*/
         public void Update()
         {
-
-            enviroSprite.setFrameRectangle(1001, 28, 16, 16);
-
-            enviroSprite.setPositionRectangle(xPosition, yPosition, 16 * Constants.objectScale, 16 * Constants.objectScale);
         }
         public void Load()
         {
-            enviroSprite.loadSpriteSheet(Game1.ENVIRONMENT_SPRITESHEET);
         }
 
-        public Rectangle GetRectangle()
+        public Rectangle GetHurtbox()
         {
-            return new Rectangle(enviroSprite.positionX, enviroSprite.positionY, enviroSprite.width, enviroSprite.height);
+            return new Rectangle(enviroSprite.x, enviroSprite.y, enviroSprite.width, enviroSprite.height);
+        }
+        public void SetHurtbox(int x, int y)
+        {
         }
     }
 }

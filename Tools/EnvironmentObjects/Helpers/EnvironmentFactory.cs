@@ -4,60 +4,63 @@
 
 using LOZ.Tools.EnvironmentObjects;
 
-class EnvironmentFactory
+namespace LOZ.Tools.EnvironmentObjects.Helpers
 {
-    public IEnvironment getEnvironment(Environment environment)
+    class EnvironmentFactory
     {
-        switch (environment)
+        public IEnvironment getEnvironment(Environment environment)
         {
-            case Environment.Statue:
-                return new Statue();
+            switch (environment)
+            {
+                case Environment.Statue:
+                    return new Statue();
 
-            case Environment.SquareBlock:
-                return new SquareBlock();
+                case Environment.SquareBlock:
+                    return new SquareBlock();
 
-            case Environment.PushBlock:
-                return new PushBlock();
+                case Environment.PushBlock:
+                    return new PushBlock();
 
-            case Environment.Fire:
-                return new Fire();
+                case Environment.Fire:
+                    return new Fire();
 
-            case Environment.WalkableBlueGap:
-                return new WalkableBlueGap();
-                
-            case Environment.Stairs:
-                return new Stairs();
-                
-            case Environment.WhiteBrick:
-                return new WhiteBrick();
-                
-            case Environment.Ladders:
-                return new Ladders();
-                
-            case Environment.BlueFloor:
-                return new BlueFloor();
-                
-            case Environment.BlueSand:
-                return new BlueSand();
-            
-            case Environment.RoomBorder:
-                return new RoomBorder();
+                case Environment.WalkableBlueGap:
+                    return new WalkableBlueGap();
 
-            case Environment.OpenDoor:
-                return new OpenDoor();
+                case Environment.Stairs:
+                    return new Stairs();
 
-            case Environment.BombedWallOpening:
-                return new BombedWallOpening();
+                case Environment.WhiteBrick:
+                    return new WhiteBrick();
 
-            case Environment.KeyholeLockedDoor:
-                return new KeyholeLockedDoor();
+                case Environment.Ladders:
+                    return new Ladders();
 
-            case Environment.DiamondSymbolLockedDoor:
-                return new DiamondSymbolLockedDoor();
-            
-            default:
-                return new Statue();
+                case Environment.BlueFloor:
+                    return new BlueFloor();
+
+                case Environment.BlueSand:
+                    return new BlueSand();
+
+                case Environment.RoomBorder:
+                    return new RoomBorder();
+
+                case Environment.OpenDoor:
+                    return new OpenDoor();
+
+                case Environment.BombedWallOpening:
+                    return new BombedWallOpening();
+
+                case Environment.KeyholeLockedDoor:
+                    return new KeyholeLockedDoor();
+
+                case Environment.DiamondSymbolLockedDoor:
+                    return new DiamondSymbolLockedDoor();
+
+                default:
+                    return new Statue();
+            }
+
         }
-        
     }
 }

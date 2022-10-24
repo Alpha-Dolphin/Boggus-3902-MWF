@@ -20,10 +20,9 @@ interface ISprite
 interface IEnvironment
 {
     void SetPlacement(int x, int y);
-    Rectangle GetRectangle();
-    void Update();
+    Rectangle GetHurtbox();
+    void SetHurtbox(int x, int y);
     void Draw(SpriteBatch spriteBatch);
-    void Load();
 }
 
 interface ICollidable{

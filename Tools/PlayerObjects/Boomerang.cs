@@ -1,4 +1,4 @@
-﻿using CSE3902_Sprint0.Sprites;
+﻿using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

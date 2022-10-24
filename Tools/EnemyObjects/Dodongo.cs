@@ -1,5 +1,4 @@
-﻿using CSE3902_Sprint0.Sprites;
-using LOZ.Tools.EnemyObjects;
+﻿using LOZ.Tools.EnemyObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;

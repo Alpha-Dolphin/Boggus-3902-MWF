@@ -11,6 +11,7 @@ using System.Xml;
 using System.Reflection;
 using System.IO;
 using System.Threading;
+using LOZ.Tools.EnvironmentObjects.Helpers;
 
 namespace LOZ.Tools.LevelManager
 {
@@ -18,8 +19,6 @@ namespace LOZ.Tools.LevelManager
     {
         /*Location data for level files*/
         string levelFileLocation { get; set; }
-
-        const int SCALE = 3;
 
         public List<Room> roomList { get; set; } = new List<Room>();
 
@@ -70,6 +69,10 @@ namespace LOZ.Tools.LevelManager
         {
             /*Fill in room number*/
             room.roomNumber = int.Parse(xmlRoom.Attributes?["num"]?.Value);
+            if (room.roomNumber > 0)
+            {
+                room.SetTextures(BackgroundConstants.ROOM_DOORS[room.roomNumber - 1]);
+            }
             /*Fill in border*/
             room.border = bool.Parse(xmlRoom.SelectSingleNode("border").InnerText);
 
@@ -150,8 +153,7 @@ namespace LOZ.Tools.LevelManager
 
             IEnvironment thisTile = environmentFactory.getEnvironment((Environment)Enum.Parse(typeof(Environment), type));
 
-            thisTile.SetPlacement(xPlacement*SCALE, yPlacement*SCALE);
-            thisTile.Update();
+            thisTile.SetPlacement(xPlacement, yPlacement);
             return thisTile;
         }
         private IEnemy getEnemyObject(XmlNode xmlEnemy)
@@ -174,7 +176,7 @@ namespace LOZ.Tools.LevelManager
 
             INPC thisNPC = npcFactory.CreateNPC((NPC)Enum.Parse(typeof(NPC), type));
 
-            thisNPC.setPlacement(xPlacement*SCALE, yPlacement * SCALE);
+            thisNPC.setPlacement(xPlacement, yPlacement);
 
             return thisNPC;
         }
@@ -184,7 +186,7 @@ namespace LOZ.Tools.LevelManager
             int yPlacement = int.Parse(xmlItem.SelectSingleNode("yPlacement").InnerText);
             string type = xmlItem.Attributes?["type"]?.Value;
 
-            return itemFactory.CreateItem((Item)Enum.Parse(typeof(Item), type),xPlacement*SCALE,yPlacement * SCALE);
+            return itemFactory.CreateItem((Item)Enum.Parse(typeof(Item), type), xPlacement, yPlacement);
         }
 
         private void getNeighbors(Room room, XmlNode xmlNeigbors)

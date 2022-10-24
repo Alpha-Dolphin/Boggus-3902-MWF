@@ -1,11 +1,11 @@
-﻿using CSE3902_Sprint0.Sprites;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LOZ.Tools.Sprites;
 
 namespace LOZ.Tools.PlayerObjects
 {

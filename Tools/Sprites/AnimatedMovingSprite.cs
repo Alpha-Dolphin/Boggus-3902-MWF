@@ -11,11 +11,13 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSE3902_Sprint0.Sprites
+namespace LOZ.Tools.Sprites
 {
     public class AnimatedMovingSprite : ISprite
     {
-        public const int scale = 3;
+        public int xScale = 3;
+        public int yScale = 3;
+
         public int frameRate = 10;
 
         private Texture2D picture;
@@ -101,9 +103,9 @@ namespace CSE3902_Sprint0.Sprites
         {
             Rectangle currentRectangle = frames[currentFrame / frameRate];
             Vector2 currentLocationShift = locationShift[currentFrame / frameRate];
-            int currentX = x + (int)currentLocationShift.X * scale;
-            int currentY = y + (int)currentLocationShift.Y * scale;
-            destinationRectangle = new Rectangle(currentX, currentY, currentRectangle.Width * scale, currentRectangle.Height * scale);
+            int currentX = x + (int)currentLocationShift.X * xScale;
+            int currentY = y + (int)currentLocationShift.Y * yScale;
+            destinationRectangle = new Rectangle(currentX, currentY, currentRectangle.Width * xScale, currentRectangle.Height * yScale);
             spriteBatch.Draw(picture, destinationRectangle, currentRectangle, LinkConstants.DEFAULT_PICTURE_COLOR);
         }
 
@@ -145,6 +147,14 @@ namespace CSE3902_Sprint0.Sprites
         public Rectangle GetDestinationRectangle()
         {
             return destinationRectangle;
+        }
+
+        public void SetXScale(int xScale) { 
+            this.xScale = xScale;
+        }
+        public void SetYScale(int yScale)
+        {
+            this.yScale = yScale;
         }
     }
 }

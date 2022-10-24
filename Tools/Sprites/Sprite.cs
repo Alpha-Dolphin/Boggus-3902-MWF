@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 using LOZ.Tools.PlayerObjects;
 
-namespace CSE3902_Sprint0.Sprites
+namespace LOZ.Tools.Sprites
 {
     public class Sprite : ISprite
     {
@@ -17,8 +17,13 @@ namespace CSE3902_Sprint0.Sprites
 
         public Rectangle frame;
 
+        public static int xScale { get; set; }
+        public static int yScale { get; set; }
+
         public int x;
         public int y;
+        public int width;
+        public int height;
 
         /*private int currentFrame = 0;*/
 
@@ -27,17 +32,27 @@ namespace CSE3902_Sprint0.Sprites
             this.picture = picture;
             this.x = x;
             this.y = y;
+            this.width = frames[0].Width;
+            this.height = frames[0].Height;
             this.frame = frames[0];
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(picture, new Rectangle(x, y, frame.Width * 3, frame.Height * 3), frame, LinkConstants.DEFAULT_PICTURE_COLOR);
+            spriteBatch.Draw(picture, new Rectangle(x*xScale, y*yScale, width*xScale, height*yScale), frame, Color.White);
         }
 
         public void Update(int x, int y)
         {
-            //Do nothing
+            this.x = x;
+            this.y = y;
+        }
+
+        public Sprite SetPosition(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+            return this;
         }
 
         public bool Finished()

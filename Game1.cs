@@ -12,6 +12,7 @@ using System;
 
 
 using LOZ.Tools;
+using LOZ.Tools.EnvironmentObjects.Helpers;
 using LOZ.Tools.LevelManager;
 
 namespace LOZ
@@ -32,7 +33,7 @@ namespace LOZ
         private ICommand linkCommandHandler;
         private EnvironmentCommandHandler environmentCommandHandler;
         private List<Room> rooms;
-        private int currentRoom = 11;
+        private int currentRoom = 14;
 
         public static Texture2D LINK_SPRITESHEET;
         public static SpriteFont FONT;
@@ -73,6 +74,12 @@ namespace LOZ
             // TODO: Add your initialization logic here
             LoadContent();
 
+            _graphics.PreferredBackBufferWidth = 1024;
+            _graphics.PreferredBackBufferHeight = 704;
+            _graphics.ApplyChanges();
+
+            BackgroundConstants.Initialize(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+
             link = new Link(LinkConstants.DEFAULT_X, LinkConstants.DEFAULT_Y, LinkConstants.DEFAULT_ITEMS, LinkConstants.MAX_HEALTH,
                 LinkConstants.DEFAULT_STATE, LinkConstants.DEFAULT_DIRECTION,FONT);
             linkCommandHandler = new LinkCommand((Link) link);
@@ -94,8 +101,6 @@ namespace LOZ
             /*Here we create the command handler for the environment display management*/
 
             environmentCommandHandler = new EnvironmentCommandHandler();
-
-            BackgroundConstants.Initialize(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             base.Initialize();
         }
@@ -119,17 +124,11 @@ namespace LOZ
             REGULAR_ENEMIES = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
             BOSSES = Content.Load<Texture2D>(Constants.BossesSpriteSheetLocation);
             ITEM_SPRITESHEET = Content.Load<Texture2D>(Constants.ItemSpriteSheetLocation);
-
-            foreach (IEnvironment environmentObject in environmentObjectList)
-            {
-                environmentObject.Load();
-                environmentObject.Update();
-            }
         }
 
         protected override void Update(GameTime gameTime)
         {
-            UpdateCollision();
+            //UpdateCollision();
 
             /*
              * Update logic here
@@ -163,11 +162,11 @@ namespace LOZ
                 if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(ene, link);
                 foreach (IEnvironment sB in staticBlocks)
                 {
-                    if (Collision.Intersects(sB.GetRectangle(), ene.GetHurtbox())) Collision.CollisionChecker(sB, ene);
+                    if (Collision.Intersects(sB.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(sB, ene);
                 }
                 foreach (IEnvironment dB in dynamicBlocks)
                 {
-                    if (Collision.Intersects(dB.GetRectangle(), ene.GetHurtbox())) Collision.CollisionChecker(dB, ene);
+                    if (Collision.Intersects(dB.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(dB, ene);
                 }
                 foreach (Rectangle weapon in link.GetHitboxes()) { 
                     if (Collision.Intersects(weapon, ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
@@ -175,16 +174,16 @@ namespace LOZ
             }
             foreach (IEnvironment sB in staticBlocks)
             {
-                if (Collision.Intersects(link.GetHurtbox(), sB.GetRectangle())) 
+                if (Collision.Intersects(link.GetHurtbox(), sB.GetHurtbox())) 
                     Collision.CollisionChecker(link, sB);
                 foreach (IEnvironment dB in dynamicBlocks)
                 {
-                    if (Collision.Intersects(dB.GetRectangle(), sB.GetRectangle())) Collision.CollisionChecker(dB, sB);
+                    if (Collision.Intersects(dB.GetHurtbox(), sB.GetHurtbox())) Collision.CollisionChecker(dB, sB);
                 }
             }
             foreach (IEnvironment dB in dynamicBlocks)
             {
-                if (Collision.Intersects(link.GetHurtbox(), dB.GetRectangle())) Collision.CollisionChecker(link, dB);
+                if (Collision.Intersects(link.GetHurtbox(), dB.GetHurtbox())) Collision.CollisionChecker(link, dB);
             }
 
         }
@@ -195,7 +194,7 @@ namespace LOZ
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             /*Initialize sprite drawing*/
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             /*Draw Environment*/
             //environmentObjectList[environmentCommandHandler.environmentBlockIndex].Draw(spriteBatch);
@@ -222,9 +221,10 @@ namespace LOZ
 
             //environmentObjectList[environmentCommandHandler.environmentBlockIndex].Draw(spriteBatch);
 
+            rooms[currentRoom].Draw(spriteBatch);
             link.Draw(spriteBatch);
 
-            rooms[currentRoom].Draw(spriteBatch);
+            //spriteBatch.Draw(Game1.ENVIRONMENT_SPRITESHEET, new Rectangle(0, 0, 256, 176), new Rectangle(521, 11, 256, 176), Color.White);
             //IEnemy test = rooms[currentRoom].enemyList[0];
             //test.Draw(spriteBatch);
 
