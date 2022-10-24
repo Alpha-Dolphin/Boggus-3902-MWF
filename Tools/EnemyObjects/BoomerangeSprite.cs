@@ -6,6 +6,7 @@ using System;
 
 namespace LOZ.Tools
 {
+    //deprecated
     internal class BoomerangSprite : ISpriteEnemy
     {
         Rectangle boomerang;

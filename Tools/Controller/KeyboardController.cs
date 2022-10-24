@@ -23,7 +23,7 @@ namespace LOZ.Tools.Controller
         public List<Keys> pressed =  new List<Keys>();
         public List<Keys> held = new List<Keys>();
 
-        public List<Keys> update()
+        public List<Keys> Update()
         {
             
 

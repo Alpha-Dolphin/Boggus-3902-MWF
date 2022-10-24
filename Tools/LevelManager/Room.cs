@@ -8,10 +8,11 @@ using LOZ.Tools.NPCObjects;
 using LOZ.Tools.ItemObjects;
 using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework.Graphics;
+using LOZ.Tools.EnvironmentObjects;
 
 namespace LOZ.Tools.LevelManager
 {
-    internal class Room
+    public class Room
     {
         private Texture2D texture = Game1.ENVIRONMENT_SPRITESHEET;
 
@@ -33,16 +34,19 @@ namespace LOZ.Tools.LevelManager
         public bool border { get; set; }
         public string template { get; set; }/*template is null if there is no template*/
 
-        public void SetTextures(BackgroundConstants.DoorType[] DoorTypes)
+        public void SetTextures()
         {
-            this.RoomExterior = new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.ROOM_EXTERIOR });
-            this.RoomInterior = new Sprite(texture, BackgroundConstants.EXTERIOR_WIDTH, 
-                BackgroundConstants.EXTERIOR_WIDTH, new List<Rectangle>() { BackgroundConstants.ROOMS[roomNumber - 1] });
-            this.Doors = new Sprite[4];
-
-            for(int i = 0; i < Doors.Length; i++)
+            if (this.roomNumber > 0)
             {
-                SetDoorType(DoorTypes[i], i);
+                this.RoomInterior = new Sprite(texture, BackgroundConstants.EXTERIOR_WIDTH,
+                BackgroundConstants.EXTERIOR_WIDTH, new List<Rectangle>() { BackgroundConstants.ROOMS[roomNumber - 1] });
+                this.RoomExterior = new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.ROOM_EXTERIOR });
+                this.Doors = new Sprite[4];
+
+                for (int i = 0; i < Doors.Length; i++)
+                {
+                    SetDoorType(BackgroundConstants.ROOM_DOORS[roomNumber - 1][i], i);
+                }
             }
         }
 
@@ -73,12 +77,27 @@ namespace LOZ.Tools.LevelManager
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            this.RoomExterior.Draw(spriteBatch);
-            this.RoomInterior.Draw(spriteBatch);
-            foreach (Sprite door in Doors)
+            if (roomNumber > 1)
             {
-                door.Draw(spriteBatch);
+                this.RoomExterior.Draw(spriteBatch);
+                foreach (Sprite door in Doors)
+                {
+                    door.Draw(spriteBatch);
+                }
             }
+            if (roomNumber == 1)
+            {
+                int tempX = Sprite.xScale;
+                int tempY = Sprite.yScale;
+                Sprite.xScale = BackgroundConstants.SCREEN_WIDTH / this.RoomInterior.width;
+                Sprite.yScale = BackgroundConstants.SCREEN_HEIGHT / this.RoomInterior.height;
+                this.RoomInterior.SetPosition(0, 0);
+                this.RoomInterior.Draw(spriteBatch);
+                Sprite.xScale = tempX;
+                Sprite.yScale = tempY;
+            }
+            else this.RoomInterior.Draw(spriteBatch);
+
             foreach (IEnvironment environment in environmentList)
             {
                 environment.Draw(spriteBatch);
@@ -94,6 +113,22 @@ namespace LOZ.Tools.LevelManager
             foreach (IItem item in itemList)
             {
                 item.Draw(spriteBatch);
+            }
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            foreach (IEnemy enemy in enemyList)
+            {
+                enemy.Update(gameTime);
+            }
+            foreach (INPC npc in NPCList)
+            {
+                npc.Update(gameTime);
+            }
+            foreach (IItem item in itemList)
+            {
+                item.Update(gameTime);
             }
         }
     }

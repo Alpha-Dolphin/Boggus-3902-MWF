@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-interface ISprite
+public interface ISprite
 {
     void Update(int x, int y);
     //void initialize();
@@ -17,35 +17,33 @@ interface ISprite
     void Draw(SpriteBatch spriteBatch);
 }
 
-interface IEnvironment
+public interface IEnvironment : ICollidable
 {
     void SetPlacement(int x, int y);
-    Rectangle GetHurtbox();
-    void SetHurtbox(int x, int y);
     void Draw(SpriteBatch spriteBatch);
 }
 
-interface ICollidable{
+public interface ICollidable{
     Rectangle GetHurtbox();
     void SetHurtbox(int x, int y);
 }
 
-interface IHurtbox
+public interface IHurtbox
 {
     List<Rectangle> GetHitboxes();
 }
 
-internal interface ICollision
+public interface ICollision
 {
     bool Intersects(Rectangle a, Rectangle b);
 
     void Collide(Object a, Object b);
 }
 
-internal interface IEnemy : ICollidable
+public interface IEnemy : ICollidable
 {
     void Attack(GameTime gameTime);
-    void Die(GameTime gameTime);
+    void Die();
     void Move(GameTime gameTime);
     void Draw(SpriteBatch _spriteBatch);
     void Update(GameTime gameTime);

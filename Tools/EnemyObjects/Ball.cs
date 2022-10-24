@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LOZ.Tools.Sprites;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,8 @@ namespace LOZ.Tools
         double ballLife;
         const int ballDespawnMS = 3000;
 
-        readonly BallSprite ballSprite;
+        //readonly BallSprite ballSprite;
+        AnimatedMovingSprite ballSprite;
 
         readonly int m;
         public void SetHurtbox(int x, int y)
@@ -28,12 +30,13 @@ namespace LOZ.Tools
         {
             ballLife = -1;
 
-            ballSprite = new BallSprite();
+            ballSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
+                new List<Rectangle> { new Rectangle(101, 11, 8, 16), new Rectangle(110, 11, 8, 16), new Rectangle(119, 11, 8, 16), new Rectangle(128, 11, 8, 16) });
             m = mode % 3;
         }
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = ballSprite.GetWidthHeight();
+            Vector2 wH = new Vector2(ballSprite.GetDestinationRectangle().Width, ballSprite.GetDestinationRectangle().Height);
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
@@ -53,9 +56,9 @@ namespace LOZ.Tools
             }
         }
 
-        public void Die(GameTime gameTime)
+        public void Die()
         {
-            //Nothing
+            //lm.enemyList.Remove(this);
         }
 
         public void Attack(GameTime gameTime)
@@ -65,14 +68,14 @@ namespace LOZ.Tools
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            ballSprite.Draw(_spriteBatch, enemyPosition);
+            ballSprite.Draw(_spriteBatch);
         }
 
         public void Update(GameTime gameTime)
         {
             Move(gameTime);
             ballLife -= gameTime.ElapsedGameTime.TotalMilliseconds;
-            ballSprite.Update(gameTime, ballLife);
+            ballSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
         }
 
         public double GetBallLife()

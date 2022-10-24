@@ -15,7 +15,7 @@ using LOZ.Tools.EnvironmentObjects.Helpers;
 
 namespace LOZ.Tools.LevelManager
 {
-    internal class LevelManager
+    public class LevelManager
     {
         /*Location data for level files*/
         string levelFileLocation { get; set; }
@@ -69,10 +69,8 @@ namespace LOZ.Tools.LevelManager
         {
             /*Fill in room number*/
             room.roomNumber = int.Parse(xmlRoom.Attributes?["num"]?.Value);
-            if (room.roomNumber > 0)
-            {
-                room.SetTextures(BackgroundConstants.ROOM_DOORS[room.roomNumber - 1]);
-            }
+            room.SetTextures();
+            
             /*Fill in border*/
             room.border = bool.Parse(xmlRoom.SelectSingleNode("border").InnerText);
 
@@ -165,7 +163,7 @@ namespace LOZ.Tools.LevelManager
 
             IEnemy thisEnemy = enemySpriteFactory.NewEnemy();
 
-            //thisEnemy.setPosition(xPlacement*SCALE,yPlacement*SCALE);
+            thisEnemy.SetHurtbox(xPlacement,yPlacement);
             return thisEnemy;
         }
         private INPC getNPCObject(XmlNode xmlNPC)
@@ -176,7 +174,7 @@ namespace LOZ.Tools.LevelManager
 
             INPC thisNPC = npcFactory.CreateNPC((NPC)Enum.Parse(typeof(NPC), type));
 
-            thisNPC.setPlacement(xPlacement, yPlacement);
+            thisNPC.SetPlacement(xPlacement, yPlacement);
 
             return thisNPC;
         }

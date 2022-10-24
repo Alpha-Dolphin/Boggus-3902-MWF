@@ -59,7 +59,7 @@ public enum Item
 public class Constants
 {
     public const string DungeonSpriteSheetLocation = "./SpriteSheets/Dungeon Tileset";
-    public const string RegEnemySpriteSheetLocation = "SpriteSheets/Dungeon Enemies";
+    public const string RegEnemySpriteSheetLocation = "SpriteSheets/DungeonEnemies_EmptyBackground";
     public const string BossesSpriteSheetLocation = "./SpriteSheets/Bosses";
     public const string NPCSpriteSheetLocation = "./SpriteSheets/NPCs";
     public const string ItemSpriteSheetLocation = "./SpriteSheets/Items";

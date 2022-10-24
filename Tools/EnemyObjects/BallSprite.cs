@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LOZ.Tools
 {
+    //deprecated
     internal class BallSprite : ISpriteEnemy
     {
         Rectangle ball;

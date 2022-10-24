@@ -10,6 +10,6 @@ namespace LOZ.Tools.Controller
 {
     internal interface IController
     {
-        List<Keys> update();
+        List<Keys> Update();
     }
 }
