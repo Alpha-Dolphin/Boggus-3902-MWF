@@ -5,18 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LOZ.Tools.Interfaces;
 using LOZ;
+using LOZ.Tools.Sprites;
 
 namespace LOZ.Tools
 {
-    internal class Aquamentus : IEnemy
+    internal class Aquamentus : IEnemy, ICollidable
     {
         
         Vector2 enemyDirection;
         Vector2 enemyPosition;
 
-        readonly ISpriteEnemy aquamentusSprite;
+        //readonly ISpriteEnemy aquamentusSprite;
+        AnimatedMovingSprite aquamentusSprite;
 
         readonly Random rand;
 
@@ -27,7 +28,7 @@ namespace LOZ.Tools
         double moveCheck;
         double moveTime;
         double moveProb;
-        public void setPosition(int x, int y)
+        public void SetHurtbox(int x, int y)
         {
             enemyPosition.X = x;
             enemyPosition.Y = y;
@@ -44,7 +45,9 @@ namespace LOZ.Tools
             ball2 = new Ball(2);
             ball3 = new Ball(3);
 
-            aquamentusSprite = new AquementusSprite();
+            aquamentusSprite = new AnimatedMovingSprite(Game1.BOSSES, (int) enemyPosition.X, (int) enemyPosition.Y, 
+                new List<Rectangle>{ new Rectangle(1, 11, 24, 32), new Rectangle(26, 11, 24, 32), new Rectangle(51, 11, 24, 32), new Rectangle(76, 11, 24, 32) });
+
 
             rand = new();
 
@@ -58,9 +61,9 @@ namespace LOZ.Tools
             ball3.Activate(enemyPosition.X, enemyPosition.Y);
         }
 
-        public void Die(GameTime gameTime)
+        public void Die()
         {
-            //Nothing
+            //lm.enemyList.Remove(this);
         }
 
         public void Move(GameTime gameTime)
@@ -69,15 +72,15 @@ namespace LOZ.Tools
             enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
         }
 
-        public Rectangle GetRectangle()
+        public Rectangle GetHurtbox()
         {
-            Vector2 wH = aquamentusSprite.GetWidthHeight();
+            Vector2 wH = new Vector2(aquamentusSprite.GetDestinationRectangle().Width, aquamentusSprite.GetDestinationRectangle().Height);
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            aquamentusSprite.Draw(_spriteBatch, enemyPosition);
+            aquamentusSprite.Draw(_spriteBatch);
             if (ball1.GetBallLife() > 0.0)
             {
                 ball1.Draw(_spriteBatch);
@@ -89,11 +92,20 @@ namespace LOZ.Tools
         public void Update(GameTime gameTime)
         {
             MovementUpdate(gameTime);
-            aquamentusSprite.Update(gameTime);
+            aquamentusSprite.Update((int) enemyPosition.X, (int) enemyPosition.Y);
             AttackUpdate(gameTime);
-            ball1.Update(gameTime);
-            ball2.Update(gameTime);
-            ball3.Update(gameTime);
+            if (ball1.GetBallLife() > 0.0)
+            {
+                ball1.Update(gameTime);
+                ball2.Update(gameTime);
+                ball3.Update(gameTime);
+            }
+            else
+            {
+                ball1.SetHurtbox(-1, -1);
+                ball2.SetHurtbox(-1, -1);
+                ball3.SetHurtbox(-1, -1);
+            }
         }
 
         private void AttackUpdate(GameTime gameTime)

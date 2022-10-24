@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using LOZ.Tools.Interfaces;
 using System.Reflection;
 using System.IO;
 using System.Threading;
+using LOZ.Tools.EnvironmentObjects.Helpers;
 
 namespace LOZ.Tools.LevelManager
 {
-    internal class LevelManager
+    public class LevelManager
     {
         /*Location data for level files*/
         string levelFileLocation { get; set; }
@@ -67,10 +67,10 @@ namespace LOZ.Tools.LevelManager
         /*Takes a room object and the xml element describing what is in a room and fills out the room object from the xml*/
         private void fillRoom(Room room, XmlNode xmlRoom)
         {
-           
-
             /*Fill in room number*/
             room.roomNumber = int.Parse(xmlRoom.Attributes?["num"]?.Value);
+            room.SetTextures();
+            
             /*Fill in border*/
             room.border = bool.Parse(xmlRoom.SelectSingleNode("border").InnerText);
 
@@ -152,7 +152,6 @@ namespace LOZ.Tools.LevelManager
             IEnvironment thisTile = environmentFactory.getEnvironment((Environment)Enum.Parse(typeof(Environment), type));
 
             thisTile.SetPlacement(xPlacement, yPlacement);
-
             return thisTile;
         }
         private IEnemy getEnemyObject(XmlNode xmlEnemy)
@@ -164,8 +163,7 @@ namespace LOZ.Tools.LevelManager
 
             IEnemy thisEnemy = enemySpriteFactory.NewEnemy();
 
-            thisEnemy.setPosition(xPlacement,yPlacement);
-
+            thisEnemy.SetHurtbox(xPlacement,yPlacement);
             return thisEnemy;
         }
         private INPC getNPCObject(XmlNode xmlNPC)
@@ -176,7 +174,7 @@ namespace LOZ.Tools.LevelManager
 
             INPC thisNPC = npcFactory.CreateNPC((NPC)Enum.Parse(typeof(NPC), type));
 
-            thisNPC.setPlacement(xPlacement, yPlacement);
+            thisNPC.SetPlacement(xPlacement, yPlacement);
 
             return thisNPC;
         }
@@ -186,7 +184,7 @@ namespace LOZ.Tools.LevelManager
             int yPlacement = int.Parse(xmlItem.SelectSingleNode("yPlacement").InnerText);
             string type = xmlItem.Attributes?["type"]?.Value;
 
-            return itemFactory.CreateItem((Item)Enum.Parse(typeof(Item), type),xPlacement,yPlacement);
+            return itemFactory.CreateItem((Item)Enum.Parse(typeof(Item), type), xPlacement, yPlacement);
         }
 
         private void getNeighbors(Room room, XmlNode xmlNeigbors)

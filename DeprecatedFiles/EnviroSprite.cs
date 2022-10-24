@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LOZ.Tools.EnvironmentObjects.Helpers
+namespace LOZ.DeprecatedFiles
 {
     public class EnviroSprite : ISprite
     {

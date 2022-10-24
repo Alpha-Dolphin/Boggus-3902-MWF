@@ -1,5 +1,4 @@
 ﻿using LOZ.Tools.EnvironmentObjects;
-using LOZ.Tools.Interfaces;
 using LOZ.Tools.PlayerObjects;
 using Microsoft.Xna.Framework;
 using System;
@@ -18,48 +17,47 @@ namespace LOZ.Tools
         {
             return a.Intersects(b);
         }
-        public static void CollisionChecker(Object a, Object b)
+        public static void CollisionChecker(ICollidable a, ICollidable b)
         {
             //Link must always be the first object in the list if Link is in the list
-            if (a is Link linka)
+
+            //NOTE - If object is of type rectangle, it is a Link weapon hitbox. Bad design, but it will work for now
+            if (a is Rectangle)
             {
-                if (b is IEnemy) linka.Damage();
-                else
-                {
-                    IEnvironment b2 = (IEnvironment) b;
-                    if (typeof(PushBlock) == b2.GetType()) Collide(linka.GetHurtbox(), b2.GetRectangle());
-                    else Collide(b2.GetRectangle(), linka.GetHurtbox());
-                }
+                if (b is IEnemy bEnemy) bEnemy.Die();
             }
-            else if (a is IEnvironment aBlock && b is IEnvironment bBlock)
+            else if (a is Link)
             {
-                if (bBlock is PushBlock) Collide(aBlock.GetRectangle(), aBlock.GetRectangle());
-                //Otherwise a must be PushBlock
-                else Collide(bBlock.GetRectangle(), aBlock.GetRectangle());
+                //Then collision must be Link-block collision
+                if (typeof(PushBlock) == b.GetType()) Collide(a, b);
+                else Collide(b, a);
             }
-            else if (a is IEnemy aEnemy)
+            else if (a is IEnvironment)
             {
-                if (b is IEnvironment bBlock2) Collide(bBlock2.GetRectangle(), aEnemy.GetRectangle());
-                else
-                {
-                    //Won't let me assign bEnemy on it's own.
-                    if (b is IEnemy bEnemy) Collide(aEnemy.GetRectangle(), bEnemy.GetRectangle());
-                }
+                if (typeof(PushBlock) == a.GetType() && b is not IEnemy) Collide(b, a);
+                else Collide(a, b);
+            }
+            else if (a is IEnemy)
+            {
+                if (b is Link damaged) damaged.Damage();
             }
         }
-        static void Collide(Rectangle unchanged, Rectangle changed)
+        static void Collide(ICollidable unchanged, ICollidable changed)
         {
-            Rectangle zone = Rectangle.Intersect(unchanged, changed);
+            Rectangle zone = Rectangle.Intersect(unchanged.GetHurtbox(), changed.GetHurtbox());
             //If colliison is taller than wide
             if (zone.Bottom - zone.Top > zone.Right - zone.Left)
             {
-                if (changed.Right > zone.Right) changed.X += zone.X;
-                else changed.X -= zone.X;
+                if (zone.Right == unchanged.GetHurtbox().Right) changed.SetHurtbox(zone.Right, changed.GetHurtbox().Y);
+                else changed.SetHurtbox(zone.Left - changed.GetHurtbox().Width, changed.GetHurtbox().Y);
             }
-            else {
-                if (changed.Top > zone.Top) changed.Y -= zone.Y;
-                else changed.Y += zone.Y;
+            else
+            {
+                if (zone.Bottom == unchanged.GetHurtbox().Bottom) changed.SetHurtbox(changed.GetHurtbox().X, zone.Bottom);
+                else changed.SetHurtbox(changed.GetHurtbox().X, zone.Top - changed.GetHurtbox().Height);
             }
         }
     }
 }
+
+

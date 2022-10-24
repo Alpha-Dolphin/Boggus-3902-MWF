@@ -1,4 +1,5 @@
 ﻿using LOZ;
+using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools
 {
+    //deprecated
     internal class AquementusSprite : ISpriteEnemy
     {
         Rectangle anim;

@@ -1,4 +1,4 @@
-﻿using CSE3902_Sprint0.Sprites;
+﻿using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -99,7 +99,8 @@ namespace LOZ.Tools.PlayerObjects
 
         private bool CloseEnough()
         {
-            Vector2 howFar = Link.position - this.position;
+            Vector2 centerOfLink = new Vector2(Link.position.X + LinkConstants.LINK_MOVEDOWN_FRAME1.Width / 2, Link.position.Y + LinkConstants.LINK_MOVEDOWN_FRAME1.Height / 2);
+            Vector2 howFar = (centerOfLink - this.position);
             return howFar.Length() <= LinkConstants.BOOMERANG_RETURNRANGE;
         }
 

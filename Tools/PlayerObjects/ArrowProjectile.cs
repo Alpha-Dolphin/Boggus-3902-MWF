@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Input;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
-using CSE3902_Sprint0.Sprites;
+using LOZ.Tools.Sprites;
 
 namespace LOZ.Tools.PlayerObjects
 {

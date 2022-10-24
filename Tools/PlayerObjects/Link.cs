@@ -1,5 +1,4 @@
-﻿using CSE3902_Sprint0.Sprites;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -8,9 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using LOZ.Tools.Sprites;
+
 namespace LOZ.Tools.PlayerObjects
 {
-    internal class Link : IPlayer, IHitbox
+    internal class Link : IPlayer, ICollidable
     {
         public static Vector2 position;
 
@@ -54,12 +55,12 @@ namespace LOZ.Tools.PlayerObjects
             this.state = state;
             this.direction = direction;
             this.hitboxes = new List<Rectangle>();
+            this.hurtbox = new Rectangle(xPos, yPos, LinkConstants.LINK_MOVEDOWN_FRAME1.Width, LinkConstants.LINK_MOVEDOWN_FRAME1.Height);
 
             this.healthText.setFont(font);
             this.healthText.setPosition(0, 0);
             this.projectileFactory = new ProjectileFactory(0, this.spriteSheet);
             UpdateSprite();
-            this.hurtbox = this.sprite.GetDestinationRectangle();
             this.swordHitbox = null;
         }
 
@@ -213,6 +214,8 @@ namespace LOZ.Tools.PlayerObjects
             {
                 projectile.Draw(spriteBatch);
             }
+
+            UpdateHitboxes();
         }
 
         public void UpdateState(LinkConstants.Link_States state, LinkConstants.Direction direction)
@@ -226,7 +229,6 @@ namespace LOZ.Tools.PlayerObjects
                         this.state = state;
                         this.direction = direction;
                         UpdateSprite();
-                        UpdateHitboxes();
                     }
                 }
             }
@@ -332,6 +334,11 @@ namespace LOZ.Tools.PlayerObjects
                 case LinkConstants.Direction.Down:
                     this.swordHitbox = LinkConstants.SWORD_ATTACKDOWN_HITBOX_FRAMES[currentFrame]; break;
             }
+        }
+
+        public void SetHurtbox(int x, int y)
+        {
+            Link.position = new Vector2(x, y);
         }
 
         public Rectangle GetHurtbox()

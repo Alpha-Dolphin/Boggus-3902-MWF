@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.NPCObjects
 {
-    internal interface INPC
+    public interface INPC
     {
         void Draw(SpriteBatch spriteBatch);
 
         void Update(GameTime gametime);
 
-        void setPlacement(int x, int y);
+        void SetPlacement(int x, int y);
     }
 }

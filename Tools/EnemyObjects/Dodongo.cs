@@ -1,6 +1,5 @@
-﻿using CSE3902_Sprint0.Sprites;
-using LOZ.Tools.EnemyObjects;
-using LOZ.Tools.Interfaces;
+﻿using LOZ.Tools.EnemyObjects;
+using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    internal class Dodongo : IEnemy
+    internal class Dodongo : IEnemy, ICollidable
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;
@@ -30,7 +29,7 @@ namespace LOZ.Tools.PlayerObjects
         double moveCheck;
         double moveTime;
         double moveProb;
-        public void setPosition(int x, int y)
+        public void SetHurtbox(int x, int y)
         {
             enemyPosition.X = x;
             enemyPosition.Y = y;
@@ -58,11 +57,11 @@ namespace LOZ.Tools.PlayerObjects
             //Nothing
         }
 
-        public void Die(GameTime gameTime)
+        public void Die()
         {
-            //Nothing
+            //lm.enemyList.Remove(this);
         }
-        public Rectangle GetRectangle()
+        public Rectangle GetHurtbox()
         {
             Vector2 wH = dodongoSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);

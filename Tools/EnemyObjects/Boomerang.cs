@@ -1,4 +1,4 @@
-﻿using LOZ.Tools.Interfaces;
+﻿using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,16 +9,17 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.EnemyObjects
 {
-    internal class Boomerang : IEnemy
+    internal class Boomerang : IEnemy, ICollidable
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;
 
-        readonly BoomerangSprite boomerangSprite;
+        //readonly BoomerangSprite boomerangSprite;
+        AnimatedMovingSprite boomerangSprite;
 
         const int attackLength = 3000;
         double attackTime;
-        public void setPosition(int x, int y)
+        public void SetHurtbox(int x, int y)
         {
             enemyPosition.X = x;
             enemyPosition.Y = y;
@@ -28,11 +29,12 @@ namespace LOZ.Tools.EnemyObjects
         {
             attackTime = -1;
 
-            boomerangSprite = new BoomerangSprite();
+            boomerangSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
+                new List<Rectangle> { new Rectangle(290, 11, 8, 16), new Rectangle(299, 11, 8, 16), new Rectangle(308, 11, 8, 16) });
         }
-        public Rectangle GetRectangle()
+        public Rectangle GetHurtbox()
         {
-            Vector2 wH = boomerangSprite.GetWidthHeight();
+            Vector2 wH = new Vector2(boomerangSprite.GetDestinationRectangle().Width, boomerangSprite.GetDestinationRectangle().Height);
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
@@ -56,9 +58,9 @@ namespace LOZ.Tools.EnemyObjects
             attackTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
-        public void Die(GameTime gameTime)
+        public void Die()
         {
-            //Nothing
+            //lm.enemyList.Remove(this);
         }
 
         public void Attack(GameTime gameTime)
@@ -68,13 +70,13 @@ namespace LOZ.Tools.EnemyObjects
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            boomerangSprite.Draw(_spriteBatch, enemyPosition);
+            boomerangSprite.Draw(_spriteBatch);
         }
 
         public void Update(GameTime gameTime)
         {
             Move(gameTime);
-            boomerangSprite.Update(gameTime, attackLength, attackTime);
+            boomerangSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
         }
 
         public double GetAttackTime()

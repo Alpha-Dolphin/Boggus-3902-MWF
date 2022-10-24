@@ -8,21 +8,23 @@ using Microsoft.Xna.Framework.Graphics;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
-using LOZ.Tools.Interfaces;
 using LOZ.Tools;
+using LOZ.Tools.Sprites;
 
 namespace LOZ.Tools
 {
-    internal class Stalfos : IEnemy
+    internal class Stalfos : IEnemy, ICollidable
     {
-        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy stalfosSprite;
+        Vector2 enemyDirection; Vector2 enemyPosition;
+        //readonly ISpriteEnemy stalfosSprite;
+        AnimatedMovingSprite stalfosSprite;
 
         readonly Random rand = new();
 
         double moveCheck;
         double moveTime;
         double moveProb;
-        public void setPosition(int x, int y)
+        public void SetHurtbox(int x, int y)
         {
             enemyPosition.X = x;
             enemyPosition.Y = y;
@@ -33,7 +35,8 @@ namespace LOZ.Tools
             enemyPosition.X = X;
             enemyPosition.Y = Y;
 
-            stalfosSprite = new StalfosSprite();
+            stalfosSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
+                new List<Rectangle> { new Rectangle(1, 59, 16, 16) });
 
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
@@ -41,9 +44,9 @@ namespace LOZ.Tools
             moveCheck = -1;
         }
 
-        public Rectangle GetRectangle()
+        public Rectangle GetHurtbox()
         {
-            Vector2 wH = stalfosSprite.GetWidthHeight();
+            Vector2 wH = new Vector2(stalfosSprite.GetDestinationRectangle().Width, stalfosSprite.GetDestinationRectangle().Height);
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
@@ -52,9 +55,9 @@ namespace LOZ.Tools
             //Nothing
         }
 
-        public void Die(GameTime gameTime)
+        public void Die()
         {
-            //Nothing
+            //lm.enemyList.Remove(this);
         }
 
         public void Move(GameTime gameTime)
@@ -65,13 +68,13 @@ namespace LOZ.Tools
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            stalfosSprite.Draw(_spriteBatch, enemyPosition);
+            stalfosSprite.Draw(_spriteBatch);
         }
 
         public void Update(GameTime gameTime)
         {
             MovementUpdate(gameTime);
-            stalfosSprite.Update(gameTime);
+            stalfosSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
         }
 
         private void MovementUpdate(GameTime gameTime)

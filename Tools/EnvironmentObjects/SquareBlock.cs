@@ -1,44 +1,38 @@
 ﻿using LOZ.Tools.EnvironmentObjects.Helpers;
-using Microsoft.Xna.Framework.Graphics;using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LOZ;
+using LOZ.Tools.Sprites;
 
 
-    internal class SquareBlock:IEnvironment
+internal class SquareBlock : IEnvironment
+{
+    private Sprite enviroSprite;
+    private int xPosition = Constants.enviroDefaultX;
+    private int yPosition = Constants.enviroDefaultY;
+    public void SetPlacement(int x, int y)
     {
-        private EnviroSprite enviroSprite = new EnviroSprite();
-        private int xPosition = Constants.enviroDefaultX;
-        private int yPosition = Constants.enviroDefaultY;
-        public void SetPlacement(int x, int y)
-        {
-            xPosition = x;
-            yPosition = y;
-        }
-
-    /*Update must be called at least once before drawing*/
+        enviroSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, x, y, new List<Rectangle>() { new Rectangle(1001, 11, 16, 16) });
+        xPosition = x;
+        yPosition = y;
+    }
+    
     public void Draw(SpriteBatch spriteBatch)
-        {
-            enviroSprite.Draw(spriteBatch);
-        }
-        /*Sets the source and location rectangles*/
-        public void Update()
-        {
-
-            enviroSprite.setFrameRectangle(1001, 11, 16, 16);
-
-            enviroSprite.setPositionRectangle(xPosition, yPosition, 16 * Constants.objectScale, 16 * Constants.objectScale);
-        }
-        public void Load()
-        {
-            enviroSprite.loadSpriteSheet(Game1.ENVIRONMENT_SPRITESHEET);
-        }
-    public Rectangle GetRectangle()
     {
-        return new Rectangle(enviroSprite.positionX, enviroSprite.positionY, enviroSprite.width, enviroSprite.height);
+        enviroSprite.Draw(spriteBatch);
+    }
+
+    public Rectangle GetHurtbox()
+    {
+        return new Rectangle(enviroSprite.x, enviroSprite.y, enviroSprite.width, enviroSprite.height);
+    }
+    public void SetHurtbox(int x, int y)
+    {
     }
 }
 

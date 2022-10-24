@@ -1,5 +1,4 @@
-﻿using LOZ.Tools.Interfaces;
-using LOZ.Tools;
+﻿using LOZ.Tools;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
@@ -17,8 +16,8 @@ namespace LOZ.Tools
 {
     internal class EnemySpriteFactory
     {
-        readonly int X = 100;
-        readonly int Y = 300;
+        readonly int X = 128;
+        readonly int Y = 88;
         public int curr;
 
         public EnemySpriteFactory()
