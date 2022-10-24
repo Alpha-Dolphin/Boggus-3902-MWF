@@ -45,7 +45,7 @@ namespace LOZ.Tools
         static void Collide(ICollidable unchanged, ICollidable changed)
         {
             Rectangle zone = Rectangle.Intersect(unchanged.GetHurtbox(), changed.GetHurtbox());
-            //If colliison is taller than wide
+            //If collison is taller than wide
             if (zone.Bottom - zone.Top > zone.Right - zone.Left)
             {
                 if (zone.Right == unchanged.GetHurtbox().Right)
