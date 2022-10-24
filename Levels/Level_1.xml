@@ -928,7 +928,7 @@
 					<yPlacement>
 						56
 					</yPlacement>
-				</item>"
+				</item>
 			</items>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
@@ -1568,10 +1568,10 @@
 				<item type ="TriforcePiece" hidden ="false">
 					<!--Placement info for where item spawns-->
 					<xPlacement>
-						119
+						123
 					</xPlacement>
 					<yPlacement>
-						74
+						87
 					</yPlacement>
 				</item>
 			</items>
@@ -1660,28 +1660,28 @@
 				<enemy type ="OldMan">
 					<!--Placement info for where NPC spawns-->
 					<xPlacement>
-						88
+						121
 					</xPlacement>
 					<yPlacement>
-						33
+						65
 					</yPlacement>
 				</enemy>
 				<enemy type ="OldManFlame">
 					<!--Placement info for where NPC spawns-->
 					<xPlacement>
-						40
+						168
 					</xPlacement>
 					<yPlacement>
-						33
+						65
 					</yPlacement>
 				</enemy>
 				<enemy type ="OldManFlame">
 					<!--Placement info for where NPC spawns-->
 					<xPlacement>
-						40
+						72
 					</xPlacement>
 					<yPlacement>
-						33
+						65
 					</yPlacement>
 				</enemy>
 			</NPCs>
