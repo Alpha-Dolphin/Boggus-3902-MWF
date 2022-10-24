@@ -12,7 +12,7 @@ using LOZ.Tools.EnvironmentObjects;
 
 namespace LOZ.Tools.LevelManager
 {
-    internal class Room
+    public class Room
     {
         private Texture2D texture = Game1.ENVIRONMENT_SPRITESHEET;
 

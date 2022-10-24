@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.NPCObjects
 {
-    internal interface INPC
+    public interface INPC
     {
         void Draw(SpriteBatch spriteBatch);
 

@@ -59,7 +59,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Die()
         {
-            lm.enemyList.Remove(this);
+            //lm.enemyList.Remove(this);
         }
         public Rectangle GetHurtbox()
         {

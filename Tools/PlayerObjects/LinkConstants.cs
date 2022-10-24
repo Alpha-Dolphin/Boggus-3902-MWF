@@ -410,8 +410,8 @@ namespace LOZ.Tools.PlayerObjects
         public const int MAX_BLUE_ARROW_RANGE = 400;
         public const int MAX_SWORDBEAM_RANGE = 300;
 
-        public const int PROJECTILE_SPEED = 5;
-        public const int BOOMERANG_SPEED = 7;
+        public const int PROJECTILE_SPEED = 2;
+        public const int BOOMERANG_SPEED = 3;
         public const int BOMB_EXPLOSION_DELAY = 10;
 
         private const int BOOMERANG_WOOD_WIDTH = 8;
@@ -430,7 +430,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public const float BOOMERANG_SPEEDCHANGE = 0.1f;
         public const int BOOMERANG_RETURNSPEEDCHANGE = 300;
-        public const int BOOMERANG_RETURNRANGE = 30;
+        public const int BOOMERANG_RETURNRANGE = 20;
 
         const int CANDLEFLAME_WIDTH = 16;
         const int CANDLEFLAME_HEIGHT = 16;

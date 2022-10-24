@@ -98,7 +98,8 @@ namespace LOZ
             }
 
             LevelManager lm = new LevelManager();
-            lm.initialize();            
+            lm.initialize();
+            rooms = lm.roomList;
 
             /*Here we create the command handler for the environment display management*/
 
@@ -174,7 +175,7 @@ namespace LOZ
                 }
                 foreach (Rectangle weapon in link.GetHitboxes())
                 {
-                    if (Collision.Intersects(weapon, ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
+                    //if (Collision.Intersects(weapon, ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
                 }
             }
             foreach (IEnvironment bL in blockList)

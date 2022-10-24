@@ -54,7 +54,7 @@ namespace LOZ.Tools.EnemyObjects
 
         public void Die()
         {
-            lm.enemyList.Remove(this);
+            //lm.enemyList.Remove(this);
         }
 
         public void Move(GameTime gameTime)
