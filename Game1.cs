@@ -1,7 +1,6 @@
 ﻿using LOZ.Tools.Command;
 using LOZ.Tools.PlayerObjects;
-using LOZ.Tools.ItemObjects;
-using LOZ.Tools.NPCObjects;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,7 +11,7 @@ using System;
 
 
 using LOZ.Tools;
-using LOZ.Tools.EnvironmentObjects.Helpers;
+
 using LOZ.Tools.LevelManager;
 using LOZ.Tools.EnvironmentObjects;
 
@@ -25,14 +24,11 @@ namespace LOZ
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
-        private ItemFactory itemFactory;
-        private NPCFactory NPCFactory;
-        private EnemySpriteFactory enemySpriteFactory;
         private IPlayer link;
         private KeyboardController controller;
         private MouseController mouseController;
         private ICommand linkCommandHandler;
-        private EnvironmentCommandHandler environmentCommandHandler;
+
         private List<Room> rooms;
         public static int currentRoom = 14;
         private TextSprite currentRoomIndicator = new();
@@ -51,15 +47,17 @@ namespace LOZ
        private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
         */
 
+
+
         /*Lists for various things to cycle through for sprint 2*/
 
-        List<IEnvironment> environmentObjectList = new();
+        List<IEnvironment> environmentObjectList = new List<IEnvironment>();
 
         /*Factories for mass object generation*/
 
-        EnvironmentFactory environmentFactory = new();
+        EnvironmentFactory environmentFactory = new EnvironmentFactory();
 
-        List<IItem> itemObjectList = new();
+        List<IItem> itemObjectList = new List<IItem>();
 
 
         public Game1()
@@ -93,12 +91,10 @@ namespace LOZ
             {
                 environmentObjectList.Add(environmentFactory.getEnvironment(environment));
             }
+
+            LevelManager lm = new LevelManager();
             lm.initialize();
             rooms = lm.RoomList;
-
-            /*Here we create the command handler for the environment display management*/
-
-            environmentCommandHandler = new EnvironmentCommandHandler();
 
             currentRoomIndicator.setPosition(0, 20);
 
@@ -115,6 +111,7 @@ namespace LOZ
             enemySpriteFactory = new();
             itemObjectList.Add(itemFactory.CreateItem(Item.Compass, 600, 400));
             NPCFactory.CreateNPC();
+            enemy = enemySpriteFactory.CreateKeese();
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(LinkConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
@@ -147,16 +144,6 @@ namespace LOZ
                 enemy.Move(gameTime);
             }
 
-            /*if (enemySpriteFactory.Update(pressed, controller.held)) enemy = enemySpriteFactory.NewEnemy();
-            else
-            {
-                enemy.Update(gameTime);
-                enemy.Move(gameTime);
-            }
-            NPCFactory.Update(pressed, controller.held, gameTime);*/
-
-            /*Here we update the environment placement for existing environment objects*/
-            environmentCommandHandler.executeNewPressedOnly(pressed, controller.held);
 
             currentRoomIndicator.setText("Current room number: " + currentRoom);
         }
@@ -194,39 +181,12 @@ namespace LOZ
             /*Initialize sprite drawing*/
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            /*Draw Environment*/
-            //environmentObjectList[environmentCommandHandler.environmentBlockIndex].Draw(spriteBatch);
-            
-            //enemy.Draw(spriteBatch);
-            
-            /*Draw items*/
-            /*itemFactory.CreateItem(Item.Clock, 600, 400);
-            foreach(IItem i in itemObjectList)
-            {
-                i.Draw(spriteBatch);
-            }*/
-            
-            /*Draw NPCs*/
-            //NPCFactory.CreateNPC();
-            //NPCFactory.Draw(spriteBatch);
-
-            //spritesToDraw.Clear();
-            /*Sprites to draw need to be in order in spritesToDrawList by here*/
-            /*foreach (var item in spritesToDraw)
-            {
-                item.Draw(spriteBatch);
-            }*/
-
-            //environmentObjectList[environmentCommandHandler.environmentBlockIndex].Draw(spriteBatch);
-
+            /*Draw everything*/
             rooms[currentRoom].Draw(spriteBatch);
             link.Draw(spriteBatch);
             currentRoomIndicator.Draw(spriteBatch);
 
-            //spriteBatch.Draw(Game1.ENVIRONMENT_SPRITESHEET, new Rectangle(0, 0, 256, 176), new Rectangle(521, 11, 256, 176), Color.White);
-            //IEnemy test = rooms[currentRoom].enemyList[0];
-            //test.Draw(spriteBatch);
-
+            /*End drawing*/
             spriteBatch.End();
 
             base.Draw(gameTime);
