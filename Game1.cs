@@ -156,7 +156,7 @@ namespace LOZ
         {
             foreach (IEnemy ene in enemyList)
             {
-                //if (Collision.Intersects(link, ene.GetRectangle())) Collision.CollisionChecker(link, ene);
+                if (Collision.Intersects(link.GetHurtbox(), ene.GetRectangle())) Collision.CollisionChecker(link, ene);
                 foreach (IEnvironment sB in staticBlocks)
                 {
                     if (Collision.Intersects(sB.GetRectangle(), ene.GetRectangle())) Collision.CollisionChecker(sB, ene);
@@ -165,10 +165,13 @@ namespace LOZ
                 {
                     if (Collision.Intersects(dB.GetRectangle(), ene.GetRectangle())) Collision.CollisionChecker(dB, ene);
                 }
+                foreach (Rectangle weapon in link.GetHitboxes()) { 
+                    if (Collision.Intersects(weapon, ene.GetRectangle())) Collision.CollisionChecker(weapon, ene);
+                }
             }
             foreach (IEnvironment sB in staticBlocks)
             {
-                //if (Collision.Intersects(link, sB.GetRectangle())) Collision.CollisionChecker(link, sB);
+                if (Collision.Intersects(link.GetHurtbox(), sB.GetRectangle())) Collision.CollisionChecker(link, sB);
                 foreach (IEnvironment dB in dynamicBlocks)
                 {
                     if (Collision.Intersects(dB.GetRectangle(), sB.GetRectangle())) Collision.CollisionChecker(dB, sB);
@@ -176,7 +179,7 @@ namespace LOZ
             }
             foreach (IEnvironment dB in dynamicBlocks)
             {
-                //if (Collision.Intersects(link, dB.GetRectangle())) Collision.CollisionChecker(link, dB);
+                if (Collision.Intersects(link.GetHurtbox(), dB.GetRectangle())) Collision.CollisionChecker(link, dB);
             }
 
         }

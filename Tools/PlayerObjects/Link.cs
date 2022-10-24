@@ -20,7 +20,7 @@ namespace LOZ.Tools.PlayerObjects
         private List<IProjectile> projectiles;
         private ProjectileFactory projectileFactory;
 
-        private Rectangle? hurtbox;
+        private Rectangle hurtbox;
         private Rectangle? swordHitbox;
         private List<Rectangle> hitboxes;
 
@@ -339,7 +339,7 @@ namespace LOZ.Tools.PlayerObjects
             }
         }
 
-        public Rectangle? GetHurtbox()
+        public Rectangle GetHurtbox()
         {
             return this.hurtbox;
         }
