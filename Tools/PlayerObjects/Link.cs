@@ -213,6 +213,8 @@ namespace LOZ.Tools.PlayerObjects
             {
                 projectile.Draw(spriteBatch);
             }
+
+            UpdateHitboxes();
         }
 
         public void UpdateState(LinkConstants.Link_States state, LinkConstants.Direction direction)
@@ -226,7 +228,6 @@ namespace LOZ.Tools.PlayerObjects
                         this.state = state;
                         this.direction = direction;
                         UpdateSprite();
-                        UpdateHitboxes();
                     }
                 }
             }
