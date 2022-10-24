@@ -149,12 +149,12 @@ namespace LOZ.Tools.Sprites
             return destinationRectangle;
         }
 
-        public void SetXScale(int xScale) { 
-            xScale = xScale;
+        public void SetXScale(int xScale) {
+            AnimatedMovingSprite.xScale = xScale;
         }
         public void SetYScale(int yScale)
         {
-            yScale = yScale;
+            AnimatedMovingSprite.yScale = yScale;
         }
     }
 }
