@@ -30,7 +30,7 @@ public class MouseController //: IController
         {
             if ((int)(DateTime.Now - lastInputTime).TotalSeconds > 2)
             {
-                Game1.currentRoom++;
+                Game1.currentRoom--;
                 if (Game1.currentRoom == 0) Game1.currentRoom += 18;
                 lastInputTime = DateTime.Now;
             }

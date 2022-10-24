@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using LOZ.Tools;
+using LOZ.Tools.Sprites;
 
 namespace LOZ.Tools
 {
     internal class Slime : IEnemy, ICollidable
     {
-        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy slimeSprite;
+        Vector2 enemyDirection; Vector2 enemyPosition;
+        //readonly ISpriteEnemy slimeSprite;
+        AnimatedMovingSprite slimeSprite;
 
         readonly Random rand;
 
@@ -30,7 +33,8 @@ namespace LOZ.Tools
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
 
-            slimeSprite = new SlimeSprite();
+            slimeSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
+                new List<Rectangle> { new Rectangle(1, 11, 8, 16), new Rectangle(10, 11, 8, 16) });
 
             rand = new();
 
@@ -41,7 +45,7 @@ namespace LOZ.Tools
         }
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = slimeSprite.GetWidthHeight();
+            Vector2 wH = new Vector2(slimeSprite.GetDestinationRectangle().Width, slimeSprite.GetDestinationRectangle().Height);
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
         public void Attack(GameTime gameTime)
@@ -62,13 +66,13 @@ namespace LOZ.Tools
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            slimeSprite.Draw(_spriteBatch, enemyPosition);
+            slimeSprite.Draw(_spriteBatch);
         }
 
         public void Update(GameTime gameTime)
         {
             MovementUpdate(gameTime);
-            slimeSprite.Update(gameTime);
+            slimeSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
         }
 
         private void MovementUpdate(GameTime gameTime)

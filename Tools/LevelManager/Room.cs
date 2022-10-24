@@ -8,6 +8,7 @@ using LOZ.Tools.NPCObjects;
 using LOZ.Tools.ItemObjects;
 using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework.Graphics;
+using LOZ.Tools.EnvironmentObjects;
 
 namespace LOZ.Tools.LevelManager
 {
@@ -112,6 +113,22 @@ namespace LOZ.Tools.LevelManager
             foreach (IItem item in itemList)
             {
                 item.Draw(spriteBatch);
+            }
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            foreach (IEnemy enemy in enemyList)
+            {
+                enemy.Update(gameTime);
+            }
+            foreach (INPC npc in NPCList)
+            {
+                npc.Update(gameTime);
+            }
+            foreach (IItem item in itemList)
+            {
+                item.Update(gameTime);
             }
         }
     }

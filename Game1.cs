@@ -14,6 +14,7 @@ using System;
 using LOZ.Tools;
 using LOZ.Tools.EnvironmentObjects.Helpers;
 using LOZ.Tools.LevelManager;
+using LOZ.Tools.EnvironmentObjects;
 
 namespace LOZ
 {
@@ -34,7 +35,7 @@ namespace LOZ
         private ICommand linkCommandHandler;
         private EnvironmentCommandHandler environmentCommandHandler;
         private List<Room> rooms;
-        public static int currentRoom = 2;
+        public static int currentRoom = 14;
 
         private TextSprite currentRoomIndicator = new TextSprite();
 
@@ -147,14 +148,15 @@ namespace LOZ
             mouseController.Update();
 
             linkCommandHandler.Execute(pressed);
+            rooms[currentRoom].Update(gameTime);
 
-            if (enemySpriteFactory.Update(pressed, controller.held)) enemy = enemySpriteFactory.NewEnemy();
+            /*if (enemySpriteFactory.Update(pressed, controller.held)) enemy = enemySpriteFactory.NewEnemy();
             else
             {
                 enemy.Update(gameTime);
                 enemy.Move(gameTime);
             }
-            NPCFactory.Update(pressed, controller.held, gameTime);
+            NPCFactory.Update(pressed, controller.held, gameTime);*/
 
             /*Here we update the environment placement for existing environment objects*/
             environmentCommandHandler.executeNewPressedOnly(pressed, controller.held);

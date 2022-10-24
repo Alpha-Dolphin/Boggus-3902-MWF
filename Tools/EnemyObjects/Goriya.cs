@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using LOZ.Tools.PlayerObjects;
 using LOZ.Tools.EnemyObjects;
+using LOZ.Tools.Sprites;
 
 namespace LOZ.Tools
 {
@@ -15,7 +16,8 @@ namespace LOZ.Tools
         Vector2 enemyDirection;
         Vector2 enemyPosition;
 
-        readonly GoriyaSprite goriyaSprite;
+        //readonly GoriyaSprite goriyaSprite;
+        AnimatedMovingSprite goriyaSprite;
 
         readonly EnemyObjects.Boomerang boomerang;
 
@@ -41,14 +43,15 @@ namespace LOZ.Tools
 
             boomerang = new EnemyObjects.Boomerang();
 
-            goriyaSprite = new GoriyaSprite();
+            goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
+                new List<Rectangle> { new Rectangle(222, 11, 16, 16), new Rectangle(239, 11, 16, 16), new Rectangle(256, 11, 16, 16), new Rectangle(273, 11, 16, 16) });
 
             moveCheck = -1;
         }
 
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = goriyaSprite.GetWidthHeight();
+            Vector2 wH = new Vector2(goriyaSprite.GetDestinationRectangle().Width, goriyaSprite.GetDestinationRectangle().Height);
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
@@ -73,13 +76,13 @@ namespace LOZ.Tools
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            goriyaSprite.Draw(_spriteBatch, enemyPosition);
+            goriyaSprite.Draw(_spriteBatch);
             if (boomerang.GetAttackTime() > 0.0) boomerang.Draw(_spriteBatch);
         }
 
         public void Update(GameTime gameTime)
         {
-            goriyaSprite.Update(gameTime, enemyDirection);
+            goriyaSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
             if (boomerang.GetAttackTime() < 0.0)
             {
                 MovementUpdate(gameTime);

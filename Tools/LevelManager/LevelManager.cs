@@ -163,7 +163,7 @@ namespace LOZ.Tools.LevelManager
 
             IEnemy thisEnemy = enemySpriteFactory.NewEnemy();
 
-            //thisEnemy.setPosition(xPlacement*SCALE,yPlacement*SCALE);
+            thisEnemy.SetHurtbox(xPlacement,yPlacement);
             return thisEnemy;
         }
         private INPC getNPCObject(XmlNode xmlNPC)
@@ -174,7 +174,7 @@ namespace LOZ.Tools.LevelManager
 
             INPC thisNPC = npcFactory.CreateNPC((NPC)Enum.Parse(typeof(NPC), type));
 
-            thisNPC.setPlacement(xPlacement, yPlacement);
+            thisNPC.SetPlacement(xPlacement, yPlacement);
 
             return thisNPC;
         }

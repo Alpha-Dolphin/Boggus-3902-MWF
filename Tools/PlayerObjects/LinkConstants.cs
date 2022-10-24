@@ -46,8 +46,8 @@ namespace LOZ.Tools.PlayerObjects
             Right
         }
 
-        private const int GAME_WIDTH = 800;
-        private const int GAME_HEIGHT = 480;
+        private const int GAME_WIDTH = 256;
+        private const int GAME_HEIGHT = 176;
 
         public const int DEFAULT_X = GAME_WIDTH / 2;
         public const int DEFAULT_Y = GAME_HEIGHT / 2;
