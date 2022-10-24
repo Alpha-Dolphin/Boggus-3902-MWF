@@ -22,7 +22,7 @@ namespace LOZ.Tools
             //Link must always be the first object in the list if Link is in the list
 
             //NOTE - If object is of type rectangle, it is a Link weapon hitbox. Bad design, but it will work for now
-            if (a is Rectangle)
+            /*if (a is Rectangle)
             {
                 if (b is IEnemy) b = null;
             }
@@ -45,7 +45,7 @@ namespace LOZ.Tools
             else if (a is IEnemy)
             {
                 if (b is Link damaged) damaged.Damage();
-            }
+            }*/
         }
         static void Collide(ICollidable unchanged, ICollidable changed)
         {

@@ -335,7 +335,7 @@ namespace LOZ.Tools.PlayerObjects
             }
         }
 
-        public void SetPosition(int x, int y)
+        public void SetHurtbox(int x, int y)
         {
             Link.position = new Vector2(x, y);
         }

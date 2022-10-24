@@ -75,7 +75,7 @@ namespace LOZ
 
             link = new Link(LinkConstants.DEFAULT_X, LinkConstants.DEFAULT_Y, LinkConstants.DEFAULT_ITEMS, LinkConstants.MAX_HEALTH,
                 LinkConstants.DEFAULT_STATE, LinkConstants.DEFAULT_DIRECTION,FONT);
-            linkCommandHandler = new LinkCommand((Link) link); 
+            linkCommandHandler = new LinkCommand((Link) link);
 
             /*Declaration of controllers*/
             controller = new KeyboardController();
@@ -94,6 +94,8 @@ namespace LOZ
             /*Here we create the command handler for the environment display management*/
 
             environmentCommandHandler = new EnvironmentCommandHandler();
+
+            BackgroundConstants.Initialize(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             base.Initialize();
         }

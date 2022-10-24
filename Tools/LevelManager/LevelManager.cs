@@ -68,8 +68,6 @@ namespace LOZ.Tools.LevelManager
         /*Takes a room object and the xml element describing what is in a room and fills out the room object from the xml*/
         private void fillRoom(Room room, XmlNode xmlRoom)
         {
-           
-
             /*Fill in room number*/
             room.roomNumber = int.Parse(xmlRoom.Attributes?["num"]?.Value);
             /*Fill in border*/
@@ -165,7 +163,7 @@ namespace LOZ.Tools.LevelManager
 
             IEnemy thisEnemy = enemySpriteFactory.NewEnemy();
 
-            thisEnemy.setPosition(xPlacement*SCALE,yPlacement*SCALE);
+            //thisEnemy.setPosition(xPlacement*SCALE,yPlacement*SCALE);
             return thisEnemy;
         }
         private INPC getNPCObject(XmlNode xmlNPC)
