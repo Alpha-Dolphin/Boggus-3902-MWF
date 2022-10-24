@@ -282,12 +282,7 @@ namespace LOZ.Tools.PlayerObjects
             switch (this.state)
             {
                 case LinkConstants.Link_States.Attacking: UpdateAttackingHurtbox(); break;
-                case LinkConstants.Link_States.Normal: this.hurtbox = this.sprite.GetDestinationRectangle(); break;
-                case LinkConstants.Link_States.Walking: this.hurtbox = this.sprite.GetDestinationRectangle(); break;
-                case LinkConstants.Link_States.UseItem: this.hurtbox = this.sprite.GetDestinationRectangle(); break;
-                case LinkConstants.Link_States.Damaged: this.hurtbox = null; break;
-                case LinkConstants.Link_States.PickupItem: this.hurtbox = null; break;
-                case LinkConstants.Link_States.Dead: this.hurtbox = null; break;
+                default: this.hurtbox = this.sprite.GetDestinationRectangle(); break;
             }
         }
 

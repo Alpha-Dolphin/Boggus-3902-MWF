@@ -33,7 +33,7 @@ namespace LOZ
         private ICommand linkCommandHandler;
         private EnvironmentCommandHandler environmentCommandHandler;
         private List<Room> rooms;
-        private int currentRoom = 0;
+        private int currentRoom = 14;
 
         public static Texture2D LINK_SPRITESHEET;
         public static SpriteFont FONT;
@@ -193,33 +193,35 @@ namespace LOZ
             spriteBatch.Begin();
 
             /*Draw Environment*/
-            environmentObjectList[environmentCommandHandler.environmentBlockIndex].Draw(spriteBatch);
+            //environmentObjectList[environmentCommandHandler.environmentBlockIndex].Draw(spriteBatch);
             
-            enemy.Draw(spriteBatch);
+            //enemy.Draw(spriteBatch);
             
             /*Draw items*/
-            itemFactory.CreateItem(Item.Clock, 600, 400);
+            /*itemFactory.CreateItem(Item.Clock, 600, 400);
             foreach(IItem i in itemObjectList)
             {
                 i.Draw(spriteBatch);
-            }
+            }*/
             
             /*Draw NPCs*/
-            NPCFactory.CreateNPC();
-            NPCFactory.Draw(spriteBatch);
+            //NPCFactory.CreateNPC();
+            //NPCFactory.Draw(spriteBatch);
 
             //spritesToDraw.Clear();
             /*Sprites to draw need to be in order in spritesToDrawList by here*/
-            //foreach (var item in spritesToDraw)
-            //{
-            //    item.Draw(spriteBatch);
-            //}
+            /*foreach (var item in spritesToDraw)
+            {
+                item.Draw(spriteBatch);
+            }*/
 
-            environmentObjectList[environmentCommandHandler.environmentBlockIndex].Draw(spriteBatch);
+            //environmentObjectList[environmentCommandHandler.environmentBlockIndex].Draw(spriteBatch);
 
             link.Draw(spriteBatch);
 
             //rooms[currentRoom].Draw(spriteBatch);
+            IEnvironment test = environmentFactory.getEnvironment(Environment.SquareBlock);//rooms[currentRoom].environmentList[0];
+            test.Draw(spriteBatch);
 
             spriteBatch.End();
 
