@@ -20,7 +20,7 @@ namespace LOZ.Tools.PlayerObjects
         private List<IProjectile> projectiles;
         private ProjectileFactory projectileFactory;
 
-        private Rectangle? hurtbox;
+        private Rectangle hurtbox;
         private Rectangle? swordHitbox;
         private List<Rectangle> hitboxes;
 
@@ -282,12 +282,7 @@ namespace LOZ.Tools.PlayerObjects
             switch (this.state)
             {
                 case LinkConstants.Link_States.Attacking: UpdateAttackingHurtbox(); break;
-                case LinkConstants.Link_States.Normal: this.hurtbox = this.sprite.GetDestinationRectangle(); break;
-                case LinkConstants.Link_States.Walking: this.hurtbox = this.sprite.GetDestinationRectangle(); break;
-                case LinkConstants.Link_States.UseItem: this.hurtbox = this.sprite.GetDestinationRectangle(); break;
-                case LinkConstants.Link_States.Damaged: this.hurtbox = null; break;
-                case LinkConstants.Link_States.PickupItem: this.hurtbox = null; break;
-                case LinkConstants.Link_States.Dead: this.hurtbox = null; break;
+                default: this.hurtbox = this.sprite.GetDestinationRectangle(); break;
             }
         }
 
@@ -339,7 +334,7 @@ namespace LOZ.Tools.PlayerObjects
             }
         }
 
-        public Rectangle? GetHurtbox()
+        public Rectangle GetHurtbox()
         {
             return this.hurtbox;
         }

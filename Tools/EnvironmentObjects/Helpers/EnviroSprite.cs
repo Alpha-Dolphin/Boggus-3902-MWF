@@ -31,7 +31,7 @@ namespace LOZ.Tools.EnvironmentObjects.Helpers
         public int width;
         public int height;
 
-        Texture2D spriteSheet;
+        Texture2D spriteSheet = Game1.ENVIRONMENT_SPRITESHEET;
 
         public void initialize()
         {

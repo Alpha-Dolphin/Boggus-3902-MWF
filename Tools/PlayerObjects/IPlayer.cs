@@ -19,5 +19,7 @@ namespace LOZ.Tools.PlayerObjects
         void UseItem(int input);
 
         void Draw(SpriteBatch spriteBatch);
+
+        Rectangle GetHurtbox();
     }
 }
