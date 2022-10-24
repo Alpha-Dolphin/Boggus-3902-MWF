@@ -327,7 +327,7 @@
 				<enemy type ="Goriya">
 					<!--Placement info for where enemy spawns-->
 					<xPlacement>
-						176
+						208
 					</xPlacement>
 					<yPlacement>
 						32
@@ -361,8 +361,8 @@
 				<!--id indicates room number-->
 				<north id="none"/>
 				<south id ="none"/>
-				<east id ="3"/>
-				<west id ="none"/>
+				<east id ="none"/>
+				<west id ="3"/>
 			</neighbors>
 		</room>
 		<room num ="3">

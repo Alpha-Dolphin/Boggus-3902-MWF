@@ -1,7 +1,6 @@
 ﻿using LOZ.Tools.Command;
 using LOZ.Tools.PlayerObjects;
-using LOZ.Tools.ItemObjects;
-using LOZ.Tools.NPCObjects;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,7 +11,7 @@ using System;
 
 
 using LOZ.Tools;
-using LOZ.Tools.EnvironmentObjects.Helpers;
+
 using LOZ.Tools.LevelManager;
 using LOZ.Tools.EnvironmentObjects;
 
@@ -23,19 +22,18 @@ namespace LOZ
         private List<IEnemy> enemyList;
         private List<IEnvironment> blockList;
 
-        private GraphicsDeviceManager _graphics;
+        private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
         private IPlayer link;
         private KeyboardController controller;
         private MouseController mouseController;
         private ICommand linkCommandHandler;
+
         private List<Room> rooms;
-
         public static int currentRoom = 14;
-
-        private TextSprite currentRoomIndicator = new TextSprite();
-
-
+        private TextSprite currentRoomIndicator = new();
+        
+        public static LevelManager lm = new();
         public static Texture2D LINK_SPRITESHEET;
         public static SpriteFont FONT;
         public static Texture2D ENVIRONMENT_SPRITESHEET;
@@ -48,6 +46,19 @@ namespace LOZ
         /* hanging onto to save time later
        private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
         */
+
+
+
+        /*Lists for various things to cycle through for sprint 2*/
+
+        List<IEnvironment> environmentObjectList = new List<IEnvironment>();
+
+        /*Factories for mass object generation*/
+
+        EnvironmentFactory environmentFactory = new EnvironmentFactory();
+
+        List<IItem> itemObjectList = new List<IItem>();
+
 
         public Game1()
         {
@@ -75,11 +86,17 @@ namespace LOZ
             controller = new KeyboardController();
             mouseController = new MouseController();
 
+            /*Here we will fill in the environment object list with one of every completed environment object*/
+            foreach (Environment environment in Enum.GetValues(typeof(Environment)))
+            {
+                environmentObjectList.Add(environmentFactory.getEnvironment(environment));
+            }
 
             LevelManager lm = new LevelManager();
             lm.initialize();
-            rooms = lm.roomList;
+            rooms = lm.RoomList;
 
+            currentRoomIndicator.setPosition(0, 20);
 
             base.Initialize();
         }
@@ -87,6 +104,14 @@ namespace LOZ
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
+            Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
+            itemFactory = new ItemFactory(ItemSpriteSheet);
+            NPCFactory = new NPCFactory(0, NPCSpriteSheet);
+            enemySpriteFactory = new();
+            itemObjectList.Add(itemFactory.CreateItem(Item.Compass, 600, 400));
+            NPCFactory.CreateNPC();
+            enemy = enemySpriteFactory.CreateKeese();
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(LinkConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
@@ -100,7 +125,7 @@ namespace LOZ
 
         protected override void Update(GameTime gameTime)
         {
-            //UpdateCollision();
+            UpdateCollision();
 
             /*
              * Update logic here
@@ -109,12 +134,18 @@ namespace LOZ
             base.Update(gameTime);
 
             List<Keys> pressed = controller.Update();
-            mouseController.Update();
+            //mouseController.Update();
 
             linkCommandHandler.Execute(pressed);
             rooms[currentRoom].Update(gameTime);
+            foreach (IEnemy enemy in rooms[currentRoom].enemyList)
+            {
+                enemy.Update(gameTime);
+                enemy.Move(gameTime);
+            }
 
 
+            currentRoomIndicator.setText("Current room number: " + currentRoom);
         }
 
         private void UpdateCollision()
@@ -123,14 +154,15 @@ namespace LOZ
             blockList = rooms[currentRoom].environmentList;
             foreach (IEnemy ene in enemyList)
             {
-                if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(ene, link);
+                if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox())) 
+                    Collision.CollisionChecker(ene, link);
                 foreach (IEnvironment bL in blockList)
                 {
                     if (Collision.Intersects(bL.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(bL, ene);
                 }
-                foreach (Rectangle weapon in link.GetHitboxes())
+                foreach (ICollidable weapon in link.GetHitboxes())
                 {
-                    //if (Collision.Intersects(weapon, ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
+                    if (Collision.Intersects(weapon.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
                 }
             }
             foreach (IEnvironment bL in blockList)
@@ -149,10 +181,12 @@ namespace LOZ
             /*Initialize sprite drawing*/
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
+            /*Draw everything*/
             rooms[currentRoom].Draw(spriteBatch);
             link.Draw(spriteBatch);
             currentRoomIndicator.Draw(spriteBatch);
 
+            /*End drawing*/
             spriteBatch.End();
 
             base.Draw(gameTime);

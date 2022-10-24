@@ -29,18 +29,18 @@ namespace LOZ.Tools.PlayerObjects
         double moveCheck;
         double moveTime;
         double moveProb;
-        public void SetHurtbox(int x, int y)
+        public void SetHurtbox(Rectangle rect)
         {
-            enemyPosition.X = x;
-            enemyPosition.Y = y;
+                        enemyPosition.Y = rect.Y;
+            enemyPosition.X = rect.X;
         }
         public Dodongo(int X, int Y)
         {
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
 
-            enemyPosition.X = X;
             enemyPosition.Y = Y;
+            enemyPosition.X = X;
 
             rand = new();
 
@@ -59,7 +59,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Die()
         {
-            //lm.enemyList.Remove(this);
+            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
         }
         public Rectangle GetHurtbox()
         {

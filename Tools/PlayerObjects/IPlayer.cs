@@ -20,6 +20,6 @@ namespace LOZ.Tools.PlayerObjects
 
         void Draw(SpriteBatch spriteBatch);
 
-        List<Rectangle> GetHitboxes();
+        List<ICollidable> GetHitboxes();
     }
 }

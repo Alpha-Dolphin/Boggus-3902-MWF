@@ -20,7 +20,7 @@ namespace LOZ.Tools.LevelManager
         /*Location data for level files*/
         string levelFileLocation { get; set; }
 
-        public List<Room> roomList { get; set; } = new List<Room>();
+        public List<Room> RoomList { get; set; } = new();
 
         /*Initialize needed object factories*/
         EnvironmentFactory environmentFactory = new EnvironmentFactory();
@@ -58,7 +58,7 @@ namespace LOZ.Tools.LevelManager
                     fillRoom(thisRoom, room);
 
                     /*Add the new room to the room list*/
-                    roomList.Add(thisRoom);
+                    RoomList.Add(thisRoom);
                 }
             }
 
@@ -163,7 +163,7 @@ namespace LOZ.Tools.LevelManager
 
             IEnemy thisEnemy = enemySpriteFactory.NewEnemy();
 
-            thisEnemy.SetHurtbox(xPlacement,yPlacement);
+            thisEnemy.SetHurtbox(new Rectangle(xPlacement,yPlacement, -1, -1));
             return thisEnemy;
         }
         private INPC getNPCObject(XmlNode xmlNPC)

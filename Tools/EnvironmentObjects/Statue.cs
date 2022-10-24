@@ -19,7 +19,6 @@ class Statue : IEnvironment
         xPosition = x;
         yPosition = y;
     }
-
     
     public void Draw(SpriteBatch spriteBatch)
     {
@@ -30,7 +29,7 @@ class Statue : IEnvironment
     {
         return new Rectangle(enviroSprite.x, enviroSprite.y, enviroSprite.width, enviroSprite.height);
     }
-    public void SetHurtbox(int x, int y)
+    public void SetHurtbox(Rectangle rect)
     {
     }
 }

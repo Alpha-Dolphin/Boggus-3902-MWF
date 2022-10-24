@@ -21,10 +21,10 @@ namespace LOZ.Tools
         AnimatedMovingSprite ballSprite;
 
         readonly int m;
-        public void SetHurtbox(int x, int y)
+        public void SetHurtbox(Rectangle rect)
         {
-            enemyPosition.X = x;
-            enemyPosition.Y = y;
+            enemyPosition.Y = rect.Y;
+            enemyPosition.X = rect.X;
         }
         public Ball(int mode)
         {
@@ -58,7 +58,7 @@ namespace LOZ.Tools
 
         public void Die()
         {
-            //lm.enemyList.Remove(this);
+            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
         }
 
         public void Attack(GameTime gameTime)

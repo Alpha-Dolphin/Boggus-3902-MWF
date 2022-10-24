@@ -24,16 +24,16 @@ namespace LOZ.Tools
         double moveCheck;
         double moveTime;
         double moveProb;
-        public void SetHurtbox(int x, int y)
+        public void SetHurtbox(Rectangle rect)
         {
-            enemyPosition.X = x;
-            enemyPosition.Y = y;
+            enemyPosition.Y = rect.Y;
+            enemyPosition.X = rect.X;
         }
         public Stalfos(int X, int Y)
         {
 
-            enemyPosition.X = X;
             enemyPosition.Y = Y;
+            enemyPosition.X = X;
 
             stalfosSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
                 new List<Rectangle> { new Rectangle(1, 59, 16, 16) });
@@ -57,7 +57,7 @@ namespace LOZ.Tools
 
         public void Die()
         {
-            //lm.enemyList.Remove(this);
+            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
         }
 
         public void Move(GameTime gameTime)

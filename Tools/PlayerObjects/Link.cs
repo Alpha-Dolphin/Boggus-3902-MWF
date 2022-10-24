@@ -336,9 +336,9 @@ namespace LOZ.Tools.PlayerObjects
             }
         }
 
-        public void SetHurtbox(int x, int y)
+        public void SetHurtbox(Rectangle rect)
         {
-            Link.position = new Vector2(x, y);
+            Link.position = new Vector2(rect.X, rect.Y);
         }
 
         public Rectangle GetHurtbox()
@@ -350,9 +350,15 @@ namespace LOZ.Tools.PlayerObjects
         {
             return this.direction;
         }
-        public List<Rectangle> GetHitboxes()
+        public List<ICollidable> GetHitboxes()
         {
-            return this.hitboxes;
+            List<ICollidable> list = new();
+            foreach (Rectangle c in this.hitboxes) {
+                Weapon temp = new();
+                temp.SetHurtbox(c);
+                list.Add(temp);
+            }
+            return list;
         }
     }
 }

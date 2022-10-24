@@ -28,18 +28,18 @@ namespace LOZ.Tools
         double moveCheck;
         double moveTime;
         double moveProb;
-        public void SetHurtbox(int x, int y)
+        public void SetHurtbox(Rectangle rect)
         {
-            enemyPosition.X = x;
-            enemyPosition.Y = y;
+            enemyPosition.Y = rect.Y;
+            enemyPosition.X = rect.X;
         }
         public Aquamentus(int X, int Y)
         {
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
 
-            enemyPosition.X = X;
             enemyPosition.Y = Y;
+            enemyPosition.X = X;
 
             ball1 = new Ball(1);
             ball2 = new Ball(2);
@@ -47,7 +47,6 @@ namespace LOZ.Tools
 
             aquamentusSprite = new AnimatedMovingSprite(Game1.BOSSES, (int) enemyPosition.X, (int) enemyPosition.Y, 
                 new List<Rectangle>{ new Rectangle(1, 11, 24, 32), new Rectangle(26, 11, 24, 32), new Rectangle(51, 11, 24, 32), new Rectangle(76, 11, 24, 32) });
-
 
             rand = new();
 
@@ -63,7 +62,7 @@ namespace LOZ.Tools
 
         public void Die()
         {
-            //lm.enemyList.Remove(this);
+            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
         }
 
         public void Move(GameTime gameTime)
@@ -102,9 +101,9 @@ namespace LOZ.Tools
             }
             else
             {
-                ball1.SetHurtbox(-1, -1);
-                ball2.SetHurtbox(-1, -1);
-                ball3.SetHurtbox(-1, -1);
+                ball1.SetHurtbox(new Rectangle(-128, -128, -128, -128));
+                ball2.SetHurtbox(new Rectangle(-128, -128, -128, -128));
+                ball3.SetHurtbox(new Rectangle(-128, -128, -128, -128));
             }
         }
 
