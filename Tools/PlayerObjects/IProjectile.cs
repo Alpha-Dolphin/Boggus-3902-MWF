@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    internal interface IProjectile : IHitbox
+    internal interface IProjectile : IHurtbox
     {
         public void SetVelocity(Vector2 velocity);
         public Vector2 Update();

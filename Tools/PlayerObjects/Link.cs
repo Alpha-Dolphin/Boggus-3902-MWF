@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    internal class Link : IPlayer, IHitbox
+    internal class Link : IPlayer, ICollidable
     {
         public static Vector2 position;
 

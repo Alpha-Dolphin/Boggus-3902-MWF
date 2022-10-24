@@ -1,4 +1,3 @@
-using LOZ.Tools.Interfaces;
 using LOZ.Tools;
 using Microsoft.Xna.Framework;
 using System;
@@ -7,7 +6,7 @@ using LOZ.Tools.EnemyObjects;
 
 namespace LOZ.Tools
 {
-    internal class Keese : IEnemy, IHitbox
+    internal class Keese : IEnemy, ICollidable
     {
         readonly Random rand = new();
 

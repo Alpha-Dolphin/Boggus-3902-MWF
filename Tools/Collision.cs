@@ -1,5 +1,4 @@
 ﻿using LOZ.Tools.EnvironmentObjects;
-using LOZ.Tools.Interfaces;
 using LOZ.Tools.PlayerObjects;
 using Microsoft.Xna.Framework;
 using System;
@@ -48,7 +47,7 @@ namespace LOZ.Tools
                 if (b is Link damaged) damaged.Damage();
             }
         }
-        static void Collide(IHitbox unchanged, IHitbox changed)
+        static void Collide(ICollidable unchanged, ICollidable changed)
         {
             Rectangle zone = Rectangle.Intersect(unchanged.GetHurtbox(), changed.GetHurtbox());
             //If colliison is taller than wide

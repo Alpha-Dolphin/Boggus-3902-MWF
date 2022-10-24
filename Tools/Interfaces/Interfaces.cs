@@ -6,6 +6,7 @@ Interfaces for game
 using LOZ.Tools.EnvironmentObjects.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 interface ISprite
@@ -25,7 +26,28 @@ interface IEnvironment
     void Load();
 }
 
-interface IHitbox{
+interface ICollidable{
     Rectangle GetHurtbox();
     void SetHurtbox(int x, int y);
+}
+
+interface IHurtbox
+{
+    List<Rectangle> GetHitboxes();
+}
+
+internal interface ICollision
+{
+    bool Intersects(Rectangle a, Rectangle b);
+
+    void Collide(Object a, Object b);
+}
+
+internal interface IEnemy : ICollidable
+{
+    void Attack(GameTime gameTime);
+    void Die(GameTime gameTime);
+    void Move(GameTime gameTime);
+    void Draw(SpriteBatch _spriteBatch);
+    void Update(GameTime gameTime);
 }

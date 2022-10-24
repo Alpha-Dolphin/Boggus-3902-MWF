@@ -12,7 +12,6 @@ using System;
 
 
 using LOZ.Tools;
-using LOZ.Tools.Interfaces;
 using LOZ.Tools.LevelManager;
 
 namespace LOZ
@@ -159,17 +158,17 @@ namespace LOZ
             dynamicBlocks = rooms[currentRoom].environmentList;
             foreach (IEnemy ene in enemyList)
             {
-                if (Collision.Intersects(link.GetHurtbox(), ene.GetRectangle())) Collision.CollisionChecker(ene, link);
+                if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(ene, link);
                 foreach (IEnvironment sB in staticBlocks)
                 {
-                    if (Collision.Intersects(sB.GetRectangle(), ene.GetRectangle())) Collision.CollisionChecker(sB, ene);
+                    if (Collision.Intersects(sB.GetRectangle(), ene.GetHurtbox())) Collision.CollisionChecker(sB, ene);
                 }
                 foreach (IEnvironment dB in dynamicBlocks)
                 {
-                    if (Collision.Intersects(dB.GetRectangle(), ene.GetRectangle())) Collision.CollisionChecker(dB, ene);
+                    if (Collision.Intersects(dB.GetRectangle(), ene.GetHurtbox())) Collision.CollisionChecker(dB, ene);
                 }
                 foreach (Rectangle weapon in link.GetHitboxes()) { 
-                    if (Collision.Intersects(weapon, ene.GetRectangle())) Collision.CollisionChecker(weapon, ene);
+                    if (Collision.Intersects(weapon, ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
                 }
             }
             foreach (IEnvironment sB in staticBlocks)

@@ -1,5 +1,4 @@
-﻿using LOZ.Tools.Interfaces;
-using LOZ.Tools;
+﻿using LOZ.Tools;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;

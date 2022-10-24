@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
-using LOZ.Tools.Interfaces;
 using LOZ.Tools;
 
 namespace LOZ.Tools
 {
-    internal class Slime : IEnemy, IHitbox
+    internal class Slime : IEnemy, ICollidable
     {
         Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy slimeSprite;
 

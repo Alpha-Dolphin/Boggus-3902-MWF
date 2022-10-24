@@ -1,6 +1,5 @@
 ﻿using CSE3902_Sprint0.Sprites;
 using LOZ.Tools.EnemyObjects;
-using LOZ.Tools.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    internal class Dodongo : IEnemy, IHitbox
+    internal class Dodongo : IEnemy, ICollidable
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;

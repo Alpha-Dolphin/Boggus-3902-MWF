@@ -5,13 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
-using LOZ.Tools.Interfaces;
 using LOZ.Tools.PlayerObjects;
 using LOZ.Tools.EnemyObjects;
 
 namespace LOZ.Tools
 {
-    internal class Goriya : IEnemy, IHitbox
+    internal class Goriya : IEnemy, ICollidable
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;

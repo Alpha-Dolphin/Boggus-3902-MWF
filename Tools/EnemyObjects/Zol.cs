@@ -1,5 +1,4 @@
-﻿using LOZ.Tools.Interfaces;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.EnemyObjects
 {
-    internal class Zol : IEnemy, IHitbox
+    internal class Zol : IEnemy, ICollidable
     {
         Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy ZolSprite;
 

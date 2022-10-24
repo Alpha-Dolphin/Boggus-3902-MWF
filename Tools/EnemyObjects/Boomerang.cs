@@ -1,5 +1,4 @@
-﻿using LOZ.Tools.Interfaces;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.EnemyObjects
 {
-    internal class Boomerang : IEnemy, IHitbox
+    internal class Boomerang : IEnemy, ICollidable
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;

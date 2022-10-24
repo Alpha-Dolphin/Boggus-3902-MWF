@@ -8,12 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
-using LOZ.Tools.Interfaces;
 using LOZ.Tools;
 
 namespace LOZ.Tools
 {
-    internal class Stalfos : IEnemy, IHitbox
+    internal class Stalfos : IEnemy, ICollidable
     {
         Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy stalfosSprite;
 

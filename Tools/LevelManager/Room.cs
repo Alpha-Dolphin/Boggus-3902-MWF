@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LOZ.Tools.Interfaces;
 using LOZ.Tools.NPCObjects;
 using LOZ.Tools.ItemObjects;
 using Microsoft.Xna.Framework.Graphics;

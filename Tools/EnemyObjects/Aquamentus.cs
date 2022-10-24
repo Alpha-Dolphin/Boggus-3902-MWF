@@ -5,12 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LOZ.Tools.Interfaces;
 using LOZ;
 
 namespace LOZ.Tools
 {
-    internal class Aquamentus : IEnemy, IHitbox
+    internal class Aquamentus : IEnemy, ICollidable
     {
         
         Vector2 enemyDirection;
