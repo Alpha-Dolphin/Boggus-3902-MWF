@@ -335,6 +335,11 @@ namespace LOZ.Tools.PlayerObjects
             }
         }
 
+        public void SetPosition(int x, int y)
+        {
+            Link.position = new Vector2(x, y);
+        }
+
         public Rectangle GetHurtbox()
         {
             return this.hurtbox;
