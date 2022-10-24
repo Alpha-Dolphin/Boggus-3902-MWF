@@ -19,9 +19,9 @@ namespace LOZ
 {
     public class Game1 : Game
     {
-        private IEnemy[] enemyList;
-        private IEnvironment[] staticBlocks;
-        private IEnvironment[] dynamicBlocks;
+        private List<IEnemy> enemyList;
+        private List<IEnvironment> staticBlocks;
+        private List<IEnvironment> dynamicBlocks;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
@@ -33,7 +33,7 @@ namespace LOZ
         private ICommand linkCommandHandler;
         private EnvironmentCommandHandler environmentCommandHandler;
         private List<Room> rooms;
-        private int currentRoom = 14;
+        private int currentRoom = 11;
 
         public static Texture2D LINK_SPRITESHEET;
         public static SpriteFont FONT;
@@ -128,7 +128,7 @@ namespace LOZ
 
         protected override void Update(GameTime gameTime)
         {
-            //UpdateCollision();
+            UpdateCollision();
 
             /*
              * Update logic here
@@ -154,6 +154,9 @@ namespace LOZ
 
         private void UpdateCollision()
         {
+            enemyList = rooms[currentRoom].enemyList;
+            staticBlocks = rooms[currentRoom].environmentList;
+            dynamicBlocks = rooms[currentRoom].environmentList;
             foreach (IEnemy ene in enemyList)
             {
                 if (Collision.Intersects(link.GetHurtbox(), ene.GetRectangle())) Collision.CollisionChecker(ene, link);
@@ -219,9 +222,9 @@ namespace LOZ
 
             link.Draw(spriteBatch);
 
-            //rooms[currentRoom].Draw(spriteBatch);
-            IEnvironment test = environmentFactory.getEnvironment(Environment.SquareBlock);//rooms[currentRoom].environmentList[0];
-            test.Draw(spriteBatch);
+            rooms[currentRoom].Draw(spriteBatch);
+            //IEnemy test = rooms[currentRoom].enemyList[0];
+            //test.Draw(spriteBatch);
 
             spriteBatch.End();
 
