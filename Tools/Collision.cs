@@ -21,30 +21,29 @@ namespace LOZ.Tools
         public static void CollisionChecker(Object a, Object b)
         {
             //Link must always be the first object in the list if Link is in the list
-            if (a is Link linka)
+
+            //NOTE - If object is of type rectangle, it is a Link weapon hitbox. Bad design, but it will work for now
+            if (a is Rectangle) if (b is IEnemy) b = null;
+            else if (a is Link linka)
             {
-                if (b is IEnemy) linka.Damage();
-                else
-                {
-                    IEnvironment b2 = (IEnvironment) b;
-                    if (typeof(PushBlock) == b2.GetType()) Collide(linka.GetHurtbox(), b2.GetRectangle());
-                    else Collide(b2.GetRectangle(), linka.GetHurtbox());
-                }
+                //if Link is first, he is pushing a dynamic block, but might as well check to make sure
+                IEnvironment b2 = (IEnvironment) b;
+                if (typeof(PushBlock) == b2.GetType()) Collide(linka.GetHurtbox(), b2.GetRectangle());
+                else Collide(b2.GetRectangle(), linka.GetHurtbox());
             }
-            else if (a is IEnvironment aBlock && b is IEnvironment bBlock)
+            else if (a is IEnvironment aBlock)
             {
-                if (bBlock is PushBlock) Collide(aBlock.GetRectangle(), aBlock.GetRectangle());
-                //Otherwise a must be PushBlock
-                else Collide(bBlock.GetRectangle(), aBlock.GetRectangle());
-            }
-            else if (a is IEnemy aEnemy)
-            {
-                if (b is IEnvironment bBlock2) Collide(bBlock2.GetRectangle(), aEnemy.GetRectangle());
-                else
+                if (b is IEnvironment bBlock)
                 {
-                    //Won't let me assign bEnemy on it's own.
-                    if (b is IEnemy bEnemy) Collide(aEnemy.GetRectangle(), bEnemy.GetRectangle());
+                    if (bBlock is PushBlock) Collide(aBlock.GetRectangle(), aBlock.GetRectangle());
+                    //Otherwise a must be PushBlock
+                    else Collide(bBlock.GetRectangle(), aBlock.GetRectangle());
                 }
+                else if (b is IEnemy enem) Collide(aBlock.GetRectangle(), enem.GetRectangle());
+            }
+            else if (a is IEnemy)
+            {
+                    if (b is Link damaged) damaged.Damage();
             }
         }
         static void Collide(Rectangle unchanged, Rectangle changed)

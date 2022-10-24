@@ -156,7 +156,7 @@ namespace LOZ
         {
             foreach (IEnemy ene in enemyList)
             {
-                if (Collision.Intersects(link.GetHurtbox(), ene.GetRectangle())) Collision.CollisionChecker(link, ene);
+                if (Collision.Intersects(link.GetHurtbox(), ene.GetRectangle())) Collision.CollisionChecker(ene, link);
                 foreach (IEnvironment sB in staticBlocks)
                 {
                     if (Collision.Intersects(sB.GetRectangle(), ene.GetRectangle())) Collision.CollisionChecker(sB, ene);
