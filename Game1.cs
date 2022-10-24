@@ -13,7 +13,7 @@ using System;
 
 using LOZ.Tools;
 using LOZ.Tools.Interfaces;
-
+using LOZ.Tools.LevelManager;
 
 namespace LOZ
 {
@@ -32,6 +32,8 @@ namespace LOZ
         private KeyboardController controller;
         private ICommand linkCommandHandler;
         private EnvironmentCommandHandler environmentCommandHandler;
+        private List<Room> rooms;
+        private int currentRoom = 14;
 
         public static Texture2D LINK_SPRITESHEET;
         public static SpriteFont FONT;
@@ -72,8 +74,6 @@ namespace LOZ
             // TODO: Add your initialization logic here
             LoadContent();
 
-            LinkConstants.Initialize();
-
             link = new Link(LinkConstants.DEFAULT_X, LinkConstants.DEFAULT_Y, LinkConstants.DEFAULT_ITEMS, LinkConstants.MAX_HEALTH,
                 LinkConstants.DEFAULT_STATE, LinkConstants.DEFAULT_DIRECTION,FONT);
             linkCommandHandler = new LinkCommand((Link) link); 
@@ -84,8 +84,12 @@ namespace LOZ
             /*Here we will fill in the environment object list with one of every completed environment object*/
             foreach (Environment environment in Enum.GetValues(typeof(Environment)))
             {
-            environmentObjectList.Add(environmentFactory.getEnvironment(environment));
+                environmentObjectList.Add(environmentFactory.getEnvironment(environment));
             }
+
+            LevelManager lm = new LevelManager();
+            lm.initialize();
+            rooms = lm.roomList;
             
 
             /*Here we create the command handler for the environment display management*/
@@ -117,8 +121,8 @@ namespace LOZ
 
             foreach (IEnvironment environmentObject in environmentObjectList)
             {
-                environmentObject.load();
-                environmentObject.update();
+                environmentObject.Load();
+                environmentObject.Update();
             }
         }
 
@@ -152,7 +156,7 @@ namespace LOZ
         {
             foreach (IEnemy ene in enemyList)
             {
-                //if (Collision.Intersects(link, ene.GetRectangle())) Collision.CollisionChecker(link, ene);
+                if (Collision.Intersects(link.GetHurtbox(), ene.GetRectangle())) Collision.CollisionChecker(link, ene);
                 foreach (IEnvironment sB in staticBlocks)
                 {
                     if (Collision.Intersects(sB.GetRectangle(), ene.GetRectangle())) Collision.CollisionChecker(sB, ene);
@@ -161,10 +165,13 @@ namespace LOZ
                 {
                     if (Collision.Intersects(dB.GetRectangle(), ene.GetRectangle())) Collision.CollisionChecker(dB, ene);
                 }
+                foreach (Rectangle weapon in link.GetHitboxes()) { 
+                    if (Collision.Intersects(weapon, ene.GetRectangle())) Collision.CollisionChecker(weapon, ene);
+                }
             }
             foreach (IEnvironment sB in staticBlocks)
             {
-                //if (Collision.Intersects(link, sB.GetRectangle())) Collision.CollisionChecker(link, sB);
+                if (Collision.Intersects(link.GetHurtbox(), sB.GetRectangle())) Collision.CollisionChecker(link, sB);
                 foreach (IEnvironment dB in dynamicBlocks)
                 {
                     if (Collision.Intersects(dB.GetRectangle(), sB.GetRectangle())) Collision.CollisionChecker(dB, sB);
@@ -172,7 +179,7 @@ namespace LOZ
             }
             foreach (IEnvironment dB in dynamicBlocks)
             {
-                //if (Collision.Intersects(link, dB.GetRectangle())) Collision.CollisionChecker(link, dB);
+                if (Collision.Intersects(link.GetHurtbox(), dB.GetRectangle())) Collision.CollisionChecker(link, dB);
             }
 
         }
@@ -186,31 +193,35 @@ namespace LOZ
             spriteBatch.Begin();
 
             /*Draw Environment*/
-            environmentObjectList[environmentCommandHandler.environmentBlockIndex].draw(spriteBatch);
+            //environmentObjectList[environmentCommandHandler.environmentBlockIndex].Draw(spriteBatch);
             
-            enemy.Draw(spriteBatch);
+            //enemy.Draw(spriteBatch);
             
             /*Draw items*/
-            itemFactory.CreateItem(Item.Clock, 600, 400);
+            /*itemFactory.CreateItem(Item.Clock, 600, 400);
             foreach(IItem i in itemObjectList)
             {
                 i.Draw(spriteBatch);
-            }
+            }*/
             
             /*Draw NPCs*/
-            NPCFactory.CreateNPC();
-            NPCFactory.Draw(spriteBatch);
+            //NPCFactory.CreateNPC();
+            //NPCFactory.Draw(spriteBatch);
 
             //spritesToDraw.Clear();
             /*Sprites to draw need to be in order in spritesToDrawList by here*/
-            //foreach (var item in spritesToDraw)
-            //{
-            //    item.Draw(spriteBatch);
-            //}
+            /*foreach (var item in spritesToDraw)
+            {
+                item.Draw(spriteBatch);
+            }*/
 
-            environmentObjectList[environmentCommandHandler.environmentBlockIndex].draw(spriteBatch);
+            //environmentObjectList[environmentCommandHandler.environmentBlockIndex].Draw(spriteBatch);
 
             link.Draw(spriteBatch);
+
+            //rooms[currentRoom].Draw(spriteBatch);
+            IEnvironment test = environmentFactory.getEnvironment(Environment.SquareBlock);//rooms[currentRoom].environmentList[0];
+            test.Draw(spriteBatch);
 
             spriteBatch.End();
 

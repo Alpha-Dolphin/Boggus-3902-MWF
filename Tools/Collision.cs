@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,8 +24,12 @@ namespace LOZ.Tools
             if (a is Link linka)
             {
                 if (b is IEnemy) linka.Damage();
-                /*else if (b.Moveable()) Collide(linka.getRect(), b.getRect());
-                 else Collide(b,getRect(), linka.getRect());*/
+                else
+                {
+                    IEnvironment b2 = (IEnvironment) b;
+                    if (typeof(PushBlock) == b2.GetType()) Collide(linka.GetHurtbox(), b2.GetRectangle());
+                    else Collide(b2.GetRectangle(), linka.GetHurtbox());
+                }
             }
             else if (a is IEnvironment aBlock && b is IEnvironment bBlock)
             {

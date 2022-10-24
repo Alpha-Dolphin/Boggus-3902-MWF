@@ -14,7 +14,7 @@ namespace LOZ.Tools.PlayerObjects
         private Vector2 originalPosition;
         private Vector2 position;
         private Vector2 velocity;
-        private ISprite sprite;
+        private AnimatedMovingSprite sprite;
         private Texture2D spriteSheet;
         private int delay = LinkConstants.BOMB_EXPLOSION_DELAY;
 
@@ -48,7 +48,7 @@ namespace LOZ.Tools.PlayerObjects
         {
             this.sprite.Update((int)position.X, (int)position.Y);
 
-            if (exploded && this.sprite.finished())
+            if (exploded && this.sprite.Finished())
             {
                 this.sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
                     new List<Rectangle> { new Rectangle(0, 0, 0, 0) });
@@ -88,6 +88,10 @@ namespace LOZ.Tools.PlayerObjects
         public bool stillExists()
         {
             return exists;
+        }
+        public List<Rectangle> GetHitboxes()
+        {
+            return new List<Rectangle>() { this.sprite.GetDestinationRectangle() };
         }
     }
 }

@@ -40,7 +40,7 @@ namespace CSE3902_Sprint0.Sprites
             //Do nothing
         }
 
-        public bool finished()
+        public bool Finished()
         {
             return true;
         }

@@ -10,7 +10,7 @@ class EnvironmentFactory
     {
         switch (environment)
         {
-            case Environment.Statues:
+            case Environment.Statue:
                 return new Statue();
 
             case Environment.SquareBlock:

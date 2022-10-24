@@ -1,11 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Management Docs\\Code Reviews",
     "\\Tools",
-    "\\Tools\\EnvironmentObjects",
-    "\\Tools\\EnvironmentObjects\\Helpers",
-    "\\Tools\\NPCObjects"
+    "\\Tools\\EnvironmentObjects\\Helpers"
   ],
-  "SelectedNode": "\\LOZ.sln",
+  "SelectedNode": "\\Game1.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -30,7 +30,8 @@ namespace LOZ.Tools.PlayerObjects
             switch (this.projectileType)
             {
                 case LinkConstants.Link_Projectiles.SwordBeam: return new Swordbeam(this.spriteSheet, Link.position, LinkConstants.PROJECTILE_SPEED * velocity);
-                case LinkConstants.Link_Projectiles.Arrow: return new ArrowProjectile(this.spriteSheet, Link.position, LinkConstants.PROJECTILE_SPEED * velocity);
+                case LinkConstants.Link_Projectiles.WoodArrow: return new ArrowProjectile(this.spriteSheet, Link.position, LinkConstants.PROJECTILE_SPEED * velocity, true);
+                case LinkConstants.Link_Projectiles.BlueArrow: return new ArrowProjectile(this.spriteSheet, Link.position, LinkConstants.PROJECTILE_SPEED * velocity, false);
                 case LinkConstants.Link_Projectiles.Boomerang: return new Boomerang(this.spriteSheet, Link.position, LinkConstants.BOOMERANG_SPEED * velocity);
                 case LinkConstants.Link_Projectiles.CandleFlame: return new CandleFlame(this.spriteSheet, Link.position, LinkConstants.PROJECTILE_SPEED * velocity);
                 case LinkConstants.Link_Projectiles.Bomb: return new Bomb(this.spriteSheet, Link.position, new Vector2(0, 0));

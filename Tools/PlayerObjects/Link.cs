@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    internal class Link : IPlayer
+    internal class Link : IPlayer, IHitbox
     {
         public static Vector2 position;
 
@@ -20,6 +20,10 @@ namespace LOZ.Tools.PlayerObjects
         private List<IProjectile> projectiles;
         private ProjectileFactory projectileFactory;
 
+        private Rectangle hurtbox;
+        private Rectangle? swordHitbox;
+        private List<Rectangle> hitboxes;
+
         private int health;
         private int invincibilityFrames = 0;
         private TextSprite healthText;
@@ -28,7 +32,6 @@ namespace LOZ.Tools.PlayerObjects
         private AnimatedMovingSprite sprite;
 
         private LinkConstants.Link_States state;
-
         private LinkConstants.Direction direction;
 
         public Link()
@@ -50,27 +53,30 @@ namespace LOZ.Tools.PlayerObjects
             this.healthText = new TextSprite();
             this.state = state;
             this.direction = direction;
+            this.hitboxes = new List<Rectangle>();
 
             this.healthText.setFont(font);
             this.healthText.setPosition(0, 0);
             this.projectileFactory = new ProjectileFactory(0, this.spriteSheet);
-            updateSprite();
+            UpdateSprite();
+            this.hurtbox = this.sprite.GetDestinationRectangle();
+            this.swordHitbox = null;
         }
 
-        private void updateSprite()
+        private void UpdateSprite()
         {
             switch (this.state)
             {
-                case LinkConstants.Link_States.Normal: createStationarySprite(); break;
-                case LinkConstants.Link_States.Walking: createWalkingSprite(); break;
-                case LinkConstants.Link_States.Attacking: createAttackingSprite(); break;
-                case LinkConstants.Link_States.Damaged: createDamagedSprite(); break;
+                case LinkConstants.Link_States.Normal: CreateStationarySprite(); break;
+                case LinkConstants.Link_States.Walking: CreateWalkingSprite(); break;
+                case LinkConstants.Link_States.Attacking: CreateAttackingSprite(); break;
+                case LinkConstants.Link_States.Damaged: CreateDamagedSprite(); break;
                 case LinkConstants.Link_States.Dead: break;
 
             }
         }
 
-        private void createStationarySprite()
+        private void CreateStationarySprite()
         {
             Rectangle frame = new Rectangle();
             switch (this.direction)
@@ -87,7 +93,7 @@ namespace LOZ.Tools.PlayerObjects
             sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, frames);
         }
 
-        private void createWalkingSprite()
+        private void CreateWalkingSprite()
         {
             List<Rectangle> frames = new List<Rectangle>();
             switch (this.direction)
@@ -100,7 +106,7 @@ namespace LOZ.Tools.PlayerObjects
 
             sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, frames);
         }
-        private void createAttackingSprite()
+        private void CreateAttackingSprite()
         {
             switch (this.direction)
             {
@@ -115,7 +121,7 @@ namespace LOZ.Tools.PlayerObjects
             }
         }
 
-        private void createDamagedSprite()
+        private void CreateDamagedSprite()
         {
             this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, LinkConstants.DAMAGED, LinkConstants.DAMAGED_FRAMERATE);
         }
@@ -150,8 +156,8 @@ namespace LOZ.Tools.PlayerObjects
         {
             switch (input)
             {
-                case 1: break;
-                case 2: UpdateState(LinkConstants.Link_States.UseItem, this.direction);  CreateProjectile(LinkConstants.Link_Projectiles.Arrow); break;
+                case 1: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(LinkConstants.Link_Projectiles.BlueArrow); break;
+                case 2: UpdateState(LinkConstants.Link_States.UseItem, this.direction);  CreateProjectile(LinkConstants.Link_Projectiles.WoodArrow); break;
                 case 3: UpdateState(LinkConstants.Link_States.UseItem, this.direction);  CreateProjectile(LinkConstants.Link_Projectiles.Boomerang); break;
                 case 4: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(LinkConstants.Link_Projectiles.CandleFlame); break;
                 case 5: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(LinkConstants.Link_Projectiles.Bomb); break;
@@ -213,13 +219,14 @@ namespace LOZ.Tools.PlayerObjects
         {
             if (this.invincibilityFrames == 0)
             {
-                if (state == LinkConstants.Link_States.Damaged || this.sprite.finished() || this.state != LinkConstants.Link_States.Attacking)
+                if (state == LinkConstants.Link_States.Damaged || this.sprite.Finished() || this.state != LinkConstants.Link_States.Attacking)
                 {
                     if (!(this.state == state) || !(this.direction == direction))
                     {
                         this.state = state;
                         this.direction = direction;
-                        updateSprite();
+                        UpdateSprite();
+                        UpdateHitboxes();
                     }
                 }
             }
@@ -242,9 +249,103 @@ namespace LOZ.Tools.PlayerObjects
             }
         }
 
-        public LinkConstants.Direction getDirection()
+        private void UpdateHitboxes()
+        {
+            this.hitboxes = new List<Rectangle>();
+            
+            foreach (IProjectile projectile in projectiles)
+            {
+                List<Rectangle> temp = projectile.GetHitboxes();
+
+                foreach(Rectangle rect in temp)
+                {
+                    this.hitboxes.Add(rect);
+                }
+            }
+
+            if(this.state == LinkConstants.Link_States.Attacking)
+            {
+                UpdateSwordHitbox();
+                if (this.swordHitbox != null)
+                {
+                    this.hitboxes.Add(new Rectangle(this.swordHitbox.Value.X + this.sprite.GetX(), 
+                        this.swordHitbox.Value.Y + this.sprite.GetY(), 
+                        this.swordHitbox.Value.Width, this.swordHitbox.Value.Height));
+                }
+            }
+
+            UpdateHurtbox();
+        }
+
+        private void UpdateHurtbox()
+        {
+            switch (this.state)
+            {
+                case LinkConstants.Link_States.Attacking: UpdateAttackingHurtbox(); break;
+                default: this.hurtbox = this.sprite.GetDestinationRectangle(); break;
+            }
+        }
+
+        private void UpdateAttackingHurtbox()
+        {
+            int currentFrame = this.sprite.GetFrame() / sprite.frameRate;
+            Rectangle spriteRect = this.sprite.GetDestinationRectangle();
+            if (currentFrame == 0)
+            {
+                this.hurtbox = spriteRect;
+            }
+            else
+            {
+                switch (this.direction)
+                {
+                    case LinkConstants.Direction.Up:
+                        Rectangle tempUp = LinkConstants.SWORD_ATTACKUP_HITBOX_FRAMES[currentFrame].Value;
+                        this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y - tempUp.Height, spriteRect.Width, spriteRect.Height - tempUp.Height);
+                        break;
+                    case LinkConstants.Direction.Left:
+                        Rectangle tempLeft = LinkConstants.SWORD_ATTACKLEFT_HITBOX_FRAMES[currentFrame].Value;
+                        this.hurtbox = new Rectangle(spriteRect.X + tempLeft.Width, spriteRect.Y, spriteRect.Width - tempLeft.Width, spriteRect.Height);
+                        break;
+                    case LinkConstants.Direction.Right:
+                        Rectangle tempRight = LinkConstants.SWORD_ATTACKRIGHT_HITBOX_FRAMES[currentFrame].Value;
+                        this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y, spriteRect.Width - tempRight.Width, spriteRect.Height);
+                        break;
+                    case LinkConstants.Direction.Down:
+                        Rectangle tempDown = LinkConstants.SWORD_ATTACKDOWN_HITBOX_FRAMES[currentFrame].Value;
+                        this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y, spriteRect.Width, spriteRect.Height - tempDown.Height);
+                        break;
+                }
+            }
+        }
+
+        private void UpdateSwordHitbox()
+        {
+            int currentFrame = this.sprite.GetFrame()/sprite.frameRate;
+            switch (this.direction)
+            {
+                case LinkConstants.Direction.Up: 
+                    this.swordHitbox = LinkConstants.SWORD_ATTACKUP_HITBOX_FRAMES[currentFrame]; break;
+                case LinkConstants.Direction.Left:
+                    this.swordHitbox = LinkConstants.SWORD_ATTACKLEFT_HITBOX_FRAMES[currentFrame]; break;
+                case LinkConstants.Direction.Right:
+                    this.swordHitbox = LinkConstants.SWORD_ATTACKRIGHT_HITBOX_FRAMES[currentFrame]; break;
+                case LinkConstants.Direction.Down:
+                    this.swordHitbox = LinkConstants.SWORD_ATTACKDOWN_HITBOX_FRAMES[currentFrame]; break;
+            }
+        }
+
+        public Rectangle GetHurtbox()
+        {
+            return this.hurtbox;
+        }
+
+        public LinkConstants.Direction GetDirection()
         {
             return this.direction;
+        }
+        public List<Rectangle> GetHitboxes()
+        {
+            return this.hitboxes;
         }
     }
 }
