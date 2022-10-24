@@ -57,9 +57,9 @@ namespace LOZ.Tools.PlayerObjects
             //Nothing
         }
 
-        public void Die(GameTime gameTime)
+        public void Die()
         {
-            //Nothing
+            lm.enemyList.Remove(this);
         }
         public Rectangle GetHurtbox()
         {

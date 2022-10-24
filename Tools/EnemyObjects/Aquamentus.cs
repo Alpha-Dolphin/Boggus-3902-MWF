@@ -61,9 +61,9 @@ namespace LOZ.Tools
             ball3.Activate(enemyPosition.X, enemyPosition.Y);
         }
 
-        public void Die(GameTime gameTime)
+        public void Die()
         {
-            //Nothing
+            lm.enemyList.Remove(this);
         }
 
         public void Move(GameTime gameTime)
@@ -94,9 +94,18 @@ namespace LOZ.Tools
             MovementUpdate(gameTime);
             aquamentusSprite.Update((int) enemyPosition.X, (int) enemyPosition.Y);
             AttackUpdate(gameTime);
-            ball1.Update(gameTime);
-            ball2.Update(gameTime);
-            ball3.Update(gameTime);
+            if (ball1.GetBallLife() > 0.0)
+            {
+                ball1.Update(gameTime);
+                ball2.Update(gameTime);
+                ball3.Update(gameTime);
+            }
+            else
+            {
+                ball1.SetHurtbox(-1, -1);
+                ball2.SetHurtbox(-1, -1);
+                ball3.SetHurtbox(-1, -1);
+            }
         }
 
         private void AttackUpdate(GameTime gameTime)

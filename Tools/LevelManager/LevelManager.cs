@@ -15,7 +15,7 @@ using LOZ.Tools.EnvironmentObjects.Helpers;
 
 namespace LOZ.Tools.LevelManager
 {
-    internal class LevelManager
+    public class LevelManager
     {
         /*Location data for level files*/
         string levelFileLocation { get; set; }
