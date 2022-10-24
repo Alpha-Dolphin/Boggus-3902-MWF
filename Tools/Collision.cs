@@ -23,11 +23,13 @@ namespace LOZ.Tools
             //Link must always be the first object in the list if Link is in the list
 
             //NOTE - If object is of type rectangle, it is a Link weapon hitbox. Bad design, but it will work for now
-            if (a is Rectangle) if (b is IEnemy) b = null;
+            if (a is Rectangle)
+            {
+                if (b is IEnemy) b = null;
+            }
             else if (a is Link linka)
             {
-                //if Link is first, he is pushing a dynamic block, but might as well check to make sure
-                IEnvironment b2 = (IEnvironment) b;
+                IEnvironment b2 = (IEnvironment)b;
                 if (typeof(PushBlock) == b2.GetType()) Collide(linka.GetHurtbox(), b2.GetRectangle());
                 else Collide(b2.GetRectangle(), linka.GetHurtbox());
             }
@@ -43,7 +45,7 @@ namespace LOZ.Tools
             }
             else if (a is IEnemy)
             {
-                    if (b is Link damaged) damaged.Damage();
+                if (b is Link damaged) damaged.Damage();
             }
         }
         static void Collide(Rectangle unchanged, Rectangle changed)
@@ -53,11 +55,11 @@ namespace LOZ.Tools
             if (zone.Bottom - zone.Top > zone.Right - zone.Left)
             {
                 if (changed.Right > zone.Right) changed.X += zone.X;
-                else changed.X -= zone.X;
+                else changed.X = zone.X;
             }
             else {
                 if (changed.Top > zone.Top) changed.Y -= zone.Y;
-                else changed.Y += zone.Y;
+                else changed.Y = zone.Y;
             }
         }
     }

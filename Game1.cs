@@ -174,7 +174,8 @@ namespace LOZ
             }
             foreach (IEnvironment sB in staticBlocks)
             {
-                if (Collision.Intersects(link.GetHurtbox(), sB.GetRectangle())) Collision.CollisionChecker(link, sB);
+                if (Collision.Intersects(link.GetHurtbox(), sB.GetRectangle())) 
+                    Collision.CollisionChecker(link, sB);
                 foreach (IEnvironment dB in dynamicBlocks)
                 {
                     if (Collision.Intersects(dB.GetRectangle(), sB.GetRectangle())) Collision.CollisionChecker(dB, sB);
