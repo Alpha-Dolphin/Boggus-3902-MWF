@@ -29,7 +29,7 @@ namespace LOZ
         private KeyboardController controller;
         private ICommand linkCommandHandler;
         private List<Room> rooms;
-        private int currentRoom = 14;
+        private int currentRoom = 2;
 
         public static Texture2D LINK_SPRITESHEET;
         public static SpriteFont FONT;
