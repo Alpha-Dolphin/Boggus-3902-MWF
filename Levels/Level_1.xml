@@ -896,15 +896,7 @@
 			<!--Every environment elements starting information contained here-->
 			<environment>
 				<!--One tile element for each block that isn't background, type is the name of the object to place-->
-				<tile type ="BlueFloor">
-					<!--Placement info for where object spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</tile>
+				
 				<tile type ="SquareBlock">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
@@ -1097,15 +1089,7 @@
 			<!--Every environment elements starting information contained here-->
 			<environment>
 				<!--One tile element for each block that isn't background, type is the name of the object to place-->
-				<tile type ="BlueFloor">
-					<!--Placement info for where object spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</tile>
+				
 				<tile type ="SquareBlock">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
@@ -1215,15 +1199,7 @@
 			<!--Every environment elements starting information contained here-->
 			<environment>
 				<!--One tile element for each block that isn't background, type is the name of the object to place-->
-				<tile type ="BlueFloor">
-					<!--Placement info for where object spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</tile>
+				
 				<tile type ="SquareBlock">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
@@ -1443,15 +1419,7 @@
 			<!--Every environment elements starting information contained here-->
 			<environment>
 				<!--One tile element for each block that isn't background, type is the name of the object to place-->
-				<tile type ="BlueFloor">
-					<!--Placement info for where object spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</tile>
+				
 				<tile type ="SquareBlock">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
@@ -1606,15 +1574,7 @@
 			<!--Every environment elements starting information contained here-->
 			<environment>
 				<!--One tile element for each block that isn't background, type is the name of the object to place-->
-				<tile type ="BlueFloor">
-					<!--Placement info for where object spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</tile>
+				
 				<tile type ="SquareBlock">
 					<!--Placement info for where object spawns-->
 					<xPlacement>

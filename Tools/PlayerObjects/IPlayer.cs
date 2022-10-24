@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    internal interface IPlayer
+    internal interface IPlayer : ICollidable
     {
         void Move(LinkConstants.Direction direction);
 
@@ -21,7 +21,5 @@ namespace LOZ.Tools.PlayerObjects
         void Draw(SpriteBatch spriteBatch);
 
         List<Rectangle> GetHitboxes();
-
-        Rectangle GetHurtbox();
     }
 }

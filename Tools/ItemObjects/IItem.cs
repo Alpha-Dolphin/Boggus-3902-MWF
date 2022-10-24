@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.ItemObjects
 {
-    internal interface IItem
+    public interface IItem
     {
         void Draw(SpriteBatch spriteBatch);
         void Update(GameTime gametime);

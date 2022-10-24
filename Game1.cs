@@ -14,22 +14,27 @@ using System;
 using LOZ.Tools;
 using LOZ.Tools.EnvironmentObjects.Helpers;
 using LOZ.Tools.LevelManager;
+using LOZ.Tools.EnvironmentObjects;
 
 namespace LOZ
 {
     public class Game1 : Game
     {
         private List<IEnemy> enemyList;
-        private List<IEnvironment> staticBlocks;
-        private List<IEnvironment> dynamicBlocks;
+        private List<IEnvironment> blockList;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
         private IPlayer link;
         private KeyboardController controller;
+        private MouseController mouseController;
         private ICommand linkCommandHandler;
         private List<Room> rooms;
-        private int currentRoom = 2;
+
+        public static int currentRoom = 14;
+
+        private TextSprite currentRoomIndicator = new TextSprite();
+
 
         public static Texture2D LINK_SPRITESHEET;
         public static SpriteFont FONT;
@@ -68,11 +73,13 @@ namespace LOZ
 
             /*Declaration of controllers*/
             controller = new KeyboardController();
+            mouseController = new MouseController();
 
 
             LevelManager lm = new LevelManager();
             lm.initialize();
             rooms = lm.roomList;
+
 
             base.Initialize();
         }
@@ -83,6 +90,7 @@ namespace LOZ
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(LinkConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
+            currentRoomIndicator.setFont(FONT);
             ENVIRONMENT_SPRITESHEET = Content.Load<Texture2D>(Constants.DungeonSpriteSheetLocation);
             NPC_SPRITESHEET = Content.Load<Texture2D>(Constants.NPCSpriteSheetLocation);
             REGULAR_ENEMIES = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
@@ -100,47 +108,38 @@ namespace LOZ
 
             base.Update(gameTime);
 
-            List<Keys> pressed = controller.update();
+            List<Keys> pressed = controller.Update();
+            mouseController.Update();
 
             linkCommandHandler.Execute(pressed);
+            rooms[currentRoom].Update(gameTime);
+
 
         }
 
         private void UpdateCollision()
         {
             enemyList = rooms[currentRoom].enemyList;
-            staticBlocks = rooms[currentRoom].environmentList;
-            dynamicBlocks = rooms[currentRoom].environmentList;
+            blockList = rooms[currentRoom].environmentList;
             foreach (IEnemy ene in enemyList)
             {
                 if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(ene, link);
-                foreach (IEnvironment sB in staticBlocks)
+                foreach (IEnvironment bL in blockList)
                 {
-                    if (Collision.Intersects(sB.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(sB, ene);
+                    if (Collision.Intersects(bL.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(bL, ene);
                 }
-                foreach (IEnvironment dB in dynamicBlocks)
+                foreach (Rectangle weapon in link.GetHitboxes())
                 {
-                    if (Collision.Intersects(dB.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(dB, ene);
-                }
-                foreach (Rectangle weapon in link.GetHitboxes()) { 
-                    if (Collision.Intersects(weapon, ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
+                    //if (Collision.Intersects(weapon, ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
                 }
             }
-            foreach (IEnvironment sB in staticBlocks)
+            foreach (IEnvironment bL in blockList)
             {
-                if (Collision.Intersects(link.GetHurtbox(), sB.GetHurtbox())) 
-                    Collision.CollisionChecker(link, sB);
-                foreach (IEnvironment dB in dynamicBlocks)
-                {
-                    if (Collision.Intersects(dB.GetHurtbox(), sB.GetHurtbox())) Collision.CollisionChecker(dB, sB);
-                }
-            }
-            foreach (IEnvironment dB in dynamicBlocks)
-            {
-                if (Collision.Intersects(link.GetHurtbox(), dB.GetHurtbox())) Collision.CollisionChecker(link, dB);
+                if (Collision.Intersects(link.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(link, bL);
             }
 
         }
+    
 
         protected override void Draw(GameTime gameTime)
         {
@@ -152,6 +151,7 @@ namespace LOZ
 
             rooms[currentRoom].Draw(spriteBatch);
             link.Draw(spriteBatch);
+            currentRoomIndicator.Draw(spriteBatch);
 
             spriteBatch.End();
 

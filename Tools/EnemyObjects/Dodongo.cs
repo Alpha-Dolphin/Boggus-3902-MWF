@@ -1,4 +1,5 @@
 ﻿using LOZ.Tools.EnemyObjects;
+using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -56,9 +57,9 @@ namespace LOZ.Tools.PlayerObjects
             //Nothing
         }
 
-        public void Die(GameTime gameTime)
+        public void Die()
         {
-            //Nothing
+            //lm.enemyList.Remove(this);
         }
         public Rectangle GetHurtbox()
         {

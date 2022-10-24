@@ -17,35 +17,30 @@ namespace LOZ.Tools
         {
             return a.Intersects(b);
         }
-        public static void CollisionChecker(Object a, Object b)
+        public static void CollisionChecker(ICollidable a, ICollidable b)
         {
             //Link must always be the first object in the list if Link is in the list
 
             //NOTE - If object is of type rectangle, it is a Link weapon hitbox. Bad design, but it will work for now
-            /*if (a is Rectangle)
+            if (a is Rectangle)
             {
-                if (b is IEnemy) b = null;
+                if (b is IEnemy bEnemy) bEnemy.Die();
             }
-            else if (a is Link linka)
+            else if (a is Link)
             {
-                IEnvironment b2 = (IEnvironment)b;
-                if (typeof(PushBlock) == b2.GetType()) Collide(linka.GetHurtbox(), b2.GetRectangle());
-                else Collide(b2.GetRectangle(), linka.GetHurtbox());
+                //Then collision must be Link-block collision
+                if (typeof(PushBlock) == b.GetType()) Collide(a, b);
+                else Collide(b, a);
             }
-            else if (a is IEnvironment aBlock)
+            else if (a is IEnvironment)
             {
-                if (b is IEnvironment bBlock)
-                {
-                    if (bBlock is PushBlock) Collide(aBlock.GetRectangle(), aBlock.GetRectangle());
-                    //Otherwise a must be PushBlock
-                    else Collide(bBlock.GetRectangle(), aBlock.GetRectangle());
-                }
-                else if (b is IEnemy enem) Collide(aBlock.GetRectangle(), enem.GetRectangle());
+                if (typeof(PushBlock) == a.GetType() && b is not IEnemy) Collide(b, a);
+                else Collide(a, b);
             }
             else if (a is IEnemy)
             {
                 if (b is Link damaged) damaged.Damage();
-            }*/
+            }
         }
         static void Collide(ICollidable unchanged, ICollidable changed)
         {
@@ -53,11 +48,16 @@ namespace LOZ.Tools
             //If colliison is taller than wide
             if (zone.Bottom - zone.Top > zone.Right - zone.Left)
             {
-                changed.SetHurtbox(zone.X, changed.GetHurtbox().Y);
+                if (zone.Right == unchanged.GetHurtbox().Right) changed.SetHurtbox(zone.Right, changed.GetHurtbox().Y);
+                else changed.SetHurtbox(zone.Left - changed.GetHurtbox().Width, changed.GetHurtbox().Y);
             }
-            else {
-                changed.SetHurtbox(changed.GetHurtbox().X, zone.Y);
+            else
+            {
+                if (zone.Bottom == unchanged.GetHurtbox().Bottom) changed.SetHurtbox(changed.GetHurtbox().X, zone.Bottom);
+                else changed.SetHurtbox(changed.GetHurtbox().X, zone.Top - changed.GetHurtbox().Height);
             }
         }
     }
 }
+
+

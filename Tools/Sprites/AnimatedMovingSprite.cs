@@ -15,8 +15,8 @@ namespace LOZ.Tools.Sprites
 {
     public class AnimatedMovingSprite : ISprite
     {
-        public int xScale = 3;
-        public int yScale = 3;
+        public static int xScale = 3;
+        public static int yScale = 3;
 
         public int frameRate = 10;
 
@@ -103,9 +103,9 @@ namespace LOZ.Tools.Sprites
         {
             Rectangle currentRectangle = frames[currentFrame / frameRate];
             Vector2 currentLocationShift = locationShift[currentFrame / frameRate];
-            int currentX = x + (int)currentLocationShift.X * xScale;
-            int currentY = y + (int)currentLocationShift.Y * yScale;
-            destinationRectangle = new Rectangle(currentX, currentY, currentRectangle.Width * xScale, currentRectangle.Height * yScale);
+            int currentX = x + (int)currentLocationShift.X;
+            int currentY = y + (int)currentLocationShift.Y;
+            destinationRectangle = new Rectangle(currentX*xScale, currentY*yScale, currentRectangle.Width * xScale, currentRectangle.Height * yScale);
             spriteBatch.Draw(picture, destinationRectangle, currentRectangle, LinkConstants.DEFAULT_PICTURE_COLOR);
         }
 
@@ -150,11 +150,11 @@ namespace LOZ.Tools.Sprites
         }
 
         public void SetXScale(int xScale) { 
-            this.xScale = xScale;
+            xScale = xScale;
         }
         public void SetYScale(int yScale)
         {
-            this.yScale = yScale;
+            yScale = yScale;
         }
     }
 }
