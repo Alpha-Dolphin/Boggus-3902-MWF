@@ -48,18 +48,16 @@ namespace LOZ.Tools
                 if (b is Link damaged) damaged.Damage();
             }
         }
-        static void Collide(Rectangle unchanged, Rectangle changed)
+        static void Collide(IHitbox unchanged, IHitbox changed)
         {
-            Rectangle zone = Rectangle.Intersect(unchanged, changed);
+            Rectangle zone = Rectangle.Intersect(unchanged.GetHurtbox(), changed.GetHurtbox());
             //If colliison is taller than wide
             if (zone.Bottom - zone.Top > zone.Right - zone.Left)
             {
-                if (changed.Right > zone.Right) changed.X += zone.X;
-                else changed.X = zone.X;
+                changed.SetHurtbox(zone.X, changed.GetHurtbox().Y);
             }
             else {
-                if (changed.Top > zone.Top) changed.Y -= zone.Y;
-                else changed.Y = zone.Y;
+                changed.SetHurtbox(changed.GetHurtbox().X, zone.Y);
             }
         }
     }
