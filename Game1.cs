@@ -183,7 +183,7 @@ namespace LOZ
             }
 
         }
-    }
+    
 
         protected override void Draw(GameTime gameTime)
         {
