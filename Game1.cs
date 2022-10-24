@@ -97,9 +97,7 @@ namespace LOZ
             }
 
             LevelManager lm = new LevelManager();
-            lm.initialize();
-            rooms = lm.roomList;
-            
+            lm.initialize();            
 
             /*Here we create the command handler for the environment display management*/
 

@@ -11,7 +11,9 @@ namespace LOZ.Tools
 {
     internal class Slime : IEnemy, ICollidable
     {
-        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy slimeSprite;
+        Vector2 enemyDirection;
+        Vector2 enemyPosition;
+        readonly ISpriteEnemy slimeSprite;
 
         readonly Random rand;
 
@@ -49,9 +51,9 @@ namespace LOZ.Tools
             //Nothing
         }
 
-        public void Die(GameTime gameTime)
+        public void Die()
         {
-            //Nothing
+            lm.enemyList.Remove(this);
         }
 
         public void Move(GameTime gameTime)

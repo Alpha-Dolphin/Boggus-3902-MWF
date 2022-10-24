@@ -10,7 +10,9 @@ namespace LOZ.Tools.EnemyObjects
 {
     internal class Zol : IEnemy, ICollidable
     {
-        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy ZolSprite;
+        Vector2 enemyDirection;
+        Vector2 enemyPosition;
+        readonly ISpriteEnemy ZolSprite;
 
         readonly Random rand;
 
@@ -50,9 +52,9 @@ namespace LOZ.Tools.EnemyObjects
             //Nothing
         }
 
-        public void Die(GameTime gameTime)
+        public void Die()
         {
-            //Nothing
+            lm.enemyList.Remove(this);
         }
 
         public void Move(GameTime gameTime)

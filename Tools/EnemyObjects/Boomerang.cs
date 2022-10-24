@@ -55,9 +55,9 @@ namespace LOZ.Tools.EnemyObjects
             attackTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
-        public void Die(GameTime gameTime)
+        public void Die()
         {
-            //Nothing
+            lm.enemyList.Remove(this);
         }
 
         public void Attack(GameTime gameTime)

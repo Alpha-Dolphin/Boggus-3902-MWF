@@ -45,7 +45,7 @@ internal interface ICollision
 internal interface IEnemy : ICollidable
 {
     void Attack(GameTime gameTime);
-    void Die(GameTime gameTime);
+    void Die();
     void Move(GameTime gameTime);
     void Draw(SpriteBatch _spriteBatch);
     void Update(GameTime gameTime);

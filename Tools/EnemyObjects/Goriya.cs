@@ -57,9 +57,9 @@ namespace LOZ.Tools
             boomerang.Activate(enemyDirection, enemyPosition);
         }
 
-        public void Die(GameTime gameTime)
+        public void Die()
         {
-            //Nothing
+            lm.enemyList.Remove(this);
         }
 
         public void Move(GameTime gameTime)
@@ -84,6 +84,7 @@ namespace LOZ.Tools
             {
                 MovementUpdate(gameTime);
                 AttackUpdate(gameTime);
+                boomerang.SetHurtbox(-1,-1);
             }
             else
             {
