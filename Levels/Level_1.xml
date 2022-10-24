@@ -361,8 +361,8 @@
 				<!--id indicates room number-->
 				<north id="none"/>
 				<south id ="none"/>
-				<east id ="none"/>
-				<west id ="3"/>
+				<east id ="3"/>
+				<west id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="3">
