@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools
 {
-    internal class Ball : IEnemy
+    internal class Ball : IEnemy, IHitbox
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;
@@ -20,7 +20,7 @@ namespace LOZ.Tools
         readonly BallSprite ballSprite;
 
         readonly int m;
-        public void setPosition(int x, int y)
+        public void SetHurtbox(int x, int y)
         {
             enemyPosition.X = x;
             enemyPosition.Y = y;
@@ -32,7 +32,7 @@ namespace LOZ.Tools
             ballSprite = new BallSprite();
             m = mode % 3;
         }
-        public Rectangle GetRectangle()
+        public Rectangle GetHurtbox()
         {
             Vector2 wH = ballSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);

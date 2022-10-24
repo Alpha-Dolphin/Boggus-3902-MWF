@@ -10,7 +10,7 @@ using LOZ.Tools;
 
 namespace LOZ.Tools
 {
-    internal class Slime : IEnemy
+    internal class Slime : IEnemy, IHitbox
     {
         Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy slimeSprite;
 
@@ -21,7 +21,7 @@ namespace LOZ.Tools
         double moveProb;
 
         const double moveDelay = 1000;
-        public void setPosition(int x, int y)
+        public void SetHurtbox(int x, int y)
         {
             enemyPosition.X = x;
             enemyPosition.Y = y;
@@ -40,7 +40,7 @@ namespace LOZ.Tools
 
             moveCheck = -1;
         }
-        public Rectangle GetRectangle()
+        public Rectangle GetHurtbox()
         {
             Vector2 wH = slimeSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);

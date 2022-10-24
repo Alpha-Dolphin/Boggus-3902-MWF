@@ -11,7 +11,7 @@ using LOZ.Tools.EnemyObjects;
 
 namespace LOZ.Tools
 {
-    internal class Goriya : IEnemy
+    internal class Goriya : IEnemy, IHitbox
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;
@@ -25,7 +25,7 @@ namespace LOZ.Tools
         double moveCheck;
         double moveTime;
         double moveProb;
-        public void setPosition(int x, int y)
+        public void SetHurtbox(int x, int y)
         {
             enemyPosition.X = x;
             enemyPosition.Y = y;
@@ -47,7 +47,7 @@ namespace LOZ.Tools
             moveCheck = -1;
         }
 
-        public Rectangle GetRectangle()
+        public Rectangle GetHurtbox()
         {
             Vector2 wH = goriyaSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);

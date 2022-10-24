@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.EnemyObjects
 {
-    internal class Rope : IEnemy
+    internal class Rope : IEnemy, IHitbox
     {
         Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy RopeSprite;
 
@@ -20,7 +20,7 @@ namespace LOZ.Tools.EnemyObjects
         double moveProb;
 
         const double moveDelay = 1000;
-        public void setPosition(int x, int y)
+        public void SetHurtbox(int x, int y)
         {
             enemyPosition.X = x;
             enemyPosition.Y = y;
@@ -50,7 +50,7 @@ namespace LOZ.Tools.EnemyObjects
             //Nothing
         }
 
-        public Rectangle GetRectangle()
+        public Rectangle GetHurtbox()
         {
             Vector2 wH = RopeSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);

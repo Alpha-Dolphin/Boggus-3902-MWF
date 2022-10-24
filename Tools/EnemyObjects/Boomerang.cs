@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.EnemyObjects
 {
-    internal class Boomerang : IEnemy
+    internal class Boomerang : IEnemy, IHitbox
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;
@@ -18,7 +18,7 @@ namespace LOZ.Tools.EnemyObjects
 
         const int attackLength = 3000;
         double attackTime;
-        public void setPosition(int x, int y)
+        public void SetHurtbox(int x, int y)
         {
             enemyPosition.X = x;
             enemyPosition.Y = y;
@@ -30,7 +30,7 @@ namespace LOZ.Tools.EnemyObjects
 
             boomerangSprite = new BoomerangSprite();
         }
-        public Rectangle GetRectangle()
+        public Rectangle GetHurtbox()
         {
             Vector2 wH = boomerangSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);

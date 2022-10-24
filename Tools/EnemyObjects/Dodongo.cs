@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    internal class Dodongo : IEnemy
+    internal class Dodongo : IEnemy, IHitbox
     {
         Vector2 enemyDirection;
         Vector2 enemyPosition;
@@ -30,7 +30,7 @@ namespace LOZ.Tools.PlayerObjects
         double moveCheck;
         double moveTime;
         double moveProb;
-        public void setPosition(int x, int y)
+        public void SetHurtbox(int x, int y)
         {
             enemyPosition.X = x;
             enemyPosition.Y = y;
@@ -62,7 +62,7 @@ namespace LOZ.Tools.PlayerObjects
         {
             //Nothing
         }
-        public Rectangle GetRectangle()
+        public Rectangle GetHurtbox()
         {
             Vector2 wH = dodongoSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);

@@ -7,7 +7,7 @@ using LOZ.Tools.EnemyObjects;
 
 namespace LOZ.Tools
 {
-    internal class Keese : IEnemy
+    internal class Keese : IEnemy, IHitbox
     {
         readonly Random rand = new();
 
@@ -16,7 +16,7 @@ namespace LOZ.Tools
         double moveCounter;
         double timeToMove;
         double moveCheck;
-        public void setPosition(int x, int y)
+        public void SetHurtbox(int x, int y)
         {
             enemyPosition.X = x;
             enemyPosition.Y = y;
@@ -36,7 +36,7 @@ namespace LOZ.Tools
             moveCheck = 0.0;
         }
 
-        public Rectangle GetRectangle()
+        public Rectangle GetHurtbox()
         {
             Vector2 wH = keeseSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);

@@ -26,5 +26,6 @@ interface IEnvironment
 }
 
 interface IHitbox{
-    List<Rectangle> GetHitboxes();
+    Rectangle GetHurtbox();
+    void SetHurtbox(int x, int y);
 }
