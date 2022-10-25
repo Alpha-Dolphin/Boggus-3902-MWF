@@ -20,6 +20,7 @@ namespace LOZ
     public class Game1 : Game
     {
         private List<IEnemy> enemyList;
+        public static List<IEnemy> enemyDieList = new();
         private List<IEnvironment> blockList;
 
         private readonly GraphicsDeviceManager _graphics;
@@ -141,6 +142,7 @@ namespace LOZ
                     if (Collision.Intersects(weapon.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
                 }
             }
+            enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
             foreach (IEnvironment bL in blockList)
             {
                 if (Collision.Intersects(link.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(link, bL);
