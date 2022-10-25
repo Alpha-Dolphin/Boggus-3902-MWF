@@ -1,4 +1,5 @@
-﻿using LOZ.Tools.EnvironmentObjects;
+﻿using LOZ.Tools.Command;
+using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.PlayerObjects;
 using Microsoft.Xna.Framework;
 using System;
@@ -39,7 +40,7 @@ namespace LOZ.Tools
             }
             else if (a is IEnemy)
             {
-                if (b is Link damaged) damaged.Damage();
+                if (b is Link damaged) ((LinkCommand) Game1.linkCommandHandler).ExecuteDamage();
             }
         }
         static void Collide(ICollidable unchanged, ICollidable changed)
