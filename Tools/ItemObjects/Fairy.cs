@@ -29,8 +29,8 @@ namespace LOZ.Tools.ItemObjects
             this.position.Y = y;
             this.sprite = new AnimatedMovingSprite(spritesheet, x, y, new List<Rectangle>() { 
                 new Rectangle(40, 0, (int)DefaultSize.X, (int)DefaultSize.Y), new Rectangle(48, 0, (int)DefaultSize.X, (int)DefaultSize.Y) });
-            this.sprite.SetXScale(2);
-            this.sprite.SetYScale(2);
+            //this.sprite.SetXScale(2);
+            //this.sprite.SetYScale(2);
         }
 
 
