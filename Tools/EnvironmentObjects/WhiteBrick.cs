@@ -29,7 +29,7 @@ namespace LOZ.Tools.EnvironmentObjects
         {
             return new Rectangle(enviroSprite.x, enviroSprite.y, enviroSprite.width, enviroSprite.height);
         }
-        public void SetHurtbox(int x, int y)
+        public void SetHurtbox(Rectangle rect)
         {
         }
     }

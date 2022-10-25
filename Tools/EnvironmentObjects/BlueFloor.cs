@@ -39,7 +39,7 @@ namespace LOZ.Tools.EnvironmentObjects
         {
         }
 
-        public void SetHurtbox(int x, int y)
+        public void SetHurtbox(Rectangle rect)
         {
         }
     }

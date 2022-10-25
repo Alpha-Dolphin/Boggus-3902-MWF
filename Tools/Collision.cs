@@ -22,7 +22,7 @@ namespace LOZ.Tools
             //Link must always be the first object in the list if Link is in the list
 
             //NOTE - If object is of type rectangle, it is a Link weapon hitbox. Bad design, but it will work for now
-            if (a is Rectangle)
+            if (typeof(Weapon) == a.GetType())
             {
                 if (b is IEnemy bEnemy) bEnemy.Die();
             }
@@ -45,16 +45,32 @@ namespace LOZ.Tools
         static void Collide(ICollidable unchanged, ICollidable changed)
         {
             Rectangle zone = Rectangle.Intersect(unchanged.GetHurtbox(), changed.GetHurtbox());
-            //If colliison is taller than wide
+            //If collison is taller than wide
             if (zone.Bottom - zone.Top > zone.Right - zone.Left)
             {
-                if (zone.Right == unchanged.GetHurtbox().Right) changed.SetHurtbox(zone.Right, changed.GetHurtbox().Y);
-                else changed.SetHurtbox(zone.Left - changed.GetHurtbox().Width, changed.GetHurtbox().Y);
+                if (zone.Right == unchanged.GetHurtbox().Right)
+                {
+                    Rectangle temp = new (zone.Right, changed.GetHurtbox().Y, changed.GetHurtbox().Width, changed.GetHurtbox().Height);
+                    changed.SetHurtbox(temp);
+                }
+                else
+                {
+                    Rectangle temp = new (zone.Left - changed.GetHurtbox().Width, changed.GetHurtbox().Y, changed.GetHurtbox().Width, changed.GetHurtbox().Height);
+                    changed.SetHurtbox(temp);
+                }
             }
             else
             {
-                if (zone.Bottom == unchanged.GetHurtbox().Bottom) changed.SetHurtbox(changed.GetHurtbox().X, zone.Bottom);
-                else changed.SetHurtbox(changed.GetHurtbox().X, zone.Top - changed.GetHurtbox().Height);
+                if (zone.Bottom == unchanged.GetHurtbox().Bottom)
+                {
+                    Rectangle temp = new(changed.GetHurtbox().X, zone.Bottom, changed.GetHurtbox().Width, changed.GetHurtbox().Height);
+                    changed.SetHurtbox(temp);
+                }
+                else
+                {
+                    Rectangle temp = new(changed.GetHurtbox().X, zone.Top - changed.GetHurtbox().Height, changed.GetHurtbox().Width, changed.GetHurtbox().Height);
+                    changed.SetHurtbox(temp);
+                }
             }
         }
     }

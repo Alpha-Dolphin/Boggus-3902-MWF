@@ -19,18 +19,18 @@ namespace LOZ.Tools
         double moveCounter;
         double timeToMove;
         double moveCheck;
-        public void SetHurtbox(int x, int y)
+        public void SetHurtbox(Rectangle rect)
         {
-            enemyPosition.X = x;
-            enemyPosition.Y = y;
+            enemyPosition.Y = rect.Y;
+            enemyPosition.X = rect.X;
         }
         public Keese(int X, int Y)
         {
             enemyDirection.X = rand.Next() % 400 / 100 - 2;
             enemyDirection.Y = rand.Next() % 400 / 100 - 2;
 
-            enemyPosition.X = X;
             enemyPosition.Y = Y;
+            enemyPosition.X = X;
 
             keeseSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
                 new List<Rectangle> { new Rectangle(183, 11, 16, 16), new Rectangle(200, 11, 16, 16) });
@@ -53,7 +53,7 @@ namespace LOZ.Tools
 
         public void Die()
         {
-            //lm.enemyList.Remove(this);
+            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
         }
 
         public void Move(GameTime gameTime)

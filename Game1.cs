@@ -22,7 +22,7 @@ namespace LOZ
         private List<IEnemy> enemyList;
         private List<IEnvironment> blockList;
 
-        private GraphicsDeviceManager _graphics;
+        private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
         private IPlayer link;
         private KeyboardController controller;
@@ -31,9 +31,9 @@ namespace LOZ
 
         private List<Room> rooms;
         public static int currentRoom = 3;
-
-        private TextSprite currentRoomIndicator = new TextSprite();
-
+        private TextSprite currentRoomIndicator = new();
+        
+        public static LevelManager lm = new();
         public static Texture2D LINK_SPRITESHEET;
         public static SpriteFont FONT;
         public static Texture2D ENVIRONMENT_SPRITESHEET;
@@ -46,7 +46,6 @@ namespace LOZ
         /* hanging onto to save time later
        private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
         */
-
 
 
         public Game1()
@@ -75,9 +74,10 @@ namespace LOZ
             controller = new KeyboardController();
             mouseController = new MouseController();
 
-            LevelManager lm = new LevelManager();
+
+            lm = new LevelManager();
             lm.initialize();
-            rooms = lm.roomList;
+            rooms = lm.RoomList;
 
             currentRoomIndicator.setPosition(0, 20);
 
@@ -87,8 +87,8 @@ namespace LOZ
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-       
-            
+            Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
+            Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(LinkConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
@@ -102,7 +102,7 @@ namespace LOZ
 
         protected override void Update(GameTime gameTime)
         {
-            //UpdateCollision();
+            UpdateCollision();
 
             /*
              * Update logic here
@@ -111,10 +111,15 @@ namespace LOZ
             base.Update(gameTime);
 
             List<Keys> pressed = controller.Update();
-            mouseController.Update();
+            //mouseController.Update();
 
             linkCommandHandler.Execute(pressed);
             rooms[currentRoom].Update(gameTime);
+            foreach (IEnemy enemy in rooms[currentRoom].enemyList)
+            {
+                enemy.Update(gameTime);
+                enemy.Move(gameTime);
+            }
 
 
             currentRoomIndicator.setText("Current room number: " + currentRoom);
@@ -126,14 +131,15 @@ namespace LOZ
             blockList = rooms[currentRoom].environmentList;
             foreach (IEnemy ene in enemyList)
             {
-                if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(ene, link);
+                if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox())) 
+                    Collision.CollisionChecker(ene, link);
                 foreach (IEnvironment bL in blockList)
                 {
                     if (Collision.Intersects(bL.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(bL, ene);
                 }
-                foreach (Rectangle weapon in link.GetHitboxes())
+                foreach (ICollidable weapon in link.GetHitboxes())
                 {
-                    //if (Collision.Intersects(weapon, ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
+                    if (Collision.Intersects(weapon.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
                 }
             }
             foreach (IEnvironment bL in blockList)
