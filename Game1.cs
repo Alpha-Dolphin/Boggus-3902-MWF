@@ -30,7 +30,7 @@ namespace LOZ
         private ICommand linkCommandHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 14;
+        public static int currentRoom = 3;
         private TextSprite currentRoomIndicator = new();
         
         public static LevelManager lm = new();
@@ -75,7 +75,7 @@ namespace LOZ
             mouseController = new MouseController();
 
 
-            LevelManager lm = new LevelManager();
+            lm = new LevelManager();
             lm.initialize();
             rooms = lm.RoomList;
 
