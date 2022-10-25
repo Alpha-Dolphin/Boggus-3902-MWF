@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace LOZ.Tools.Command
 {
-    internal interface ICommand
+    public interface ICommand
     {
         void Execute(List<Keys> keys);
     }

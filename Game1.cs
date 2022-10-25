@@ -27,7 +27,7 @@ namespace LOZ
         private IPlayer link;
         private KeyboardController controller;
         private MouseController mouseController;
-        private ICommand linkCommandHandler;
+        public static ICommand linkCommandHandler;
 
         private List<Room> rooms;
         public static int currentRoom = 15;

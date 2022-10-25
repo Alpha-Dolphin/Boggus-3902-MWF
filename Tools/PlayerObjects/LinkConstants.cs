@@ -49,8 +49,8 @@ namespace LOZ.Tools.PlayerObjects
         private const int GAME_WIDTH = 256;
         private const int GAME_HEIGHT = 176;
 
-        public const int DEFAULT_X = GAME_WIDTH / 2;
-        public const int DEFAULT_Y = GAME_HEIGHT / 2;
+        public const int DEFAULT_X = 130;
+        public const int DEFAULT_Y = 120;
 
         public static string[] DEFAULT_ITEMS = new string[] { "test" };
         public const LinkConstants.Link_States DEFAULT_STATE = LinkConstants.Link_States.Normal;
