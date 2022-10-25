@@ -165,9 +165,9 @@
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
-				<north id="0"/>
+				<north id="none"/>
 				<south id ="none"/>
-				<east id ="none"/>
+				<east id ="1"/>
 				<west id ="none"/>
 			</neighbors>
 		</room>
@@ -664,8 +664,8 @@
 				<!--id indicates room number-->
 				<north id="none"/>
 				<south id ="none"/>
-				<east id ="2"/>
-				<west id ="4"/>
+				<east id ="4"/>
+				<west id ="2"/>
 			</neighbors>
 		</room>
 		<room num ="4">
