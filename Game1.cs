@@ -122,6 +122,11 @@ namespace LOZ
                 enemy.Move(gameTime);
             }
 
+            if (pressed.Contains(Keys.Q))
+            {
+                this.Exit();
+            }
+
 
             currentRoomIndicator.setText("Current room number: " + currentRoom);
         }
