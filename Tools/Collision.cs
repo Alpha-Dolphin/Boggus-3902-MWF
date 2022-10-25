@@ -48,29 +48,13 @@ namespace LOZ.Tools
             //If collison is taller than wide
             if (zone.Bottom - zone.Top > zone.Right - zone.Left)
             {
-                if (zone.Right == unchanged.GetHurtbox().Right)
-                {
-                    Rectangle temp = new (zone.Right, changed.GetHurtbox().Y, changed.GetHurtbox().Width, changed.GetHurtbox().Height);
-                    changed.SetHurtbox(temp);
-                }
-                else
-                {
-                    Rectangle temp = new (zone.Left - changed.GetHurtbox().Width, changed.GetHurtbox().Y, changed.GetHurtbox().Width, changed.GetHurtbox().Height);
-                    changed.SetHurtbox(temp);
-                }
+                if (zone.Right == unchanged.GetHurtbox().Right) changed.SetHurtbox(new(zone.Right, changed.GetHurtbox().Y, changed.GetHurtbox().Width, changed.GetHurtbox().Height));
+                else changed.SetHurtbox(new(zone.Left - changed.GetHurtbox().Width, changed.GetHurtbox().Y, changed.GetHurtbox().Width, changed.GetHurtbox().Height));
             }
             else
             {
-                if (zone.Bottom == unchanged.GetHurtbox().Bottom)
-                {
-                    Rectangle temp = new(changed.GetHurtbox().X, zone.Bottom, changed.GetHurtbox().Width, changed.GetHurtbox().Height);
-                    changed.SetHurtbox(temp);
-                }
-                else
-                {
-                    Rectangle temp = new(changed.GetHurtbox().X, zone.Top - changed.GetHurtbox().Height, changed.GetHurtbox().Width, changed.GetHurtbox().Height);
-                    changed.SetHurtbox(temp);
-                }
+                if (zone.Bottom == unchanged.GetHurtbox().Bottom) changed.SetHurtbox(new(changed.GetHurtbox().X, zone.Bottom, changed.GetHurtbox().Width, changed.GetHurtbox().Height));
+                else changed.SetHurtbox(new(changed.GetHurtbox().X, zone.Top - changed.GetHurtbox().Height, changed.GetHurtbox().Width, changed.GetHurtbox().Height));
             }
         }
     }

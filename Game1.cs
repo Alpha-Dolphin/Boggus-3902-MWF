@@ -30,7 +30,7 @@ namespace LOZ
         private ICommand linkCommandHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 1;
+        public static int currentRoom = 15;
         private TextSprite currentRoomIndicator = new();
         
         public static LevelManager lm = new();
@@ -131,8 +131,7 @@ namespace LOZ
             blockList = rooms[currentRoom].environmentList;
             foreach (IEnemy ene in enemyList)
             {
-                if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox())) 
-                    Collision.CollisionChecker(ene, link);
+                if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(ene, link);
                 foreach (IEnvironment bL in blockList)
                 {
                     if (Collision.Intersects(bL.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(bL, ene);
