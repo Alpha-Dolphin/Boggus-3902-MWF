@@ -105,8 +105,9 @@ namespace LOZ.Tools.Sprites
             Vector2 currentLocationShift = locationShift[currentFrame / frameRate];
             int currentX = x + (int)currentLocationShift.X;
             int currentY = y + (int)currentLocationShift.Y;
-            destinationRectangle = new Rectangle(currentX*xScale, currentY*yScale, currentRectangle.Width * xScale, currentRectangle.Height * yScale);
-            spriteBatch.Draw(picture, destinationRectangle, currentRectangle, LinkConstants.DEFAULT_PICTURE_COLOR);
+            destinationRectangle = new Rectangle(currentX, currentY, currentRectangle.Width, currentRectangle.Height);
+            spriteBatch.Draw(picture, new Rectangle(destinationRectangle.X*xScale, destinationRectangle.Y*yScale, destinationRectangle.Width*xScale, destinationRectangle.Height*yScale), 
+                currentRectangle, LinkConstants.DEFAULT_PICTURE_COLOR);
         }
 
         public void Update(int x, int y)

@@ -26,8 +26,9 @@ namespace LOZ.Tools.EnvironmentObjects
             Nothing
         }
 
-        public static DoorType[][] ROOM_DOORS = new DoorType[18][]
+        public static DoorType[][] ROOM_DOORS = new DoorType[19][]
         {
+            new DoorType[] { DoorType.Wall, DoorType.Open, DoorType.Locked, DoorType.Closed }, //0
             new DoorType[] { DoorType.Nothing, DoorType.Nothing, DoorType.Nothing, DoorType.Nothing }, //1
             new DoorType[] { DoorType.Wall, DoorType.Wall, DoorType.Locked, DoorType.Wall }, //2
             new DoorType[] { DoorType.Wall, DoorType.Locked, DoorType.Wall, DoorType.Locked }, //3
@@ -89,7 +90,7 @@ namespace LOZ.Tools.EnvironmentObjects
 
         static Rectangle ROOM_EMPTY_BACKGROUND = new Rectangle(ROOM_LEFT_START, ROOM_TOP_START, ROOM_WIDTH, ROOM_HEIGHT);
         static Rectangle ROOM_1_BACKGROUND = new Rectangle(421, 1009, 256, 160);
-        static Rectangle ROOM_2_BACKGROUND = new Rectangle(ROOM_LEFT_START, ROOM_TOP_START + 2 * ROOM_VERTICAL_GAP, ROOM_WIDTH, ROOM_WIDTH);
+        static Rectangle ROOM_2_BACKGROUND = new Rectangle(ROOM_LEFT_START, ROOM_TOP_START + 2 * ROOM_VERTICAL_GAP, ROOM_WIDTH, ROOM_HEIGHT);
         static Rectangle ROOM_3_BACKGROUND = new Rectangle(ROOM_LEFT_START + ROOM_HORIZONTAL_GAP, ROOM_TOP_START + 2 * ROOM_VERTICAL_GAP, ROOM_WIDTH, ROOM_HEIGHT);
         static Rectangle ROOM_4_BACKGROUND = new Rectangle(ROOM_LEFT_START + 3 * ROOM_HORIZONTAL_GAP, ROOM_TOP_START + ROOM_VERTICAL_GAP, ROOM_WIDTH, ROOM_HEIGHT);
         static Rectangle ROOM_5_BACKGROUND = new Rectangle(ROOM_LEFT_START + 4 * ROOM_HORIZONTAL_GAP, ROOM_TOP_START + ROOM_VERTICAL_GAP, ROOM_WIDTH, ROOM_HEIGHT);
@@ -107,7 +108,7 @@ namespace LOZ.Tools.EnvironmentObjects
         static Rectangle ROOM_17_BACKGROUND = new Rectangle(ROOM_LEFT_START + ROOM_HORIZONTAL_GAP, ROOM_TOP_START, ROOM_WIDTH, ROOM_HEIGHT);
         static Rectangle ROOM_18_BACKGROUND = new Rectangle(ROOM_LEFT_START + 2 * ROOM_HORIZONTAL_GAP, ROOM_TOP_START, ROOM_WIDTH, ROOM_HEIGHT);
 
-        public static List<Rectangle> ROOMS = new List<Rectangle>() { ROOM_1_BACKGROUND, ROOM_2_BACKGROUND, ROOM_3_BACKGROUND, ROOM_4_BACKGROUND,
+        public static List<Rectangle> ROOMS = new List<Rectangle>() { ROOM_EMPTY_BACKGROUND, ROOM_1_BACKGROUND, ROOM_2_BACKGROUND, ROOM_3_BACKGROUND, ROOM_4_BACKGROUND,
             ROOM_5_BACKGROUND, ROOM_6_BACKGROUND, ROOM_7_BACKGROUND, ROOM_8_BACKGROUND, ROOM_9_BACKGROUND, ROOM_10_BACKGROUND, ROOM_11_BACKGROUND,
             ROOM_12_BACKGROUND, ROOM_13_BACKGROUND, ROOM_14_BACKGROUND, ROOM_15_BACKGROUND, ROOM_16_BACKGROUND, ROOM_17_BACKGROUND, ROOM_18_BACKGROUND };
 

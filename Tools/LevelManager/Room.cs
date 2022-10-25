@@ -36,18 +36,15 @@ namespace LOZ.Tools.LevelManager
 
         public void SetTextures()
         {
-            if (this.roomNumber > 0)
-            {
                 this.RoomInterior = new Sprite(texture, BackgroundConstants.EXTERIOR_WIDTH,
-                BackgroundConstants.EXTERIOR_WIDTH, new List<Rectangle>() { BackgroundConstants.ROOMS[roomNumber - 1] });
+                BackgroundConstants.EXTERIOR_WIDTH, new List<Rectangle>() { BackgroundConstants.ROOMS[roomNumber] });
                 this.RoomExterior = new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.ROOM_EXTERIOR });
                 this.Doors = new Sprite[4];
 
                 for (int i = 0; i < Doors.Length; i++)
                 {
-                    SetDoorType(BackgroundConstants.ROOM_DOORS[roomNumber - 1][i], i);
+                    SetDoorType(BackgroundConstants.ROOM_DOORS[roomNumber][i], i);
                 }
-            }
         }
 
         private void SetDoorType(BackgroundConstants.DoorType doorType, int side)

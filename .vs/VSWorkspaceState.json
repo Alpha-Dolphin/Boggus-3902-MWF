@@ -1,9 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Management Docs\\Code Reviews",
+    "\\Levels",
     "\\Tools",
-    "\\Tools\\EnvironmentObjects\\Helpers"
+    "\\Tools\\EnvironmentObjects",
+    "\\Tools\\LevelManager"
   ],
   "SelectedNode": "\\Game1.cs",
   "PreviewInSolutionExplorer": false
