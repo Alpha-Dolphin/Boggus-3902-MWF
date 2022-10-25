@@ -111,7 +111,7 @@ namespace LOZ
             base.Update(gameTime);
 
             List<Keys> pressed = controller.Update();
-            //mouseController.Update();
+            mouseController.Update();
 
             linkCommandHandler.Execute(pressed);
             rooms[currentRoom].Update(gameTime);
