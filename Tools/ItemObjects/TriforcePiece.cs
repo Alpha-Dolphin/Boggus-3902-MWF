@@ -29,7 +29,7 @@ namespace LOZ.Tools.ItemObjects
             this.position.X = x;
             this.position.Y = y;
             this.sprite = new Sprite(Game1.ITEM_SPRITESHEET, x, y,
-                new List<Rectangle>() { new Rectangle(257, 3, (int)DefaultSize.X, (int)DefaultSize.Y) });
+                new List<Rectangle>() { new Rectangle(275, 3, (int)DefaultSize.X, (int)DefaultSize.Y) });
         }
 
 

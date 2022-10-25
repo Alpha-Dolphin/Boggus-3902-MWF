@@ -241,7 +241,7 @@
 				<!--id indicates room number-->
 				<north id="2"/>
 				<south id ="none"/>
-				<east id ="none"/>
+				<east id ="1"/>
 				<west id ="none"/>
 			</neighbors>
 		</room>
@@ -400,8 +400,8 @@
 				<!--id indicates room number-->
 				<north id="none"/>
 				<south id ="none"/>
-				<east id ="none"/>
-				<west id ="3"/>
+				<east id ="3"/>
+				<west id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="3">
@@ -738,8 +738,8 @@
 				<!--id indicates room number-->
 				<north id="none"/>
 				<south id ="none"/>
-				<east id ="2"/>
-				<west id ="4"/>
+				<east id ="4"/>
+				<west id ="2"/>
 			</neighbors>
 		</room>
 		<room num ="4">
@@ -753,75 +753,481 @@
 			<barriers>
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						192
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
 						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						112
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						112
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						192
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
 			<!--Every environment elements starting information contained here-->
 			<environment>
 				<!--One tile element for each block that isn't background, type is the name of the object to place-->
-				<tile type ="BlueFloor">
-					<!--Placement info for where object spawns-->
+				<tile type ="WalkableBlueGap">
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
-						0
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						48
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						64
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type="WalkableBlueGap">
+					<xPlacement>
+						80
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						96
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						160
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						176
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						208
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						96
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						176
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						208
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						64
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						96
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						128
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						176
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						208
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						64
+					</xPlacement>
+					<yPlacement>
+						80
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						96
+					</xPlacement>
+					<yPlacement>
+						80
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						80
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						176
+					</xPlacement>
+					<yPlacement>
+						80
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						96
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						64
+					</xPlacement>
+					<yPlacement>
+						96
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						96
+					</xPlacement>
+					<yPlacement>
+						96
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						112
+					</xPlacement>
+					<yPlacement>
+						96
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						96
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						176
+					</xPlacement>
+					<yPlacement>
+						96
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						208
+					</xPlacement>
+					<yPlacement>
+						96
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						64
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						208
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						48
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						64
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						80
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						96
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						160
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						176
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="WalkableBlueGap">
+					<xPlacement>
+						206
+					</xPlacement>
+					<yPlacement>
+						128
 					</yPlacement>
 				</tile>
 			</environment>
 			<enemies>
 				<!--One enemy element for each enemy, type attribute is the name of the object to place-->
-				<enemy type ="Keese">
+				<enemy type ="Stalfos">
 					<!--Placement info for where enemy spawns-->
 					<xPlacement>
-						0
+						57
 					</xPlacement>
 					<yPlacement>
-						0
+						47
+					</yPlacement>
+				</enemy>
+				<enemy type ="Stalfos">
+					<xPlacement>
+						80
+					</xPlacement>
+					<yPlacement>
+						86
+					</yPlacement>
+				</enemy>
+				<enemy type="Stalfos">
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						56
 					</yPlacement>
 				</enemy>
 			</enemies>
 			<NPCs>
-				<!--One enemy element for each NPC, type attribute is the name of the object to place-->
-				<enemy type ="OldMan">
-					<!--Placement info for where NPC spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</enemy>
 			</NPCs>
 			<items>
 				<!--One item element for each item, 
-				type attribute is the name of the object to place, 
-				hidden attribute is for if it renders immediately or after an event-->
-				<item type ="Map" hidden ="false">
-					<!--Placement info for where item spawns-->
+			type attribute is the name of the object to place, 
+			hidden attribute is for if it renders immediately or after an event-->
+				<item type ="Key" hidden ="false">
 					<xPlacement>
-						0
+						196
 					</xPlacement>
 					<yPlacement>
-						0
+						56
 					</yPlacement>
 				</item>
 			</items>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
-				<north id="0"/>
-				<south id ="none"/>
+				<north id="3"/>
+				<south id ="9"/>
 				<east id ="none"/>
 				<west id ="none"/>
 			</neighbors>
@@ -837,76 +1243,288 @@
 			<barriers>
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						192
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
 						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						112
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						112
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						192
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
 			<!--Every environment elements starting information contained here-->
 			<environment>
 				<!--One tile element for each block that isn't background, type is the name of the object to place-->
-				<tile type ="BlueFloor">
+				<tile type ="SquareBlock">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
-						0
+						144
 					</xPlacement>
 					<yPlacement>
-						0
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						160
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						176
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						208
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						176
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						208
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						208
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						96
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						206
+					</xPlacement>
+					<yPlacement>
+						96
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						176
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						208
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						160
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						176
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						128
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						208
+					</xPlacement>
+					<yPlacement>
+						128
 					</yPlacement>
 				</tile>
 			</environment>
 			<enemies>
 				<!--One enemy element for each enemy, type attribute is the name of the object to place-->
-				<enemy type ="Keese">
+				<enemy type ="Aquamentus">
 					<!--Placement info for where enemy spawns-->
 					<xPlacement>
-						0
+						156
 					</xPlacement>
 					<yPlacement>
-						0
+						64
 					</yPlacement>
 				</enemy>
 			</enemies>
 			<NPCs>
-				<!--One enemy element for each NPC, type attribute is the name of the object to place-->
-				<enemy type ="OldMan">
-					<!--Placement info for where NPC spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</enemy>
 			</NPCs>
 			<items>
 				<!--One item element for each item, 
 				type attribute is the name of the object to place, 
 				hidden attribute is for if it renders immediately or after an event-->
-				<item type ="Map" hidden ="false">
+				<item type ="HeartContainer" hidden ="true">
 					<!--Placement info for where item spawns-->
 					<xPlacement>
-						0
+						192
 					</xPlacement>
 					<yPlacement>
-						0
+						83
+					</yPlacement>
+				</item>
+				<item type ="Fairy" hidden ="true">
+					<!--Placement info for where item spawns-->
+					<xPlacement>
+						180
+					</xPlacement>
+					<yPlacement>
+						83
 					</yPlacement>
 				</item>
 			</items>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
-				<north id="0"/>
-				<south id ="none"/>
-				<east id ="none"/>
+				<north id="none"/>
+				<south id ="11"/>
+				<east id ="6"/>
 				<west id ="none"/>
 			</neighbors>
 		</room>
@@ -921,77 +1539,342 @@
 			<barriers>
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						192
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
 						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						112
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						112
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						192
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
 			<!--Every environment elements starting information contained here-->
 			<environment>
 				<!--One tile element for each block that isn't background, type is the name of the object to place-->
-				<tile type ="BlueFloor">
+				<tile type ="SquareBlock">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
-						0
+						48
 					</xPlacement>
 					<yPlacement>
-						0
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						64
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						80
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						96
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						112
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						128
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						160
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						176
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						48
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						48
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="Statue">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						96
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="Statue">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						64
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						48
+					</xPlacement>
+					<yPlacement>
+						80
+					</yPlacement>
+				</tile>
+				<tile type ="Statue">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						80
+					</xPlacement>
+					<yPlacement>
+						80
+					</yPlacement>
+				</tile>
+				<tile type ="Statue">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						160
+					</xPlacement>
+					<yPlacement>
+						80
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						80
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						48
+					</xPlacement>
+					<yPlacement>
+						96
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						96
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						48
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						64
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						80
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						96
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						160
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						176
+					</xPlacement>
+					<yPlacement>
+						112
+					</yPlacement>
+				</tile>
+				<tile type ="SquareBlock">
+					<!--Placement info for where object spawns-->
+					<xPlacement>
+						192
+					</xPlacement>
+					<yPlacement>
+						112
 					</yPlacement>
 				</tile>
 			</environment>
 			<enemies>
-				<!--One enemy element for each enemy, type attribute is the name of the object to place-->
-				<enemy type ="Keese">
-					<!--Placement info for where enemy spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</enemy>
 			</enemies>
 			<NPCs>
-				<!--One enemy element for each NPC, type attribute is the name of the object to place-->
-				<enemy type ="OldMan">
-					<!--Placement info for where NPC spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</enemy>
 			</NPCs>
 			<items>
 				<!--One item element for each item, 
 				type attribute is the name of the object to place, 
 				hidden attribute is for if it renders immediately or after an event-->
-				<item type ="Map" hidden ="false">
+				<item type ="TriforcePiece" hidden ="false">
 					<!--Placement info for where item spawns-->
 					<xPlacement>
-						0
+						123
 					</xPlacement>
 					<yPlacement>
-						0
+						87
 					</yPlacement>
 				</item>
 			</items>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
-				<north id="0"/>
+				<north id="none"/>
 				<south id ="none"/>
 				<east id ="none"/>
-				<west id ="none"/>
+				<west id ="5"/>
 			</neighbors>
 		</room>
 		<room num ="7">
@@ -1000,81 +1883,109 @@
 				true
 			</border>
 			<!--For if you want to paint a static background that tiles are rendered over-->
-			<background draw ="true" template ="default"/>
+			<background draw ="false" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						192
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
 						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						112
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						112
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						192
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
 			<!--Every environment elements starting information contained here-->
 			<environment>
-				<!--One tile element for each block that isn't background, type is the name of the object to place-->
-				<tile type ="BlueFloor">
-					<!--Placement info for where object spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</tile>
 			</environment>
 			<enemies>
-				<!--One enemy element for each enemy, type attribute is the name of the object to place-->
-				<enemy type ="Keese">
-					<!--Placement info for where enemy spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</enemy>
 			</enemies>
 			<NPCs>
 				<!--One enemy element for each NPC, type attribute is the name of the object to place-->
 				<enemy type ="OldMan">
 					<!--Placement info for where NPC spawns-->
 					<xPlacement>
-						0
+						121
 					</xPlacement>
 					<yPlacement>
-						0
+						65
+					</yPlacement>
+				</enemy>
+				<enemy type ="OldManFlame">
+					<!--Placement info for where NPC spawns-->
+					<xPlacement>
+						168
+					</xPlacement>
+					<yPlacement>
+						65
+					</yPlacement>
+				</enemy>
+				<enemy type ="OldManFlame">
+					<!--Placement info for where NPC spawns-->
+					<xPlacement>
+						72
+					</xPlacement>
+					<yPlacement>
+						65
 					</yPlacement>
 				</enemy>
 			</NPCs>
 			<items>
-				<!--One item element for each item, 
-				type attribute is the name of the object to place, 
-				hidden attribute is for if it renders immediately or after an event-->
-				<item type ="Map" hidden ="false">
-					<!--Placement info for where item spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</item>
 			</items>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
-				<north id="0"/>
+				<north id="none"/>
 				<south id ="none"/>
-				<east id ="none"/>
+				<east id ="8"/>
 				<west id ="none"/>
 			</neighbors>
 		</room>
@@ -1089,77 +2000,115 @@
 			<barriers>
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						192
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
 						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						112
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						112
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						192
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
 			<!--Every environment elements starting information contained here-->
 			<environment>
 				<!--One tile element for each block that isn't background, type is the name of the object to place-->
-				<tile type ="BlueFloor">
+				<tile type ="SquareBlock">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
-						0
+						112
 					</xPlacement>
 					<yPlacement>
-						0
+						80
 					</yPlacement>
 				</tile>
 			</environment>
 			<enemies>
 				<!--One enemy element for each enemy, type attribute is the name of the object to place-->
-				<enemy type ="Keese">
+				<enemy type ="Slime">
 					<!--Placement info for where enemy spawns-->
 					<xPlacement>
-						0
+						84
 					</xPlacement>
 					<yPlacement>
-						0
+						83
+					</yPlacement>
+				</enemy>
+				<enemy type ="Slime">
+					<!--Placement info for where enemy spawns-->
+					<xPlacement>
+						116
+					</xPlacement>
+					<yPlacement>
+						51
+					</yPlacement>
+				</enemy>
+				<enemy type ="Slime">
+					<!--Placement info for where enemy spawns-->
+					<xPlacement>
+						116
+					</xPlacement>
+					<yPlacement>
+						114
 					</yPlacement>
 				</enemy>
 			</enemies>
 			<NPCs>
-				<!--One enemy element for each NPC, type attribute is the name of the object to place-->
-				<enemy type ="OldMan">
-					<!--Placement info for where NPC spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</enemy>
 			</NPCs>
 			<items>
-				<!--One item element for each item, 
-				type attribute is the name of the object to place, 
-				hidden attribute is for if it renders immediately or after an event-->
-				<item type ="Map" hidden ="false">
-					<!--Placement info for where item spawns-->
-					<xPlacement>
-						0
-					</xPlacement>
-					<yPlacement>
-						0
-					</yPlacement>
-				</item>
 			</items>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
-				<north id="0"/>
+				<north id="none"/>
 				<south id ="none"/>
-				<east id ="none"/>
-				<west id ="none"/>
+				<east id ="9"/>
+				<west id ="7"/>
 			</neighbors>
 		</room>
 		<room num ="9">

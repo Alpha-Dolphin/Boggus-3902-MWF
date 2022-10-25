@@ -12,10 +12,7 @@ namespace LOZ.Tools.ItemObjects
 {
     internal class ItemFactory
     {
-        private int currentItemNum = 0;
-        private int previousItemNum = 0;
         private IItem currentItem;
-        private int numItems = 15;
         private int defaultX = 600;
         private int defaultY = 350;
         private Texture2D spriteSheet;
