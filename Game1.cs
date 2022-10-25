@@ -30,7 +30,7 @@ namespace LOZ
         private ICommand linkCommandHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 3;
+        public static int currentRoom = 1;
         private TextSprite currentRoomIndicator = new();
         
         public static LevelManager lm = new();
