@@ -17,6 +17,7 @@ public enum Environment
     BombedWallOpening,
     KeyholeLockedDoor,
     DiamondSymbolLockedDoor,
+    InvisibleBarrier,
 }
 
 public enum Enemy
