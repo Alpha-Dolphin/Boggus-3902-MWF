@@ -35,5 +35,22 @@ namespace LOZ.Tools.EnemyObjects
         private static Rectangle STALFOS1 = new Rectangle(1, 59, 16, 16);
         private static Rectangle STALFOS2 = new Rectangle(897, 59, 16, 16);
         public static List<Rectangle> STALFOS = new List<Rectangle>() { STALFOS1, STALFOS2 };
+
+
+        private static Rectangle DODONGO_UP1 = new Rectangle(35, 58, 16, 16);
+        private static Rectangle DODONGO_UP2 = new Rectangle(52, 58, 16, 16);
+        private static Rectangle DODONGO_LEFT1 = new Rectangle(887, 58, 16, 16);
+        private static Rectangle DODONGO_LEFT2 = new Rectangle(854, 58, 16, 16);
+        private static Rectangle DODONGO_LEFT3 = new Rectangle(821, 58, 16, 16);
+        private static Rectangle DODONGO_RIGHT1 = new Rectangle(69, 58, 32, 16);
+        private static Rectangle DODONGO_RIGHT2 = new Rectangle(102, 58, 16, 16);
+        private static Rectangle DODONGO_RIGHT3 = new Rectangle(135, 58, 16, 16);
+        private static Rectangle DODONGO_DOWN1 = new Rectangle(1, 58, 16, 16);
+        private static Rectangle DODONGO_DOWN2 = new Rectangle(18, 58, 16, 16);
+
+        public static List<Rectangle> DODONGO_UP = new List<Rectangle>() { DODONGO_UP1, DODONGO_UP2 };
+        public static List<Rectangle> DODONGO_LEFT = new List<Rectangle>() { DODONGO_LEFT1, DODONGO_LEFT2, DODONGO_LEFT3 };
+        public static List<Rectangle> DODONGO_RIGHT = new List<Rectangle>() { DODONGO_RIGHT1, DODONGO_RIGHT2, DODONGO_RIGHT3 };
+        public static List<Rectangle> DODONGO_DOWN = new List<Rectangle>() { DODONGO_DOWN1, DODONGO_DOWN2 };
     }
 }

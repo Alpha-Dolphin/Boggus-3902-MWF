@@ -25,14 +25,14 @@ namespace LOZ.Tools.PlayerObjects
             this.projectileType = projectileType;
         }
 
-        public IProjectile CreateProjectile(Vector2 velocity)
+        public IProjectile CreateProjectile(Vector2 velocity, ICharacter owner)
         {
             switch (this.projectileType)
             {
                 case PlayerConstants.Link_Projectiles.SwordBeam: return new Swordbeam(this.spriteSheet, Link.position, PlayerConstants.PROJECTILE_SPEED * velocity);
                 case PlayerConstants.Link_Projectiles.WoodArrow: return new ArrowProjectile(this.spriteSheet, Link.position, PlayerConstants.PROJECTILE_SPEED * velocity, true);
                 case PlayerConstants.Link_Projectiles.BlueArrow: return new ArrowProjectile(this.spriteSheet, Link.position, PlayerConstants.PROJECTILE_SPEED * velocity, false);
-                case PlayerConstants.Link_Projectiles.Boomerang: return new Boomerang(this.spriteSheet, Link.position, PlayerConstants.BOOMERANG_SPEED * velocity);
+                case PlayerConstants.Link_Projectiles.Boomerang: return new Boomerang(this.spriteSheet, owner, Link.position, PlayerConstants.BOOMERANG_SPEED * velocity);
                 case PlayerConstants.Link_Projectiles.CandleFlame: return new CandleFlame(this.spriteSheet, Link.position, PlayerConstants.PROJECTILE_SPEED * velocity);
                 case PlayerConstants.Link_Projectiles.Bomb: return new Bomb(this.spriteSheet, Link.position, new Vector2(0, 0));
                 default: return null;

@@ -13,14 +13,16 @@ namespace LOZ.Tools.PlayerObjects
     {
         private Vector2 position;
         private Vector2 velocity;
+        private ICharacter owner;
         private AnimatedMovingSprite sprite;
         private bool movingAway = true;
 
         private bool exists = true;
 
         public Boomerang() { }
-        public Boomerang(Texture2D spriteSheet, Vector2 position, Vector2 velocity)
+        public Boomerang(Texture2D spriteSheet, ICharacter owner, Vector2 position, Vector2 velocity)
         {
+            this.owner = owner;
             this.position = position;
             this.velocity = velocity;
 
@@ -88,19 +90,19 @@ namespace LOZ.Tools.PlayerObjects
                 }
             } else
             {
-                MoveToLink();
+                MoveToOwner();
             }
         }
 
-        private void MoveToLink()
+        private void MoveToOwner()
         {
-            this.velocity += (Link.position - this.position) / PlayerConstants.BOOMERANG_RETURNSPEEDCHANGE;
+            this.velocity += (new Vector2(owner.GetHurtbox().X, owner.GetHurtbox().Y) - this.position) / PlayerConstants.BOOMERANG_RETURNSPEEDCHANGE;
         }
 
         private bool CloseEnough()
         {
-            Vector2 centerOfLink = new Vector2(Link.position.X + PlayerConstants.LINK_MOVEDOWN_FRAME1.Width / 2, Link.position.Y + PlayerConstants.LINK_MOVEDOWN_FRAME1.Height / 2);
-            Vector2 howFar = (centerOfLink - this.position);
+            Vector2 centerOfOwner = new Vector2(owner.GetHurtbox().X + owner.GetHurtbox().Width / 2, owner.GetHurtbox().Y + owner.GetHurtbox().Height / 2);
+            Vector2 howFar = (centerOfOwner - this.position);
             return howFar.Length() <= PlayerConstants.BOOMERANG_RETURNRANGE;
         }
 

@@ -129,23 +129,20 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Move(PlayerConstants.Direction direction)
         {
-            if (this.invincibilityFrames == 0)
+            int xDiff = 0;
+            int yDiff = 0;
+
+            switch (direction)
             {
-                int xDiff = 0;
-                int yDiff = 0;
-
-                switch (direction)
-                {
-                    case PlayerConstants.Direction.Left: xDiff = -1; break;
-                    case PlayerConstants.Direction.Right: xDiff = 1; break;
-                    case PlayerConstants.Direction.Down: yDiff = 1; break;
-                    case PlayerConstants.Direction.Up: yDiff = -1; break;
-                    default: xDiff = 0; yDiff = 0; break;
-                }
-
-                //Boundary check
-                Link.position += new Vector2(xDiff, yDiff);
+                case PlayerConstants.Direction.Left: xDiff = -1; break;
+                case PlayerConstants.Direction.Right: xDiff = 1; break;
+                case PlayerConstants.Direction.Down: yDiff = 1; break;
+                case PlayerConstants.Direction.Up: yDiff = -1; break;
+                default: xDiff = 0; yDiff = 0; break;
             }
+
+            //Boundary check
+            Link.position += new Vector2(xDiff, yDiff);
         }
 
         public void Attack()
@@ -201,7 +198,7 @@ namespace LOZ.Tools.PlayerObjects
                 }
 
                 this.projectileFactory.Update(projectileType);
-                this.projectiles.Add(this.projectileFactory.CreateProjectile(velocity));
+                this.projectiles.Add(this.projectileFactory.CreateProjectile(velocity, this));
             }
         }
 

@@ -21,7 +21,8 @@ namespace LOZ.Tools
         //readonly GoriyaSprite goriyaSprite;
         AnimatedMovingSprite goriyaSprite;
 
-        readonly EnemyObjects.Boomerang boomerang;
+        //readonly EnemyObjects.Boomerang boomerang;
+        PlayerObjects.Boomerang boomerang;
 
         readonly Random rand;
 
@@ -44,8 +45,6 @@ namespace LOZ.Tools
 
             rand = new();
 
-            boomerang = new EnemyObjects.Boomerang();
-
             goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
                 EnemyConstants.GORIYA_DOWN);
 
@@ -60,7 +59,17 @@ namespace LOZ.Tools
 
         public void Attack(GameTime gameTime)
         {
-            boomerang.Activate(enemyDirection, enemyPosition);
+            Vector2 velocity = new Vector2(0, 0);
+
+            switch (this.direction)
+            {
+                case EnemyConstants.Direction.Up: velocity = new Vector2(0, -1); break;
+                case EnemyConstants.Direction.Left: velocity = new Vector2(-1, 0); break;
+                case EnemyConstants.Direction.Right: velocity = new Vector2(1, 0); break;
+                case EnemyConstants.Direction.Down: velocity = new Vector2(0, 1); break;
+            }
+
+            boomerang = new PlayerObjects.Boomerang(Game1.LINK_SPRITESHEET, this, enemyPosition, PlayerConstants.BOOMERANG_SPEED * velocity);
         }
 
         public void Die()
@@ -71,14 +80,14 @@ namespace LOZ.Tools
         public void Move(GameTime gameTime)
         {
             EnemyConstants.Direction temp;
-            if (boomerang.GetAttackTime() < 0.0)
+            if (boomerang == null)
             {
                 Vector2 delta = new Vector2((float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25), (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25));
-                if (delta.X != 0)
+                if (Math.Abs(delta.X) > 0)
                 {
                     temp = delta.X > 0 ? EnemyConstants.Direction.Right : EnemyConstants.Direction.Left;
                 }
-                else if (delta.Y != 0)
+                else if (Math.Abs(delta.Y) > 0)
                 {
 
                     temp = delta.Y > 0 ? EnemyConstants.Direction.Down : EnemyConstants.Direction.Up;
@@ -98,21 +107,18 @@ namespace LOZ.Tools
         public void Draw(SpriteBatch _spriteBatch)
         {
             goriyaSprite.Draw(_spriteBatch);
-            if (boomerang.GetAttackTime() > 0.0) boomerang.Draw(_spriteBatch);
+            if (boomerang != null) boomerang.Draw(_spriteBatch);
         }
 
         public void Update(GameTime gameTime)
         {
             goriyaSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
-            if (boomerang.GetAttackTime() < 0.0)
+            MovementUpdate(gameTime);
+            AttackUpdate(gameTime);
+            if (boomerang != null)
             {
-                MovementUpdate(gameTime);
-                AttackUpdate(gameTime);
-                boomerang.SetHurtbox(new Rectangle(-128,-128, -128, -128));
-            }
-            else
-            {
-                boomerang.Update(gameTime);
+                boomerang.Update();
+                if (!boomerang.stillExists()) boomerang = null;
             }
 
             if (directionChange)

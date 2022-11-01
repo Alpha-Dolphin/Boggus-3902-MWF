@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    internal interface IPlayer : ICollidable
+    internal interface IPlayer : ICollidable, ICharacter
     {
         void Move(PlayerConstants.Direction direction);
 
