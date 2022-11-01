@@ -11,30 +11,36 @@ using Microsoft.Xna.Framework.Input;
 public class MouseController //: IController
 {
     MouseState mouseState;
+    bool leftLastPressed = false;
+    bool rightLastPressed = false;
     public DateTime lastInputTime = DateTime.Now;
     public void Update()
     {
         mouseState = Mouse.GetState();
-        
 
-        if (mouseState.LeftButton==ButtonState.Pressed)
+
+        if (mouseState.LeftButton == ButtonState.Pressed)
         {
-            if ((int)(DateTime.Now - lastInputTime).TotalSeconds > 2)
+            if (!leftLastPressed)
             {
                 Game1.currentRoom++;
                 if (Game1.currentRoom > 18) Game1.currentRoom -= 19;
-                lastInputTime = DateTime.Now;
             }
+
+            leftLastPressed = true;
         }
+        else leftLastPressed = false;
         if (mouseState.RightButton == ButtonState.Pressed)
         {
-            if ((int)(DateTime.Now - lastInputTime).TotalSeconds > 2)
+            if (!rightLastPressed)
             {
                 Game1.currentRoom--;
                 if (Game1.currentRoom < 0) Game1.currentRoom += 19;
-                lastInputTime = DateTime.Now;
             }
+
+            rightLastPressed = true;
         }
+        else rightLastPressed = false;
     }
 
 
