@@ -44,19 +44,19 @@ namespace LOZ.Tools.PlayerObjects
                 {
                     if (wood)
                         sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                            LinkConstants.ARROW_WOOD_UP_FRAMES, LinkConstants.ARROW_UP_LOCATIONSHIFT);
+                            PlayerConstants.ARROW_WOOD_UP_FRAMES, PlayerConstants.ARROW_UP_LOCATIONSHIFT);
                     else
                         sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                            LinkConstants.ARROW_BLUE_UP_FRAMES, LinkConstants.ARROW_UP_LOCATIONSHIFT);
+                            PlayerConstants.ARROW_BLUE_UP_FRAMES, PlayerConstants.ARROW_UP_LOCATIONSHIFT);
                 }
                 else
                 {
                     if(wood)
                         sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                            LinkConstants.ARROW_WOOD_DOWN_FRAMES, LinkConstants.ARROW_DOWN_LOCATIONSHIFT);
+                            PlayerConstants.ARROW_WOOD_DOWN_FRAMES, PlayerConstants.ARROW_DOWN_LOCATIONSHIFT);
                     else
                         sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                            LinkConstants.ARROW_BLUE_DOWN_FRAMES, LinkConstants.ARROW_DOWN_LOCATIONSHIFT);
+                            PlayerConstants.ARROW_BLUE_DOWN_FRAMES, PlayerConstants.ARROW_DOWN_LOCATIONSHIFT);
                 }
             }
             else
@@ -65,19 +65,19 @@ namespace LOZ.Tools.PlayerObjects
                 {
                     if (wood)
                         sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                            LinkConstants.ARROW_WOOD_LEFT_FRAMES, LinkConstants.ARROW_LEFT_LOCATIONSHIFT);
+                            PlayerConstants.ARROW_WOOD_LEFT_FRAMES, PlayerConstants.ARROW_LEFT_LOCATIONSHIFT);
                     else
                         sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                            LinkConstants.ARROW_BLUE_LEFT_FRAMES, LinkConstants.ARROW_LEFT_LOCATIONSHIFT);
+                            PlayerConstants.ARROW_BLUE_LEFT_FRAMES, PlayerConstants.ARROW_LEFT_LOCATIONSHIFT);
                 }
                 else
                 {
                     if (wood)
                         sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                            LinkConstants.ARROW_WOOD_RIGHT_FRAMES, LinkConstants.ARROW_RIGHT_LOCATIONSHIFT);
+                            PlayerConstants.ARROW_WOOD_RIGHT_FRAMES, PlayerConstants.ARROW_RIGHT_LOCATIONSHIFT);
                     else
                         sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                            LinkConstants.ARROW_BLUE_RIGHT_FRAMES, LinkConstants.ARROW_RIGHT_LOCATIONSHIFT);
+                            PlayerConstants.ARROW_BLUE_RIGHT_FRAMES, PlayerConstants.ARROW_RIGHT_LOCATIONSHIFT);
                 }
             }
         }
@@ -89,7 +89,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public Vector2 Update()
         {
-            if ((this.originalPosition - this.position).Length() > LinkConstants.MAX_SWORDBEAM_RANGE) this.Destroy();
+            if ((this.originalPosition - this.position).Length() > PlayerConstants.MAX_SWORDBEAM_RANGE) this.Destroy();
 
             this.position += velocity;
 
@@ -98,9 +98,9 @@ namespace LOZ.Tools.PlayerObjects
             return this.position;
         }
 
-        public LinkConstants.Link_Projectiles GetProjectileType()
+        public PlayerConstants.Link_Projectiles GetProjectileType()
         {
-            return wood ? LinkConstants.Link_Projectiles.WoodArrow : LinkConstants.Link_Projectiles.BlueArrow;
+            return wood ? PlayerConstants.Link_Projectiles.WoodArrow : PlayerConstants.Link_Projectiles.BlueArrow;
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -10,7 +10,7 @@ namespace LOZ.Tools.PlayerObjects
 {
     internal interface IPlayer : ICollidable
     {
-        void Move(LinkConstants.Direction direction);
+        void Move(PlayerConstants.Direction direction);
 
         void Attack();
 

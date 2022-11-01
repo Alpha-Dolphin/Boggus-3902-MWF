@@ -8,7 +8,7 @@ using LOZ.Tools.Sprites;
 
 namespace LOZ.Tools.EnvironmentObjects
 {
-    internal class BackgroundConstants
+    internal class EnvironmentConstants
     {
         public static int SCREEN_WIDTH;
         public static int SCREEN_HEIGHT;

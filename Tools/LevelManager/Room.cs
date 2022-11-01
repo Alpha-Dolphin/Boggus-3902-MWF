@@ -36,26 +36,26 @@ namespace LOZ.Tools.LevelManager
 
         public void SetTextures()
         {
-                this.RoomInterior = new Sprite(texture, BackgroundConstants.EXTERIOR_WIDTH,
-                BackgroundConstants.EXTERIOR_WIDTH, new List<Rectangle>() { BackgroundConstants.ROOMS[roomNumber] });
-                this.RoomExterior = new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.ROOM_EXTERIOR });
+                this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
+                EnvironmentConstants.EXTERIOR_WIDTH, new List<Rectangle>() { EnvironmentConstants.ROOMS[roomNumber] });
+                this.RoomExterior = new Sprite(texture, 0, 0, new List<Rectangle>() { EnvironmentConstants.ROOM_EXTERIOR });
                 this.Doors = new Sprite[4];
 
                 for (int i = 0; i < Doors.Length; i++)
                 {
-                    SetDoorType(BackgroundConstants.ROOM_DOORS[roomNumber][i], i);
+                    SetDoorType(EnvironmentConstants.ROOM_DOORS[roomNumber][i], i);
                 }
         }
 
-        private void SetDoorType(BackgroundConstants.DoorType doorType, int side)
+        private void SetDoorType(EnvironmentConstants.DoorType doorType, int side)
         {
             switch (doorType)
             {
-                case BackgroundConstants.DoorType.Wall: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.DOOR_WALL[side] }), side); break;
-                case BackgroundConstants.DoorType.Open: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.DOOR_OPEN[side] }), side); break;
-                case BackgroundConstants.DoorType.Locked: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.DOOR_LOCKED[side] }), side); break;
-                case BackgroundConstants.DoorType.Closed: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.DOOR_CLOSED[side] }), side); break;
-                case BackgroundConstants.DoorType.Hole: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.DOOR_HOLE[side] }), side); break;
+                case EnvironmentConstants.DoorType.Wall: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { EnvironmentConstants.DOOR_WALL[side] }), side); break;
+                case EnvironmentConstants.DoorType.Open: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { EnvironmentConstants.DOOR_OPEN[side] }), side); break;
+                case EnvironmentConstants.DoorType.Locked: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { EnvironmentConstants.DOOR_LOCKED[side] }), side); break;
+                case EnvironmentConstants.DoorType.Closed: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { EnvironmentConstants.DOOR_CLOSED[side] }), side); break;
+                case EnvironmentConstants.DoorType.Hole: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { EnvironmentConstants.DOOR_HOLE[side] }), side); break;
             }
         }
 
@@ -63,12 +63,12 @@ namespace LOZ.Tools.LevelManager
         {
             switch (side)
             {
-                case 0: this.Doors[side] = doorSprite.SetPosition(BackgroundConstants.ROOM_EXTERIOR.Width / 2 - BackgroundConstants.DOOR_WIDTH / 2, 0); break;
-                case 1: this.Doors[side] = doorSprite.SetPosition(0, BackgroundConstants.ROOM_EXTERIOR.Height / 2 - BackgroundConstants.DOOR_WIDTH / 2); break;
-                case 2: this.Doors[side] = doorSprite.SetPosition(BackgroundConstants.ROOM_EXTERIOR.Width - BackgroundConstants.DOOR_WIDTH,
-                    BackgroundConstants.ROOM_EXTERIOR.Height / 2 - BackgroundConstants.DOOR_WIDTH / 2); break;
-                case 3: this.Doors[side] = doorSprite.SetPosition(BackgroundConstants.ROOM_EXTERIOR.Width / 2 - BackgroundConstants.DOOR_WIDTH / 2, 
-                    BackgroundConstants.ROOM_EXTERIOR.Height - BackgroundConstants.DOOR_WIDTH); break;
+                case 0: this.Doors[side] = doorSprite.SetPosition(EnvironmentConstants.ROOM_EXTERIOR.Width / 2 - EnvironmentConstants.DOOR_WIDTH / 2, 0); break;
+                case 1: this.Doors[side] = doorSprite.SetPosition(0, EnvironmentConstants.ROOM_EXTERIOR.Height / 2 - EnvironmentConstants.DOOR_WIDTH / 2); break;
+                case 2: this.Doors[side] = doorSprite.SetPosition(EnvironmentConstants.ROOM_EXTERIOR.Width - EnvironmentConstants.DOOR_WIDTH,
+                    EnvironmentConstants.ROOM_EXTERIOR.Height / 2 - EnvironmentConstants.DOOR_WIDTH / 2); break;
+                case 3: this.Doors[side] = doorSprite.SetPosition(EnvironmentConstants.ROOM_EXTERIOR.Width / 2 - EnvironmentConstants.DOOR_WIDTH / 2, 
+                    EnvironmentConstants.ROOM_EXTERIOR.Height - EnvironmentConstants.DOOR_WIDTH); break;
             }
         }
 
@@ -86,8 +86,8 @@ namespace LOZ.Tools.LevelManager
             {
                 int tempX = Sprite.xScale;
                 int tempY = Sprite.yScale;
-                Sprite.xScale = BackgroundConstants.SCREEN_WIDTH / this.RoomInterior.width;
-                Sprite.yScale = BackgroundConstants.SCREEN_HEIGHT / this.RoomInterior.height;
+                Sprite.xScale = EnvironmentConstants.SCREEN_WIDTH / this.RoomInterior.width;
+                Sprite.yScale = EnvironmentConstants.SCREEN_HEIGHT / this.RoomInterior.height;
                 this.RoomInterior.SetPosition(0, 0);
                 this.RoomInterior.Draw(spriteBatch);
                 Sprite.xScale = tempX;

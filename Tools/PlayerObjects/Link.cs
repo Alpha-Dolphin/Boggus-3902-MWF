@@ -32,19 +32,19 @@ namespace LOZ.Tools.PlayerObjects
         private Texture2D spriteSheet = Game1.LINK_SPRITESHEET;
         private AnimatedMovingSprite sprite;
 
-        private LinkConstants.Link_States state;
-        private LinkConstants.Direction direction;
+        private PlayerConstants.Link_States state;
+        private PlayerConstants.Direction direction;
 
         public Link()
         {
             Link.position = new Vector2(0, 0);
             items = new string[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 0" };
             currentItem = items[0];
-            health = LinkConstants.MAX_HEALTH;
-            direction = LinkConstants.Direction.Up;
+            health = PlayerConstants.MAX_HEALTH;
+            direction = PlayerConstants.Direction.Up;
         }
 
-        public Link(int xPos, int yPos, string[] items, int health, LinkConstants.Link_States state, LinkConstants.Direction direction, SpriteFont font)
+        public Link(int xPos, int yPos, string[] items, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction, SpriteFont font)
         {
             Link.position = new Vector2(xPos, yPos);
             this.items = items;
@@ -55,7 +55,7 @@ namespace LOZ.Tools.PlayerObjects
             this.state = state;
             this.direction = direction;
             this.hitboxes = new List<Rectangle>();
-            this.hurtbox = new Rectangle(xPos, yPos, LinkConstants.LINK_MOVEDOWN_FRAME1.Width, LinkConstants.LINK_MOVEDOWN_FRAME1.Height);
+            this.hurtbox = new Rectangle(xPos, yPos, PlayerConstants.LINK_MOVEDOWN_FRAME1.Width, PlayerConstants.LINK_MOVEDOWN_FRAME1.Height);
 
             this.healthText.setFont(font);
             this.healthText.setPosition(0, 0);
@@ -68,11 +68,11 @@ namespace LOZ.Tools.PlayerObjects
         {
             switch (this.state)
             {
-                case LinkConstants.Link_States.Normal: CreateStationarySprite(); break;
-                case LinkConstants.Link_States.Walking: CreateWalkingSprite(); break;
-                case LinkConstants.Link_States.Attacking: CreateAttackingSprite(); break;
-                case LinkConstants.Link_States.Damaged: CreateDamagedSprite(); break;
-                case LinkConstants.Link_States.Dead: break;
+                case PlayerConstants.Link_States.Normal: CreateStationarySprite(); break;
+                case PlayerConstants.Link_States.Walking: CreateWalkingSprite(); break;
+                case PlayerConstants.Link_States.Attacking: CreateAttackingSprite(); break;
+                case PlayerConstants.Link_States.Damaged: CreateDamagedSprite(); break;
+                case PlayerConstants.Link_States.Dead: break;
 
             }
         }
@@ -82,10 +82,10 @@ namespace LOZ.Tools.PlayerObjects
             Rectangle frame = new Rectangle();
             switch (this.direction)
             {
-                case LinkConstants.Direction.Up: frame = LinkConstants.LINK_MOVEUP_FRAME1; break;
-                case LinkConstants.Direction.Left: frame = LinkConstants.LINK_MOVELEFT_FRAME1; break;
-                case LinkConstants.Direction.Right: frame = LinkConstants.LINK_MOVERIGHT_FRAME1; break;
-                case LinkConstants.Direction.Down: frame = LinkConstants.LINK_MOVEDOWN_FRAME1; break;
+                case PlayerConstants.Direction.Up: frame = PlayerConstants.LINK_MOVEUP_FRAME1; break;
+                case PlayerConstants.Direction.Left: frame = PlayerConstants.LINK_MOVELEFT_FRAME1; break;
+                case PlayerConstants.Direction.Right: frame = PlayerConstants.LINK_MOVERIGHT_FRAME1; break;
+                case PlayerConstants.Direction.Down: frame = PlayerConstants.LINK_MOVEDOWN_FRAME1; break;
             }
 
             List<Rectangle> frames = new List<Rectangle>();
@@ -99,10 +99,10 @@ namespace LOZ.Tools.PlayerObjects
             List<Rectangle> frames = new List<Rectangle>();
             switch (this.direction)
             {
-                case LinkConstants.Direction.Up: frames = LinkConstants.LINK_MOVEUP_FRAMES; break;
-                case LinkConstants.Direction.Left: frames = LinkConstants.LINK_MOVELEFT_FRAMES; break;
-                case LinkConstants.Direction.Right: frames = LinkConstants.LINK_MOVERIGHT_FRAMES; break;
-                case LinkConstants.Direction.Down: frames = LinkConstants.LINK_MOVEDOWN_FRAMES; break;
+                case PlayerConstants.Direction.Up: frames = PlayerConstants.LINK_MOVEUP_FRAMES; break;
+                case PlayerConstants.Direction.Left: frames = PlayerConstants.LINK_MOVELEFT_FRAMES; break;
+                case PlayerConstants.Direction.Right: frames = PlayerConstants.LINK_MOVERIGHT_FRAMES; break;
+                case PlayerConstants.Direction.Down: frames = PlayerConstants.LINK_MOVEDOWN_FRAMES; break;
             }
 
             sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, frames);
@@ -111,23 +111,23 @@ namespace LOZ.Tools.PlayerObjects
         {
             switch (this.direction)
             {
-                case LinkConstants.Direction.Up: this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, 
-                    LinkConstants.LINK_SWORD_ATTACKUP_FRAMES, LinkConstants.LINK_SWORD_ATTACKUP_LOCATIONSHIFT, LinkConstants.DEFAULT_FRAMERATE); break;
-                case LinkConstants.Direction.Left: this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, 
-                    LinkConstants.LINK_SWORD_ATTACKLEFT_FRAMES, LinkConstants.LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT, LinkConstants.DEFAULT_FRAMERATE); break;
-                case LinkConstants.Direction.Right: this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, 
-                    LinkConstants.LINK_SWORD_ATTACKRIGHT_FRAMES); break;
-                case LinkConstants.Direction.Down: this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, 
-                    LinkConstants.LINK_SWORD_ATTACKDOWN_FRAMES); break;
+                case PlayerConstants.Direction.Up: this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, 
+                    PlayerConstants.LINK_SWORD_ATTACKUP_FRAMES, PlayerConstants.LINK_SWORD_ATTACKUP_LOCATIONSHIFT, PlayerConstants.DEFAULT_FRAMERATE); break;
+                case PlayerConstants.Direction.Left: this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, 
+                    PlayerConstants.LINK_SWORD_ATTACKLEFT_FRAMES, PlayerConstants.LINK_SWORD_ATTACKLEFT_LOCATIONSHIFT, PlayerConstants.DEFAULT_FRAMERATE); break;
+                case PlayerConstants.Direction.Right: this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, 
+                    PlayerConstants.LINK_SWORD_ATTACKRIGHT_FRAMES); break;
+                case PlayerConstants.Direction.Down: this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, 
+                    PlayerConstants.LINK_SWORD_ATTACKDOWN_FRAMES); break;
             }
         }
 
         private void CreateDamagedSprite()
         {
-            this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, LinkConstants.DAMAGED, LinkConstants.DAMAGED_FRAMERATE);
+            this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y, PlayerConstants.DAMAGED, PlayerConstants.DAMAGED_FRAMERATE);
         }
 
-        public void Move(LinkConstants.Direction direction)
+        public void Move(PlayerConstants.Direction direction)
         {
             if (this.invincibilityFrames == 0)
             {
@@ -136,10 +136,10 @@ namespace LOZ.Tools.PlayerObjects
 
                 switch (direction)
                 {
-                    case LinkConstants.Direction.Left: xDiff = -1; break;
-                    case LinkConstants.Direction.Right: xDiff = 1; break;
-                    case LinkConstants.Direction.Down: yDiff = 1; break;
-                    case LinkConstants.Direction.Up: yDiff = -1; break;
+                    case PlayerConstants.Direction.Left: xDiff = -1; break;
+                    case PlayerConstants.Direction.Right: xDiff = 1; break;
+                    case PlayerConstants.Direction.Down: yDiff = 1; break;
+                    case PlayerConstants.Direction.Up: yDiff = -1; break;
                     default: xDiff = 0; yDiff = 0; break;
                 }
 
@@ -150,18 +150,18 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Attack()
         {
-            if (health == LinkConstants.MAX_HEALTH) CreateProjectile(LinkConstants.Link_Projectiles.SwordBeam);
+            if (health == PlayerConstants.MAX_HEALTH) CreateProjectile(PlayerConstants.Link_Projectiles.SwordBeam);
         }
 
         public void UseItem(int input)
         {
             switch (input)
             {
-                case 1: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(LinkConstants.Link_Projectiles.BlueArrow); break;
-                case 2: UpdateState(LinkConstants.Link_States.UseItem, this.direction);  CreateProjectile(LinkConstants.Link_Projectiles.WoodArrow); break;
-                case 3: UpdateState(LinkConstants.Link_States.UseItem, this.direction);  CreateProjectile(LinkConstants.Link_Projectiles.Boomerang); break;
-                case 4: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(LinkConstants.Link_Projectiles.CandleFlame); break;
-                case 5: UpdateState(LinkConstants.Link_States.UseItem, this.direction); CreateProjectile(LinkConstants.Link_Projectiles.Bomb); break;
+                case 1: UpdateState(PlayerConstants.Link_States.UseItem, this.direction); CreateProjectile(PlayerConstants.Link_Projectiles.BlueArrow); break;
+                case 2: UpdateState(PlayerConstants.Link_States.UseItem, this.direction);  CreateProjectile(PlayerConstants.Link_Projectiles.WoodArrow); break;
+                case 3: UpdateState(PlayerConstants.Link_States.UseItem, this.direction);  CreateProjectile(PlayerConstants.Link_Projectiles.Boomerang); break;
+                case 4: UpdateState(PlayerConstants.Link_States.UseItem, this.direction); CreateProjectile(PlayerConstants.Link_Projectiles.CandleFlame); break;
+                case 5: UpdateState(PlayerConstants.Link_States.UseItem, this.direction); CreateProjectile(PlayerConstants.Link_Projectiles.Bomb); break;
                 default: break;
             }
         }
@@ -171,19 +171,19 @@ namespace LOZ.Tools.PlayerObjects
             if (this.invincibilityFrames == 0)
             {
                 this.health -= 1;
-                this.invincibilityFrames = LinkConstants.INVINCIBILITY_FRAMES;
-                if (this.health <= 0) this.state = LinkConstants.Link_States.Dead;
+                this.invincibilityFrames = PlayerConstants.INVINCIBILITY_FRAMES;
+                if (this.health <= 0) this.state = PlayerConstants.Link_States.Dead;
             }
         }
 
-        private void CreateProjectile(LinkConstants.Link_Projectiles projectileType)
+        private void CreateProjectile(PlayerConstants.Link_Projectiles projectileType)
         {
             bool containsProjectile = false;
             foreach(IProjectile projectile in projectiles)
             {
                 if (projectile.GetProjectileType().Equals(projectileType))
                 {
-                    if (projectile.GetProjectileType().Equals(LinkConstants.Link_Projectiles.Bomb)) projectile.Destroy();
+                    if (projectile.GetProjectileType().Equals(PlayerConstants.Link_Projectiles.Bomb)) projectile.Destroy();
                     containsProjectile = true; 
                     break;
                 }
@@ -194,10 +194,10 @@ namespace LOZ.Tools.PlayerObjects
                 Vector2 velocity = new Vector2(0, 0);
                 switch (this.direction)
                 {
-                    case LinkConstants.Direction.Up: velocity = new Vector2(0, -1); break;
-                    case LinkConstants.Direction.Left: velocity = new Vector2(-1, 0); break;
-                    case LinkConstants.Direction.Right: velocity = new Vector2(1, 0); break;
-                    case LinkConstants.Direction.Down: velocity = new Vector2(0, 1); break;
+                    case PlayerConstants.Direction.Up: velocity = new Vector2(0, -1); break;
+                    case PlayerConstants.Direction.Left: velocity = new Vector2(-1, 0); break;
+                    case PlayerConstants.Direction.Right: velocity = new Vector2(1, 0); break;
+                    case PlayerConstants.Direction.Down: velocity = new Vector2(0, 1); break;
                 }
 
                 this.projectileFactory.Update(projectileType);
@@ -218,11 +218,11 @@ namespace LOZ.Tools.PlayerObjects
             UpdateHitboxes();
         }
 
-        public void UpdateState(LinkConstants.Link_States state, LinkConstants.Direction direction)
+        public void UpdateState(PlayerConstants.Link_States state, PlayerConstants.Direction direction)
         {
             if (this.invincibilityFrames == 0)
             {
-                if (state == LinkConstants.Link_States.Damaged || this.sprite.Finished() || this.state != LinkConstants.Link_States.Attacking)
+                if (state == PlayerConstants.Link_States.Damaged || this.sprite.Finished() || this.state != PlayerConstants.Link_States.Attacking)
                 {
                     if (!(this.state == state) || !(this.direction == direction))
                     {
@@ -265,7 +265,7 @@ namespace LOZ.Tools.PlayerObjects
                 }
             }
 
-            if(this.state == LinkConstants.Link_States.Attacking)
+            if(this.state == PlayerConstants.Link_States.Attacking)
             {
                 UpdateSwordHitbox();
                 if (this.swordHitbox != null)
@@ -283,7 +283,7 @@ namespace LOZ.Tools.PlayerObjects
         {
             switch (this.state)
             {
-                case LinkConstants.Link_States.Attacking: UpdateAttackingHurtbox(); break;
+                case PlayerConstants.Link_States.Attacking: UpdateAttackingHurtbox(); break;
                 default: this.hurtbox = this.sprite.GetDestinationRectangle(); break;
             }
         }
@@ -300,20 +300,20 @@ namespace LOZ.Tools.PlayerObjects
             {
                 switch (this.direction)
                 {
-                    case LinkConstants.Direction.Up:
-                        Rectangle tempUp = LinkConstants.SWORD_ATTACKUP_HITBOX_FRAMES[currentFrame].Value;
+                    case PlayerConstants.Direction.Up:
+                        Rectangle tempUp = PlayerConstants.SWORD_ATTACKUP_HITBOX_FRAMES[currentFrame].Value;
                         this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y - tempUp.Height, spriteRect.Width, spriteRect.Height - tempUp.Height);
                         break;
-                    case LinkConstants.Direction.Left:
-                        Rectangle tempLeft = LinkConstants.SWORD_ATTACKLEFT_HITBOX_FRAMES[currentFrame].Value;
+                    case PlayerConstants.Direction.Left:
+                        Rectangle tempLeft = PlayerConstants.SWORD_ATTACKLEFT_HITBOX_FRAMES[currentFrame].Value;
                         this.hurtbox = new Rectangle(spriteRect.X + tempLeft.Width, spriteRect.Y, spriteRect.Width - tempLeft.Width, spriteRect.Height);
                         break;
-                    case LinkConstants.Direction.Right:
-                        Rectangle tempRight = LinkConstants.SWORD_ATTACKRIGHT_HITBOX_FRAMES[currentFrame].Value;
+                    case PlayerConstants.Direction.Right:
+                        Rectangle tempRight = PlayerConstants.SWORD_ATTACKRIGHT_HITBOX_FRAMES[currentFrame].Value;
                         this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y, spriteRect.Width - tempRight.Width, spriteRect.Height);
                         break;
-                    case LinkConstants.Direction.Down:
-                        Rectangle tempDown = LinkConstants.SWORD_ATTACKDOWN_HITBOX_FRAMES[currentFrame].Value;
+                    case PlayerConstants.Direction.Down:
+                        Rectangle tempDown = PlayerConstants.SWORD_ATTACKDOWN_HITBOX_FRAMES[currentFrame].Value;
                         this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y, spriteRect.Width, spriteRect.Height - tempDown.Height);
                         break;
                 }
@@ -325,14 +325,14 @@ namespace LOZ.Tools.PlayerObjects
             int currentFrame = this.sprite.GetFrame()/sprite.frameRate;
             switch (this.direction)
             {
-                case LinkConstants.Direction.Up: 
-                    this.swordHitbox = LinkConstants.SWORD_ATTACKUP_HITBOX_FRAMES[currentFrame]; break;
-                case LinkConstants.Direction.Left:
-                    this.swordHitbox = LinkConstants.SWORD_ATTACKLEFT_HITBOX_FRAMES[currentFrame]; break;
-                case LinkConstants.Direction.Right:
-                    this.swordHitbox = LinkConstants.SWORD_ATTACKRIGHT_HITBOX_FRAMES[currentFrame]; break;
-                case LinkConstants.Direction.Down:
-                    this.swordHitbox = LinkConstants.SWORD_ATTACKDOWN_HITBOX_FRAMES[currentFrame]; break;
+                case PlayerConstants.Direction.Up: 
+                    this.swordHitbox = PlayerConstants.SWORD_ATTACKUP_HITBOX_FRAMES[currentFrame]; break;
+                case PlayerConstants.Direction.Left:
+                    this.swordHitbox = PlayerConstants.SWORD_ATTACKLEFT_HITBOX_FRAMES[currentFrame]; break;
+                case PlayerConstants.Direction.Right:
+                    this.swordHitbox = PlayerConstants.SWORD_ATTACKRIGHT_HITBOX_FRAMES[currentFrame]; break;
+                case PlayerConstants.Direction.Down:
+                    this.swordHitbox = PlayerConstants.SWORD_ATTACKDOWN_HITBOX_FRAMES[currentFrame]; break;
             }
         }
 
@@ -346,7 +346,7 @@ namespace LOZ.Tools.PlayerObjects
             return this.hurtbox;
         }
 
-        public LinkConstants.Direction GetDirection()
+        public PlayerConstants.Direction GetDirection()
         {
             return this.direction;
         }

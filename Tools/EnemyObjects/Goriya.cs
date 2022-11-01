@@ -14,6 +14,8 @@ namespace LOZ.Tools
     internal class Goriya : IEnemy, ICollidable
     {
         Vector2 enemyDirection;
+        EnemyConstants.Direction direction;
+        bool directionChange = false;
         Vector2 enemyPosition;
 
         //readonly GoriyaSprite goriyaSprite;
@@ -35,6 +37,7 @@ namespace LOZ.Tools
         {
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
+            direction = EnemyConstants.Direction.Down;
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;
@@ -44,7 +47,7 @@ namespace LOZ.Tools
             boomerang = new EnemyObjects.Boomerang();
 
             goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
-                new List<Rectangle> { new Rectangle(222, 11, 16, 16), new Rectangle(239, 11, 16, 16), new Rectangle(256, 11, 16, 16), new Rectangle(273, 11, 16, 16) });
+                EnemyConstants.GORIYA_DOWN);
 
             moveCheck = -1;
         }
@@ -67,10 +70,28 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
+            EnemyConstants.Direction temp;
             if (boomerang.GetAttackTime() < 0.0)
             {
-                enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
-                enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+                Vector2 delta = new Vector2((float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25), (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25));
+                if (delta.X != 0)
+                {
+                    temp = delta.X > 0 ? EnemyConstants.Direction.Right : EnemyConstants.Direction.Left;
+                }
+                else if (delta.Y != 0)
+                {
+
+                    temp = delta.Y > 0 ? EnemyConstants.Direction.Down : EnemyConstants.Direction.Up;
+                }
+                else
+                {
+                    temp = EnemyConstants.Direction.None;
+                }
+
+                directionChange = !temp.Equals(direction);
+                direction = temp;
+
+                enemyPosition += delta;
             }
         }
 
@@ -92,6 +113,28 @@ namespace LOZ.Tools
             else
             {
                 boomerang.Update(gameTime);
+            }
+
+            if (directionChange)
+            {
+                switch (direction)
+                {
+                    case EnemyConstants.Direction.Up:
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_UP); break;
+                    case EnemyConstants.Direction.Left:
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_LEFT); break;
+                    case EnemyConstants.Direction.Right:
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_RIGHT); break;
+                    case EnemyConstants.Direction.Down:
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_DOWN); break;
+                    case EnemyConstants.Direction.None:
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, new List<Rectangle>() { goriyaSprite.GetSourceRectangle() }); break;
+                }
             }
         }
 
