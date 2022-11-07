@@ -67,4 +67,6 @@ public class Constants
     public const int objectScale = 2;
     public const int enviroDefaultX = 10;
     public const int enviroDefaultY = 10;
+    public const int numRooms = 19;
+    public const bool DEBUG = true;
 }
