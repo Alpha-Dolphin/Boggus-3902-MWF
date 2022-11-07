@@ -71,7 +71,7 @@ namespace LOZ.Tools.PlayerObjects
 
             this.healthText.SetFont(font);
             this.healthText.SetPosition(0, 0);
-            this.projectileFactory = new ProjectileFactory(0, this.spriteSheet);
+            this.projectileFactory = new ProjectileFactory(PlayerConstants.Link_Projectiles.BlueArrow, this.spriteSheet);
             UpdateSprite();
             this.swordHitbox = null;
         }
