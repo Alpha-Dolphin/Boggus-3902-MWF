@@ -13,18 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin SpriteSheets/BossEnemies_EmptyFlipped.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:SpriteSheets/BossEnemies_EmptyFlipped.png
-
 #begin SpriteSheets/Bosses.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,18 +24,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SpriteSheets/Bosses.png
-
-#begin SpriteSheets/BossWithFlipped.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:SpriteSheets/BossWithFlipped.png
 
 #begin SpriteSheets/Dungeon Enemies.png
 /importer:TextureImporter
@@ -85,7 +61,7 @@
 /processorParam:TextureFormat=Color
 /build:SpriteSheets/DungeonEnemies_EmptyBackground.png
 
-#begin SpriteSheets/DungeonEnemies_EmptyFlipped.png
+#begin SpriteSheets/EnemyDeathExplosion.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -95,7 +71,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:SpriteSheets/DungeonEnemies_EmptyFlipped.png
+/build:SpriteSheets/EnemyDeathExplosion.png
 
 #begin SpriteSheets/Items.png
 /importer:TextureImporter
