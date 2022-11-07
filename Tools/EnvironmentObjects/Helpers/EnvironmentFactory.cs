@@ -57,6 +57,9 @@ namespace LOZ.Tools.EnvironmentObjects.Helpers
                 case Environment.DiamondSymbolLockedDoor:
                     return new DiamondSymbolLockedDoor();
 
+                case Environment.InvisibleBarrier:
+                    return new InvisibleBarrier();
+
                 default:
                     return new Statue();
             }
