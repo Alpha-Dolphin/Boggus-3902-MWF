@@ -46,7 +46,7 @@ namespace LOZ.Tools.EnemyObjects
 
         public void Die()
         {
-            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
+            Game1.enemyDieList.Add(this);
         }
 
         public Rectangle GetHurtbox()

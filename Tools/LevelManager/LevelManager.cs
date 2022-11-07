@@ -12,6 +12,7 @@ using System.Reflection;
 using System.IO;
 using System.Threading;
 using LOZ.Tools.EnvironmentObjects.Helpers;
+using LOZ.Tools.EnvironmentObjects;
 
 namespace LOZ.Tools.LevelManager
 {
@@ -84,7 +85,7 @@ namespace LOZ.Tools.LevelManager
                 if (barrier.NodeType != XmlNodeType.Comment)
                 {
                     /*get rectangles from barrier elements*/
-                    room.barrierList.Add(getBarrierRectangle(barrier));
+                    room.environmentList.Add(getBarrierObject(barrier));
                 }
             }
             /*Fill in environment object list*/
@@ -135,14 +136,19 @@ namespace LOZ.Tools.LevelManager
 
 
         /*Helper functions*/
-        private Rectangle getBarrierRectangle(XmlNode xmlBarrier)
+        private IEnvironment getBarrierObject(XmlNode xmlBarrier)
         {
             int x = int.Parse(xmlBarrier.SelectSingleNode("xPlacement").InnerText);
             int y = int.Parse(xmlBarrier.SelectSingleNode("yPlacement").InnerText);
             int width = int.Parse(xmlBarrier.SelectSingleNode("width").InnerText);
             int height = int.Parse(xmlBarrier.SelectSingleNode("height").InnerText);
 
-            return new Rectangle(x, y, width, height);
+            IEnvironment thisBarrier = environmentFactory.getEnvironment(Environment.InvisibleBarrier);
+            thisBarrier.SetPlacement(x, y);
+            Rectangle hurtBox = new Rectangle(x, y, width, height);
+            thisBarrier.SetHurtbox(hurtBox);
+
+            return thisBarrier;
         }
         private IEnvironment getEnvironmentObject(XmlNode xmlTile)
         {

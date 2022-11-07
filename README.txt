@@ -1,34 +1,15 @@
-﻿
-Current State: Sprint 2 functionality intended to be implemented by EOD 10/3/22
+Current State: Sprint 3 functionality almost entirely implemented.
+
+Key mappings
+	
+	LINK:
+	WASD/Arrow keys for link. 1, 2, 3, 4, and 5 for link's items. Z and N to swing the sword.
+	E to simulate taking damage.
+
+	GAME:
+	Left click to advance room, right click to go back a room.
+	Q to quit game.
 
 
-
-Key Mappings
-Use keyboard input for control over the player character and to cause state changes in other objects. Allow upper and lower case 
-letters for the key input.
-
-	Player controls
-	Arrow and "wasd" keys should move Link and change his facing direction.
-	The 'z' and 'n' key should cause Link to attack using his sword.
-	Number keys (1, 2, 3, etc.) should be used to have Link use a different item (later this will be replaced with a menu system 
-	and 'x' and 'm' for the secondary item.
-	Use 'e' to cause Link to become damaged.
-
-	Block/obstacle controls
-	Use keys "t" and "y" to cycle between which block is currently being shown (i.e. think of the obstacles as being in a list 
-	where the game's current obstacle is being drawn, "t" switches to the previous item and "y" switches to the next)
-	all blocks should be stationary and should not interact with any other objects
-
-	Item controls
-	Use keys "u" and "i" to cycle between which item is currently being shown (i.e. think of the items as being in a list where 
-	the game's current item is being drawn, "u" switches to the previous item and "i" switches to the next)
-	Items should move and animate as they do in the final game, but should not interact with any other objects
-
-	Enemy/NPC (other character) controls
-	Use keys "o" and "p" to cycle between which enemy or npc is currently being shown (i.e. think of these characters as being 
-	in a list where the game's current character is being drawn, "o" switches to the previous item and "p" switches to the next)
-	characters should move, animate, fire projectiles, etc. as they do in the final game, but should not interact with any other 
-	objects
-
-	Other controls
-	Use 'q' to quit and 'r' to reset the program back to its initial state.
+Link to Sprint reflection(2 and 3): 
+https://docs.google.com/document/d/1mNnZDQ94atO60pZl9hHuoXX9RfT58vaueJyTJLCh6hU/edit?usp=sharing

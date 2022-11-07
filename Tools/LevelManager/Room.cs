@@ -22,7 +22,6 @@ namespace LOZ.Tools.LevelManager
         private Sprite RoomInterior;
 
         /*Lists of things in room*/
-        public List<Rectangle> barrierList { get; set; } = new List<Rectangle>();
         public List<IEnvironment> environmentList { get; set; } = new List<IEnvironment> ();
         public List<IEnemy> enemyList { get; set; } = new List<IEnemy>();
         public List<INPC> NPCList { get; set; } = new List<INPC>();
