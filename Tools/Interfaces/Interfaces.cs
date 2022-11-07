@@ -47,6 +47,16 @@ public interface IEnemy : ICharacter
     void Move(GameTime gameTime);
     void Draw(SpriteBatch _spriteBatch);
     void Update(GameTime gameTime);
+
+    static void Appear(GameTime gameTime)
+    {
+
+    }
+
+    static void Die(GameTime gameTime)
+    {
+
+    }
 }
 
 //Can own projectiles
