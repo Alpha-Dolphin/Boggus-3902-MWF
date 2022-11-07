@@ -12,6 +12,10 @@ public class MouseController //: IController
 {
     MouseState mouseState;
     public DateTime lastInputTime = DateTime.Now;
+    public bool leftButtonPressed;
+    public bool rightButtonPressed;
+    public bool leftButtonHeld;
+    public bool rightButtonHeld;
     public void Update()
     {
         mouseState = Mouse.GetState();
@@ -19,22 +23,65 @@ public class MouseController //: IController
 
         if (mouseState.LeftButton==ButtonState.Pressed)
         {
-            if ((int)(DateTime.Now - lastInputTime).TotalSeconds > 2)
+            if (leftButtonPressed) {
+                leftButtonHeld = true;
+            }
+            if (!leftButtonPressed)
             {
-                Game1.currentRoom++;
-                if (Game1.currentRoom > 18) Game1.currentRoom -= 19;
-                lastInputTime = DateTime.Now;
+                leftButtonPressed = true;
+            }
+
+        }
+        else
+        {
+            if (leftButtonHeld)
+            {
+                leftButtonHeld=false;
+            }
+            if (leftButtonPressed)
+            {
+                leftButtonPressed=false;
             }
         }
+
         if (mouseState.RightButton == ButtonState.Pressed)
         {
-            if ((int)(DateTime.Now - lastInputTime).TotalSeconds > 2)
+            if (rightButtonPressed)
             {
-                Game1.currentRoom--;
-                if (Game1.currentRoom < 0) Game1.currentRoom += 19;
-                lastInputTime = DateTime.Now;
+                rightButtonHeld = true;
+            }
+            if (!rightButtonPressed)
+            {
+                rightButtonPressed = true;
+            }
+
+        }
+        else
+        {
+            if (rightButtonHeld)
+            {
+                rightButtonHeld = false;
+            }
+            if (rightButtonPressed)
+            {
+                rightButtonPressed = false;
             }
         }
+        executeNewPressedOnly();
+    }
+
+    private void executeNewPressedOnly()
+    {
+
+        if (rightButtonPressed && !rightButtonHeld) /*Increment with rollover*/
+        {
+            Game1.currentRoom = (Game1.currentRoom+1) % Constants.numRooms;
+        }
+        if (leftButtonPressed && !leftButtonHeld) /*Decrement with rollover*/
+        {
+            Game1.currentRoom = (19+(Game1.currentRoom - 1)) % Constants.numRooms;
+        }
+
     }
 
 
