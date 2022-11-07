@@ -9,6 +9,7 @@ namespace LOZ.Tools.EnemyObjects
 {
     internal class EnemyConstants
     {
+        public const int ENEMY_ANIMATION_SPEED = 5;
         public enum Direction
         {
             Up,
@@ -52,5 +53,12 @@ namespace LOZ.Tools.EnemyObjects
         public static List<Rectangle> DODONGO_LEFT = new List<Rectangle>() { DODONGO_LEFT1, DODONGO_LEFT2, DODONGO_LEFT3 };
         public static List<Rectangle> DODONGO_RIGHT = new List<Rectangle>() { DODONGO_RIGHT1, DODONGO_RIGHT2, DODONGO_RIGHT3 };
         public static List<Rectangle> DODONGO_DOWN = new List<Rectangle>() { DODONGO_DOWN1, DODONGO_DOWN2 };
+
+
+        private static Rectangle AQUAMENTUS_PROJECTILE1 = new Rectangle(101, 11, 8, 16);
+        private static Rectangle AQUAMENTUS_PROJECTILE2 = new Rectangle(110, 11, 8, 16);
+        private static Rectangle AQUAMENTUS_PROJECTILE3 = new Rectangle(119, 11, 8, 16);
+        private static Rectangle AQUAMENTUS_PROJECTILE4 = new Rectangle(128, 11, 8, 16);
+        public static List<Rectangle> AQUAMENTUS_PROJECTILE = new List<Rectangle>() { AQUAMENTUS_PROJECTILE1, AQUAMENTUS_PROJECTILE2, AQUAMENTUS_PROJECTILE3, AQUAMENTUS_PROJECTILE4 };
     }
 }

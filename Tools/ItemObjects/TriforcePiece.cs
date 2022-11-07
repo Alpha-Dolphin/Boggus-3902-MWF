@@ -16,20 +16,21 @@ namespace LOZ.Tools.ItemObjects
     internal class TriforcePiece : IItem
     {
         private Vector2 position;
-        private Sprite sprite;
+        private AnimatedMovingSprite sprite;
         private Vector2 DefaultSize = new(10, 10);
 
-        public void setPlacement(int x, int y)
+        public void SetPlacement(int x, int y)
         {
             position.X = x;
             position.Y = y;
+            this.sprite.Update(x, y);
         }
         public TriforcePiece(Texture2D spritesheet, int x, int y)
         {
             this.position.X = x;
             this.position.Y = y;
-            this.sprite = new Sprite(Game1.ITEM_SPRITESHEET, x, y,
-                new List<Rectangle>() { new Rectangle(275, 3, (int)DefaultSize.X, (int)DefaultSize.Y) });
+            this.sprite = new AnimatedMovingSprite(Game1.ITEM_SPRITESHEET, x, y,
+                new List<Rectangle>() { ItemConstants.TRIFORCE_YELLOW, ItemConstants.TRIFORCE_BLUE });
         }
 
 
@@ -42,8 +43,12 @@ namespace LOZ.Tools.ItemObjects
 
         public void Update(GameTime gametime)
         {
+            this.sprite.Update((int) position.X, (int) position.Y);
+        }
 
-
+        Vector2 IItem.GetPosition()
+        {
+            return position;
         }
 
     }

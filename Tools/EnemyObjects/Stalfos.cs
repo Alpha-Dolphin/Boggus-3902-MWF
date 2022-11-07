@@ -36,7 +36,7 @@ namespace LOZ.Tools
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
-            stalfosSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
+            stalfosSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
                 EnemyConstants.STALFOS);
 
             enemyDirection.X = 0;

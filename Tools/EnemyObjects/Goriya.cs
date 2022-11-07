@@ -45,7 +45,7 @@ namespace LOZ.Tools
 
             rand = new();
 
-            goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
+            goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
                 EnemyConstants.GORIYA_DOWN);
 
             moveCheck = -1;
@@ -126,19 +126,19 @@ namespace LOZ.Tools
                 switch (direction)
                 {
                     case EnemyConstants.Direction.Up:
-                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
                         (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_UP); break;
                     case EnemyConstants.Direction.Left:
-                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
                         (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_LEFT); break;
                     case EnemyConstants.Direction.Right:
-                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
                         (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_RIGHT); break;
                     case EnemyConstants.Direction.Down:
-                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
                         (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_DOWN); break;
                     case EnemyConstants.Direction.None:
-                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
                         (int)enemyPosition.X, (int)enemyPosition.Y, new List<Rectangle>() { goriyaSprite.GetSourceRectangle() }); break;
                 }
             }
