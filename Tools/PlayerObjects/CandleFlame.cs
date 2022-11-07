@@ -32,7 +32,7 @@ namespace LOZ.Tools.PlayerObjects
         private void CreateSprite(Texture2D spriteSheet)
         {
             sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                        LinkConstants.CANDLEFLAME_FRAMES);
+                        PlayerConstants.CANDLEFLAME_FRAMES);
         }
 
         public void SetVelocity(Vector2 velocity)
@@ -42,7 +42,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public Vector2 Update()
         {
-            if ((this.originalPosition - this.position).Length() > LinkConstants.MAX_SWORDBEAM_RANGE) this.Destroy();
+            if ((this.originalPosition - this.position).Length() > PlayerConstants.MAX_SWORDBEAM_RANGE) this.Destroy();
 
             this.position += velocity;
 
@@ -51,9 +51,9 @@ namespace LOZ.Tools.PlayerObjects
             return this.position;
         }
 
-        public LinkConstants.Link_Projectiles GetProjectileType()
+        public PlayerConstants.Link_Projectiles GetProjectileType()
         {
-            return LinkConstants.Link_Projectiles.CandleFlame;
+            return PlayerConstants.Link_Projectiles.CandleFlame;
         }
 
         public void Draw(SpriteBatch spriteBatch)

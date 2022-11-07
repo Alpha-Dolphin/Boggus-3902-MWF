@@ -13,14 +13,16 @@ namespace LOZ.Tools.PlayerObjects
     {
         private Vector2 position;
         private Vector2 velocity;
+        private ICharacter owner;
         private AnimatedMovingSprite sprite;
         private bool movingAway = true;
 
         private bool exists = true;
 
         public Boomerang() { }
-        public Boomerang(Texture2D spriteSheet, Vector2 position, Vector2 velocity)
+        public Boomerang(Texture2D spriteSheet, ICharacter owner, Vector2 position, Vector2 velocity)
         {
+            this.owner = owner;
             this.position = position;
             this.velocity = velocity;
 
@@ -34,20 +36,20 @@ namespace LOZ.Tools.PlayerObjects
                 if (velocity.Y < 0)
                 {
                     sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                        LinkConstants.BOOMERANG_WOOD_FRAMES, LinkConstants.SWORDBEAM_UP_LOCATIONSHIFT);
+                        PlayerConstants.BOOMERANG_WOOD_FRAMES, PlayerConstants.SWORDBEAM_UP_LOCATIONSHIFT);
                 }
                 else sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                    LinkConstants.BOOMERANG_WOOD_FRAMES, LinkConstants.SWORDBEAM_DOWN_LOCATIONSHIFT);
+                    PlayerConstants.BOOMERANG_WOOD_FRAMES, PlayerConstants.SWORDBEAM_DOWN_LOCATIONSHIFT);
             }
             else
             {
                 if (velocity.X < 0)
                 {
                     sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                        LinkConstants.BOOMERANG_WOOD_FRAMES, LinkConstants.SWORDBEAM_LEFT_LOCATIONSHIFT);
+                        PlayerConstants.BOOMERANG_WOOD_FRAMES, PlayerConstants.SWORDBEAM_LEFT_LOCATIONSHIFT);
                 }
                 else sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                    LinkConstants.BOOMERANG_WOOD_FRAMES, LinkConstants.SWORDBEAM_RIGHT_LOCATIONSHIFT);
+                    PlayerConstants.BOOMERANG_WOOD_FRAMES, PlayerConstants.SWORDBEAM_RIGHT_LOCATIONSHIFT);
             }
         }
 
@@ -75,38 +77,38 @@ namespace LOZ.Tools.PlayerObjects
         {
             if (this.movingAway)
             {
-                if (this.velocity.X <= LinkConstants.BOOMERANG_SPEEDCHANGE && this.velocity.X >= -LinkConstants.BOOMERANG_SPEEDCHANGE)
+                if (this.velocity.X <= PlayerConstants.BOOMERANG_SPEEDCHANGE && this.velocity.X >= -PlayerConstants.BOOMERANG_SPEEDCHANGE)
                 {
-                    if (this.velocity.Y >= 0.1) this.velocity.Y -= LinkConstants.BOOMERANG_SPEEDCHANGE;
-                    else if (this.velocity.Y <= -0.1) this.velocity.Y += LinkConstants.BOOMERANG_SPEEDCHANGE;
+                    if (this.velocity.Y >= 0.1) this.velocity.Y -= PlayerConstants.BOOMERANG_SPEEDCHANGE;
+                    else if (this.velocity.Y <= -0.1) this.velocity.Y += PlayerConstants.BOOMERANG_SPEEDCHANGE;
                     else this.movingAway = false;
                 }
                 else
                 {
-                    if (this.velocity.X >= 0) this.velocity.X -= LinkConstants.BOOMERANG_SPEEDCHANGE;
-                    else this.velocity.X += LinkConstants.BOOMERANG_SPEEDCHANGE;
+                    if (this.velocity.X >= 0) this.velocity.X -= PlayerConstants.BOOMERANG_SPEEDCHANGE;
+                    else this.velocity.X += PlayerConstants.BOOMERANG_SPEEDCHANGE;
                 }
             } else
             {
-                MoveToLink();
+                MoveToOwner();
             }
         }
 
-        private void MoveToLink()
+        private void MoveToOwner()
         {
-            this.velocity += (Link.position - this.position) / LinkConstants.BOOMERANG_RETURNSPEEDCHANGE;
+            this.velocity += (new Vector2(owner.GetHurtbox().X, owner.GetHurtbox().Y) - this.position) / PlayerConstants.BOOMERANG_RETURNSPEEDCHANGE;
         }
 
         private bool CloseEnough()
         {
-            Vector2 centerOfLink = new Vector2(Link.position.X + LinkConstants.LINK_MOVEDOWN_FRAME1.Width / 2, Link.position.Y + LinkConstants.LINK_MOVEDOWN_FRAME1.Height / 2);
-            Vector2 howFar = (centerOfLink - this.position);
-            return howFar.Length() <= LinkConstants.BOOMERANG_RETURNRANGE;
+            Vector2 centerOfOwner = new Vector2(owner.GetHurtbox().X + owner.GetHurtbox().Width / 2, owner.GetHurtbox().Y + owner.GetHurtbox().Height / 2);
+            Vector2 howFar = (centerOfOwner - this.position);
+            return howFar.Length() <= PlayerConstants.BOOMERANG_RETURNRANGE;
         }
 
-        public LinkConstants.Link_Projectiles GetProjectileType()
+        public PlayerConstants.Link_Projectiles GetProjectileType()
         {
-            return LinkConstants.Link_Projectiles.Boomerang;
+            return PlayerConstants.Link_Projectiles.Boomerang;
         }
 
         public void Draw(SpriteBatch spriteBatch)

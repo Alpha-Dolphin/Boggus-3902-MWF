@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using LOZ.Tools.PlayerObjects;
 using Microsoft.Xna.Framework.Input;
-using static LOZ.Tools.PlayerObjects.LinkConstants;
+using static LOZ.Tools.PlayerObjects.PlayerConstants;
 
 namespace LOZ.Tools.Command
 {
@@ -35,50 +35,50 @@ namespace LOZ.Tools.Command
 
             foreach (Keys key in keys)
             {
-                if (LinkConstants.MOVEMENT_KEYS.Contains(key))
+                if (PlayerConstants.MOVEMENT_KEYS.Contains(key))
                 {
                     switch (key)
                     {
-                        case LinkConstants.MOVE_UP_KEY: ExecuteMove(LinkConstants.Direction.Up); break;
-                        case LinkConstants.MOVE_UPARROW_KEY: ExecuteMove(LinkConstants.Direction.Up); break;
-                        case LinkConstants.MOVE_LEFT_KEY: ExecuteMove(LinkConstants.Direction.Left); break;
-                        case LinkConstants.MOVE_LEFTARROW_KEY: ExecuteMove(LinkConstants.Direction.Left); break;
-                        case LinkConstants.MOVE_RIGHT_KEY: ExecuteMove(LinkConstants.Direction.Right); break;
-                        case LinkConstants.MOVE_RIGHTARROW_KEY: ExecuteMove(LinkConstants.Direction.Right); break;
-                        case LinkConstants.MOVE_DOWN_KEY: ExecuteMove(LinkConstants.Direction.Down); break;
-                        case LinkConstants.MOVE_DOWNARROW_KEY: ExecuteMove(LinkConstants.Direction.Down); break;
+                        case PlayerConstants.MOVE_UP_KEY: ExecuteMove(PlayerConstants.Direction.Up); break;
+                        case PlayerConstants.MOVE_UPARROW_KEY: ExecuteMove(PlayerConstants.Direction.Up); break;
+                        case PlayerConstants.MOVE_LEFT_KEY: ExecuteMove(PlayerConstants.Direction.Left); break;
+                        case PlayerConstants.MOVE_LEFTARROW_KEY: ExecuteMove(PlayerConstants.Direction.Left); break;
+                        case PlayerConstants.MOVE_RIGHT_KEY: ExecuteMove(PlayerConstants.Direction.Right); break;
+                        case PlayerConstants.MOVE_RIGHTARROW_KEY: ExecuteMove(PlayerConstants.Direction.Right); break;
+                        case PlayerConstants.MOVE_DOWN_KEY: ExecuteMove(PlayerConstants.Direction.Down); break;
+                        case PlayerConstants.MOVE_DOWNARROW_KEY: ExecuteMove(PlayerConstants.Direction.Down); break;
                     }
                 }
-                else if (LinkConstants.SWORD_ATTACK_KEYS.Contains(key))
+                else if (PlayerConstants.SWORD_ATTACK_KEYS.Contains(key))
                 {
                     ExecuteAttack();
                 }
-                else if (LinkConstants.ITEM_KEYS.Contains(key))
+                else if (PlayerConstants.ITEM_KEYS.Contains(key))
                 {
                     int input = 0;
 
                     switch (key)
                     {
-                        case LinkConstants.ITEM_1: input = 1; break;
-                        case LinkConstants.ITEM_PAD1: input = 1; break;
-                        case LinkConstants.ITEM_2: input = 2; break;
-                        case LinkConstants.ITEM_PAD2: input = 2; break;
-                        case LinkConstants.ITEM_3: input = 3; break;
-                        case LinkConstants.ITEM_PAD3: input = 3; break;
-                        case LinkConstants.ITEM_4: input = 4; break;
-                        case LinkConstants.ITEM_PAD4: input = 4; break;
-                        case LinkConstants.ITEM_5: input = 5; break;
-                        case LinkConstants.ITEM_PAD5: input = 5; break;
-                        case LinkConstants.ITEM_6: input = 6; break;
-                        case LinkConstants.ITEM_PAD6: input = 6; break;
-                        case LinkConstants.ITEM_7: input = 7; break;
-                        case LinkConstants.ITEM_PAD7: input = 7; break;
-                        case LinkConstants.ITEM_8: input = 8; break;
-                        case LinkConstants.ITEM_PAD8: input = 8; break;
-                        case LinkConstants.ITEM_9: input = 9; break;
-                        case LinkConstants.ITEM_PAD9: input = 9; break;
-                        case LinkConstants.ITEM_0: input = 0; break;
-                        case LinkConstants.ITEM_PAD0: input = 0; break;
+                        case PlayerConstants.ITEM_1: input = 1; break;
+                        case PlayerConstants.ITEM_PAD1: input = 1; break;
+                        case PlayerConstants.ITEM_2: input = 2; break;
+                        case PlayerConstants.ITEM_PAD2: input = 2; break;
+                        case PlayerConstants.ITEM_3: input = 3; break;
+                        case PlayerConstants.ITEM_PAD3: input = 3; break;
+                        case PlayerConstants.ITEM_4: input = 4; break;
+                        case PlayerConstants.ITEM_PAD4: input = 4; break;
+                        case PlayerConstants.ITEM_5: input = 5; break;
+                        case PlayerConstants.ITEM_PAD5: input = 5; break;
+                        case PlayerConstants.ITEM_6: input = 6; break;
+                        case PlayerConstants.ITEM_PAD6: input = 6; break;
+                        case PlayerConstants.ITEM_7: input = 7; break;
+                        case PlayerConstants.ITEM_PAD7: input = 7; break;
+                        case PlayerConstants.ITEM_8: input = 8; break;
+                        case PlayerConstants.ITEM_PAD8: input = 8; break;
+                        case PlayerConstants.ITEM_9: input = 9; break;
+                        case PlayerConstants.ITEM_PAD9: input = 9; break;
+                        case PlayerConstants.ITEM_0: input = 0; break;
+                        case PlayerConstants.ITEM_PAD0: input = 0; break;
                     }
 
                     if (!(input == 5 && bombLastFrame))
@@ -86,7 +86,7 @@ namespace LOZ.Tools.Command
                         ExecuteChangeItem(input);
                     }
                 }
-                else if (LinkConstants.DAMAGE_KEYS.Contains(key))
+                else if (PlayerConstants.DAMAGE_KEYS.Contains(key))
                 {
                     ExecuteDamage();
                 }
@@ -96,7 +96,7 @@ namespace LOZ.Tools.Command
             link.UpdateVisual();
         }
 
-        private void ExecuteMove(LinkConstants.Direction direction)
+        private void ExecuteMove(PlayerConstants.Direction direction)
         {
             if (!moved)
             {
@@ -130,7 +130,7 @@ namespace LOZ.Tools.Command
 
         private void CheckBombLastFrame(List<Keys> keys)
         {
-            this.bombLastFrame = (keys.Contains(LinkConstants.ITEM_5) || keys.Contains(LinkConstants.ITEM_PAD5)) ? true : false;
+            this.bombLastFrame = (keys.Contains(PlayerConstants.ITEM_5) || keys.Contains(PlayerConstants.ITEM_PAD5)) ? true : false;
         }
     }
 }

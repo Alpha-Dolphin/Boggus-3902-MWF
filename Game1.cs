@@ -14,6 +14,7 @@ using LOZ.Tools;
 
 using LOZ.Tools.LevelManager;
 using LOZ.Tools.EnvironmentObjects;
+using LOZ.Tools.HUDObjects;
 
 namespace LOZ
 {
@@ -25,23 +26,26 @@ namespace LOZ
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
-        private IPlayer link;
+        private Link link;
         private KeyboardController controller;
         private MouseController mouseController;
         public static ICommand linkCommandHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 15;
+        public static int currentRoom = 10;
         private TextSprite currentRoomIndicator = new();
-        
+
+        private HUD hud;
+
         public static LevelManager lm = new();
         public static Texture2D LINK_SPRITESHEET;
         public static SpriteFont FONT;
         public static Texture2D ENVIRONMENT_SPRITESHEET;
-        public static Texture2D REGULAR_ENEMIES;
-        public static Texture2D BOSSES;
+        public static Texture2D REGULAR_ENEMIES_SPRITESHEET;
+        public static Texture2D BOSSES_SPRITESHEET;
         public static Texture2D NPC_SPRITESHEET;
         public static Texture2D ITEM_SPRITESHEET;
+        public static Texture2D HUD_SPRITESHEET;
 
 
         /* hanging onto to save time later
@@ -62,13 +66,13 @@ namespace LOZ
             LoadContent();
 
             _graphics.PreferredBackBufferWidth = 1024;
-            _graphics.PreferredBackBufferHeight = 704;
+            _graphics.PreferredBackBufferHeight = 704 + HUDConstants.TOP_HEIGHT;
             _graphics.ApplyChanges();
 
-            BackgroundConstants.Initialize(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            EnvironmentConstants.Initialize(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
-            link = new Link(LinkConstants.DEFAULT_X, LinkConstants.DEFAULT_Y, LinkConstants.DEFAULT_ITEMS, LinkConstants.MAX_HEALTH,
-                LinkConstants.DEFAULT_STATE, LinkConstants.DEFAULT_DIRECTION,FONT);
+            link = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.DEFAULT_ITEMS, PlayerConstants.MAX_HEALTH,
+                PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION,FONT);
             linkCommandHandler = new LinkCommand((Link) link);
 
             /*Declaration of controllers*/
@@ -80,7 +84,9 @@ namespace LOZ
             lm.initialize();
             rooms = lm.RoomList;
 
-            currentRoomIndicator.setPosition(0, 20);
+            currentRoomIndicator.SetPosition(0, 20);
+
+            hud = new HUD(HUD_SPRITESHEET, ITEM_SPRITESHEET, FONT);
 
             base.Initialize();
         }
@@ -91,14 +97,15 @@ namespace LOZ
             Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
             Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
 
-            LINK_SPRITESHEET = Content.Load<Texture2D>(LinkConstants.LINK_SPRITESHEET_NAME);
+            LINK_SPRITESHEET = Content.Load<Texture2D>(PlayerConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
-            currentRoomIndicator.setFont(FONT);
+            currentRoomIndicator.SetFont(FONT);
             ENVIRONMENT_SPRITESHEET = Content.Load<Texture2D>(Constants.DungeonSpriteSheetLocation);
             NPC_SPRITESHEET = Content.Load<Texture2D>(Constants.NPCSpriteSheetLocation);
-            REGULAR_ENEMIES = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
-            BOSSES = Content.Load<Texture2D>(Constants.BossesSpriteSheetLocation);
+            REGULAR_ENEMIES_SPRITESHEET = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
+            BOSSES_SPRITESHEET = Content.Load<Texture2D>(Constants.BossesSpriteSheetLocation);
             ITEM_SPRITESHEET = Content.Load<Texture2D>(Constants.ItemSpriteSheetLocation);
+            HUD_SPRITESHEET = Content.Load<Texture2D>(Constants.HUDSpriteSheetLocation);
         }
 
         protected override void Update(GameTime gameTime)
@@ -122,13 +129,14 @@ namespace LOZ
                 enemy.Move(gameTime);
             }
 
+            hud.Update(link, pressed);
+            
             if (pressed.Contains(Keys.Q))
             {
                 this.Exit();
             }
 
-
-            currentRoomIndicator.setText("Current room number: " + currentRoom);
+            currentRoomIndicator.SetText("Current room number: " + currentRoom);
         }
 
         private void UpdateCollision()
@@ -165,9 +173,14 @@ namespace LOZ
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             /*Draw everything*/
-            rooms[currentRoom].Draw(spriteBatch);
-            link.Draw(spriteBatch);
-            currentRoomIndicator.Draw(spriteBatch);
+            if (!hud.Paused())
+            {
+                rooms[currentRoom].Draw(spriteBatch);
+                link.Draw(spriteBatch);
+                currentRoomIndicator.Draw(spriteBatch);
+            }
+
+            hud.Draw(spriteBatch);
 
             /*End drawing*/
             spriteBatch.End();

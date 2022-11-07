@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    internal interface IPlayer : ICollidable
+    internal interface IPlayer : ICollidable, ICharacter
     {
-        void Move(LinkConstants.Direction direction);
+        void Move(PlayerConstants.Direction direction);
 
         void Attack();
 

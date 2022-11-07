@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.Input;
 public class MouseController //: IController
 {
     MouseState mouseState;
+    bool leftLastPressed = false;
+    bool rightLastPressed = false;
     public DateTime lastInputTime = DateTime.Now;
     public bool leftButtonPressed;
     public bool rightButtonPressed;
@@ -19,9 +21,9 @@ public class MouseController //: IController
     public void Update()
     {
         mouseState = Mouse.GetState();
-        
 
-        if (mouseState.LeftButton==ButtonState.Pressed)
+
+        if (mouseState.LeftButton == ButtonState.Pressed)
         {
             if (leftButtonPressed) {
                 leftButtonHeld = true;
@@ -42,6 +44,8 @@ public class MouseController //: IController
             {
                 leftButtonPressed=false;
             }
+
+            leftLastPressed = true;
         }
 
         if (mouseState.RightButton == ButtonState.Pressed)

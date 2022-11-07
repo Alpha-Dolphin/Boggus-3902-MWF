@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    public class LinkConstants
+    public class PlayerConstants
     {
         public enum Link_States
         {
@@ -38,6 +38,17 @@ namespace LOZ.Tools.PlayerObjects
             Bomb,
             CandleFlame
         }
+        public enum Pickupable_Items { 
+            HeartHealing,
+            HeartContainer,
+            YellowRupee,
+            BlueRupee,
+            Map,
+            Compass,
+            Boomerang,
+            CandleFlame,
+            Key
+        }
         public enum Direction
         {
             Up,
@@ -53,8 +64,8 @@ namespace LOZ.Tools.PlayerObjects
         public const int DEFAULT_Y = 120;
 
         public static string[] DEFAULT_ITEMS = new string[] { "test" };
-        public const LinkConstants.Link_States DEFAULT_STATE = LinkConstants.Link_States.Normal;
-        public const LinkConstants.Direction DEFAULT_DIRECTION = LinkConstants.Direction.Down;
+        public const PlayerConstants.Link_States DEFAULT_STATE = PlayerConstants.Link_States.Normal;
+        public const PlayerConstants.Direction DEFAULT_DIRECTION = PlayerConstants.Direction.Down;
 
         public const string LINK_SPRITESHEET_NAME = "SpriteSheets/Link_EmptyBackground";
         public static Color DEFAULT_PICTURE_COLOR = Color.White;

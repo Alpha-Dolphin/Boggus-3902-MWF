@@ -9,6 +9,7 @@ using LOZ.Tools.ItemObjects;
 using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework.Graphics;
 using LOZ.Tools.EnvironmentObjects;
+using LOZ.Tools.HUDObjects;
 
 namespace LOZ.Tools.LevelManager
 {
@@ -35,26 +36,33 @@ namespace LOZ.Tools.LevelManager
 
         public void SetTextures()
         {
-                this.RoomInterior = new Sprite(texture, BackgroundConstants.EXTERIOR_WIDTH,
-                BackgroundConstants.EXTERIOR_WIDTH, new List<Rectangle>() { BackgroundConstants.ROOMS[roomNumber] });
-                this.RoomExterior = new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.ROOM_EXTERIOR });
-                this.Doors = new Sprite[4];
+            this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
+            EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOM_EMPTY_BACKGROUND });
+            if(this.roomNumber == 7)
+            {
+                this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
+                EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOMS[7] });
+            }
+            this.RoomExterior = new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOM_EXTERIOR });
+            this.Doors = new Sprite[4];
 
-                for (int i = 0; i < Doors.Length; i++)
-                {
-                    SetDoorType(BackgroundConstants.ROOM_DOORS[roomNumber][i], i);
-                }
+            for (int i = 0; i < Doors.Length; i++)
+            {
+                SetDoorType(EnvironmentConstants.ROOM_DOORS[roomNumber][i], i);
+            }
+
+            FixCoordinates();
         }
 
-        private void SetDoorType(BackgroundConstants.DoorType doorType, int side)
+        private void SetDoorType(EnvironmentConstants.DoorType doorType, int side)
         {
             switch (doorType)
             {
-                case BackgroundConstants.DoorType.Wall: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.DOOR_WALL[side] }), side); break;
-                case BackgroundConstants.DoorType.Open: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.DOOR_OPEN[side] }), side); break;
-                case BackgroundConstants.DoorType.Locked: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.DOOR_LOCKED[side] }), side); break;
-                case BackgroundConstants.DoorType.Closed: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.DOOR_CLOSED[side] }), side); break;
-                case BackgroundConstants.DoorType.Hole: SetDoorLocation(new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.DOOR_HOLE[side] }), side); break;
+                case EnvironmentConstants.DoorType.Wall: SetDoorLocation(new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.DOOR_WALL[side] }), side); break;
+                case EnvironmentConstants.DoorType.Open: SetDoorLocation(new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.DOOR_OPEN[side] }), side); break;
+                case EnvironmentConstants.DoorType.Locked: SetDoorLocation(new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.DOOR_LOCKED[side] }), side); break;
+                case EnvironmentConstants.DoorType.Closed: SetDoorLocation(new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.DOOR_CLOSED[side] }), side); break;
+                case EnvironmentConstants.DoorType.Hole: SetDoorLocation(new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.DOOR_HOLE[side] }), side); break;
             }
         }
 
@@ -62,12 +70,12 @@ namespace LOZ.Tools.LevelManager
         {
             switch (side)
             {
-                case 0: this.Doors[side] = doorSprite.SetPosition(BackgroundConstants.ROOM_EXTERIOR.Width / 2 - BackgroundConstants.DOOR_WIDTH / 2, 0); break;
-                case 1: this.Doors[side] = doorSprite.SetPosition(0, BackgroundConstants.ROOM_EXTERIOR.Height / 2 - BackgroundConstants.DOOR_WIDTH / 2); break;
-                case 2: this.Doors[side] = doorSprite.SetPosition(BackgroundConstants.ROOM_EXTERIOR.Width - BackgroundConstants.DOOR_WIDTH,
-                    BackgroundConstants.ROOM_EXTERIOR.Height / 2 - BackgroundConstants.DOOR_WIDTH / 2); break;
-                case 3: this.Doors[side] = doorSprite.SetPosition(BackgroundConstants.ROOM_EXTERIOR.Width / 2 - BackgroundConstants.DOOR_WIDTH / 2, 
-                    BackgroundConstants.ROOM_EXTERIOR.Height - BackgroundConstants.DOOR_WIDTH); break;
+                case 0: this.Doors[side] = doorSprite.SetPosition(EnvironmentConstants.ROOM_EXTERIOR.Width / 2 - EnvironmentConstants.DOOR_WIDTH / 2, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale); break;
+                case 1: this.Doors[side] = doorSprite.SetPosition(0, EnvironmentConstants.ROOM_EXTERIOR.Height / 2 - EnvironmentConstants.DOOR_WIDTH / 2 + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale); break;
+                case 2: this.Doors[side] = doorSprite.SetPosition(EnvironmentConstants.ROOM_EXTERIOR.Width - EnvironmentConstants.DOOR_WIDTH,
+                    EnvironmentConstants.ROOM_EXTERIOR.Height / 2 - EnvironmentConstants.DOOR_WIDTH / 2 + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale); break;
+                case 3: this.Doors[side] = doorSprite.SetPosition(EnvironmentConstants.ROOM_EXTERIOR.Width / 2 - EnvironmentConstants.DOOR_WIDTH / 2, 
+                    EnvironmentConstants.ROOM_EXTERIOR.Height - EnvironmentConstants.DOOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale); break;
             }
         }
 
@@ -85,8 +93,8 @@ namespace LOZ.Tools.LevelManager
             {
                 int tempX = Sprite.xScale;
                 int tempY = Sprite.yScale;
-                Sprite.xScale = BackgroundConstants.SCREEN_WIDTH / this.RoomInterior.width;
-                Sprite.yScale = BackgroundConstants.SCREEN_HEIGHT / this.RoomInterior.height;
+                Sprite.xScale = EnvironmentConstants.SCREEN_WIDTH / this.RoomInterior.width;
+                Sprite.yScale = EnvironmentConstants.SCREEN_HEIGHT / this.RoomInterior.height;
                 this.RoomInterior.SetPosition(0, 0);
                 this.RoomInterior.Draw(spriteBatch);
                 Sprite.xScale = tempX;
@@ -125,6 +133,34 @@ namespace LOZ.Tools.LevelManager
             foreach (IItem item in itemList)
             {
                 item.Update(gameTime);
+            }
+        }
+
+        private void FixCoordinates()
+        {
+            foreach (IEnemy enemy in enemyList)
+            {
+                Rectangle currentPlacement = enemy.GetHurtbox();
+                enemy.SetHurtbox(new Rectangle(currentPlacement.X, currentPlacement.Y + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, currentPlacement.Width, currentPlacement.Height));
+            }
+            foreach (INPC npc in NPCList)
+            {
+                Vector2 currentPosition = npc.GetPosition();
+                npc.SetPlacement((int)currentPosition.X, (int)currentPosition.Y + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale);
+            }
+            foreach (IItem item in itemList)
+            {
+                Vector2 currentPosition = item.GetPosition();
+                item.SetPlacement((int)currentPosition.X, (int)currentPosition.Y + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale);
+            }
+            foreach (IEnvironment environment in environmentList)
+            {
+                Rectangle currentPlacement = environment.GetHurtbox();
+                environment.SetHurtbox(new Rectangle(currentPlacement.X, currentPlacement.Y + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, currentPlacement.Width, currentPlacement.Height));
+            }
+            foreach (Rectangle barrier in barrierList)
+            {
+                barrier.Offset(0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale);
             }
         }
     }

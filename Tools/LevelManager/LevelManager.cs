@@ -70,7 +70,6 @@ namespace LOZ.Tools.LevelManager
         {
             /*Fill in room number*/
             room.roomNumber = int.Parse(xmlRoom.Attributes?["num"]?.Value);
-            room.SetTextures();
             
             /*Fill in border*/
             room.border = bool.Parse(xmlRoom.SelectSingleNode("border").InnerText);
@@ -130,7 +129,9 @@ namespace LOZ.Tools.LevelManager
 
             /*Assign neighbors*/
             getNeighbors(room,xmlRoom.SelectSingleNode("neighbors"));
-            
+
+            room.SetTextures();
+
         }
 
 

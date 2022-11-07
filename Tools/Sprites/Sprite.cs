@@ -25,6 +25,8 @@ namespace LOZ.Tools.Sprites
         public int width;
         public int height;
 
+        private Color color = Color.White;
+
         /*private int currentFrame = 0;*/
 
         public Sprite(Texture2D picture, int x, int y, List<Rectangle> frames)
@@ -36,10 +38,19 @@ namespace LOZ.Tools.Sprites
             this.height = frames[0].Height;
             this.frame = frames[0];
         }
+        public Sprite(Texture2D picture, Rectangle destinationRectangle, List<Rectangle> frames)
+        {
+            this.picture = picture;
+            this.x = destinationRectangle.X;
+            this.y = destinationRectangle.Y;
+            this.width = destinationRectangle.Width;
+            this.height = destinationRectangle.Height;
+            this.frame = frames[0];
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(picture, new Rectangle(x*xScale, y*yScale, width*xScale, height*yScale), frame, Color.White);
+            spriteBatch.Draw(picture, new Rectangle(x*xScale, y*yScale, width*xScale, height*yScale), frame, color);
         }
 
         public void Update(int x, int y)
@@ -58,6 +69,18 @@ namespace LOZ.Tools.Sprites
         public bool Finished()
         {
             return true;
+        }
+        public Rectangle GetDestinationRectangle()
+        {
+            return new Rectangle(x, y, width, height);
+        }
+        public Rectangle GetSourceRectangle()
+        {
+            return this.frame;
+        }
+        public void SetColor(Color color)
+        {
+            this.color = color;
         }
     }
 }

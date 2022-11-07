@@ -13,7 +13,7 @@ namespace LOZ.Tools.PlayerObjects
     {
         public void SetVelocity(Vector2 velocity);
         public Vector2 Update();
-        public LinkConstants.Link_Projectiles GetProjectileType();
+        public PlayerConstants.Link_Projectiles GetProjectileType();
         public void Draw(SpriteBatch spriteBatch);
         public void Destroy();
         public bool stillExists();

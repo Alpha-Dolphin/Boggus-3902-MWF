@@ -14,12 +14,15 @@ namespace LOZ.Tools
     internal class Goriya : IEnemy, ICollidable
     {
         Vector2 enemyDirection;
+        EnemyConstants.Direction direction;
+        bool directionChange = false;
         Vector2 enemyPosition;
 
         //readonly GoriyaSprite goriyaSprite;
         AnimatedMovingSprite goriyaSprite;
 
-        readonly EnemyObjects.Boomerang boomerang;
+        //readonly EnemyObjects.Boomerang boomerang;
+        PlayerObjects.Boomerang boomerang;
 
         readonly Random rand;
 
@@ -35,16 +38,15 @@ namespace LOZ.Tools
         {
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
+            direction = EnemyConstants.Direction.Down;
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
             rand = new();
 
-            boomerang = new EnemyObjects.Boomerang();
-
-            goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
-                new List<Rectangle> { new Rectangle(222, 11, 16, 16), new Rectangle(239, 11, 16, 16), new Rectangle(256, 11, 16, 16), new Rectangle(273, 11, 16, 16) });
+            goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
+                EnemyConstants.GORIYA_DOWN);
 
             moveCheck = -1;
         }
@@ -57,7 +59,17 @@ namespace LOZ.Tools
 
         public void Attack(GameTime gameTime)
         {
-            boomerang.Activate(enemyDirection, enemyPosition);
+            Vector2 velocity = new Vector2(0, 0);
+
+            switch (this.direction)
+            {
+                case EnemyConstants.Direction.Up: velocity = new Vector2(0, -1); break;
+                case EnemyConstants.Direction.Left: velocity = new Vector2(-1, 0); break;
+                case EnemyConstants.Direction.Right: velocity = new Vector2(1, 0); break;
+                case EnemyConstants.Direction.Down: velocity = new Vector2(0, 1); break;
+            }
+
+            boomerang = new PlayerObjects.Boomerang(Game1.LINK_SPRITESHEET, this, enemyPosition, PlayerConstants.BOOMERANG_SPEED * velocity);
         }
 
         public void Die()
@@ -67,31 +79,68 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
-            if (boomerang.GetAttackTime() < 0.0)
+            EnemyConstants.Direction temp;
+            if (boomerang == null)
             {
-                enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
-                enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+                Vector2 delta = new Vector2((float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25), (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25));
+                if (Math.Abs(delta.X) > 0)
+                {
+                    temp = delta.X > 0 ? EnemyConstants.Direction.Right : EnemyConstants.Direction.Left;
+                }
+                else if (Math.Abs(delta.Y) > 0)
+                {
+
+                    temp = delta.Y > 0 ? EnemyConstants.Direction.Down : EnemyConstants.Direction.Up;
+                }
+                else
+                {
+                    temp = EnemyConstants.Direction.None;
+                }
+
+                directionChange = !temp.Equals(direction);
+                direction = temp;
+
+                enemyPosition += delta;
             }
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
             goriyaSprite.Draw(_spriteBatch);
-            if (boomerang.GetAttackTime() > 0.0) boomerang.Draw(_spriteBatch);
+            if (boomerang != null) boomerang.Draw(_spriteBatch);
         }
 
         public void Update(GameTime gameTime)
         {
             goriyaSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
-            if (boomerang.GetAttackTime() < 0.0)
+            MovementUpdate(gameTime);
+            AttackUpdate(gameTime);
+            if (boomerang != null)
             {
-                MovementUpdate(gameTime);
-                AttackUpdate(gameTime);
-                boomerang.SetHurtbox(new Rectangle(-128,-128, -128, -128));
+                boomerang.Update();
+                if (!boomerang.stillExists()) boomerang = null;
             }
-            else
+
+            if (directionChange)
             {
-                boomerang.Update(gameTime);
+                switch (direction)
+                {
+                    case EnemyConstants.Direction.Up:
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_UP); break;
+                    case EnemyConstants.Direction.Left:
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_LEFT); break;
+                    case EnemyConstants.Direction.Right:
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_RIGHT); break;
+                    case EnemyConstants.Direction.Down:
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_DOWN); break;
+                    case EnemyConstants.Direction.None:
+                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, new List<Rectangle>() { goriyaSprite.GetSourceRectangle() }); break;
+                }
             }
         }
 
