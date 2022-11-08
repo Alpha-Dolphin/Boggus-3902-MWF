@@ -9,17 +9,19 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using LOZ.Tools.PlayerObjects;
 
 namespace LOZ.Tools.PlayerObjects
 {
     internal class Dodongo : IEnemy, ICollidable
     {
         Vector2 enemyDirection;
+        EnemyConstants.Direction direction;
+        bool directionChange = false;
         Vector2 enemyPosition;
-        Vector2 boomerangPosition;
 
-        readonly DodongoSprite dodongoSprite;
-        readonly BoomerangSprite boomerangSprite;
+
+        AnimatedMovingSprite dodongoSprite;
 
         readonly Random rand;
 
@@ -31,7 +33,7 @@ namespace LOZ.Tools.PlayerObjects
         double moveProb;
         public void SetHurtbox(Rectangle rect)
         {
-                        enemyPosition.Y = rect.Y;
+            enemyPosition.Y = rect.Y;
             enemyPosition.X = rect.X;
         }
         public Dodongo(int X, int Y)
@@ -46,15 +48,15 @@ namespace LOZ.Tools.PlayerObjects
 
             attackTime = -1;
 
-            dodongoSprite = new DodongoSprite();
-            boomerangSprite = new BoomerangSprite();
+            dodongoSprite = new AnimatedMovingSprite(Game1.BOSSES_SPRITESHEET, (int) enemyPosition.X, (int) enemyPosition.Y, 
+                new List<Rectangle>() { new Rectangle(1, 58, 16, 16), new Rectangle(35, 58, 16, 16) });
 
             moveCheck = -1;
         }
 
         public void Attack(GameTime gameTime)
         {
-            //Nothing
+
         }
 
         public void Die()
@@ -63,31 +65,74 @@ namespace LOZ.Tools.PlayerObjects
         }
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = dodongoSprite.GetWidthHeight();
+            Vector2 wH = new Vector2(dodongoSprite.GetDestinationRectangle().Width, dodongoSprite.GetDestinationRectangle().Height);
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Move(GameTime gameTime)
         {
+            EnemyConstants.Direction temp;
+
             if (attackTime < 0.0)
             {
                 enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
                 enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+
+                Vector2 delta = new Vector2((float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25), (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25));
+                if (Math.Abs(delta.X) > 0)
+                {
+                    temp = delta.X > 0 ? EnemyConstants.Direction.Right : EnemyConstants.Direction.Left;
+                }
+                else if (Math.Abs(delta.Y) > 0)
+                {
+
+                    temp = delta.Y > 0 ? EnemyConstants.Direction.Down : EnemyConstants.Direction.Up;
+                }
+                else
+                {
+                    temp = EnemyConstants.Direction.None;
+                }
+
+                directionChange = !temp.Equals(direction);
+                direction = temp;
+
+                enemyPosition += delta;
             }
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            if (attackTime > 0.0) boomerangSprite.Draw(_spriteBatch, boomerangPosition);
-            dodongoSprite.Draw(_spriteBatch, enemyPosition);
+            dodongoSprite.Draw(_spriteBatch);
         }
 
         public void Update(GameTime gameTime)
         {
-            dodongoSprite.Update(gameTime, enemyDirection);
+            dodongoSprite.Update((int) enemyPosition.X, (int) enemyPosition.Y);
             AttackUpdate(gameTime);
             if (attackTime < 0.0) MovementUpdate(gameTime);
-            else boomerangSprite.Update(gameTime, attackLength, attackTime);
+
+            if (directionChange)
+            {
+                switch (direction)
+                {
+                    case EnemyConstants.Direction.Up:
+                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_UP); break;
+                    case EnemyConstants.Direction.Left:
+                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_LEFT); break;
+                    case EnemyConstants.Direction.Right:
+                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_RIGHT); break;
+                    case EnemyConstants.Direction.Down:
+                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_DOWN); break;
+                    case EnemyConstants.Direction.None:
+                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
+                        (int)enemyPosition.X, (int)enemyPosition.Y, new List<Rectangle>() { dodongoSprite.GetSourceRectangle() }); break;
+                }
+            }
+
         }
 
         private void AttackUpdate(GameTime gameTime)
@@ -96,7 +141,6 @@ namespace LOZ.Tools.PlayerObjects
             else if (rand.Next() % 4950 <= 25 && false)
             {
                 attackTime = attackLength;
-                boomerangPosition = enemyPosition;
             }
         }
 

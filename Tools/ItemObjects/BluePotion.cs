@@ -18,10 +18,11 @@ namespace LOZ.Tools.ItemObjects
         private Vector2 position;
         private Sprite sprite;
         private Vector2 DefaultSize = new(8, 16);
-        public void setPlacement(int x, int y)
+        public void SetPlacement(int x, int y)
         {
             position.X = x;
             position.Y = y;
+            this.sprite.Update(x, y);
         }
         public BluePotion(Texture2D spritesheet, int x, int y)
         {
@@ -42,6 +43,11 @@ namespace LOZ.Tools.ItemObjects
         public void Update(GameTime gametime)
         {
 
+        }
+
+        Vector2 IItem.GetPosition()
+        {
+            return position;
         }
 
     }

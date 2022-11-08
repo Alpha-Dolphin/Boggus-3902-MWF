@@ -44,5 +44,10 @@ namespace LOZ.Tools.NPCObjects
             this.sprite.Update(Convert.ToInt32(position.X), Convert.ToInt32(position.Y));
         }
 
+        public Vector2 GetPosition()
+        {
+            return position;
+        }
+
     }
 }

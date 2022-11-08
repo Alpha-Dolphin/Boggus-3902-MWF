@@ -33,7 +33,7 @@ namespace LOZ.Tools
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
 
-            slimeSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
+            slimeSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
                 new List<Rectangle> { new Rectangle(1, 11, 8, 16), new Rectangle(10, 11, 8, 16) });
 
             rand = new();

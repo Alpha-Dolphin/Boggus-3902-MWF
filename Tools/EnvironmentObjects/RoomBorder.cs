@@ -17,7 +17,7 @@ namespace LOZ.Tools.EnvironmentObjects
         private int yPosition = Constants.enviroDefaultY;
         public void SetPlacement(int x, int y)
         {
-            enviroSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, x, y, new List<Rectangle>() { BackgroundConstants.ROOM_EXTERIOR });
+            enviroSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, x, y, new List<Rectangle>() { EnvironmentConstants.ROOM_EXTERIOR });
             xPosition = x;
             yPosition = y;
         }
@@ -33,6 +33,9 @@ namespace LOZ.Tools.EnvironmentObjects
         }
         public void SetHurtbox(Rectangle rect)
         {
+            this.xPosition = rect.X;
+            this.yPosition = rect.Y;
+            enviroSprite.Update(rect.X, rect.Y);
         }
     }
 }

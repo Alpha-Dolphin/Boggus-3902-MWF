@@ -10,6 +10,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Content;
 using LOZ.Tools;
 using LOZ.Tools.Sprites;
+using LOZ.Tools.EnemyObjects;
 
 namespace LOZ.Tools
 {
@@ -35,8 +36,8 @@ namespace LOZ.Tools
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
-            stalfosSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
-                new List<Rectangle> { new Rectangle(1, 59, 16, 16) });
+            stalfosSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
+                EnemyConstants.STALFOS);
 
             enemyDirection.X = 0;
             enemyDirection.Y = 0;

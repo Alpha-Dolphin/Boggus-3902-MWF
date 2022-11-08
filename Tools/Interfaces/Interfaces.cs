@@ -40,14 +40,28 @@ public interface ICollision
     void Collide(Object a, Object b);
 }
 
-public interface IEnemy : ICollidable
+public interface IEnemy : ICharacter
 {
     void Attack(GameTime gameTime);
     void Die();
     void Move(GameTime gameTime);
     void Draw(SpriteBatch _spriteBatch);
     void Update(GameTime gameTime);
+
+    static void Appear(GameTime gameTime)
+    {
+
+    }
+
+    static void Die(GameTime gameTime)
+    {
+
+    }
 }
+
+//Can own projectiles
+public interface ICharacter : ICollidable { }
+
 
 public interface IGate:ICollidable
 {

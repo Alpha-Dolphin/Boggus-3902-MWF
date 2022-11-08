@@ -45,7 +45,7 @@ namespace LOZ.Tools
             ball2 = new Ball(2);
             ball3 = new Ball(3);
 
-            aquamentusSprite = new AnimatedMovingSprite(Game1.BOSSES, (int) enemyPosition.X, (int) enemyPosition.Y, 
+            aquamentusSprite = new AnimatedMovingSprite(Game1.BOSSES_SPRITESHEET, (int) enemyPosition.X, (int) enemyPosition.Y, 
                 new List<Rectangle>{ new Rectangle(1, 11, 24, 32), new Rectangle(26, 11, 24, 32), new Rectangle(51, 11, 24, 32), new Rectangle(76, 11, 24, 32) });
 
             rand = new();

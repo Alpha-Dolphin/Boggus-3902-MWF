@@ -15,6 +15,7 @@ namespace LOZ.Tools.NPCObjects
 
         void Update(GameTime gametime);
 
+        Vector2 GetPosition();
         void SetPlacement(int x, int y);
     }
 }

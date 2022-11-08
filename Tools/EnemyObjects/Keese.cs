@@ -32,7 +32,7 @@ namespace LOZ.Tools
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
-            keeseSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
+            keeseSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
                 new List<Rectangle> { new Rectangle(183, 11, 16, 16), new Rectangle(200, 11, 16, 16) });
 
             moveCounter = 0.0;

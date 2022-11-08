@@ -5,38 +5,44 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-public class TextSprite //: ISprite
+public class TextSprite : ISprite
 {
     private SpriteFont font;
     private string text;
     private Vector2 position;
+    private Color color = Color.White;
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.DrawString(font, text, position, Color.Black);
+        spriteBatch.DrawString(font, text, position, color);
     }
 
-    public void initialize()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void update()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void setFont(SpriteFont spriteFont)
+    public void SetFont(SpriteFont spriteFont)
     {
         font = spriteFont;
     }
 
-    public void setText(string text)
+    public void SetColor(Color color)
+    {
+        this.color = color;
+    }
+
+    public void SetText(string text)
     {
         this.text = text;
     }
-    public void setPosition(int x, int y)
+    public void SetPosition(int x, int y)
     {
         position = new Vector2(x, y);
+    }
+
+    public void Update(int x, int y)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public bool Finished()
+    {
+        throw new System.NotImplementedException();
     }
 }

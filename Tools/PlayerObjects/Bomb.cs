@@ -16,7 +16,7 @@ namespace LOZ.Tools.PlayerObjects
         private Vector2 velocity;
         private AnimatedMovingSprite sprite;
         private Texture2D spriteSheet;
-        private int delay = LinkConstants.BOMB_EXPLOSION_DELAY;
+        private int delay = PlayerConstants.BOMB_EXPLOSION_DELAY;
 
         private bool exploded = false;
         private bool exists = true;
@@ -36,7 +36,7 @@ namespace LOZ.Tools.PlayerObjects
         private void CreateSprite(Texture2D spriteSheet)
         {
             this.sprite = new AnimatedMovingSprite(spriteSheet, (int)position.X, (int)position.Y,
-                    new List<Rectangle> { LinkConstants.BOMB_FRAME }, LinkConstants.DEFAULT_FRAMERATE);
+                    new List<Rectangle> { PlayerConstants.BOMB_FRAME }, PlayerConstants.DEFAULT_FRAMERATE);
         }
 
         public void SetVelocity(Vector2 velocity)
@@ -60,9 +60,9 @@ namespace LOZ.Tools.PlayerObjects
             return this.position;
         }
 
-        public LinkConstants.Link_Projectiles GetProjectileType()
+        public PlayerConstants.Link_Projectiles GetProjectileType()
         {
-            return LinkConstants.Link_Projectiles.Bomb;
+            return PlayerConstants.Link_Projectiles.Bomb;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -81,7 +81,7 @@ namespace LOZ.Tools.PlayerObjects
         private void Explode()
         {
             this.sprite = new AnimatedMovingSprite(this.spriteSheet, (int)position.X, (int)position.Y,
-                    LinkConstants.BOMB_EXPLOSION_FRAMES);
+                    PlayerConstants.BOMB_EXPLOSION_FRAMES);
             this.exploded = true;
         }
 
