@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Music/DungeonTheme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/DungeonTheme.mp3
+
 #begin SpriteSheets/BossEnemies_EmptyFlipped.png
 /importer:TextureImporter
 /processor:TextureProcessor

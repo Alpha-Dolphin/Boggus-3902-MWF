@@ -15,6 +15,7 @@ using LOZ.Tools;
 using LOZ.Tools.LevelManager;
 using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.HUDObjects;
+using Microsoft.Xna.Framework.Media;
 
 namespace LOZ
 {
@@ -47,6 +48,9 @@ namespace LOZ
         public static Texture2D ITEM_SPRITESHEET;
         public static Texture2D HUD_SPRITESHEET;
 
+        private Song backgroundMusic;
+
+        private KeyboardState previousState;
 
         /* hanging onto to save time later
        private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
@@ -97,6 +101,10 @@ namespace LOZ
             Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
             Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
 
+            backgroundMusic = Content.Load<Song>(@"Music\DungeonTheme");
+            MediaPlayer.Play(backgroundMusic);
+            MediaPlayer.IsRepeating = true;
+
             LINK_SPRITESHEET = Content.Load<Texture2D>(PlayerConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
             currentRoomIndicator.SetFont(FONT);
@@ -115,9 +123,10 @@ namespace LOZ
             /*
              * Update logic here
              */
-
             base.Update(gameTime);
-
+            
+            // Track current state to see if M is held or not
+            KeyboardState currentState = Keyboard.GetState();
             List<Keys> pressed = controller.Update();
             mouseController.Update();
 
@@ -136,7 +145,16 @@ namespace LOZ
                 this.Exit();
             }
 
+            // If M is pressed, but not held, mute the song
+            if (pressed.Contains(Keys.M) && previousState.IsKeyUp(Keys.M))
+            {
+                UpdateSong();
+            }
+
             currentRoomIndicator.SetText("Current room number: " + currentRoom);
+
+            
+            previousState = currentState;
         }
 
         private void UpdateCollision()
@@ -161,6 +179,18 @@ namespace LOZ
                 if (Collision.Intersects(link.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(link, bL);
             }
 
+        }
+
+        private void UpdateSong()
+        {
+            if(MediaPlayer.IsMuted)
+            {
+                MediaPlayer.IsMuted = false;
+
+            } else
+            {
+                MediaPlayer.IsMuted = true;
+            }
         }
     
 
