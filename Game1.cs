@@ -14,6 +14,7 @@ using LOZ.Tools;
 
 using LOZ.Tools.LevelManager;
 using LOZ.Tools.EnvironmentObjects;
+using LOZ.Tools.RoomTransitionHandler;
 using LOZ.Tools.HUDObjects;
 using Microsoft.Xna.Framework.Media;
 
@@ -24,6 +25,7 @@ namespace LOZ
         private List<IEnemy> enemyList;
         public static List<IEnemy> enemyDieList = new();
         private List<IEnvironment> blockList;
+        private List<IGate> gateList;
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
@@ -31,9 +33,10 @@ namespace LOZ
         private KeyboardController controller;
         private MouseController mouseController;
         public static ICommand linkCommandHandler;
+        private RoomTransitionHandler roomTransitionHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 10;
+        public static int currentRoom = 2;
         private TextSprite currentRoomIndicator = new();
 
         private HUD hud;
@@ -68,6 +71,7 @@ namespace LOZ
         {
             // TODO: Add your initialization logic here
             LoadContent();
+            roomTransitionHandler = new RoomTransitionHandler();
 
             _graphics.PreferredBackBufferWidth = 1024;
             _graphics.PreferredBackBufferHeight = 704 + HUDConstants.TOP_HEIGHT;
@@ -161,16 +165,26 @@ namespace LOZ
         {
             enemyList = rooms[currentRoom].enemyList;
             blockList = rooms[currentRoom].environmentList;
+            gateList = rooms[currentRoom].gateList;
             foreach (IEnemy ene in enemyList)
             {
-                if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(ene, link);
+                if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox()))
+                {
+                    Collision.CollisionChecker(ene, link);
+                }
                 foreach (IEnvironment bL in blockList)
                 {
-                    if (Collision.Intersects(bL.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(bL, ene);
+                    if (Collision.Intersects(bL.GetHurtbox(), ene.GetHurtbox()))
+                    {
+                        Collision.CollisionChecker(bL, ene);
+                    }
                 }
                 foreach (ICollidable weapon in link.GetHitboxes())
                 {
-                    if (Collision.Intersects(weapon.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
+                    if (Collision.Intersects(weapon.GetHurtbox(), ene.GetHurtbox()))
+                    {
+                        Collision.CollisionChecker(weapon, ene);
+                    }
                 }
             }
             enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
@@ -178,7 +192,20 @@ namespace LOZ
             {
                 if (Collision.Intersects(link.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(link, bL);
             }
-
+            foreach (IGate gate in gateList)
+            {
+                if (Collision.Intersects(link.GetHurtbox(), gate.GetHurtbox()))
+                {
+                    if (gate.isGateOpen())
+                    {
+                        roomTransitionHandler.handleTransition(rooms[currentRoom], gate, link);
+                    }
+                    else
+                    {
+                        Collision.CollisionChecker(gate, link);
+                    }
+                }
+            }
         }
 
         private void UpdateSong()
@@ -191,8 +218,7 @@ namespace LOZ
             {
                 MediaPlayer.IsMuted = true;
             }
-        }
-    
+        }   
 
         protected override void Draw(GameTime gameTime)
         {

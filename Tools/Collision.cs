@@ -42,6 +42,10 @@ namespace LOZ.Tools
             {
                 if (b is Link damaged) ((LinkCommand) Game1.linkCommandHandler).ExecuteDamage();
             }
+            else if(a is IGate)
+            {
+                Collide(a, b);
+            }
         }
         static void Collide(ICollidable unchanged, ICollidable changed)
         {

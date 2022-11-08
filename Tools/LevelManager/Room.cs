@@ -27,6 +27,7 @@ namespace LOZ.Tools.LevelManager
         public List<IEnemy> enemyList { get; set; } = new List<IEnemy>();
         public List<INPC> NPCList { get; set; } = new List<INPC>();
         public List<IItem> itemList { get; set; } = new List<IItem>();
+        public List<IGate> gateList { get; set; } = new List<IGate> ();
         public int northNeighbor { get; set; } = 0;
         public int southNeighbor { get; set; } = 0;
         public int westNeighbor { get; set; } = 0;
@@ -37,12 +38,16 @@ namespace LOZ.Tools.LevelManager
 
         public void SetTextures()
         {
-            this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
-            EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOM_EMPTY_BACKGROUND });
-            if(this.roomNumber == 7)
+            
+            if (roomNumber == 7)
             {
                 this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
                 EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOMS[7] });
+            }
+            else 
+            {
+                this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
+                EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { new Rectangle(1, 192, 192, 112) }); 
             }
             this.RoomExterior = new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOM_EXTERIOR });
             this.Doors = new Sprite[4];
@@ -51,7 +56,6 @@ namespace LOZ.Tools.LevelManager
             {
                 SetDoorType(EnvironmentConstants.ROOM_DOORS[roomNumber][i], i);
             }
-
             FixCoordinates();
         }
 
@@ -85,13 +89,13 @@ namespace LOZ.Tools.LevelManager
             if (roomNumber > 1)
             {
                 this.RoomExterior.Draw(spriteBatch);
-                foreach (Sprite door in Doors)
-                {
-                    door.Draw(spriteBatch);
-                }
             }
             if (roomNumber == 1)
             {
+                
+                    this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
+                    EnvironmentConstants.EXTERIOR_WIDTH, new List<Rectangle>() { EnvironmentConstants.ROOMS[1] });
+                
                 int tempX = Sprite.xScale;
                 int tempY = Sprite.yScale;
                 Sprite.xScale = EnvironmentConstants.SCREEN_WIDTH / this.RoomInterior.width;
@@ -118,6 +122,10 @@ namespace LOZ.Tools.LevelManager
             foreach (IItem item in itemList)
             {
                 item.Draw(spriteBatch);
+            }
+            foreach (IGate gate in gateList)
+            {
+                gate.draw(spriteBatch);
             }
         }
 
@@ -163,6 +171,7 @@ namespace LOZ.Tools.LevelManager
             {
                 barrier.Offset(0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale);
             }
+
         }
     }
 }
