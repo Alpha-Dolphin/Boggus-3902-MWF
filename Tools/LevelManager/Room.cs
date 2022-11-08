@@ -50,6 +50,7 @@ namespace LOZ.Tools.LevelManager
                 EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { new Rectangle(1, 192, 192, 112) }); 
             }
             this.RoomExterior = new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOM_EXTERIOR });
+            this.Doors = new Sprite[4];
 
             FixCoordinates();
         }
@@ -95,7 +96,7 @@ namespace LOZ.Tools.LevelManager
             }
             foreach (IGate gate in gateList)
             {
-                gate.draw(spriteBatch);
+                gate.Draw(spriteBatch);
             }
         }
 

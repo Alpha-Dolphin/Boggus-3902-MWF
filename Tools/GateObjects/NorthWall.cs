@@ -13,14 +13,14 @@ namespace LOZ.Tools.GateObjects
         private bool doorOpen = false;
         private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(815, 11, 32, 32) });
         private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(815, 11, 32, 32) });
-        public void open()
+        public void Open()
         {
         }
-        public void close()
+        public void Close()
         {
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             if (doorOpen)
             {
@@ -49,7 +49,7 @@ namespace LOZ.Tools.GateObjects
         {
             return direction;
         }
-        public bool isGateOpen()
+        public bool IsGateOpen()
         {
             return doorOpen;
         }

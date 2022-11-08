@@ -196,7 +196,7 @@ namespace LOZ
             {
                 if (Collision.Intersects(link.GetHurtbox(), gate.GetHurtbox()))
                 {
-                    if (gate.isGateOpen())
+                    if (gate.IsGateOpen())
                     {
                         roomTransitionHandler.handleTransition(rooms[currentRoom], gate, link);
                     }
