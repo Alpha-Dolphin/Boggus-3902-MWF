@@ -53,6 +53,7 @@ namespace LOZ.Tools.EnvironmentObjects
             yPosition = rect.Y;
             width = rect.Width;
             height = rect.Height;
+            enviroSprite.Update(xPosition, yPosition);
         }
     }
 }
