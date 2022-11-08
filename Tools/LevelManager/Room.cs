@@ -25,6 +25,7 @@ namespace LOZ.Tools.LevelManager
         public List<IEnemy> enemyList { get; set; } = new List<IEnemy>();
         public List<INPC> NPCList { get; set; } = new List<INPC>();
         public List<IItem> itemList { get; set; } = new List<IItem>();
+        public List<IGate> gateList { get; set; } = new List<IGate> ();
         public int northNeighbor { get; set; } = 0;
         public int southNeighbor { get; set; } = 0;
         public int westNeighbor { get; set; } = 0;
@@ -35,15 +36,24 @@ namespace LOZ.Tools.LevelManager
 
         public void SetTextures()
         {
+            
+            if (roomNumber == 7)
+            {
                 this.RoomInterior = new Sprite(texture, BackgroundConstants.EXTERIOR_WIDTH,
-                BackgroundConstants.EXTERIOR_WIDTH, new List<Rectangle>() { BackgroundConstants.ROOMS[roomNumber] });
-                this.RoomExterior = new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.ROOM_EXTERIOR });
-                this.Doors = new Sprite[4];
+                BackgroundConstants.EXTERIOR_WIDTH, new List<Rectangle>() { BackgroundConstants.ROOMS[7] });
+            }
+            else 
+            {
+                this.RoomInterior = new Sprite(texture, BackgroundConstants.EXTERIOR_WIDTH,
+                BackgroundConstants.EXTERIOR_WIDTH, new List<Rectangle>() { new Rectangle(1, 192, 192, 112) }); 
+            }
+            this.RoomExterior = new Sprite(texture, 0, 0, new List<Rectangle>() { BackgroundConstants.ROOM_EXTERIOR });
+            this.Doors = new Sprite[4];
 
-                for (int i = 0; i < Doors.Length; i++)
-                {
-                    SetDoorType(BackgroundConstants.ROOM_DOORS[roomNumber][i], i);
-                }
+            for (int i = 0; i < Doors.Length; i++)
+            {
+                SetDoorType(BackgroundConstants.ROOM_DOORS[roomNumber][i], i);
+            }
         }
 
         private void SetDoorType(BackgroundConstants.DoorType doorType, int side)
@@ -76,13 +86,13 @@ namespace LOZ.Tools.LevelManager
             if (roomNumber > 1)
             {
                 this.RoomExterior.Draw(spriteBatch);
-                foreach (Sprite door in Doors)
-                {
-                    door.Draw(spriteBatch);
-                }
             }
             if (roomNumber == 1)
             {
+                
+                    this.RoomInterior = new Sprite(texture, BackgroundConstants.EXTERIOR_WIDTH,
+                    BackgroundConstants.EXTERIOR_WIDTH, new List<Rectangle>() { BackgroundConstants.ROOMS[1] });
+                
                 int tempX = Sprite.xScale;
                 int tempY = Sprite.yScale;
                 Sprite.xScale = BackgroundConstants.SCREEN_WIDTH / this.RoomInterior.width;
@@ -109,6 +119,10 @@ namespace LOZ.Tools.LevelManager
             foreach (IItem item in itemList)
             {
                 item.Draw(spriteBatch);
+            }
+            foreach (IGate gate in gateList)
+            {
+                gate.draw(spriteBatch);
             }
         }
 

@@ -48,3 +48,12 @@ public interface IEnemy : ICollidable
     void Draw(SpriteBatch _spriteBatch);
     void Update(GameTime gameTime);
 }
+
+public interface IGate:ICollidable
+{
+    void open();
+    void close();
+    Direction GetDirection();
+    bool isGateOpen();
+    void draw(SpriteBatch spriteBatch);
+}

@@ -56,6 +56,36 @@ public enum Item
     BlueCandle,
     BluePotion,
 }
+public enum Gate
+{
+    NorthKeyholeDoor,
+    WestKeyholeDoor,
+    EastKeyholeDoor,
+    SouthKeyholeDoor,
+    NorthDiamondDoor,
+    SouthDiamondDoor,
+    EastDiamondDoor,
+    WestDiamondDoor,
+    NorthBombHole,
+    SouthBombHole,
+    EastBombHole,
+    WestBombHole,
+    NorthWall,
+    SouthWall,
+    EastWall,
+    WestWall,
+    NorthOpenDoor,
+    SouthOpenDoor,
+    EastOpenDoor,
+    WestOpenDoor,
+}
+public enum Direction
+{
+    North,
+    South,
+    East,
+    West,
+}
 
 public class Constants
 {

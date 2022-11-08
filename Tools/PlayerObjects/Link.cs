@@ -360,5 +360,10 @@ namespace LOZ.Tools.PlayerObjects
             }
             return list;
         }
+        public void Teleport(int xPos,int yPos)
+        {
+            position.X = xPos;
+            position.Y = yPos;
+        }
     }
 }

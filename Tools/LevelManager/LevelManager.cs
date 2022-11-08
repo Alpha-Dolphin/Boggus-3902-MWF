@@ -13,6 +13,7 @@ using System.IO;
 using System.Threading;
 using LOZ.Tools.EnvironmentObjects.Helpers;
 using LOZ.Tools.EnvironmentObjects;
+using LOZ.Tools.GateObjects.Helpers;
 
 namespace LOZ.Tools.LevelManager
 {
@@ -28,6 +29,7 @@ namespace LOZ.Tools.LevelManager
         EnemySpriteFactory enemySpriteFactory = new EnemySpriteFactory();
         NPCFactory npcFactory = new NPCFactory(0, Game1.NPC_SPRITESHEET);
         ItemFactory itemFactory = new ItemFactory(Game1.ITEM_SPRITESHEET);
+        GateFactory gateFactory = new GateFactory();
 
 
         /*Function to initialize level data structure and fill it in*/
@@ -113,7 +115,7 @@ namespace LOZ.Tools.LevelManager
             {
                 if (NPC.NodeType != XmlNodeType.Comment)
                 {
-                    /*get enemy objects from enemy elements*/
+                    /*get NPC objects from NPC elements*/
                     room.NPCList.Add(getNPCObject(NPC));
                 }
             }
@@ -123,8 +125,18 @@ namespace LOZ.Tools.LevelManager
             {
                 if (item.NodeType != XmlNodeType.Comment)
                 {
-                    /*get enemy objects from enemy elements*/
+                    /*get item objects from item elements*/
                     room.itemList.Add(getItemObject(item));
+                }
+            }
+
+            /*Fill in gate list*/
+            foreach (XmlNode gate in xmlRoom.SelectSingleNode("gates").ChildNodes)
+            {
+                if (gate.NodeType != XmlNodeType.Comment)
+                {
+                    /*get gate objects from gate elements*/
+                    room.gateList.Add(getGateObject(gate));
                 }
             }
 
@@ -191,6 +203,12 @@ namespace LOZ.Tools.LevelManager
             string type = xmlItem.Attributes?["type"]?.Value;
 
             return itemFactory.CreateItem((Item)Enum.Parse(typeof(Item), type), xPlacement, yPlacement);
+        }
+        private IGate getGateObject(XmlNode xmlGate)
+        {
+            string type = xmlGate.Attributes?["type"]?.Value;
+
+            return gateFactory.getGate((Gate)Enum.Parse(typeof(Gate), type));
         }
 
         private void getNeighbors(Room room, XmlNode xmlNeigbors)
