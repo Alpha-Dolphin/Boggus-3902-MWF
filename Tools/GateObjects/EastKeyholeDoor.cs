@@ -42,7 +42,10 @@ namespace LOZ.Tools.GateObjects
 
         public void SetHurtbox(Rectangle rect)
         {
-            
+            xPosition = rect.X;
+            yPosition = rect.Y;
+            closedSprite.Update(rect.X, rect.Y);
+            openSprite.Update(rect.X, rect.Y);
         }
         public Direction GetDirection()
         {

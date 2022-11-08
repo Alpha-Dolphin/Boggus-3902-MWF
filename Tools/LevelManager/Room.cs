@@ -141,6 +141,11 @@ namespace LOZ.Tools.LevelManager
             {
                 barrier.Offset(0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale);
             }
+            foreach (IGate gate in gateList)
+            {
+                Rectangle currentPlacement = gate.GetHurtbox();
+                gate.SetHurtbox(new Rectangle(currentPlacement.X, currentPlacement.Y + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, currentPlacement.Width, currentPlacement.Height));
+            }
 
         }
     }
