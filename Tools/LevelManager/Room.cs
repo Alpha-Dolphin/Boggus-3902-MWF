@@ -56,6 +56,7 @@ namespace LOZ.Tools.LevelManager
             {
                 SetDoorType(EnvironmentConstants.ROOM_DOORS[roomNumber][i], i);
             }
+            FixCoordinates();
         }
 
         private void SetDoorType(EnvironmentConstants.DoorType doorType, int side)
@@ -170,6 +171,7 @@ namespace LOZ.Tools.LevelManager
             {
                 barrier.Offset(0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale);
             }
+
         }
     }
 }
