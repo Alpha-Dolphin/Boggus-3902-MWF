@@ -50,12 +50,12 @@ namespace LOZ.Tools.LevelManager
                 EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { new Rectangle(1, 192, 192, 112) }); 
             }
             this.RoomExterior = new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOM_EXTERIOR });
-            this.Doors = new Sprite[4];
+            //this.Doors = new Sprite[4];
 
-            for (int i = 0; i < Doors.Length; i++)
+            /*for (int i = 0; i < Doors.Length; i++)
             {
                 SetDoorType(EnvironmentConstants.ROOM_DOORS[roomNumber][i], i);
-            }
+            }*/
             FixCoordinates();
         }
 
@@ -125,7 +125,7 @@ namespace LOZ.Tools.LevelManager
             }
             foreach (IGate gate in gateList)
             {
-                gate.draw(spriteBatch);
+                gate.Draw(spriteBatch);
             }
         }
 
@@ -170,6 +170,11 @@ namespace LOZ.Tools.LevelManager
             foreach (Rectangle barrier in barrierList)
             {
                 barrier.Offset(0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale);
+            }
+            foreach (IGate gate in gateList)
+            {
+                Rectangle currentPlacement = gate.GetHurtbox();
+                gate.SetHurtbox(new Rectangle(currentPlacement.X, currentPlacement.Y + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, currentPlacement.Width, currentPlacement.Height));
             }
 
         }

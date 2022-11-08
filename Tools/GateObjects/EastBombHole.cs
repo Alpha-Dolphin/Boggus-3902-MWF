@@ -1,4 +1,5 @@
-﻿using LOZ.Tools.Sprites;
+﻿using LOZ.DeprecatedFiles;
+using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -13,16 +14,16 @@ namespace LOZ.Tools.GateObjects
         private bool doorOpen = false;
         private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(815, 77, 32, 32) });
         private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(947, 77, 32, 32) });
-        public void open()
+        public void Open()
         {
             doorOpen = true;
         }
-        public void close()
+        public void Close()
         {
             doorOpen = false;
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             if (doorOpen)
             {
@@ -42,13 +43,16 @@ namespace LOZ.Tools.GateObjects
 
         public void SetHurtbox(Rectangle rect)
         {
-
+            EastBombHole.xPosition = rect.X;
+            EastBombHole.yPosition = rect.Y;
+            closedSprite.Update(rect.X, rect.Y);
+            openSprite.Update(rect.X, rect.Y);
         }
         public Direction GetDirection()
         {
             return direction;
         }
-        public bool isGateOpen()
+        public bool IsGateOpen()
         {
             return doorOpen;
         }

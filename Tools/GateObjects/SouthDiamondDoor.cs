@@ -13,16 +13,16 @@ namespace LOZ.Tools.GateObjects
         private bool doorOpen = false;
         private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(914, 110, 32, 32) });
         private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(848, 110, 32, 32) });
-        public void open()
+        public void Open()
         {
             doorOpen = true;
         }
-        public void close()
+        public void Close()
         {
             doorOpen = false;
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             if (doorOpen)
             {
@@ -42,13 +42,16 @@ namespace LOZ.Tools.GateObjects
 
         public void SetHurtbox(Rectangle rect)
         {
-
+            SouthDiamondDoor.xPosition = rect.X;
+            SouthDiamondDoor.yPosition = rect.Y;
+            closedSprite.Update(rect.X, rect.Y);
+            openSprite.Update(rect.X, rect.Y);
         }
         public Direction GetDirection()
         {
             return direction;
         }
-        public bool isGateOpen()
+        public bool IsGateOpen()
         {
             return doorOpen;
         }

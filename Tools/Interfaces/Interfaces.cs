@@ -65,9 +65,9 @@ public interface ICharacter : ICollidable { }
 
 public interface IGate:ICollidable
 {
-    void open();
-    void close();
+    void Open();
+    void Close();
     Direction GetDirection();
-    bool isGateOpen();
-    void draw(SpriteBatch spriteBatch);
+    bool IsGateOpen();
+    void Draw(SpriteBatch spriteBatch);
 }
