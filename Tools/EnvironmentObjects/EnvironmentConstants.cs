@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LOZ.Tools.Sprites;
+using LOZ.Tools.HUDObjects;
 
 namespace LOZ.Tools.EnvironmentObjects
 {
@@ -88,7 +89,7 @@ namespace LOZ.Tools.EnvironmentObjects
         const int ROOM_WIDTH = 192;
         const int ROOM_HEIGHT = 112;
 
-        static Rectangle ROOM_EMPTY_BACKGROUND = new Rectangle(ROOM_LEFT_START, ROOM_TOP_START, ROOM_WIDTH, ROOM_HEIGHT);
+        public static Rectangle ROOM_EMPTY_BACKGROUND = new Rectangle(ROOM_LEFT_START, ROOM_TOP_START, ROOM_WIDTH, ROOM_HEIGHT);
         static Rectangle ROOM_1_BACKGROUND = new Rectangle(421, 1009, 256, 160);
         static Rectangle ROOM_2_BACKGROUND = new Rectangle(ROOM_LEFT_START, ROOM_TOP_START + 2 * ROOM_VERTICAL_GAP, ROOM_WIDTH, ROOM_HEIGHT);
         static Rectangle ROOM_3_BACKGROUND = new Rectangle(ROOM_LEFT_START + ROOM_HORIZONTAL_GAP, ROOM_TOP_START + 2 * ROOM_VERTICAL_GAP, ROOM_WIDTH, ROOM_HEIGHT);
@@ -117,7 +118,7 @@ namespace LOZ.Tools.EnvironmentObjects
             SCREEN_WIDTH = width;
             SCREEN_HEIGHT = height;
             AnimatedMovingSprite.xScale = Sprite.xScale = width / ROOM_EXTERIOR.Width;
-            AnimatedMovingSprite.yScale = Sprite.yScale = height / ROOM_EXTERIOR.Height;
+            AnimatedMovingSprite.yScale = Sprite.yScale = (height - HUDConstants.TOP_HEIGHT) / ROOM_EXTERIOR.Height;
         }
     }
 }

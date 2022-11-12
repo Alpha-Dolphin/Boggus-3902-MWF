@@ -29,7 +29,7 @@ namespace LOZ.Tools.EnemyObjects
         {
             attackTime = -1;
 
-            boomerangSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
+            boomerangSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
                 new List<Rectangle> { new Rectangle(290, 11, 8, 16), new Rectangle(299, 11, 8, 16), new Rectangle(308, 11, 8, 16) });
         }
         public Rectangle GetHurtbox()
@@ -60,7 +60,7 @@ namespace LOZ.Tools.EnemyObjects
 
         public void Die()
         {
-            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
+            Game1.enemyDieList.Add(this);
         }
 
         public void Attack(GameTime gameTime)

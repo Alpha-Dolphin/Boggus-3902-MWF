@@ -1,4 +1,5 @@
-﻿using LOZ.Tools.Sprites;
+﻿using LOZ.Tools.EnemyObjects;
+using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -30,8 +31,8 @@ namespace LOZ.Tools
         {
             ballLife = -1;
 
-            ballSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES, (int)enemyPosition.X, (int)enemyPosition.Y,
-                new List<Rectangle> { new Rectangle(101, 11, 8, 16), new Rectangle(110, 11, 8, 16), new Rectangle(119, 11, 8, 16), new Rectangle(128, 11, 8, 16) });
+            ballSprite = new AnimatedMovingSprite(Game1.BOSSES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
+                EnemyConstants.AQUAMENTUS_PROJECTILE );
             m = mode % 3;
         }
         public Rectangle GetHurtbox()
@@ -58,7 +59,7 @@ namespace LOZ.Tools
 
         public void Die()
         {
-            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
+            Game1.enemyDieList.Add(this);
         }
 
         public void Attack(GameTime gameTime)

@@ -33,6 +33,9 @@ internal class SquareBlock : IEnvironment
     }
     public void SetHurtbox(Rectangle rect)
     {
+        this.xPosition = rect.X;
+        this.yPosition = rect.Y;
+        enviroSprite.Update(rect.X, rect.Y);
     }
 }
 

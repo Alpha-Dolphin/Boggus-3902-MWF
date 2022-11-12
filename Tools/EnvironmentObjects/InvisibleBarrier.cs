@@ -1,5 +1,4 @@
 ﻿using LOZ.Tools.EnvironmentObjects.Helpers;
-using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -7,25 +6,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LOZ.Tools.Sprites;
 
 namespace LOZ.Tools.EnvironmentObjects
 {
-    internal class BlueSand : IEnvironment
+    internal class InvisibleBarrier : IEnvironment
     {
         private Sprite enviroSprite;
         private int xPosition = Constants.enviroDefaultX;
         private int yPosition = Constants.enviroDefaultY;
+        private int width;
+        private int height;
         public void SetPlacement(int x, int y)
         {
-            enviroSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, x, y, new List<Rectangle>() { new Rectangle(1001, 28, 16, 16) });
+            enviroSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, x, y, new List<Rectangle>() { new Rectangle(782, 110, 32, 32) });
             xPosition = x;
             yPosition = y;
+            
+        }
+        public Rectangle GetHurtbox()
+        {
+            return new Rectangle(xPosition, yPosition, width, height );
         }
 
-        
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            enviroSprite.Draw(spriteBatch);
+            if (Constants.DEBUG)
+            {
+                enviroSprite.width = width;
+                enviroSprite.height = height;
+                enviroSprite.Draw(spriteBatch);
+            }
         }
         /*Sets the source and location rectangles*/
         public void Update()
@@ -35,15 +47,12 @@ namespace LOZ.Tools.EnvironmentObjects
         {
         }
 
-        public Rectangle GetHurtbox()
-        {
-            return new Rectangle(enviroSprite.x, enviroSprite.y, enviroSprite.width, enviroSprite.height);
-        }
         public void SetHurtbox(Rectangle rect)
         {
-            this.xPosition = rect.X;
-            this.yPosition = rect.Y;
-            enviroSprite.Update(rect.X, rect.Y);
+            xPosition = rect.X;
+            yPosition = rect.Y;
+            width = rect.Width;
+            height = rect.Height;
         }
     }
 }

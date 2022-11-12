@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using LOZ.Tools.Sprites;
+using Microsoft.Xna.Framework.Input;
 
 namespace LOZ.Tools.PlayerObjects
 {
@@ -15,8 +16,14 @@ namespace LOZ.Tools.PlayerObjects
     {
         public static Vector2 position;
 
-        private string[] items;
-        private string currentItem;
+        private bool woodenSword { get; set; }
+        private bool boomerang { get; set; }
+        private bool bomb { get; set; }
+        private bool bow { get; set; }
+        private bool candleFlame { get; set; }
+
+        private int rupees = 0;
+        private int keys = 0;
 
         private List<IProjectile> projectiles;
         private ProjectileFactory projectileFactory;
@@ -38,8 +45,8 @@ namespace LOZ.Tools.PlayerObjects
         public Link()
         {
             Link.position = new Vector2(0, 0);
-            items = new string[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 0" };
-            currentItem = items[0];
+            //items = new string[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 0" };
+            //currentItem = items[0];
             health = PlayerConstants.MAX_HEALTH;
             direction = PlayerConstants.Direction.Up;
         }
@@ -47,8 +54,13 @@ namespace LOZ.Tools.PlayerObjects
         public Link(int xPos, int yPos, string[] items, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction, SpriteFont font)
         {
             Link.position = new Vector2(xPos, yPos);
-            this.items = items;
-            currentItem = items[0];
+
+            this.woodenSword = true;
+            this.boomerang = false;
+            this.bomb = false;
+            this.bow = false;
+            this.candleFlame = false;
+
             this.projectiles = new List<IProjectile>();
             this.health = health;
             this.healthText = new TextSprite();
@@ -57,8 +69,8 @@ namespace LOZ.Tools.PlayerObjects
             this.hitboxes = new List<Rectangle>();
             this.hurtbox = new Rectangle(xPos, yPos, PlayerConstants.LINK_MOVEDOWN_FRAME1.Width, PlayerConstants.LINK_MOVEDOWN_FRAME1.Height);
 
-            this.healthText.setFont(font);
-            this.healthText.setPosition(0, 0);
+            this.healthText.SetFont(font);
+            this.healthText.SetPosition(0, 0);
             this.projectileFactory = new ProjectileFactory(0, this.spriteSheet);
             UpdateSprite();
             this.swordHitbox = null;
@@ -234,7 +246,7 @@ namespace LOZ.Tools.PlayerObjects
         public void UpdateVisual()
         {
             this.sprite.Update((int)position.X, (int)position.Y);
-            this.healthText.setText(health + "");
+            this.healthText.SetText(health + "");
             if (this.invincibilityFrames > 0) this.invincibilityFrames--;
 
             for (int i = 0; i < projectiles.Count; i++)

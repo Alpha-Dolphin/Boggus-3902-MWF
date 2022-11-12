@@ -13,7 +13,7 @@ namespace LOZ.Tools
         public void Draw(SpriteBatch _spriteBatch, Vector2 ballPosition)
         {
             _spriteBatch.Draw(
-                Game1.BOSSES,
+                Game1.BOSSES_SPRITESHEET,
                 ballPosition,
                 ball,
                 Color.White,

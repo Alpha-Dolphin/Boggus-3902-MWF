@@ -16,7 +16,7 @@ namespace LOZ.Tools.EnemyObjects
         public void Draw(SpriteBatch _spriteBatch, Vector2 enemyPosition)
         {
             _spriteBatch.Draw(
-                Game1.BOSSES,
+                Game1.BOSSES_SPRITESHEET,
                 enemyPosition,
                 anim,
                 Color.White,

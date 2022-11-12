@@ -14,7 +14,7 @@ namespace LOZ.Tools
         public void Draw(SpriteBatch _spriteBatch, Vector2 boomerangPosition)
         {
             _spriteBatch.Draw(
-                Game1.REGULAR_ENEMIES,
+                Game1.REGULAR_ENEMIES_SPRITESHEET,
                 boomerangPosition,
                 boomerang,
                 Color.White,

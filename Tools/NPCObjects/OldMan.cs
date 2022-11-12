@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Input;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using LOZ.Tools.Sprites;
+using LOZ.Tools.ItemObjects;
 
 namespace LOZ.Tools.NPCObjects
 {
@@ -45,6 +46,11 @@ namespace LOZ.Tools.NPCObjects
         {
 
 
+        }
+
+        public Vector2 GetPosition()
+        {
+            return position;
         }
 
     }

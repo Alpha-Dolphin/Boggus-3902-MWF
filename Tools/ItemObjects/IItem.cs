@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LOZ.Tools.PlayerObjects;
 
 
 namespace LOZ.Tools.ItemObjects
@@ -13,8 +14,10 @@ namespace LOZ.Tools.ItemObjects
     {
         void Draw(SpriteBatch spriteBatch);
         void Update(GameTime gametime);
+        Vector2 GetPosition();
+        void SetPlacement(int x, int y);
 
-        void setPlacement(int x, int y);
+        //PlayerConstants.Pickupable_Items GetType();
 
     }
 }

@@ -38,6 +38,17 @@ namespace LOZ.Tools.PlayerObjects
             Bomb,
             CandleFlame
         }
+        public enum Pickupable_Items { 
+            HeartHealing,
+            HeartContainer,
+            YellowRupee,
+            BlueRupee,
+            Map,
+            Compass,
+            Boomerang,
+            CandleFlame,
+            Key
+        }
         public enum Direction
         {
             Up,

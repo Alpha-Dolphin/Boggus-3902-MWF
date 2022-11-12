@@ -48,7 +48,7 @@ namespace LOZ.Tools.PlayerObjects
 
             attackTime = -1;
 
-            dodongoSprite = new AnimatedMovingSprite(Game1.BOSSES, (int) enemyPosition.X, (int) enemyPosition.Y, 
+            dodongoSprite = new AnimatedMovingSprite(Game1.BOSSES_SPRITESHEET, (int) enemyPosition.X, (int) enemyPosition.Y, 
                 new List<Rectangle>() { new Rectangle(1, 58, 16, 16), new Rectangle(35, 58, 16, 16) });
 
             moveCheck = -1;
@@ -61,7 +61,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Die()
         {
-            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
+            Game1.enemyDieList.Add(this);
         }
         public Rectangle GetHurtbox()
         {
@@ -116,19 +116,19 @@ namespace LOZ.Tools.PlayerObjects
                 switch (direction)
                 {
                     case EnemyConstants.Direction.Up:
-                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
                         (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_UP); break;
                     case EnemyConstants.Direction.Left:
-                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
                         (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_LEFT); break;
                     case EnemyConstants.Direction.Right:
-                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
                         (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_RIGHT); break;
                     case EnemyConstants.Direction.Down:
-                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
                         (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_DOWN); break;
                     case EnemyConstants.Direction.None:
-                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES,
+                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
                         (int)enemyPosition.X, (int)enemyPosition.Y, new List<Rectangle>() { dodongoSprite.GetSourceRectangle() }); break;
                 }
             }
