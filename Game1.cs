@@ -30,7 +30,7 @@ namespace LOZ
         public static ICommand linkCommandHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 10;
+        public static int currentRoom = 13;
         private TextSprite currentRoomIndicator = new();
         
         public static LevelManager lm = new();
@@ -39,6 +39,7 @@ namespace LOZ
         public static Texture2D ENVIRONMENT_SPRITESHEET;
         public static Texture2D REGULAR_ENEMIES;
         public static Texture2D BOSSES;
+        public static Texture2D EXPLOSION;
         public static Texture2D NPC_SPRITESHEET;
         public static Texture2D ITEM_SPRITESHEET;
 
@@ -98,6 +99,7 @@ namespace LOZ
             REGULAR_ENEMIES = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
             BOSSES = Content.Load<Texture2D>(Constants.BossesSpriteSheetLocation);
             ITEM_SPRITESHEET = Content.Load<Texture2D>(Constants.ItemSpriteSheetLocation);
+            EXPLOSION = Content.Load<Texture2D>(Constants.ExplosionSpriteSheetLocation);
         }
 
         protected override void Update(GameTime gameTime)

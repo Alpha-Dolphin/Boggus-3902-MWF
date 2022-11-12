@@ -3,11 +3,13 @@ Interfaces for game
 
 */
 
+using LOZ;
 using LOZ.Tools.EnvironmentObjects.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 
 public interface ISprite
 {
@@ -48,14 +50,15 @@ public interface IEnemy : ICharacter
     void Draw(SpriteBatch _spriteBatch);
     void Update(GameTime gameTime);
 
-    static void Appear(GameTime gameTime)
-    {
-
+    static Rectangle Appear(double time) {
+        Rectangle[] cloudFrames = new[] { new Rectangle(138, 185, 16, 16), new Rectangle(155, 185, 16, 16), new Rectangle(172, 185, 16, 16) };
+        return cloudFrames[(int) ((time)/ (Constants.enemyEntryExitTime / 3)) % 3];
     }
 
-    static void Die(GameTime gameTime)
+    static Rectangle Disappear(double time)
     {
-
+        Rectangle[] explostionFrames = new[] { new Rectangle(0, 0, 16, 16), new Rectangle(0, 16, 16, 16), new Rectangle(35, 3, 9, 10), new Rectangle(51, 3, 9, 10) };
+        return explostionFrames[(int)(time / (Constants.enemyEntryExitTime / 4)) % 4];
     }
 }
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Content;
 
 namespace LOZ.Tools.EnemyObjects
 {
@@ -17,7 +18,7 @@ namespace LOZ.Tools.EnemyObjects
         double moveCheck;
         double moveTime;
         double moveProb;
-
+        int enemyState;
         const double moveDelay = 1000;
         public void SetHurtbox(Rectangle rect)
         {
@@ -68,7 +69,7 @@ namespace LOZ.Tools.EnemyObjects
         public void Update(GameTime gameTime)
         {
             MovementUpdate(gameTime);
-            RopeSprite.Update(gameTime);
+            RopeSprite.Update(gameTime, enemyState);
         }
 
         private void MovementUpdate(GameTime gameTime)

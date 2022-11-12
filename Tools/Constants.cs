@@ -63,7 +63,9 @@ public class Constants
     public const string BossesSpriteSheetLocation = "./SpriteSheets/BossEnemies_EmptyFlipped";
     public const string NPCSpriteSheetLocation = "./SpriteSheets/NPCs";
     public const string ItemSpriteSheetLocation = "./SpriteSheets/Items";
+    public const string ExplosionSpriteSheetLocation = "./SpriteSheets/EnemyDeathExplosion";
     public const int objectScale = 2;
     public const int enviroDefaultX = 10;
     public const int enviroDefaultY = 10;
+    public const double enemyEntryExitTime = 500;
 }
