@@ -28,7 +28,6 @@ namespace LOZ.Tools.PlayerObjects
         private int health;
         private int hearts;
         private int invincibilityFrames = 0;
-        private TextSprite healthText;
 
         private Texture2D spriteSheet = Game1.LINK_SPRITESHEET;
         private AnimatedMovingSprite sprite;
@@ -39,13 +38,11 @@ namespace LOZ.Tools.PlayerObjects
         public Link()
         {
             Link.position = new Vector2(0, 0);
-            //items = new string[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 0" };
-            //currentItem = items[0];
             health = PlayerConstants.MAX_HEALTH;
             direction = PlayerConstants.Direction.Up;
         }
 
-        public Link(int xPos, int yPos, string[] items, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction, SpriteFont font)
+        public Link(int xPos, int yPos, string[] items, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction)
         {
             Link.position = new Vector2(xPos, yPos);
 
@@ -54,14 +51,11 @@ namespace LOZ.Tools.PlayerObjects
             this.projectiles = new List<IProjectile>();
             this.health = health;
             this.hearts = health / 2 + hearts % 2;
-            this.healthText = new TextSprite();
             this.state = state;
             this.direction = direction;
             this.hitboxes = new List<Rectangle>();
             this.hurtbox = new Rectangle(xPos, yPos, PlayerConstants.LINK_MOVEDOWN_FRAME1.Width, PlayerConstants.LINK_MOVEDOWN_FRAME1.Height);
 
-            this.healthText.SetFont(font);
-            this.healthText.SetPosition(0, 0);
             this.projectileFactory = new ProjectileFactory(PlayerConstants.Link_Projectiles.BlueArrow, this.spriteSheet);
             UpdateSprite();
             this.swordHitbox = null;
@@ -208,7 +202,6 @@ namespace LOZ.Tools.PlayerObjects
         public void Draw(SpriteBatch spriteBatch)
         {
             this.sprite.Draw(spriteBatch);
-            this.healthText.Draw(spriteBatch);
 
             foreach (IProjectile projectile in projectiles)
             {
@@ -237,7 +230,6 @@ namespace LOZ.Tools.PlayerObjects
         public void UpdateVisual()
         {
             this.sprite.Update((int)position.X, (int)position.Y);
-            this.healthText.SetText(health + "");
             if (this.invincibilityFrames > 0) this.invincibilityFrames--;
 
             for (int i = 0; i < projectiles.Count; i++)
@@ -251,6 +243,11 @@ namespace LOZ.Tools.PlayerObjects
             }
         }
 
+        public int GetHealth()
+        {
+            return this.health;
+        }
+
         public void AddHealth(bool fairy)
         {
             if (fairy) this.health += PlayerConstants.FAIRY_HEALING;
@@ -259,9 +256,14 @@ namespace LOZ.Tools.PlayerObjects
             if (this.health > (this.hearts * 2)) this.health = this.hearts * 2;
         }
 
+        public int GetHearts() { 
+            return this.hearts;
+        }
+
         public void AddHeart()
         {
             this.hearts++;
+            AddHealth(false);
         }
 
         private void UpdateHitboxes()

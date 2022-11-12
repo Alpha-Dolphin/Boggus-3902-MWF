@@ -82,7 +82,7 @@ namespace LOZ
             EnvironmentConstants.Initialize(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             link = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.DEFAULT_ITEMS, PlayerConstants.MAX_HEALTH,
-                PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION,FONT);
+                PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION);
             linkCommandHandler = new LinkCommand((Link) link);
 
             /*Declaration of controllers*/
@@ -108,8 +108,8 @@ namespace LOZ
             Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
 
             backgroundMusic = Content.Load<Song>(@"Music\DungeonTheme");
-            MediaPlayer.Play(backgroundMusic);
-            MediaPlayer.IsRepeating = true;
+            //MediaPlayer.Play(backgroundMusic);
+            //MediaPlayer.IsRepeating = true;
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(PlayerConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
@@ -134,17 +134,31 @@ namespace LOZ
             // Track current state to see if M is held or not
             KeyboardState currentState = Keyboard.GetState();
             List<Keys> pressed = controller.Update();
-            mouseController.Update();
-
-            linkCommandHandler.Execute(pressed);
-            rooms[currentRoom].Update(gameTime);
-            foreach (IEnemy enemy in rooms[currentRoom].enemyList)
+            if (hud.Paused())
             {
-                enemy.Update(gameTime);
-                enemy.Move(gameTime);
+                if (pressed.Contains(Keys.Right) && previousState.IsKeyUp(Keys.Right))
+                {
+                    hud.NextItem();
+                }
+                else if (pressed.Contains(Keys.Left) && previousState.IsKeyUp(Keys.Left))
+                {
+                    hud.PreviousItem();
+                }
             }
+            else
+            {
+                mouseController.Update();
 
-            hud.Update(link, pressed);
+                linkCommandHandler.Execute(pressed);
+                rooms[currentRoom].Update(gameTime);
+                foreach (IEnemy enemy in rooms[currentRoom].enemyList)
+                {
+                    enemy.Update(gameTime);
+                    enemy.Move(gameTime);
+                }
+
+                hud.Update(link, pressed);
+            }
             
             if (pressed.Contains(Keys.Q))
             {
