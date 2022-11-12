@@ -36,7 +36,7 @@ namespace LOZ.Tools
             if (enemyState == 0)
             {
                 animState = (((int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2) == 0) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                currSheet = Game1.REGULAR_ENEMIES;
+                currSheet = Game1.REGULAR_ENEMIES_SPRITESHEET;
                 anim = new Rectangle(1, 59, 16, 16);
             }
             else if (enemyState == 1)

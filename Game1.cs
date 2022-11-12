@@ -41,8 +41,8 @@ namespace LOZ
         public static Texture2D LINK_SPRITESHEET;
         public static SpriteFont FONT;
         public static Texture2D ENVIRONMENT_SPRITESHEET;
-        public static Texture2D REGULAR_ENEMIES;
-        public static Texture2D BOSSES;
+        public static Texture2D REGULAR_ENEMIES_SPRITESHEET;
+        public static Texture2D BOSSES_SPRITESHEET;
         public static Texture2D EXPLOSION;
         public static Texture2D NPC_SPRITESHEET;
         public static Texture2D ITEM_SPRITESHEET;

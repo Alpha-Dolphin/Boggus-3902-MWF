@@ -64,3 +64,11 @@ public interface IEnemy : ICharacter
 
 //Can own projectiles
 public interface ICharacter : ICollidable { }
+public interface IGate : ICollidable
+{
+    void Open();
+    void Close();
+    //Direction GetDirection();
+    bool IsGateOpen();
+    void Draw(SpriteBatch spriteBatch);
+}
