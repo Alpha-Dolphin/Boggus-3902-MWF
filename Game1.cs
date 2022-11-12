@@ -17,6 +17,7 @@ using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.RoomTransitionHandler;
 using LOZ.Tools.HUDObjects;
 using Microsoft.Xna.Framework.Media;
+using LOZ.Tools.ItemObjects;
 
 namespace LOZ
 {
@@ -24,6 +25,7 @@ namespace LOZ
     {
         private List<IEnemy> enemyList;
         public static List<IEnemy> enemyDieList = new();
+        private List<IItem> itemList;
         private List<IEnvironment> blockList;
         private List<IGate> gateList;
 
@@ -32,7 +34,7 @@ namespace LOZ
         private Link link;
         private KeyboardController controller;
         private MouseController mouseController;
-        public static ICommand linkCommandHandler;
+        public static LinkCommand linkCommandHandler;
         private RoomTransitionHandler roomTransitionHandler;
 
         private List<Room> rooms;
@@ -164,6 +166,7 @@ namespace LOZ
         private void UpdateCollision()
         {
             enemyList = rooms[currentRoom].enemyList;
+            itemList = rooms[currentRoom].itemList;
             blockList = rooms[currentRoom].environmentList;
             gateList = rooms[currentRoom].gateList;
             foreach (IEnemy ene in enemyList)
@@ -187,7 +190,19 @@ namespace LOZ
                     }
                 }
             }
+
             enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
+
+            for(int i = 0; i < itemList.Count; i++)
+            {
+                if (Collision.Intersects(link.GetHurtbox(), itemList[i].GetHurtbox()))
+                {
+                    linkCommandHandler.GetItem(itemList[i]);
+                    itemList.RemoveAt(i);
+                    i--;
+                }
+            }
+
             foreach (IEnvironment bL in blockList)
             {
                 if (Collision.Intersects(link.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(link, bL);

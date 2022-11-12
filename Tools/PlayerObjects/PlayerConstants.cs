@@ -457,5 +457,8 @@ namespace LOZ.Tools.PlayerObjects
         static Rectangle BOMB_EXPLOSION_FRAME2 = new Rectangle(155, BOMB_EXPLOSIONY, BOMB_EXPLOSION_WIDTH, BOMB_EXPLOSION_WIDTH);
         static Rectangle BOMB_EXPLOSION_FRAME3 = new Rectangle(172, BOMB_EXPLOSIONY, BOMB_EXPLOSION_WIDTH, BOMB_EXPLOSION_WIDTH);
         public static List<Rectangle> BOMB_EXPLOSION_FRAMES = new List<Rectangle> { BOMB_EXPLOSION_FRAME1, BOMB_EXPLOSION_FRAME2, BOMB_EXPLOSION_FRAME3 };
+
+        public const int HEART_HEALING = 2;
+        public const int FAIRY_HEALING = 10;
     }
 }

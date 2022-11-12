@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using LOZ.Tools.ItemObjects;
 using LOZ.Tools.PlayerObjects;
 using Microsoft.Xna.Framework.Input;
 using static LOZ.Tools.PlayerObjects.PlayerConstants;
 
 namespace LOZ.Tools.Command
 {
-    internal class LinkCommand : ICommand
+    public class LinkCommand : ICommand
     {
         private Link link;
         bool attacked = false;
@@ -128,6 +128,59 @@ namespace LOZ.Tools.Command
             link.Damage();
         }
 
+        public void GetItem(IItem item)
+        {
+            if(typeof(Arrow) == item.GetType()) {
+                link.inventory.arrows++;
+            }
+            else if (typeof(BlueCandle) == item.GetType())
+            {
+                link.inventory.candleFlame = true;
+            }
+            else if (typeof(BluePotion) == item.GetType())
+            {
+                link.inventory.potion = true;
+            }
+            else if (typeof(ItemObjects.Bomb) == item.GetType())
+            {
+                link.inventory.bombs++;
+            }
+            else if (typeof(Bow) == item.GetType())
+            {
+                link.inventory.bow = true;
+            }
+            else if (typeof(Compass) == item.GetType())
+            {
+                link.inventory.compass = true;
+            }
+            else if (typeof(Fairy) == item.GetType())
+            {
+                link.AddHealth(true);
+            }
+            else if (typeof(Heart) == item.GetType()) {
+                link.AddHealth(false);
+            }
+            else if (typeof(HeartContainer) == item.GetType())
+            {
+                link.AddHeart();
+            }
+            else if (typeof(Key) == item.GetType()) {
+                link.inventory.keys++;
+            }
+            else if (typeof(Map) == item.GetType())
+            {
+                link.inventory.map = true;
+            }
+            else if (typeof(Rupee) == item.GetType())
+            {
+                link.inventory.rupees++;
+            }
+            else if (typeof(TriforcePiece) == item.GetType()) { }
+            else if (typeof(WoodenBoomerang) == item.GetType())
+            {
+                link.inventory.boomerang = true;
+            }
+        }
         private void CheckBombLastFrame(List<Keys> keys)
         {
             this.bombLastFrame = (keys.Contains(PlayerConstants.ITEM_5) || keys.Contains(PlayerConstants.ITEM_PAD5)) ? true : false;

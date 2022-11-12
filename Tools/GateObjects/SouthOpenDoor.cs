@@ -7,12 +7,12 @@ namespace LOZ.Tools.GateObjects
 {
     internal class SouthOpenDoor : IGate
     {
-        private static int xPosition = 114;
-        private static int yPosition = 144;
+        private int xPosition = GateConstants.SOUTH_INITIAL_X;
+        private int yPosition = GateConstants.SOUTH_INITIAL_Y;
         private Direction direction = Direction.South;
         private bool doorOpen = true;
-        private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(848, 110, 32, 32) });
-        private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(848, 110, 32, 32) });
+        private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.SOUTH_INITIAL_X, GateConstants.SOUTH_INITIAL_Y, new List<Rectangle>() { new Rectangle(848, 110, 32, 32) });
+        private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.SOUTH_INITIAL_X, GateConstants.SOUTH_INITIAL_Y, new List<Rectangle>() { new Rectangle(848, 110, 32, 32) });
         public void Open()
         {
 
@@ -42,8 +42,8 @@ namespace LOZ.Tools.GateObjects
 
         public void SetHurtbox(Rectangle rect)
         {
-            SouthOpenDoor.xPosition = rect.X;
-            SouthOpenDoor.yPosition = rect.Y;
+            xPosition = rect.X;
+            yPosition = rect.Y;
             closedSprite.Update(rect.X, rect.Y);
             openSprite.Update(rect.X, rect.Y);
         }

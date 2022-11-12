@@ -12,18 +12,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    internal class Link : IPlayer, ICollidable
+    public class Link : IPlayer, ICollidable
     {
         public static Vector2 position;
 
-        private bool woodenSword { get; set; }
-        private bool boomerang { get; set; }
-        private bool bomb { get; set; }
-        private bool bow { get; set; }
-        private bool candleFlame { get; set; }
-
-        private int rupees = 0;
-        private int keys = 0;
+        public LinkInventory inventory;
 
         private List<IProjectile> projectiles;
         private ProjectileFactory projectileFactory;
@@ -33,6 +26,7 @@ namespace LOZ.Tools.PlayerObjects
         private List<Rectangle> hitboxes;
 
         private int health;
+        private int hearts;
         private int invincibilityFrames = 0;
         private TextSprite healthText;
 
@@ -55,14 +49,11 @@ namespace LOZ.Tools.PlayerObjects
         {
             Link.position = new Vector2(xPos, yPos);
 
-            this.woodenSword = true;
-            this.boomerang = false;
-            this.bomb = false;
-            this.bow = false;
-            this.candleFlame = false;
+            inventory = new LinkInventory();
 
             this.projectiles = new List<IProjectile>();
             this.health = health;
+            this.hearts = health / 2 + hearts % 2;
             this.healthText = new TextSprite();
             this.state = state;
             this.direction = direction;
@@ -258,6 +249,19 @@ namespace LOZ.Tools.PlayerObjects
                 }
                 else projectiles[i].Update();
             }
+        }
+
+        public void AddHealth(bool fairy)
+        {
+            if (fairy) this.health += PlayerConstants.FAIRY_HEALING;
+            else this.health += PlayerConstants.HEART_HEALING;
+
+            if (this.health > (this.hearts * 2)) this.health = this.hearts * 2;
+        }
+
+        public void AddHeart()
+        {
+            this.hearts++;
         }
 
         private void UpdateHitboxes()

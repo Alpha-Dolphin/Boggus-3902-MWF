@@ -50,6 +50,15 @@ namespace LOZ.Tools.ItemObjects
         {
             return position;
         }
+        public Rectangle GetHurtbox()
+        {
+            return this.sprite.GetDestinationRectangle();
+        }
+
+        public void SetHurtbox(Rectangle rect)
+        {
+            this.SetPlacement(rect.X, rect.Y);
+        }
 
     }
 }
