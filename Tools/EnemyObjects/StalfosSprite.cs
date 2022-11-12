@@ -21,12 +21,12 @@ namespace LOZ.Tools
         {
             _spriteBatch.Draw(
                 currSheet,
-                enemyPosition,
+                enemyPosition * Constants.objectScale * 2,
                 anim,
                 Color.White,
                 0f,
                 new Vector2(anim.Width / 2, anim.Height / 2),
-                2,
+                2 * Constants.objectScale,
                 animState,
                 0f
             );

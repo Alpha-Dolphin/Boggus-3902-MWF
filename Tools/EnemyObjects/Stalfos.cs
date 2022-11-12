@@ -67,7 +67,7 @@ namespace LOZ.Tools
 
         private void DeleteEnemy()
         {
-            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
+            Game1.enemyDieList.Add(this);
         }
 
         public void Move(GameTime gameTime)
@@ -95,14 +95,14 @@ namespace LOZ.Tools
                 if (stateTime > Constants.enemyEntryExitTime)
                 {
                     stateTime = 0;
-                    //enemyState = 0;
+                    enemyState = 0;
                 }
             } else if (enemyState == -1)
             {
                 stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (stateTime > Constants.enemyEntryExitTime)
                 {
-                    //DeleteEnemy();
+                    DeleteEnemy();
                 }
             }
         }
