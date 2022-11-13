@@ -40,9 +40,16 @@ namespace LOZ.Tools
             }
             else if (a is IEnemy)
             {
-                if (b is Link damaged) ((LinkCommand) Game1.linkCommandHandler).ExecuteDamage();
+                if (b is Link damaged) EnemyCollide(a, damaged);
             }
         }
+
+        private static void EnemyCollide(IEnemy b, Link l)
+        {
+            if (typeof(Wallmaster) == b.GetType()) /*Load room 1*/;
+            else ((LinkCommand)Game1.linkCommandHandler).ExecuteDamage()
+        }
+
         static void Collide(ICollidable unchanged, ICollidable changed)
         {
             Rectangle zone = Rectangle.Intersect(unchanged.GetHurtbox(), changed.GetHurtbox());

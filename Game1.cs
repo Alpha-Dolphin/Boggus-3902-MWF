@@ -26,7 +26,7 @@ namespace LOZ
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
-        private Link link;
+        public Link link;
         private KeyboardController controller;
         private MouseController mouseController;
         public static ICommand linkCommandHandler;

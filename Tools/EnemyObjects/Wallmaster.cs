@@ -8,6 +8,8 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using LOZ.Tools;
 using LOZ.Tools.Sprites;
 using LOZ.Tools.EnemyObjects.LOZ.Tools;
+using LOZ.Tools.PlayerObjects;
+using System.Collections;
 
 namespace LOZ.Tools
 {
@@ -17,15 +19,10 @@ namespace LOZ.Tools
         //readonly ISpriteEnemy slimeSprite;
         readonly WallMasterSprite wallMasterSprite;
 
-        readonly Random rand;
-
-        double moveCheck;
-        double moveTime;
-        double moveProb;
+        double prevLinkValue;
 
         public bool grabbed;
 
-        const double moveDelay = 1000;
         public void SetHurtbox(Rectangle rect)
         {
             enemyPosition.Y = rect.Y;
@@ -38,12 +35,8 @@ namespace LOZ.Tools
 
             wallMasterSprite = new WallMasterSprite();
 
-            rand = new();
-
             enemyPosition.Y = Y;
             enemyPosition.X = X;
-
-            moveCheck = -1;
         }
         public Rectangle GetHurtbox()
         {
@@ -79,7 +72,15 @@ namespace LOZ.Tools
 
         private void MovementUpdate(GameTime gameTime)
         {
-            //A
+            if ((enemyDirection.X != 0 && enemyPosition.X == Link.position.X) || (enemyDirection.Y != 0 && enemyPosition.Y == Link.position.Y))
+            {
+                enemyDirection = new(0, 0);
+                Rectangle dist = Rectangle.Union(GetHurtbox(), new((int)Link.position.X, (int) Link.position.Y, 16, 16));
+                if (dist.Width > dist.Height)
+                {
+
+                }
+            }
         }
     }
 }
