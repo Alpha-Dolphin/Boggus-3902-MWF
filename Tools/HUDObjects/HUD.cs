@@ -19,6 +19,8 @@ namespace LOZ.Tools.HUDObjects
         bool full = false;
         bool lastPressed;
 
+        Link link;
+
         Texture2D itemSpriteSheet;
         Texture2D HUDSpriteSheet;
 
@@ -34,6 +36,7 @@ namespace LOZ.Tools.HUDObjects
         Sprite currentBox;
         Sprite selectionBox;
         int selectionBoxPosition = 0;
+        List<Sprite> items;
         Sprite boomerang;
         Sprite bomb;
         Sprite bow;
@@ -55,8 +58,11 @@ namespace LOZ.Tools.HUDObjects
         Sprite locationDotTop;
 
         Sprite rupeeTimes;
+        Sprite[] rupeeNumber;
         Sprite keyTimes;
+        Sprite[] keyNumber;
         Sprite bombTimes;
+        Sprite[] bombNumber;
         Sprite specialWeapon;
         Sprite sword;
 
@@ -64,7 +70,7 @@ namespace LOZ.Tools.HUDObjects
         private int health;
         Sprite[] hearts;
 
-        public HUD(Texture2D HUDSpriteSheet, Texture2D itemSpriteSheet, SpriteFont font)
+        public HUD(Texture2D HUDSpriteSheet, Texture2D itemSpriteSheet, SpriteFont font, Link link)
         {
             this.itemSpriteSheet = itemSpriteSheet;
             this.HUDSpriteSheet = HUDSpriteSheet;
@@ -76,13 +82,13 @@ namespace LOZ.Tools.HUDObjects
             inventoryBackground = new Sprite(HUDSpriteSheet, 0, 0, new List<Rectangle>() { HUDConstants.INVENTORY_BACKGROUND });
             mapBackground = new Sprite(HUDSpriteSheet, 0, inventoryBackground.height, new List<Rectangle>() { HUDConstants.MAP_BACKGROUND });
 
-            mapIcon = new Sprite(itemSpriteSheet, HUDConstants.MAP_ICON, new List<Rectangle>() { ItemConstants.MAP });
-            compassIcon = new Sprite(itemSpriteSheet, HUDConstants.COMPASS_ICON, new List<Rectangle>() { ItemConstants.COMPASS });
-            boomerang = new Sprite(itemSpriteSheet, HUDConstants.BOOMERANG, new List<Rectangle>() { ItemConstants.BOOMERANG });
-            bomb = new Sprite(itemSpriteSheet, HUDConstants.BOMB, new List<Rectangle>() { ItemConstants.BOMB });
-            bow = new Sprite(itemSpriteSheet, HUDConstants.BOW, new List<Rectangle>() { ItemConstants.BOW });
-            candle = new Sprite(itemSpriteSheet, HUDConstants.CANDLE, new List<Rectangle>() { ItemConstants.CANDLE });
-            potion = new Sprite(itemSpriteSheet, HUDConstants.POTION, new List<Rectangle>() { ItemConstants.POTION });
+            //mapIcon = new Sprite(itemSpriteSheet, HUDConstants.MAP_ICON, new List<Rectangle>() { ItemConstants.MAP });
+            //compassIcon = new Sprite(itemSpriteSheet, HUDConstants.COMPASS_ICON, new List<Rectangle>() { ItemConstants.COMPASS });
+            //boomerang = new Sprite(itemSpriteSheet, HUDConstants.BOOMERANG, new List<Rectangle>() { ItemConstants.BOOMERANG });
+            //bomb = new Sprite(itemSpriteSheet, HUDConstants.BOMB, new List<Rectangle>() { ItemConstants.BOMB });
+            //bow = new Sprite(itemSpriteSheet, HUDConstants.BOW, new List<Rectangle>() { ItemConstants.BOW });
+            //candle = new Sprite(itemSpriteSheet, HUDConstants.CANDLE, new List<Rectangle>() { ItemConstants.CANDLE });
+            //potion = new Sprite(itemSpriteSheet, HUDConstants.POTION, new List<Rectangle>() { ItemConstants.POTION });
 
             selectionBox = new Sprite(HUDSpriteSheet, HUDConstants.SELECTIONBOX_POSITIONS[selectionBoxPosition], new List<Rectangle>() { HUDConstants.SELECTIONBOX });
 
@@ -98,7 +104,7 @@ namespace LOZ.Tools.HUDObjects
             keyTimes = new Sprite(HUDSpriteSheet, HUDConstants.KEY_TIMES, new List<Rectangle>() { HUDConstants.X });
             bombTimes = new Sprite(HUDSpriteSheet, HUDConstants.BOMB_TIMES, new List<Rectangle>() { HUDConstants.X });
 
-            specialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y, new List<Rectangle>() { ItemConstants.BOOMERANG });
+            //specialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y, new List<Rectangle>() { ItemConstants.BOOMERANG });
             sword = new Sprite(itemSpriteSheet, HUDConstants.SWORD_X, HUDConstants.SWORD_Y, new List<Rectangle>() { ItemConstants.WOODEN_SWORD });
 
             
@@ -110,40 +116,132 @@ namespace LOZ.Tools.HUDObjects
                     HUDConstants.HEART_Y, new List<Rectangle>() { ItemConstants.HEART_FULL });
             }
 
-            topSprites = new List<Sprite>() { topBackground, levelNumBackground, levelNum, currentItemsBackground, mapTop, locationDotTop, 
+            rupeeNumber = new Sprite[1];
+            rupeeNumber[0] = new Sprite(HUDSpriteSheet, HUDConstants.RUPEE_TIMES.X + HUDConstants.RUPEE_TIMES.Width, HUDConstants.RUPEE_TIMES.Y,
+                new List<Rectangle>() { HUDConstants.ZERO });
+            keyNumber = new Sprite[1];
+            keyNumber[0] = new Sprite(HUDSpriteSheet, HUDConstants.KEY_TIMES.X + HUDConstants.KEY_TIMES.Width, HUDConstants.KEY_TIMES.Y,
+                new List<Rectangle>() { HUDConstants.ZERO });
+            bombNumber = new Sprite[1];
+            bombNumber[0] = new Sprite(HUDSpriteSheet, HUDConstants.BOMB_TIMES.X + HUDConstants.BOMB_TIMES.Width, HUDConstants.BOMB_TIMES.Y,
+                new List<Rectangle>() { HUDConstants.ZERO });
+
+            this.link = link;
+            UpdateInventory();
+
+            UpdateSpriteLists();
+        }
+
+        private void UpdateSpriteLists()
+        {
+            topSprites = new List<Sprite>() { topBackground, levelNumBackground, levelNum, currentItemsBackground, mapTop, locationDotTop,
                 rupeeTimes, keyTimes, bombTimes, specialWeapon, sword, };
-            fullSprites = new List<Sprite>() { fullBackground, inventoryBackground, mapBackground, currentSpecialWeapon, currentBox, 
+            fullSprites = new List<Sprite>() { fullBackground, inventoryBackground, mapBackground, currentSpecialWeapon, currentBox,
                 selectionBox, boomerang, bomb, bow, candle, potion, mapIcon, compassIcon, mapFull, locationDotFull };
         }
 
-        private void UpdateInventory(Link link)
+        private void UpdateInventory()
         {
+            link.inventory.bomb = link.inventory.bombs > 0;
+
+            if (mapIcon == null)
+            {
+                if(link.inventory.map) mapIcon = new Sprite(itemSpriteSheet, HUDConstants.MAP_ICON, new List<Rectangle>() { ItemConstants.MAP });
+            }
+            if (compassIcon == null)
+            {
+                if (link.inventory.compass)
+                    compassIcon = new Sprite(itemSpriteSheet, HUDConstants.COMPASS_ICON, new List<Rectangle>() { ItemConstants.COMPASS });
+            }
+            if (boomerang == null)
+            {
+                if (link.inventory.boomerang) boomerang = new Sprite(itemSpriteSheet, HUDConstants.BOOMERANG, new List<Rectangle>() { ItemConstants.BOOMERANG });
+            }
+            if (bomb == null)
+            {
+                if (link.inventory.bomb) bomb = new Sprite(itemSpriteSheet, HUDConstants.BOMB, new List<Rectangle>() { ItemConstants.BOMB });
+            }
+            if (bow == null)
+            {
+                if (link.inventory.bow) bow = new Sprite(itemSpriteSheet, HUDConstants.BOW, new List<Rectangle>() { ItemConstants.BOW });
+            }
+            if (candle == null)
+            {
+                if (link.inventory.candleFlame) candle = new Sprite(itemSpriteSheet, HUDConstants.CANDLE, new List<Rectangle>() { ItemConstants.CANDLE });
+            }
+            if (potion == null)
+            {
+                if (link.inventory.potion) potion = new Sprite(itemSpriteSheet, HUDConstants.POTION, new List<Rectangle>() { ItemConstants.POTION });
+            }
         }
 
-        public void Update(Link link, List<Keys> keys)
+        private void UpdateNumbers()
+        {
+            rupeeNumber = CreateNumber(link.inventory.rupees, rupeeTimes);
+            keyNumber = CreateNumber(link.inventory.keys, keyTimes);
+            bombNumber = CreateNumber(link.inventory.bombs, bombTimes);
+        }
+
+        private Sprite[] CreateNumber(int value, Sprite start)
+        {
+            int[] numArray = value.ToString().Select(t => int.Parse(t.ToString())).ToArray();
+            Sprite[] returnVal = new Sprite[numArray.Length];
+            for (int i = 0; i < numArray.Length; i++)
+            {
+                returnVal[i] = CreateDigit(numArray[i], start.x + (i + 1) * start.width, start.y);
+            }
+
+            return returnVal;
+        }
+
+        private Sprite CreateDigit(int num, int x, int y)
+        {
+            List<Rectangle> sourceRectangle = new List<Rectangle>();
+            switch (num)
+            {
+                case 0: sourceRectangle.Add(HUDConstants.ZERO); break;
+                case 1: sourceRectangle.Add(HUDConstants.ONE); break;
+                case 2: sourceRectangle.Add(HUDConstants.TWO); break;
+                case 3: sourceRectangle.Add(HUDConstants.THREE); break;
+                case 4: sourceRectangle.Add(HUDConstants.FOUR); break;
+                case 5: sourceRectangle.Add(HUDConstants.FIVE); break;
+                case 6: sourceRectangle.Add(HUDConstants.SIX); break;
+                case 7: sourceRectangle.Add(HUDConstants.SEVEN); break;
+                case 8: sourceRectangle.Add(HUDConstants.EIGHT); break;
+                case 9: sourceRectangle.Add(HUDConstants.NINE); break;
+            }
+
+            return new Sprite(HUDSpriteSheet, x, y, sourceRectangle);
+        }
+
+        public void Update(List<Keys> keys)
         {
             bool pressed = keys.Contains(HUDConstants.PAUSE_BUTTON);
 
             if (health != link.GetHealth()) UpdateHealth(link);
+            UpdateNumbers();
 
             if (pressed)
             {
                 if (!lastPressed)
                 {
                     lastPressed = true;
-                    Change(link);
+                    Change();
                 }
             }
             else lastPressed = false;
+
+            if (full && keys.Contains(HUDConstants.SELECT_ITEM)) ChangeSpecial();
         }
 
-        private void Change(Link link)
+        private void Change()
         {
             int shift = (EnvironmentConstants.SCREEN_HEIGHT - HUDConstants.TOP_HEIGHT) / Sprite.yScale;
 
             if (!full)
             {
-                UpdateInventory(link);
+                UpdateInventory();
+                UpdateSpriteLists();
                 foreach (Sprite sprite in topSprites)
                 {
                     if (sprite != null)
@@ -157,6 +255,21 @@ namespace LOZ.Tools.HUDObjects
                 {
                     Rectangle currentSpriteDestination = heart.GetDestinationRectangle();
                     heart.SetPosition(currentSpriteDestination.X, currentSpriteDestination.Y + shift);
+                }
+                foreach (Sprite num in rupeeNumber)
+                {
+                    Rectangle currentSpriteDestination = num.GetDestinationRectangle();
+                    num.SetPosition(currentSpriteDestination.X, currentSpriteDestination.Y + shift);
+                }
+                foreach (Sprite num in keyNumber)
+                {
+                    Rectangle currentSpriteDestination = num.GetDestinationRectangle();
+                    num.SetPosition(currentSpriteDestination.X, currentSpriteDestination.Y + shift);
+                }
+                foreach (Sprite num in bombNumber)
+                {
+                    Rectangle currentSpriteDestination = num.GetDestinationRectangle();
+                    num.SetPosition(currentSpriteDestination.X, currentSpriteDestination.Y + shift);
                 }
             } else
             {
@@ -173,6 +286,21 @@ namespace LOZ.Tools.HUDObjects
                 {
                     Rectangle currentSpriteDestination = heart.GetDestinationRectangle();
                     heart.SetPosition(currentSpriteDestination.X, currentSpriteDestination.Y - shift);
+                }
+                foreach (Sprite num in rupeeNumber)
+                {
+                    Rectangle currentSpriteDestination = num.GetDestinationRectangle();
+                    num.SetPosition(currentSpriteDestination.X, currentSpriteDestination.Y - shift);
+                }
+                foreach (Sprite num in keyNumber)
+                {
+                    Rectangle currentSpriteDestination = num.GetDestinationRectangle();
+                    num.SetPosition(currentSpriteDestination.X, currentSpriteDestination.Y - shift);
+                }
+                foreach (Sprite num in bombNumber)
+                {
+                    Rectangle currentSpriteDestination = num.GetDestinationRectangle();
+                    num.SetPosition(currentSpriteDestination.X, currentSpriteDestination.Y - shift);
                 }
             }
 
@@ -211,6 +339,19 @@ namespace LOZ.Tools.HUDObjects
             foreach(Sprite heart in hearts)
             {
                 heart.Draw(spriteBatch);
+            }
+            foreach (Sprite num in rupeeNumber)
+            {
+                num.Draw(spriteBatch);
+
+            }
+            foreach (Sprite num in keyNumber)
+            {
+                num.Draw(spriteBatch);
+            }
+            foreach (Sprite num in bombNumber)
+            {
+                num.Draw(spriteBatch);
             }
         }
 
@@ -258,26 +399,61 @@ namespace LOZ.Tools.HUDObjects
             selectionBox.Update(HUDConstants.SELECTIONBOX_POSITIONS[selectionBoxPosition].X, HUDConstants.SELECTIONBOX_POSITIONS[selectionBoxPosition].Y);
         }
 
-        public void ChangeSpecial()
+        private void ChangeSpecial()
         {
             switch (selectionBoxPosition)
             {
                 case 0:
-                    currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y, 
-                        new List<Rectangle>() { ItemConstants.BOOMERANG }); break;
+                    if (link.inventory.boomerang)
+                    {
+                        currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.CURRENT_SPECIAL_X, HUDConstants.CURRENT_SPECIAL_Y,
+                            new List<Rectangle>() { ItemConstants.BOOMERANG });
+                        specialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y, new List<Rectangle>() { ItemConstants.BOOMERANG });
+                        link.UpdateSpecialWeapon(PlayerConstants.Link_Projectiles.Boomerang);
+                    }
+                    break;
                 case 1:
-                    currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y,
-                        new List<Rectangle>() { ItemConstants.BOMB }); break;
+                    if (link.inventory.bomb)
+                    {
+                        currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.CURRENT_SPECIAL_X, HUDConstants.CURRENT_SPECIAL_Y,
+                            new List<Rectangle>() { ItemConstants.BOMB });
+                        specialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y, new List<Rectangle>() { ItemConstants.BOMB });
+                        link.UpdateSpecialWeapon(PlayerConstants.Link_Projectiles.Bomb);
+                    }
+                    break;
                 case 2:
-                    currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y,
-                        new List<Rectangle>() { ItemConstants.BOW }); break;
+                    if (link.inventory.bow)
+                    {
+                        currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.CURRENT_SPECIAL_X, HUDConstants.CURRENT_SPECIAL_Y,
+                            new List<Rectangle>() { ItemConstants.BOW });
+                        specialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y, new List<Rectangle>() { ItemConstants.BOW });
+                        link.UpdateSpecialWeapon(PlayerConstants.Link_Projectiles.WoodArrow);
+                    }
+                    break;
                 case 3:
-                    currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y,
-                        new List<Rectangle>() { ItemConstants.CANDLE }); break;
+                    if (link.inventory.candleFlame)
+                    {
+                        currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.CURRENT_SPECIAL_X, HUDConstants.CURRENT_SPECIAL_Y,
+                            new List<Rectangle>() { ItemConstants.CANDLE });
+                        specialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y, new List<Rectangle>() { ItemConstants.CANDLE });
+                        link.UpdateSpecialWeapon(PlayerConstants.Link_Projectiles.CandleFlame);
+                    }
+                    break;
                 case 4:
-                    currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y,
-                        new List<Rectangle>() { ItemConstants.POTION }); break;
+                    if (link.inventory.potion)
+                    {
+                        currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.CURRENT_SPECIAL_X, HUDConstants.CURRENT_SPECIAL_Y,
+                            new List<Rectangle>() { ItemConstants.POTION });
+                        specialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y, new List<Rectangle>() { ItemConstants.POTION });
+                        link.UpdateSpecialWeapon(PlayerConstants.Link_Projectiles.Potion);
+                    }
+                    break;
             }
+
+            Change();
+            Change();
+
+            UpdateSpriteLists();
         }
     }
 }

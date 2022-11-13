@@ -11,6 +11,7 @@ namespace LOZ.Tools.HUDObjects
     internal class HUDConstants
     {
         public static Keys PAUSE_BUTTON = Keys.Escape;
+        public static Keys SELECT_ITEM = Keys.Enter;
 
         public const int TOP_HEIGHT = 256;
 
@@ -18,6 +19,8 @@ namespace LOZ.Tools.HUDObjects
         public static Color DEFAULTBACKGROUNDCOLOR = Color.Black;
 
         public static Rectangle INVENTORY_BACKGROUND = new Rectangle(1, 11, 256, 88);
+        public static int CURRENT_SPECIAL_X = 68;
+        public static int CURRENT_SPECIAL_Y = 48;
         public static Rectangle MAP_BACKGROUND = new Rectangle(258, 112, 256, 88);
 
         public static Rectangle MAP_ICON = new Rectangle(48, 110, 8, 16);
@@ -51,7 +54,7 @@ namespace LOZ.Tools.HUDObjects
         public static Rectangle BOMB_TIMES = new Rectangle(96, 48, 8, 8);
 
         public const int SPECIALWEAPON_X = 130;
-        public const int SPECIALWEAPON_Y = 36;
+        public const int SPECIALWEAPON_Y = 32;
         public const int SWORD_X = 152;
         public const int SWORD_Y = 32;
 

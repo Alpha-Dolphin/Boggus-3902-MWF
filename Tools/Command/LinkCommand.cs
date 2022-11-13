@@ -53,6 +53,10 @@ namespace LOZ.Tools.Command
                 {
                     ExecuteAttack();
                 }
+                else if (PlayerConstants.SPECIAL_ATTACK_KEYS.Contains(key))
+                {
+                    ExecuteSpecialAttack();
+                }
                 else if (PlayerConstants.ITEM_KEYS.Contains(key))
                 {
                     int input = 0;
@@ -114,6 +118,11 @@ namespace LOZ.Tools.Command
                 link.Attack();
                 attacked = true;
             }
+        }
+
+        private void ExecuteSpecialAttack()
+        {
+            link.SpecialAttack();
         }
 
         private void ExecuteChangeItem(int input)

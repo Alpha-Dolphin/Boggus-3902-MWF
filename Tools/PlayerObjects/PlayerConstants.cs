@@ -36,7 +36,9 @@ namespace LOZ.Tools.PlayerObjects
             SwordBeam,
             Boomerang,
             Bomb,
-            CandleFlame
+            CandleFlame,
+            Potion,
+            None
         }
         public enum Pickupable_Items { 
             HeartHealing,
@@ -71,10 +73,10 @@ namespace LOZ.Tools.PlayerObjects
         public static Color DEFAULT_PICTURE_COLOR = Color.White;
 
         public static List<Keys> LINK_KEYS = new List<Keys>(new Keys[] { MOVE_UP_KEY, MOVE_LEFT_KEY, MOVE_RIGHT_KEY, MOVE_DOWN_KEY,
-            ATTACK_SWORD1, ATTACK_SWORD2,
+            ATTACK_SWORD1, ATTACK_SWORD2, ATTACK_SPECIAL,
             ITEM_1, ITEM_PAD1, ITEM_2, ITEM_PAD2, ITEM_3, ITEM_PAD3, ITEM_4, ITEM_PAD4, ITEM_5, ITEM_PAD5,
             ITEM_6, ITEM_PAD6, ITEM_7, ITEM_PAD7, ITEM_8, ITEM_PAD8, ITEM_9, ITEM_PAD9, ITEM_0, ITEM_PAD0,
-            DAMAGE_KEY });
+            DAMAGE_KEY, });
 
         public static List<Keys> MOVEMENT_KEYS = new List<Keys>(new Keys[] { MOVE_UP_KEY, MOVE_LEFT_KEY, MOVE_RIGHT_KEY, MOVE_DOWN_KEY,
             MOVE_UPARROW_KEY, MOVE_LEFTARROW_KEY, MOVE_RIGHTARROW_KEY, MOVE_DOWNARROW_KEY });
@@ -90,6 +92,9 @@ namespace LOZ.Tools.PlayerObjects
         public static List<Keys> SWORD_ATTACK_KEYS = new List<Keys>(new Keys[] { ATTACK_SWORD1, ATTACK_SWORD2 });
         private const Keys ATTACK_SWORD1 = Keys.Z;
         private const Keys ATTACK_SWORD2 = Keys.N;
+
+        public static List<Keys> SPECIAL_ATTACK_KEYS = new List<Keys>(new Keys[] { ATTACK_SPECIAL });
+        private const Keys ATTACK_SPECIAL = Keys.X;
 
         public static List<Keys> ITEM_KEYS = new List<Keys>(new Keys[] { ITEM_1, ITEM_PAD1, ITEM_2, ITEM_PAD2, ITEM_3, ITEM_PAD3, ITEM_4, ITEM_PAD4,
             ITEM_5, ITEM_PAD5, ITEM_6, ITEM_PAD6, ITEM_7, ITEM_PAD7, ITEM_8, ITEM_PAD8, ITEM_9, ITEM_PAD9, ITEM_0, ITEM_PAD0});
@@ -117,6 +122,7 @@ namespace LOZ.Tools.PlayerObjects
         public static List<Keys> DAMAGE_KEYS = new List<Keys>(new Keys[] { DAMAGE_KEY });
         private const Keys DAMAGE_KEY = Keys.E;
 
+        public const int HEATH_PER_HEART = 2;
         public const int MAX_HEALTH = 8;
 
         public const int DEFAULT_FRAMERATE = 10;

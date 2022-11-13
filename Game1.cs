@@ -96,7 +96,7 @@ namespace LOZ
 
             currentRoomIndicator.SetPosition(0, 20);
 
-            hud = new HUD(HUD_SPRITESHEET, ITEM_SPRITESHEET, FONT);
+            hud = new HUD(HUD_SPRITESHEET, ITEM_SPRITESHEET, FONT, link);
 
             base.Initialize();
         }
@@ -156,10 +156,10 @@ namespace LOZ
                     enemy.Update(gameTime);
                     enemy.Move(gameTime);
                 }
-
-                hud.Update(link, pressed);
             }
-            
+
+            hud.Update(pressed);
+
             if (pressed.Contains(Keys.Q))
             {
                 this.Exit();

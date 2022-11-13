@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework.Input;
+using System.Runtime.CompilerServices;
 
 namespace LOZ.Tools.PlayerObjects
 {
@@ -18,6 +19,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public LinkInventory inventory;
 
+        private PlayerConstants.Link_Projectiles currentSpecialWeapon;
         private List<IProjectile> projectiles;
         private ProjectileFactory projectileFactory;
 
@@ -48,6 +50,7 @@ namespace LOZ.Tools.PlayerObjects
 
             inventory = new LinkInventory();
 
+            this.currentSpecialWeapon = PlayerConstants.Link_Projectiles.None;
             this.projectiles = new List<IProjectile>();
             this.health = health;
             this.hearts = health / 2 + hearts % 2;
@@ -144,7 +147,22 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Attack()
         {
-            if (health == PlayerConstants.MAX_HEALTH) CreateProjectile(PlayerConstants.Link_Projectiles.SwordBeam);
+            if (this.health == PlayerConstants.HEATH_PER_HEART*this.hearts) CreateProjectile(PlayerConstants.Link_Projectiles.SwordBeam);
+        }
+
+        public void UpdateSpecialWeapon(PlayerConstants.Link_Projectiles specialWeapon)
+        {
+            this.currentSpecialWeapon = specialWeapon;
+        }
+
+        public void SpecialAttack()
+        {
+            UpdateState(PlayerConstants.Link_States.UseItem, this.direction);
+            if(currentSpecialWeapon == PlayerConstants.Link_Projectiles.Potion)
+            {
+                AddHealth(true);
+            }
+            else CreateProjectile(currentSpecialWeapon);
         }
 
         public void UseItem(int input)
@@ -185,17 +203,32 @@ namespace LOZ.Tools.PlayerObjects
 
             if (!containsProjectile)
             {
-                Vector2 velocity = new Vector2(0, 0);
-                switch (this.direction)
+                bool projectileAvailable = true;
+                if (projectileType == PlayerConstants.Link_Projectiles.Bomb)
                 {
-                    case PlayerConstants.Direction.Up: velocity = new Vector2(0, -1); break;
-                    case PlayerConstants.Direction.Left: velocity = new Vector2(-1, 0); break;
-                    case PlayerConstants.Direction.Right: velocity = new Vector2(1, 0); break;
-                    case PlayerConstants.Direction.Down: velocity = new Vector2(0, 1); break;
+                    if (inventory.bombs > 0)
+                    {
+                        inventory.bombs--;
+                    } else
+                    {
+                        projectileAvailable = false;
+                    }
                 }
 
-                this.projectileFactory.Update(projectileType);
-                this.projectiles.Add(this.projectileFactory.CreateProjectile(velocity, this));
+                if (projectileAvailable)
+                {
+                    Vector2 velocity = new Vector2(0, 0);
+                    switch (this.direction)
+                    {
+                        case PlayerConstants.Direction.Up: velocity = new Vector2(0, -1); break;
+                        case PlayerConstants.Direction.Left: velocity = new Vector2(-1, 0); break;
+                        case PlayerConstants.Direction.Right: velocity = new Vector2(1, 0); break;
+                        case PlayerConstants.Direction.Down: velocity = new Vector2(0, 1); break;
+                    }
+
+                    this.projectileFactory.Update(projectileType);
+                    this.projectiles.Add(this.projectileFactory.CreateProjectile(velocity, this));
+                }
             }
         }
 
@@ -230,7 +263,8 @@ namespace LOZ.Tools.PlayerObjects
         public void UpdateVisual()
         {
             this.sprite.Update((int)position.X, (int)position.Y);
-            if (this.invincibilityFrames > 0) this.invincibilityFrames--;
+            if (this.invincibilityFrames > 0)
+                this.invincibilityFrames--;
 
             for (int i = 0; i < projectiles.Count; i++)
             {
