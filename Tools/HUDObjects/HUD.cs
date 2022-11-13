@@ -31,6 +31,7 @@ namespace LOZ.Tools.HUDObjects
 
         Sprite inventoryBackground;
         Sprite mapBackground;
+        Sprite mapInsideBackground;
         Sprite currentSpecialWeapon;
 
         Sprite currentBox;
@@ -45,7 +46,7 @@ namespace LOZ.Tools.HUDObjects
 
         Sprite mapIcon;
         Sprite compassIcon;
-        Sprite mapFull;
+        Sprite[] mapFull;
         Sprite locationDotFull;
 
 
@@ -54,7 +55,7 @@ namespace LOZ.Tools.HUDObjects
         Sprite levelNumBackground;
         Sprite levelNum;
         Sprite currentItemsBackground;
-        Sprite mapTop;
+        Sprite[] mapTop;
         Sprite locationDotTop;
 
         Sprite rupeeTimes;
@@ -81,14 +82,8 @@ namespace LOZ.Tools.HUDObjects
 
             inventoryBackground = new Sprite(HUDSpriteSheet, 0, 0, new List<Rectangle>() { HUDConstants.INVENTORY_BACKGROUND });
             mapBackground = new Sprite(HUDSpriteSheet, 0, inventoryBackground.height, new List<Rectangle>() { HUDConstants.MAP_BACKGROUND });
-
-            //mapIcon = new Sprite(itemSpriteSheet, HUDConstants.MAP_ICON, new List<Rectangle>() { ItemConstants.MAP });
-            //compassIcon = new Sprite(itemSpriteSheet, HUDConstants.COMPASS_ICON, new List<Rectangle>() { ItemConstants.COMPASS });
-            //boomerang = new Sprite(itemSpriteSheet, HUDConstants.BOOMERANG, new List<Rectangle>() { ItemConstants.BOOMERANG });
-            //bomb = new Sprite(itemSpriteSheet, HUDConstants.BOMB, new List<Rectangle>() { ItemConstants.BOMB });
-            //bow = new Sprite(itemSpriteSheet, HUDConstants.BOW, new List<Rectangle>() { ItemConstants.BOW });
-            //candle = new Sprite(itemSpriteSheet, HUDConstants.CANDLE, new List<Rectangle>() { ItemConstants.CANDLE });
-            //potion = new Sprite(itemSpriteSheet, HUDConstants.POTION, new List<Rectangle>() { ItemConstants.POTION });
+            mapInsideBackground = new Sprite(HUDSpriteSheet, HUDConstants.MAPINSIDE_BACKGROUND_DESTINATION, new List<Rectangle>() { HUDConstants.MAP_PIXEL });
+            mapFull = CreateMapFull();
 
             selectionBox = new Sprite(HUDSpriteSheet, HUDConstants.SELECTIONBOX_POSITIONS[selectionBoxPosition], new List<Rectangle>() { HUDConstants.SELECTIONBOX });
 
@@ -98,6 +93,7 @@ namespace LOZ.Tools.HUDObjects
             topBackground.SetColor(HUDConstants.DEFAULTBACKGROUNDCOLOR);
             levelNumBackground = new Sprite(HUDSpriteSheet, 0, 0, new List<Rectangle>() { HUDConstants.LEVELNUM_BACKGROUND });
             levelNum = new Sprite(HUDSpriteSheet, HUDConstants.LEVELNUM_DESTINATION, new List<Rectangle>() { HUDConstants.ONE });
+            mapTop = CreateMapTop();
             currentItemsBackground = new Sprite(HUDSpriteSheet, HUDConstants.CURRENTITEMS_BACKGROUND_DESTINATION, new List<Rectangle>() { HUDConstants.CURRENTITEMS_BACKGROUND });
 
             rupeeTimes = new Sprite(HUDSpriteSheet, HUDConstants.RUPEE_TIMES, new List<Rectangle>() { HUDConstants.X });
@@ -134,10 +130,10 @@ namespace LOZ.Tools.HUDObjects
 
         private void UpdateSpriteLists()
         {
-            topSprites = new List<Sprite>() { topBackground, levelNumBackground, levelNum, currentItemsBackground, mapTop, locationDotTop,
+            topSprites = new List<Sprite>() { topBackground, levelNumBackground, levelNum, currentItemsBackground, locationDotTop,
                 rupeeTimes, keyTimes, bombTimes, specialWeapon, sword, };
-            fullSprites = new List<Sprite>() { fullBackground, inventoryBackground, mapBackground, currentSpecialWeapon, currentBox,
-                selectionBox, boomerang, bomb, bow, candle, potion, mapIcon, compassIcon, mapFull, locationDotFull };
+            fullSprites = new List<Sprite>() { fullBackground, inventoryBackground, mapBackground, mapInsideBackground, currentSpecialWeapon, currentBox,
+                selectionBox, boomerang, bomb, bow, candle, potion, mapIcon, compassIcon, locationDotFull };
         }
 
         private void UpdateInventory()
@@ -214,6 +210,70 @@ namespace LOZ.Tools.HUDObjects
             return new Sprite(HUDSpriteSheet, x, y, sourceRectangle);
         }
 
+        private Sprite[] CreateMapTop()
+        {
+            Sprite[] returnVal = new Sprite[HUDConstants.MAPTOP_ROWS * HUDConstants.MAPTOP_COLUMNS];
+
+            for(int i = 0; i < HUDConstants.MAPTOP_ROWS; i++)
+            {
+                for(int j = 0; j < HUDConstants.MAPTOP_COLUMNS; j++)
+                {
+                    Rectangle sourceRectangle = new Rectangle();
+                    switch(HUDConstants.MAPTOP_INFO[i * HUDConstants.MAPTOP_COLUMNS + j])
+                    {
+                        case 0: sourceRectangle = HUDConstants.BLACK_PIXEL; break;
+                        case 1: sourceRectangle = HUDConstants.MAP_BLUE_TOP; break;
+                        case 2: sourceRectangle = HUDConstants.MAP_BLUE_BOT; break;
+                        case 3: sourceRectangle = HUDConstants.MAP_BLUE_TWO; break;
+                    }
+
+                    returnVal[i * HUDConstants.MAPTOP_COLUMNS + j] = new Sprite(HUDSpriteSheet, 
+                        HUDConstants.MAPTOP_X + j * HUDConstants.MAP_BLUE_TOP.Width, HUDConstants.MAPTOP_Y + i * HUDConstants.MAP_BLUE_TOP.Height, 
+                        new List<Rectangle>() { sourceRectangle });
+                }
+            }
+
+            return returnVal;
+        }
+        private Sprite[] CreateMapFull()
+        {
+            Sprite[] returnVal = new Sprite[HUDConstants.MAPFULL_ROWS * HUDConstants.MAPFULL_COLUMNS];
+
+            for (int i = 0; i < HUDConstants.MAPFULL_ROWS; i++)
+            {
+                for (int j = 0; j < HUDConstants.MAPFULL_COLUMNS; j++)
+                {
+                    Rectangle sourceRectangle = new Rectangle();
+                    switch (HUDConstants.MAPFULL_INFO[i * HUDConstants.MAPFULL_COLUMNS + j])
+                    {
+                        case 0: sourceRectangle = HUDConstants.MAP_PIXEL; break;
+                        case 1: sourceRectangle = HUDConstants.MAP_FULL_NONE; break;
+                        case 2: sourceRectangle = HUDConstants.MAP_FULL_E; break;
+                        case 3: sourceRectangle = HUDConstants.MAP_FULL_W; break;
+                        case 4: sourceRectangle = HUDConstants.MAP_FULL_EW; break;
+                        case 5: sourceRectangle = HUDConstants.MAP_FULL_S; break;
+                        case 6: sourceRectangle = HUDConstants.MAP_FULL_SE; break;
+                        case 7: sourceRectangle = HUDConstants.MAP_FULL_SW; break;
+                        case 8: sourceRectangle = HUDConstants.MAP_FULL_SEW; break;
+                        case 9: sourceRectangle = HUDConstants.MAP_FULL_N; break;
+                        case 10: sourceRectangle = HUDConstants.MAP_FULL_NE; break;
+                        case 11: sourceRectangle = HUDConstants.MAP_FULL_NW; break;
+                        case 12: sourceRectangle = HUDConstants.MAP_FULL_NEW; break;
+                        case 13: sourceRectangle = HUDConstants.MAP_FULL_NS; break;
+                        case 14: sourceRectangle = HUDConstants.MAP_FULL_NSE; break;
+                        case 15: sourceRectangle = HUDConstants.MAP_FULL_NSW; break;
+                        case 16: sourceRectangle = HUDConstants.MAP_FULL_NSEW; break;
+                    }
+
+                    returnVal[i * HUDConstants.MAPFULL_COLUMNS + j] = new Sprite(HUDSpriteSheet,
+                        HUDConstants.MAPFULL_X + j * HUDConstants.MAP_FULL_NONE.Width, HUDConstants.MAPFULL_Y + i * HUDConstants.MAP_FULL_NONE.Height,
+                        new List<Rectangle>() { sourceRectangle });
+                }
+            }
+
+            return returnVal;
+        }
+
         public void Update(List<Keys> keys)
         {
             bool pressed = keys.Contains(HUDConstants.PAUSE_BUTTON);
@@ -271,6 +331,11 @@ namespace LOZ.Tools.HUDObjects
                     Rectangle currentSpriteDestination = num.GetDestinationRectangle();
                     num.SetPosition(currentSpriteDestination.X, currentSpriteDestination.Y + shift);
                 }
+                foreach (Sprite pixel in mapTop)
+                {
+                    Rectangle currentSpriteDestination = pixel.GetDestinationRectangle();
+                    pixel.SetPosition(currentSpriteDestination.X, currentSpriteDestination.Y + shift);
+                }
             } else
             {
                 foreach (Sprite sprite in topSprites)
@@ -302,6 +367,11 @@ namespace LOZ.Tools.HUDObjects
                     Rectangle currentSpriteDestination = num.GetDestinationRectangle();
                     num.SetPosition(currentSpriteDestination.X, currentSpriteDestination.Y - shift);
                 }
+                foreach (Sprite pixel in mapTop)
+                {
+                    Rectangle currentSpriteDestination = pixel.GetDestinationRectangle();
+                    pixel.SetPosition(currentSpriteDestination.X, currentSpriteDestination.Y - shift);
+                }
             }
 
             full = !full;
@@ -323,6 +393,10 @@ namespace LOZ.Tools.HUDObjects
                 {
                     sprite.Draw(spriteBatch);
                 }
+            }
+            foreach (Sprite pixel in mapFull)
+            {
+                pixel.Draw(spriteBatch);
             }
         }
 
@@ -352,6 +426,10 @@ namespace LOZ.Tools.HUDObjects
             foreach (Sprite num in bombNumber)
             {
                 num.Draw(spriteBatch);
+            }
+            foreach (Sprite pixel in mapTop)
+            {
+                pixel.Draw(spriteBatch);
             }
         }
 
