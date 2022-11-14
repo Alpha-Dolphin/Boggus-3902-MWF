@@ -31,15 +31,10 @@ namespace LOZ.Tools.EnemyObjects
                     0f
                 );
             }
-            public void Update(GameTime gameTime)
+            public void Update(GameTime gameTime, int enemyState)
             {
-                //Nothing
-            }
-
-            public void Update(bool grabbed)
-            {
-                Rectangle[] trapFrames = new[] { new Rectangle(1, 11, 8, 16)};
-                anim = grabbed ? trapFrames[1] : trapFrames[0];
+                Rectangle[] trapFrames = new[] { new Rectangle(1, 11, 8, 16) };
+                anim = trapFrames[0];
             }
 
             public Vector2 GetWidthHeight()

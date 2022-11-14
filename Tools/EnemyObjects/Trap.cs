@@ -1,5 +1,7 @@
 using LOZ.Tools.EnemyObjects.LOZ.Tools;
+using LOZ.Tools.PlayerObjects;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using System;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
@@ -11,15 +13,8 @@ namespace LOZ.Tools
         //readonly ISpriteEnemy slimeSprite;
         readonly TrapSprite trapSprite;
 
-        readonly Random rand;
+        int enemyState;
 
-        double moveCheck;
-        double moveTime;
-        double moveProb;
-
-        public bool grabbed;
-
-        const double moveDelay = 1000;
         public void SetHurtbox(Rectangle rect)
         {
             enemyPosition.Y = rect.Y;
@@ -35,7 +30,6 @@ namespace LOZ.Tools
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
-            moveCheck = -1;
         }
         public Rectangle GetHurtbox()
         {
@@ -54,8 +48,8 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
-            enemyPosition.X += enemyDirection.X;
-            enemyPosition.Y += enemyDirection.Y;
+            enemyPosition.X += enemyDirection.X * enemyState;
+            enemyPosition.Y += enemyDirection.Y * enemyState;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
@@ -66,12 +60,33 @@ namespace LOZ.Tools
         public void Update(GameTime gameTime)
         {
             MovementUpdate(gameTime);
-            trapSprite.Update(grabbed);
+            trapSprite.Update(gameTime, enemyState);
+        }
+
+        public void Collide(int enemyState)
+        {
+            this.enemyState = enemyState;
         }
 
         private void MovementUpdate(GameTime gameTime)
         {
-            //A
+            if (enemyState == 0 && ((enemyDirection.X != 0 && enemyPosition.X == Link.position.X) || (enemyDirection.Y != 0 && enemyPosition.Y == Link.position.Y)))
+            {
+                enemyState = 4;
+                enemyDirection = new(0, 0);
+                Rectangle linkRect = new((int)Link.position.X, (int)Link.position.Y, 16, 16);
+                Rectangle trap = Rectangle.Union(GetHurtbox(), linkRect);
+                if (trap.X == linkRect.X)
+                {
+                    if (trap.Right < linkRect.Left) enemyDirection.X = 1;
+                    else enemyDirection.X = -1;
+                }
+                else
+                {
+                    if (trap.Top < linkRect.Bottom) enemyDirection.Y = -1;
+                    else enemyDirection.Y = 1;
+                }
+            }
         }
     }
 }
