@@ -75,7 +75,7 @@ namespace LOZ.Tools
             if ((enemyDirection.X != 0 && enemyPosition.X == Link.position.X) || (enemyDirection.Y != 0 && enemyPosition.Y == Link.position.Y))
             {
                 enemyDirection = new(0, 0);
-                Rectange linkRect = new((int)Link.position.X, (int)Link.position.Y, 16, 16)
+                Rectangle linkRect = new((int)Link.position.X, (int)Link.position.Y, 16, 16)
                 Rectangle dist = Rectangle.Union(GetHurtbox(), );
                 if (dist.Bottom - dist.Top > dist.Right - dist.Left)
                 {
