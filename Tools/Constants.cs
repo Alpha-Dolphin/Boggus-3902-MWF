@@ -128,8 +128,6 @@ public class Constants
     public const string BossesSpriteSheetLocation = "./SpriteSheets/BossEnemies_EmptyFlipped";
     public const string NPCSpriteSheetLocation = "./SpriteSheets/NPCs";
     public const string ItemSpriteSheetLocation = "./SpriteSheets/Items";
-    public const string ExplosionSpriteSheetLocation = "./SpriteSheets/EnemyDeathExplosion";
-=========
     public const string HUDSpriteSheetLocation = "./SpriteSheets/HUD";
     public const string AquaScreamLocation = "./SoundEffects/Enemies/AquaScream";
     public const string BossHitLocation = "./SoundEffects/Enemies/BossHit";
@@ -160,7 +158,6 @@ public class Constants
     public const string LinkHurtLocation = "./SoundEffects/Link/LinkHurt";
     public const string ExplosionSpriteSheetLocation = "./SpriteSheets/EnemyDeathExplosion";
     public const string RefillHealthLocation = "./SoundEffects/Link/RefillLoop";
->>>>>>>>> Temporary merge branch 2
     public const int objectScale = 2;
     public const int enviroDefaultX = 10;
     public const int enviroDefaultY = 10;

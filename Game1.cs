@@ -41,7 +41,7 @@ namespace LOZ
         private KeyboardController controller;
         private MouseController mouseController;
         public static LinkCommand linkCommandHandler;
-        private RoomTransitionHandler roomTransitionHandler;
+        internal static RoomTransitionHandler roomTransitionHandler;
 
         private List<Room> rooms;
         public static int currentRoom = 2;
@@ -240,7 +240,7 @@ namespace LOZ
                 {
                     if (gate.IsGateOpen())
                     {
-                        roomTransitionHandler.handleTransition(rooms[currentRoom], gate, link);
+                        RoomTransitionHandler.HandleTransition(rooms[currentRoom], gate, link);
                     }
                     else
                     {

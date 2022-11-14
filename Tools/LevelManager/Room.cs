@@ -37,25 +37,16 @@ namespace LOZ.Tools.LevelManager
 
         public void SetTextures()
         {
-            
+
             if (roomNumber == 7)
             {
                 this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
                 EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOMS[7] });
             }
-            else 
+            else
             {
-                this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
-                EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { new Rectangle(1, 192, 192, 112) }); 
-                EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { new Rectangle(1, 192, 192, 112) });
-            this.RoomExterior = new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOM_EXTERIOR });
-                this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
-                EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { new Rectangle(1, 192, 192, 112) }); 
+                this.RoomExterior = new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOM_EXTERIOR });
             }
-            this.RoomExterior = new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOM_EXTERIOR });
->>>>>>>>> Temporary merge branch 2
-
-            FixCoordinates();
         }
 
         public void Draw(SpriteBatch spriteBatch)
