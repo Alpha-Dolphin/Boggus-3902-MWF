@@ -31,7 +31,7 @@ namespace LOZ.Tools
             return new Vector2(boomerang.Width, boomerang.Height);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, int enemyState)
         {
             //Nothing
         }

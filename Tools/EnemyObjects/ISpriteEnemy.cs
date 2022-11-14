@@ -7,7 +7,7 @@ namespace LOZ.Tools
     {
         void Draw(SpriteBatch _spriteBatch, Vector2 enemyPosition);
 
-        void Update(GameTime gameTime);
+        void Update(GameTime gameTime, int enemyState);
 
         public Vector2 GetWidthHeight();
     }

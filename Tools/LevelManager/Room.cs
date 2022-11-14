@@ -21,12 +21,12 @@ namespace LOZ.Tools.LevelManager
         private Sprite RoomInterior;
 
         /*Lists of things in room*/
-        public List<IEnvironment> environmentList { get; set; } = new List<IEnvironment> ();
+        public List<IEnvironment> environmentList { get; set; } = new List<IEnvironment>();
         public List<Rectangle> barrierList { get; set; } = new List<Rectangle>();
         public List<IEnemy> enemyList { get; set; } = new List<IEnemy>();
         public List<INPC> NPCList { get; set; } = new List<INPC>();
         public List<IItem> itemList { get; set; } = new List<IItem>();
-        public List<IGate> gateList { get; set; } = new List<IGate> ();
+        public List<IGate> gateList { get; set; } = new List<IGate>();
         public int northNeighbor { get; set; } = 0;
         public int southNeighbor { get; set; } = 0;
         public int westNeighbor { get; set; } = 0;
@@ -37,16 +37,16 @@ namespace LOZ.Tools.LevelManager
 
         public void SetTextures()
         {
-            
+
             if (roomNumber == 7)
             {
                 this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
-                EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOMS[7] });
+                EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { new Rectangle(1, 192, 192, 112) });
             }
-            else 
+            else
             {
                 this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
-                EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { new Rectangle(1, 192, 192, 112) }); 
+                EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { new Rectangle(1, 192, 192, 112) });
             }
             this.RoomExterior = new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOM_EXTERIOR });
 
@@ -61,10 +61,10 @@ namespace LOZ.Tools.LevelManager
             }
             if (roomNumber == 1)
             {
-                
-                    this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
-                    EnvironmentConstants.EXTERIOR_WIDTH, new List<Rectangle>() { EnvironmentConstants.ROOMS[1] });
-                
+
+                this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
+                EnvironmentConstants.EXTERIOR_WIDTH, new List<Rectangle>() { EnvironmentConstants.ROOMS[1] });
+
                 int tempX = Sprite.xScale;
                 int tempY = Sprite.yScale;
                 Sprite.xScale = EnvironmentConstants.SCREEN_WIDTH / this.RoomInterior.width;

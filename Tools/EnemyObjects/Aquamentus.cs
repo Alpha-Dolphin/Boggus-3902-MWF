@@ -7,12 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using LOZ;
 using LOZ.Tools.Sprites;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LOZ.Tools
 {
     internal class Aquamentus : IEnemy, ICollidable
     {
-        
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+
         Vector2 enemyDirection;
         Vector2 enemyPosition;
 
@@ -62,6 +64,7 @@ namespace LOZ.Tools
 
         public void Die()
         {
+            soundEffectList[(int)SoundEffects.AquaScream].Play();
             Game1.enemyDieList.Add(this);
         }
 
@@ -73,7 +76,7 @@ namespace LOZ.Tools
 
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = new Vector2(aquamentusSprite.GetDestinationRectangle().Width, aquamentusSprite.GetDestinationRectangle().Height);
+            Vector2 wH = new (aquamentusSprite.GetDestinationRectangle().Width, aquamentusSprite.GetDestinationRectangle().Height);
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 

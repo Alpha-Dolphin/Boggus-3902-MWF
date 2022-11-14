@@ -1,6 +1,7 @@
 ﻿using LOZ.Tools.Command;
 using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.PlayerObjects;
+using LOZ.Tools.RoomTransitionHandler;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -38,15 +39,23 @@ namespace LOZ.Tools
                 if (typeof(PushBlock) == a.GetType() && b is not IEnemy) Collide(b, a);
                 else Collide(a, b);
             }
-            else if (a is IEnemy)
+            else if (a is IEnemy aE)
             {
-                if (b is Link damaged) ((LinkCommand) Game1.linkCommandHandler).ExecuteDamage();
+                if (b is Link damaged) EnemyCollide(aE, damaged);
             }
             else if(a is IGate)
             {
                 Collide(a, b);
             }
         }
+
+        private static void EnemyCollide(IEnemy b, Link l)
+        {
+            if (typeof(Wallmaster) == b.GetType()) Game1.roomTransitionHandler.HandleTransitionAbs(17, l, 120, 140);
+            else if (b is Trap bt) bt.Collide(-1);
+            else ((LinkCommand)Game1.linkCommandHandler).ExecuteDamage();
+        }
+
         static void Collide(ICollidable unchanged, ICollidable changed)
         {
             Rectangle zone = Rectangle.Intersect(unchanged.GetHurtbox(), changed.GetHurtbox());

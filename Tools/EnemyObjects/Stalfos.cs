@@ -11,14 +11,16 @@ using Microsoft.Xna.Framework.Content;
 using LOZ.Tools;
 using LOZ.Tools.Sprites;
 using LOZ.Tools.EnemyObjects;
+using System.Data;
 
 namespace LOZ.Tools
 {
     internal class Stalfos : IEnemy, ICollidable
     {
         Vector2 enemyDirection; Vector2 enemyPosition;
-        //readonly ISpriteEnemy stalfosSprite;
-        AnimatedMovingSprite stalfosSprite;
+        readonly ISpriteEnemy stalfosSprite;
+        int enemyState;
+        double stateTime;
 
         readonly Random rand = new();
 
@@ -36,8 +38,10 @@ namespace LOZ.Tools
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
-            stalfosSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
-                EnemyConstants.STALFOS);
+            enemyState = 1;
+            stateTime = 0;
+
+            stalfosSprite = new StalfosSprite();
 
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
@@ -47,7 +51,7 @@ namespace LOZ.Tools
 
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = new Vector2(stalfosSprite.GetDestinationRectangle().Width, stalfosSprite.GetDestinationRectangle().Height);
+            Vector2 wH = stalfosSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
@@ -57,6 +61,11 @@ namespace LOZ.Tools
         }
 
         public void Die()
+        {
+            enemyState = -1;
+        }
+
+        private void DeleteEnemy()
         {
             Game1.enemyDieList.Add(this);
         }
@@ -69,13 +78,33 @@ namespace LOZ.Tools
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            stalfosSprite.Draw(_spriteBatch);
+            stalfosSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
         {
             MovementUpdate(gameTime);
-            stalfosSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
+            stateHandler(gameTime);
+            stalfosSprite.Update(gameTime, enemyState);
+        }
+
+        private void stateHandler(GameTime gameTime)
+        {
+            if (enemyState == 1) {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    stateTime = 0;
+                    enemyState = 0;
+                }
+            } else if (enemyState == -1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    DeleteEnemy();
+                }
+            }
         }
 
         private void MovementUpdate(GameTime gameTime)

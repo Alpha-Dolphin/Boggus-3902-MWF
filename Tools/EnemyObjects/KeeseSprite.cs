@@ -23,7 +23,7 @@ namespace LOZ.Tools
                 0f
             );
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, int enemyState)
         {
             Rectangle[] KeeseFrames = new[] { new Rectangle(183, 11, 16, 16), new Rectangle(200, 11, 16, 16) };
             anim = KeeseFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2];
