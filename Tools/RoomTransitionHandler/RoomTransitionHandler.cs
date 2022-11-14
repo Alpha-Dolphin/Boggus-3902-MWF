@@ -35,5 +35,11 @@ namespace LOZ.Tools.RoomTransitionHandler
             }
                 
         }
+        public void handleTransitionAbs(int roomNumber, IPlayer link)
+        {
+
+//
+
+        }
     }
 }

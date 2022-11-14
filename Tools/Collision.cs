@@ -1,6 +1,7 @@
 ﻿using LOZ.Tools.Command;
 using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.PlayerObjects;
+using LOZ.Tools.RoomTransitionHandler;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace LOZ.Tools
 
         private static void EnemyCollide(IEnemy b, Link l)
         {
-            if (typeof(Wallmaster) == b.GetType()) /*a*/;
+            if (typeof(Wallmaster) == b.GetType()) /**/;
             else if (b is Trap bt) bt.Collide(-1);
             else ((LinkCommand)Game1.linkCommandHandler).ExecuteDamage();
         }

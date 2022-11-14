@@ -259,14 +259,14 @@ namespace LOZ
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             /*Draw everything*/
-            //if (!hud.Paused())
+            if (!hud.Paused())
             {
                 rooms[currentRoom].Draw(spriteBatch);
                 link.Draw(spriteBatch);
                 currentRoomIndicator.Draw(spriteBatch);
             }
 
-            //hud.Draw(spriteBatch);
+            hud.Draw(spriteBatch);
 
             /*End drawing*/
             spriteBatch.End();
