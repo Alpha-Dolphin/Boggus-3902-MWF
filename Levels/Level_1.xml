@@ -99,10 +99,10 @@
 				<enemy type ="Wallmaster">
 					<!--Placement info for where enemy spawns-->
 					<xPlacement>
-						350
+						150
 					</xPlacement>
 					<yPlacement>
-						400
+						100
 					</yPlacement>
 				</enemy>
 			</enemies>

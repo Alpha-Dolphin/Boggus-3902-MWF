@@ -29,9 +29,9 @@ public enum Enemy
     Zol,
     Rope,
     Dodongo,
-    Aquamentus,
     Wallmaster,
-    Trap
+    Trap,
+    Aquamentus
 }
 
 public enum NPC

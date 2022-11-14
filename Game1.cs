@@ -44,7 +44,7 @@ namespace LOZ
         internal static RoomTransitionHandler roomTransitionHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 2;
+        public static int currentRoom = 0;
         private TextSprite currentRoomIndicator = new();
 
         private HUD hud;
@@ -259,14 +259,14 @@ namespace LOZ
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             /*Draw everything*/
-            if (!hud.Paused())
+            //if (!hud.Paused())
             {
                 rooms[currentRoom].Draw(spriteBatch);
                 link.Draw(spriteBatch);
                 currentRoomIndicator.Draw(spriteBatch);
             }
 
-            hud.Draw(spriteBatch);
+            //hud.Draw(spriteBatch);
 
             /*End drawing*/
             spriteBatch.End();
