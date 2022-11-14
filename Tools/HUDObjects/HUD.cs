@@ -273,6 +273,11 @@ namespace LOZ.Tools.HUDObjects
             return returnVal;
         }
 
+        public void UpdateLink(Link link)
+        {
+            this.link = link;
+        }
+
         public void Update(List<Keys> keys)
         {
             bool pressed = keys.Contains(HUDConstants.PAUSE_BUTTON);
