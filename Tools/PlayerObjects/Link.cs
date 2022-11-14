@@ -48,7 +48,7 @@ namespace LOZ.Tools.PlayerObjects
             direction = PlayerConstants.Direction.Up;
         }
 
-        public Link(int xPos, int yPos, string[] items, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction)
+        public Link(int xPos, int yPos, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction)
         {
             Link.position = new Vector2(xPos, yPos);
 
