@@ -139,7 +139,6 @@ namespace LOZ.Tools.Command
         {
             link.UpdateState(Link_States.Damaged, link.GetDirection());
             link.Damage();
-            soundEffectList[(int)SoundEffects.LinkHurt].Play();
         }
 
         public void GetItem(IItem item)
@@ -203,6 +202,7 @@ namespace LOZ.Tools.Command
             }
             else if (typeof(TriforcePiece) == item.GetType()) {
                 soundEffectList[(int)SoundEffects.NewItemSong].Play();
+                link.inventory.triforcePiece = true;
             }
             else if (typeof(WoodenBoomerang) == item.GetType())
             {
