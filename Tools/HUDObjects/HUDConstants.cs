@@ -11,61 +11,120 @@ namespace LOZ.Tools.HUDObjects
     internal class HUDConstants
     {
         public static Keys PAUSE_BUTTON = Keys.Escape;
+        public static Keys SELECT_ITEM = Keys.Enter;
 
         public const int TOP_HEIGHT = 256;
 
         public static Rectangle BLACK_PIXEL = new Rectangle(5, 5, 1, 1);
+        public static Rectangle WHITE_PIXEL = new Rectangle(584, 1, 1, 1);
+        public static Rectangle MAP_PIXEL = new Rectangle(386, 112, 1, 1);
         public static Color DEFAULTBACKGROUNDCOLOR = Color.Black;
 
         public static Rectangle INVENTORY_BACKGROUND = new Rectangle(1, 11, 256, 88);
+        public static int CURRENT_SPECIAL_X = 68;
+        public static int CURRENT_SPECIAL_Y = 48;
         public static Rectangle MAP_BACKGROUND = new Rectangle(258, 112, 256, 88);
 
+        public static Rectangle MAPINSIDE_BACKGROUND_DESTINATION = new Rectangle(120, 96, 80, 64);
+
+        public static Rectangle MAP_ICON = new Rectangle(48, 110, 8, 16);
+        public static Rectangle COMPASS_ICON = new Rectangle(45, 150, 16, 16);
+        public static Rectangle BOOMERANG = new Rectangle(134, 52, 5, 8);
+        public static Rectangle BOMB = new Rectangle(152, 48, 8, 16);
+        public static Rectangle BOW = new Rectangle(172, 48, 8, 16);
+        public static Rectangle CANDLE = new Rectangle(192, 48, 8, 16);
+        public static Rectangle POTION = new Rectangle(172, 64, 8, 16);
+
+
         public static Rectangle SELECTIONBOX = new Rectangle(519, 137, 16, 16);
-        public const int SELECTIONBOX_X = 100;
-        public const int SELECTIONBOX_Y = 100;
+        public static Rectangle[] SELECTIONBOX_POSITIONS = new Rectangle[5]
+        {
+            new Rectangle(128, 48, 16, 16),
+            new Rectangle(148, 48, 16, 16),
+            new Rectangle(168, 48, 16, 16),
+            new Rectangle(188, 48, 16, 16),
+            new Rectangle(168, 64, 16, 16)
+        };
 
-        //public const string LEVELNUM_TEXT = "LEVEL-1";
-        //public const int LEVELNUM_X = 70;
-        //public const int LEVELNUM_Y = 20;
-
-        public static Rectangle MAPTOP = new Rectangle(30, 30, 50, 30);
+        //public static Rectangle MAPTOP = new Rectangle(30, 30, 50, 30);
 
         public static Rectangle LEVELNUM_BACKGROUND = new Rectangle(584, 1, 64, 40);
+        public static Rectangle LEVELNUM_DESTINATION = new Rectangle(48, 0, 8, 8);
+
+        public const int MAPTOP_ROWS = 3;
+        public const int MAPTOP_COLUMNS = 6;
+        public static int MAPTOP_X = 8;
+        public static int MAPTOP_Y = 16;
+
+        //0 means no blocks, 1 means top, 2 means bottom, 3 means both
+        public static int[] MAPTOP_INFO = new int[]
+        {
+            0, 1, 3, 0, 2, 2,
+            1, 3, 3, 3, 1, 0,
+            0, 2, 3, 2, 0, 0
+        };
+
+        public const int MAPFULL_ROWS = 6;
+        public const int MAPFULL_COLUMNS = 6;
+        public static int MAPFULL_X = 140;
+        public static int MAPFULL_Y = 100;
+        //See full list below for numbers
+        public static int[] MAPFULL_INFO = new int[]
+        {
+            0, 2, 7, 0, 0, 0,
+            0, 0, 13, 0, 6, 3,
+            2, 8, 16, 8, 11, 0,
+            0, 10, 16, 11, 0, 0,
+            0, 0, 13, 0, 0, 0,
+            0, 2, 16, 3, 0, 0
+        };
+
         public static Rectangle CURRENTITEMS_BACKGROUND = new Rectangle(258, 11, 256, 56);
         public static Rectangle CURRENTITEMS_BACKGROUND_DESTINATION = new Rectangle(0, 8, 256, 56);
-        //public const int RUPEE_X = 120;
-        //public const int RUPEE_Y = 15;
-        //public const string RUPEEAMOUNT_TEXT = "X0";
-        //public const int RUPEEAMOUNT_X = 380;
-        //public const int RUPEEAMOUNT_Y = 45;
 
-        //public const int KEY_X = 120;
-        //public const int KEY_Y = 40;
-        //public const string KEYAMOUNT_TEXT = "X0";
-        //public const int KEYAMOUNT_X = 380;
-        //public const int KEYAMOUNT_Y = 120;
+        public static Rectangle RUPEE_TIMES = new Rectangle(96, 24, 8, 8);
+        public static Rectangle KEY_TIMES = new Rectangle(96, 40, 8, 8);
+        public static Rectangle BOMB_TIMES = new Rectangle(96, 48, 8, 8);
 
-        //public const int BOMBTOP_X = 120;
-        //public const int BOMBTOP_Y = 50;
-        //public const string BOMBAMOUNT_TEXT = "X0";
-        //public const int BOMBAMOUNT_X = 380;
-        //public const int BOMBAMOUNT_Y = 180;
+        public const int SPECIALWEAPON_X = 130;
+        public const int SPECIALWEAPON_Y = 32;
+        public const int SWORD_X = 152;
+        public const int SWORD_Y = 32;
 
-        //public const string CONTROLSPECIAL_TEXT = "B";
-        //public const int CONTROLSPECIAL_X = 510;
-        //public const int CONTROLSPECIAL_Y = 45;
-        public const int SPECIALWEAPON_X = 170;
-        public const int SPECIALWEAPON_Y = 35;
-        //public const string CONTROLSWORD_TEXT = "A";
-        //public const int CONTROLSWORD_X = 585;
-        //public const int CONTROLSWORD_Y = 45;
-        public const int SWORD_X = 200;
-        public const int SWORD_Y = 25;
-
-        //public const string LIFE_TEXT = "-LIFE-";
-        //public const int LIFE_X = 735;
-        //public const int LIFE_Y = 45;
-        public const int HEART_X = 170;
+        public const int HEART_X = 180;
         public const int HEART_Y = 40;
+
+        public static Rectangle X = new Rectangle(519, 117, 8, 8);
+        public static Rectangle ZERO = new Rectangle(528, 117, 8, 8);
+        public static Rectangle ONE = new Rectangle(537, 117, 8, 8);
+        public static Rectangle TWO = new Rectangle(546, 117, 8, 8);
+        public static Rectangle THREE = new Rectangle(555, 117, 8, 8);
+        public static Rectangle FOUR = new Rectangle(564, 117, 8, 8);
+        public static Rectangle FIVE = new Rectangle(573, 117, 8, 8);
+        public static Rectangle SIX = new Rectangle(582, 117, 8, 8);
+        public static Rectangle SEVEN = new Rectangle(591, 117, 8, 8);
+        public static Rectangle EIGHT = new Rectangle(600, 117, 8, 8);
+        public static Rectangle NINE = new Rectangle(609, 117, 8, 8);
+
+        public static Rectangle MAP_BLUE_TOP = new Rectangle(663, 108, 8, 8);
+        public static Rectangle MAP_BLUE_BOT = new Rectangle(672, 108, 8, 8);
+        public static Rectangle MAP_BLUE_TWO = new Rectangle(681, 108, 8, 8);
+
+        public static Rectangle MAP_FULL_NONE = new Rectangle(519, 108, 8, 8);
+        public static Rectangle MAP_FULL_E = new Rectangle(528, 108, 8, 8);
+        public static Rectangle MAP_FULL_W = new Rectangle(537, 108, 8, 8);
+        public static Rectangle MAP_FULL_EW = new Rectangle(546, 108, 8, 8);
+        public static Rectangle MAP_FULL_S = new Rectangle(555, 108, 8, 8);
+        public static Rectangle MAP_FULL_SE = new Rectangle(564, 108, 8, 8);
+        public static Rectangle MAP_FULL_SW = new Rectangle(573, 108, 8, 8);
+        public static Rectangle MAP_FULL_SEW = new Rectangle(582, 108, 8, 8);
+        public static Rectangle MAP_FULL_N = new Rectangle(591, 108, 8, 8);
+        public static Rectangle MAP_FULL_NE = new Rectangle(600, 108, 8, 8);
+        public static Rectangle MAP_FULL_NW = new Rectangle(609, 108, 8, 8);
+        public static Rectangle MAP_FULL_NEW = new Rectangle(618, 108, 8, 8);
+        public static Rectangle MAP_FULL_NS = new Rectangle(627, 108, 8, 8);
+        public static Rectangle MAP_FULL_NSE = new Rectangle(636, 108, 8, 8);
+        public static Rectangle MAP_FULL_NSW = new Rectangle(645, 108, 8, 8);
+        public static Rectangle MAP_FULL_NSEW = new Rectangle(654, 108, 8, 8);
     }
 }

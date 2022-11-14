@@ -8,12 +8,14 @@ namespace LOZ.Tools.GateObjects
 {
     internal class EastBombHole : IGate
     {
-        private static int xPosition = 224;
-        private static int yPosition = 72;
+        private /*static*/ int xPosition = GateConstants.EAST_INITIAL_X;
+        private /*static*/ int yPosition = GateConstants.EAST_INITIAL_Y;
         private Direction direction = Direction.East;
         private bool doorOpen = false;
-        private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(815, 77, 32, 32) });
-        private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(947, 77, 32, 32) });
+        private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.EAST_INITIAL_X,
+            GateConstants.EAST_INITIAL_Y, new List<Rectangle>() { new Rectangle(815, 77, 32, 32) });
+        private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.EAST_INITIAL_X,
+            GateConstants.EAST_INITIAL_Y, new List<Rectangle>() { new Rectangle(947, 77, 32, 32) });
         public void Open()
         {
             doorOpen = true;

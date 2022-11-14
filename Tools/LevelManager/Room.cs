@@ -18,7 +18,6 @@ namespace LOZ.Tools.LevelManager
         private Texture2D texture = Game1.ENVIRONMENT_SPRITESHEET;
 
         private Sprite RoomExterior;
-        private Sprite[] Doors;
         private Sprite RoomInterior;
 
         /*Lists of things in room*/
@@ -50,7 +49,6 @@ namespace LOZ.Tools.LevelManager
                 EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { new Rectangle(1, 192, 192, 112) }); 
             }
             this.RoomExterior = new Sprite(texture, 0, HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOM_EXTERIOR });
-            this.Doors = new Sprite[4];
 
             FixCoordinates();
         }

@@ -7,12 +7,12 @@ namespace LOZ.Tools.GateObjects
 {
     internal class SouthWall : IGate
     {
-        private static int xPosition = 112;
-        private static int yPosition = 144;
+        private int xPosition = GateConstants.SOUTH_INITIAL_X;
+        private int yPosition = GateConstants.SOUTH_INITIAL_Y;
         private Direction direction = Direction.South;
         private bool doorOpen = false;
-        private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(815, 110, 32, 32) });
-        private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(815, 110, 32, 32) });
+        private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.SOUTH_INITIAL_X, GateConstants.SOUTH_INITIAL_Y, new List<Rectangle>() { new Rectangle(815, 110, 32, 32) });
+        private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.SOUTH_INITIAL_X, GateConstants.SOUTH_INITIAL_Y, new List<Rectangle>() { new Rectangle(815, 110, 32, 32) });
         public void Open()
         {
 

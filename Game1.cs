@@ -17,6 +17,7 @@ using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.RoomTransitionHandler;
 using LOZ.Tools.HUDObjects;
 using Microsoft.Xna.Framework.Media;
+using LOZ.Tools.ItemObjects;
 
 namespace LOZ
 {
@@ -24,6 +25,7 @@ namespace LOZ
     {
         private List<IEnemy> enemyList;
         public static List<IEnemy> enemyDieList = new();
+        private List<IItem> itemList;
         private List<IEnvironment> blockList;
         private List<IGate> gateList;
 
@@ -32,7 +34,7 @@ namespace LOZ
         private Link link;
         private KeyboardController controller;
         private MouseController mouseController;
-        public static ICommand linkCommandHandler;
+        public static LinkCommand linkCommandHandler;
         private RoomTransitionHandler roomTransitionHandler;
 
         private List<Room> rooms;
@@ -80,7 +82,7 @@ namespace LOZ
             EnvironmentConstants.Initialize(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             link = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.DEFAULT_ITEMS, PlayerConstants.MAX_HEALTH,
-                PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION,FONT);
+                PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION);
             linkCommandHandler = new LinkCommand((Link) link);
 
             /*Declaration of controllers*/
@@ -94,7 +96,7 @@ namespace LOZ
 
             currentRoomIndicator.SetPosition(0, 20);
 
-            hud = new HUD(HUD_SPRITESHEET, ITEM_SPRITESHEET, FONT);
+            hud = new HUD(HUD_SPRITESHEET, ITEM_SPRITESHEET, FONT, link);
 
             base.Initialize();
         }
@@ -106,8 +108,8 @@ namespace LOZ
             Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
 
             backgroundMusic = Content.Load<Song>(@"Music\DungeonTheme");
-            MediaPlayer.Play(backgroundMusic);
-            MediaPlayer.IsRepeating = true;
+            //MediaPlayer.Play(backgroundMusic);
+            //MediaPlayer.IsRepeating = true;
 
             LINK_SPRITESHEET = Content.Load<Texture2D>(PlayerConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
@@ -132,18 +134,32 @@ namespace LOZ
             // Track current state to see if M is held or not
             KeyboardState currentState = Keyboard.GetState();
             List<Keys> pressed = controller.Update();
-            mouseController.Update();
-
-            linkCommandHandler.Execute(pressed);
-            rooms[currentRoom].Update(gameTime);
-            foreach (IEnemy enemy in rooms[currentRoom].enemyList)
+            if (hud.Paused())
             {
-                enemy.Update(gameTime);
-                enemy.Move(gameTime);
+                if (pressed.Contains(Keys.Right) && previousState.IsKeyUp(Keys.Right))
+                {
+                    hud.NextItem();
+                }
+                else if (pressed.Contains(Keys.Left) && previousState.IsKeyUp(Keys.Left))
+                {
+                    hud.PreviousItem();
+                }
+            }
+            else
+            {
+                mouseController.Update();
+
+                linkCommandHandler.Execute(pressed);
+                rooms[currentRoom].Update(gameTime);
+                foreach (IEnemy enemy in rooms[currentRoom].enemyList)
+                {
+                    enemy.Update(gameTime);
+                    enemy.Move(gameTime);
+                }
             }
 
-            hud.Update(link, pressed);
-            
+            hud.Update(pressed);
+
             if (pressed.Contains(Keys.Q))
             {
                 this.Exit();
@@ -164,6 +180,7 @@ namespace LOZ
         private void UpdateCollision()
         {
             enemyList = rooms[currentRoom].enemyList;
+            itemList = rooms[currentRoom].itemList;
             blockList = rooms[currentRoom].environmentList;
             gateList = rooms[currentRoom].gateList;
             foreach (IEnemy ene in enemyList)
@@ -187,7 +204,19 @@ namespace LOZ
                     }
                 }
             }
+
             enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
+
+            for(int i = 0; i < itemList.Count; i++)
+            {
+                if (Collision.Intersects(link.GetHurtbox(), itemList[i].GetHurtbox()))
+                {
+                    linkCommandHandler.GetItem(itemList[i]);
+                    itemList.RemoveAt(i);
+                    i--;
+                }
+            }
+
             foreach (IEnvironment bL in blockList)
             {
                 if (Collision.Intersects(link.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(link, bL);

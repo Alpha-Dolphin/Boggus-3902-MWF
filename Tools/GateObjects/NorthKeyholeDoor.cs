@@ -11,12 +11,12 @@ namespace LOZ.Tools.GateObjects
 {
     internal class NorthKeyholeDoor : IGate
     {
-        private static int xPosition = 112;
-        private static int yPosition = 0;
+        private int xPosition = GateConstants.NORTH_INITIAL_X;
+        private int yPosition = GateConstants.NORTH_INITIAL_Y;
         private Direction direction = Direction.North;
         private bool doorOpen = false;
-        private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(881, 11, 32, 32) });
-        private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, xPosition, yPosition, new List<Rectangle>() { new Rectangle(848, 11, 32, 32) });
+        private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.NORTH_INITIAL_X, GateConstants.NORTH_INITIAL_Y, new List<Rectangle>() { new Rectangle(881, 11, 32, 32) });
+        private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.NORTH_INITIAL_X, GateConstants.NORTH_INITIAL_Y, new List<Rectangle>() { new Rectangle(848, 11, 32, 32) });
         public void Open()
         {
             doorOpen = true;

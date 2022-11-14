@@ -29,5 +29,6 @@ namespace LOZ.Tools.ItemObjects
         public static Rectangle TRIFORCE_YELLOW = new Rectangle(275, 3, 10, 10);
         public static Rectangle TRIFORCE_BLUE = new Rectangle(275, 19, 10, 10);
         public static Rectangle BOOMERANG = new Rectangle(129, 3, 5, 8);
+        public static Rectangle WOODEN_SWORD = new Rectangle(104, 0, 8, 16);
     }
 }

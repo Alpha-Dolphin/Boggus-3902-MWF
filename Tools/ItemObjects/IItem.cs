@@ -10,7 +10,7 @@ using LOZ.Tools.PlayerObjects;
 
 namespace LOZ.Tools.ItemObjects
 {
-    public interface IItem
+    public interface IItem : ICollidable
     {
         void Draw(SpriteBatch spriteBatch);
         void Update(GameTime gametime);
