@@ -18,6 +18,7 @@ using LOZ.Tools.RoomTransitionHandler;
 using LOZ.Tools.HUDObjects;
 using Microsoft.Xna.Framework.Media;
 using LOZ.Tools.ItemObjects;
+using LOZ.Tools.GateObjects;
 
 namespace LOZ
 {
@@ -203,6 +204,13 @@ namespace LOZ
                         Collision.CollisionChecker(weapon, ene);
                     }
                 }
+                foreach (IGate gate in gateList)
+                {
+                    if (Collision.Intersects(ene.GetHurtbox(), gate.GetHurtbox()))
+                    {
+                        Collision.CollisionChecker(gate, ene);
+                    }
+                }
             }
 
             enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
@@ -232,9 +240,9 @@ namespace LOZ
                     else
                     {
                         Collision.CollisionChecker(gate, link);
-                        if (link.inventory.keys > 0)
+                        if (link.inventory.keys > 0 )
                         {
-                            gate.Open();
+                            roomTransitionHandler.unlockDoor(gate, rooms,currentRoom);
                             link.inventory.keys--;
                         }
                     }

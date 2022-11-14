@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LOZ.Tools.GateObjects;
 using LOZ.Tools.HUDObjects;
 using LOZ.Tools.LevelManager;
 using LOZ.Tools.PlayerObjects;
 using LOZ.Tools.Sprites;
+using Microsoft.Xna.Framework;
 
 namespace LOZ.Tools.RoomTransitionHandler
 {
@@ -36,6 +38,64 @@ namespace LOZ.Tools.RoomTransitionHandler
 
             }
                 
+        }
+        public void unlockDoor(IGate gate,List<Room> rooms,int currentRoomNum)
+        {
+            if(
+            gate.GetType().Equals(typeof(WestKeyholeDoor))
+            || gate.GetType().Equals(typeof(EastKeyholeDoor))
+            || gate.GetType().Equals(typeof(NorthKeyholeDoor))
+            || gate.GetType().Equals(typeof(SouthKeyholeDoor)))
+            {
+                int neighborNum;
+                gate.Open();
+
+                switch (gate.GetDirection())
+                {
+                    case Direction.East:
+                        neighborNum = rooms[currentRoomNum].eastNeighbor;
+                        foreach (IGate neighborGate in rooms[neighborNum].gateList)
+                        {
+                            if (neighborGate.GetDirection() == Direction.West)
+                            {
+                                neighborGate.Open();
+                            }
+                        }
+                        break;
+                    case Direction.North:
+                        neighborNum = rooms[currentRoomNum].northNeighbor;
+                        foreach (IGate neighborGate in rooms[neighborNum].gateList)
+                        {
+                            if (neighborGate.GetDirection() == Direction.South)
+                            {
+                                neighborGate.Open();
+                            }
+                        }
+                        break;
+                    case Direction.West:
+                        neighborNum = rooms[currentRoomNum].westNeighbor;
+                        foreach (IGate neighborGate in rooms[neighborNum].gateList)
+                        {
+                            if (neighborGate.GetDirection() == Direction.East)
+                            {
+                                neighborGate.Open();
+                            }
+                        }
+                        break;
+                    case Direction.South:
+                        neighborNum = rooms[currentRoomNum].southNeighbor;
+                        foreach (IGate neighborGate in rooms[neighborNum].gateList)
+                        {
+                            if (neighborGate.GetDirection() == Direction.North)
+                            {
+                                neighborGate.Open();
+                            }
+                        }
+                        break;
+
+                }
+
+            }
         }
     }
 }
