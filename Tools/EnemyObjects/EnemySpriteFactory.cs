@@ -30,14 +30,12 @@ namespace LOZ.Tools
             if (pressed.Contains(Keys.O) && !held.Contains(Keys.O))
             {
                 //I don't know why, but the modulo operator wouldn't work so I'm doing this
-                curr++;
-                if (curr > 10) curr = 0;
+                curr = curr++ % 9;
                 return true;
             }
             else if (pressed.Contains(Keys.P) && !held.Contains(Keys.P))
             {
-                curr--;
-                if (curr < 0) curr = 9;
+                curr = curr-- % 9;
                 return true;
             }
             return false;

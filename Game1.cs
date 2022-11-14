@@ -180,5 +180,10 @@ namespace LOZ
 
             base.Draw(gameTime);
         }
+
+        public static void resetGame()
+        {
+
+        }
     }
 }

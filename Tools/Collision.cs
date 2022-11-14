@@ -46,7 +46,7 @@ namespace LOZ.Tools
 
         private static void EnemyCollide(IEnemy b, Link l)
         {
-            if (typeof(Wallmaster) == b.GetType()) Game1.le;
+            if (typeof(Wallmaster) == b.GetType()) /*a*/;
             else if (b is Trap bt) bt.Collide(-1);
             else ((LinkCommand)Game1.linkCommandHandler).ExecuteDamage();
         }

@@ -192,8 +192,7 @@ namespace LOZ.Tools.PlayerObjects
         private void Die()
         {
             //Death animation or something
-            Game1.currentRoom = 1;
-            //Game1.Initialize();
+            Game1.resetGame();
         }
 
         private void CreateProjectile(PlayerConstants.Link_Projectiles projectileType)
