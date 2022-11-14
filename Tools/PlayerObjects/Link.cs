@@ -196,14 +196,9 @@ namespace LOZ.Tools.PlayerObjects
                 {
                     this.state = PlayerConstants.Link_States.Dead;
                     soundEffectList[(int)SoundEffects.LinkDie].Play();
-                }
-            }
-                if (this.health <= 0)
-                {
-                    this.state = PlayerConstants.Link_States.Dead;
                     Die();
                 }
-            }
+            }            
         }
         private void Die()
         {

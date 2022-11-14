@@ -163,8 +163,7 @@ public class Constants
     public const int enviroDefaultX = 10;
     public const int enviroDefaultY = 10;
     public const double enemyEntryExitTime = 500;
-    public const string HUDSpriteSheetLocation = "./SpriteSheets/HUD";
     public const int numRooms = 19;
     public const int numSounds = 29;
-    public const bool DEBUG = true;
+    public const bool DEBUG = false;
 }
