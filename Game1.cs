@@ -31,7 +31,7 @@ namespace LOZ
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
-        private Link link;
+        public static Link link;
         private KeyboardController controller;
         private MouseController mouseController;
         public static LinkCommand linkCommandHandler;
@@ -232,6 +232,11 @@ namespace LOZ
                     else
                     {
                         Collision.CollisionChecker(gate, link);
+                        if (link.inventory.keys > 0)
+                        {
+                            gate.Open();
+                            link.inventory.keys--;
+                        }
                     }
                 }
             }
