@@ -46,6 +46,7 @@ namespace LOZ.Tools.PlayerObjects
             Link.position = new Vector2(0, 0);
             health = PlayerConstants.MAX_HEALTH;
             direction = PlayerConstants.Direction.Up;
+            inventory = new LinkInventory();
         }
 
         public Link(int xPos, int yPos, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction)
@@ -196,6 +197,7 @@ namespace LOZ.Tools.PlayerObjects
                 {
                     this.state = PlayerConstants.Link_States.Dead;
                     soundEffectList[(int)SoundEffects.LinkDie].Play();
+                    Game1.ResetGame(this);
                 }
             }
         }

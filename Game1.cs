@@ -24,6 +24,7 @@ using LOZ.Tools.ItemObjects;
 using Microsoft.Xna.Framework.Audio;
 using LOZ.Tools.MusicObjects;
 using LOZ.Tools.SoundObjects;
+using System.Runtime.CompilerServices;
 
 namespace LOZ
 {
@@ -44,7 +45,7 @@ namespace LOZ
         internal static RoomTransitionHandler roomTransitionHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 0;
+        public static int currentRoom = 8;
         private TextSprite currentRoomIndicator = new();
 
         private HUD hud;
@@ -275,9 +276,11 @@ namespace LOZ
             base.Draw(gameTime);
         }
 
-        public static void resetGame()
+        public static void ResetGame(Link a)
         {
-
+            a = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.DEFAULT_ITEMS, PlayerConstants.MAX_HEALTH,
+                PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION);
+            roomTransitionHandler.HandleTransitionAbs(17, a, 120, 140);
         }
     }
 }
