@@ -240,7 +240,7 @@ namespace LOZ
                 {
                     if (gate.IsGateOpen())
                     {
-                        RoomTransitionHandler.HandleTransition(rooms[currentRoom], gate, link);
+                        roomTransitionHandler.HandleTransition(rooms[currentRoom], gate, link);
                     }
                     else
                     {

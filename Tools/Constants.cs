@@ -158,6 +158,7 @@ public class Constants
     public const string LinkHurtLocation = "./SoundEffects/Link/LinkHurt";
     public const string ExplosionSpriteSheetLocation = "./SpriteSheets/EnemyDeathExplosion";
     public const string RefillHealthLocation = "./SoundEffects/Link/RefillLoop";
+    public const string LowHealthLocation = "./SoundEffects/Link/LowHealth";
     public const int objectScale = 2;
     public const int enviroDefaultX = 10;
     public const int enviroDefaultY = 10;
