@@ -5,17 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using LOZ.Tools.ItemObjects;
 using LOZ.Tools.PlayerObjects;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using static LOZ.Tools.PlayerObjects.PlayerConstants;
+
 
 namespace LOZ.Tools.Command
 {
     public class LinkCommand : ICommand
     {
+
         private Link link;
         bool attacked = false;
         bool moved = false;
         bool bombLastFrame = false;
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
 
         public LinkCommand(Link link)
         {
@@ -139,57 +143,71 @@ namespace LOZ.Tools.Command
 
         public void GetItem(IItem item)
         {
-            if(typeof(Arrow) == item.GetType()) {
+            if (typeof(Arrow) == item.GetType()) {
                 link.inventory.arrows++;
+                soundEffectList[(int)SoundEffects.GetItem].Play();
             }
             else if (typeof(BlueCandle) == item.GetType())
             {
                 link.inventory.candleFlame = true;
+                soundEffectList[(int)SoundEffects.NewItemSong].Play();
             }
             else if (typeof(BluePotion) == item.GetType())
             {
                 link.inventory.potion = true;
+                soundEffectList[(int)SoundEffects.GetItem].Play();
             }
             else if (typeof(ItemObjects.Bomb) == item.GetType())
             {
                 link.inventory.bombs++;
+                soundEffectList[(int)SoundEffects.GetItem].Play();
             }
             else if (typeof(Bow) == item.GetType())
             {
                 link.inventory.bow = true;
+                soundEffectList[(int)SoundEffects.NewItemSong].Play();
             }
             else if (typeof(Compass) == item.GetType())
             {
                 link.inventory.compass = true;
+                soundEffectList[(int)SoundEffects.NewItemSong].Play();
             }
             else if (typeof(Fairy) == item.GetType())
             {
                 link.AddHealth(true);
+                soundEffectList[(int)SoundEffects.GetItem].Play();
             }
             else if (typeof(Heart) == item.GetType()) {
                 link.AddHealth(false);
+                soundEffectList[(int)SoundEffects.GetHeart].Play();
             }
             else if (typeof(HeartContainer) == item.GetType())
             {
                 link.AddHeart();
+                soundEffectList[(int)SoundEffects.NewItemSong].Play();
             }
             else if (typeof(Key) == item.GetType()) {
                 link.inventory.keys++;
+                soundEffectList[(int)SoundEffects.NewItemSong].Play();
             }
             else if (typeof(Map) == item.GetType())
             {
                 link.inventory.map = true;
+                soundEffectList[(int)SoundEffects.NewItemSong].Play();
             }
             else if (typeof(Rupee) == item.GetType())
             {
                 link.inventory.rupees++;
+                soundEffectList[(int)SoundEffects.GetRupee].Play();
             }
             else if (typeof(TriforcePiece) == item.GetType()) {
+                soundEffectList[(int)SoundEffects.NewItemSong].Play();
                 link.inventory.triforcePiece = true;
             }
             else if (typeof(WoodenBoomerang) == item.GetType())
             {
                 link.inventory.boomerang = true;
+                soundEffectList[(int)SoundEffects.NewItemSong].Play();
             }
         }
         private void CheckBombLastFrame(List<Keys> keys)
