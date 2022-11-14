@@ -47,7 +47,7 @@ namespace LOZ
         public static int currentRoom = 2;
         private TextSprite currentRoomIndicator = new();
 
-        //private HUD hud;
+        private HUD hud;
 
         public static LevelManager lm = new();
         public static Texture2D LINK_SPRITESHEET;
