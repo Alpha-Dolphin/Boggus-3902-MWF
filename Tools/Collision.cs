@@ -42,6 +42,10 @@ namespace LOZ.Tools
             {
                 if (b is Link damaged) EnemyCollide(aE, damaged);
             }
+            else if(a is IGate)
+            {
+                Collide(a, b);
+            }
         }
 
         private static void EnemyCollide(IEnemy b, Link l)

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework.Input;
+using System.Runtime.CompilerServices;
+using Microsoft.Xna.Framework.Audio;
 using LOZ.Tools.LevelManager;
 
 namespace LOZ.Tools.PlayerObjects
@@ -17,15 +19,9 @@ namespace LOZ.Tools.PlayerObjects
     {
         public static Vector2 position;
 
-        private bool woodenSword { get; set; }
-        private bool boomerang { get; set; }
-        private bool bomb { get; set; }
-        private bool bow { get; set; }
-        private bool candleFlame { get; set; }
+        public LinkInventory inventory;
 
-        private int rupees = 0;
-        private int keys = 0;
-
+        private PlayerConstants.Link_Projectiles currentSpecialWeapon;
         private List<IProjectile> projectiles;
         private ProjectileFactory projectileFactory;
 
@@ -34,8 +30,8 @@ namespace LOZ.Tools.PlayerObjects
         private List<Rectangle> hitboxes;
 
         private int health;
+        private int hearts;
         private int invincibilityFrames = 0;
-        private TextSprite healthText;
 
         private Texture2D spriteSheet = Game1.LINK_SPRITESHEET;
         private AnimatedMovingSprite sprite;
@@ -43,36 +39,31 @@ namespace LOZ.Tools.PlayerObjects
         private PlayerConstants.Link_States state;
         private PlayerConstants.Direction direction;
 
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+
         public Link()
         {
             Link.position = new Vector2(0, 0);
-            //items = new string[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 0" };
-            //currentItem = items[0];
             health = PlayerConstants.MAX_HEALTH;
             direction = PlayerConstants.Direction.Up;
         }
 
-        public Link(int xPos, int yPos, string[] items, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction, SpriteFont font)
+        public Link(int xPos, int yPos, string[] items, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction)
         {
             Link.position = new Vector2(xPos, yPos);
 
-            this.woodenSword = true;
-            this.boomerang = false;
-            this.bomb = false;
-            this.bow = false;
-            this.candleFlame = false;
+            inventory = new LinkInventory();
 
+            this.currentSpecialWeapon = PlayerConstants.Link_Projectiles.None;
             this.projectiles = new List<IProjectile>();
             this.health = health;
-            this.healthText = new TextSprite();
+            this.hearts = health / 2 + hearts % 2;
             this.state = state;
             this.direction = direction;
             this.hitboxes = new List<Rectangle>();
             this.hurtbox = new Rectangle(xPos, yPos, PlayerConstants.LINK_MOVEDOWN_FRAME1.Width, PlayerConstants.LINK_MOVEDOWN_FRAME1.Height);
 
-            this.healthText.SetFont(font);
-            this.healthText.SetPosition(0, 0);
-            this.projectileFactory = new ProjectileFactory(0, this.spriteSheet);
+            this.projectileFactory = new ProjectileFactory(PlayerConstants.Link_Projectiles.BlueArrow, this.spriteSheet);
             UpdateSprite();
             this.swordHitbox = null;
         }
@@ -160,7 +151,25 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Attack()
         {
-            if (health == PlayerConstants.MAX_HEALTH) CreateProjectile(PlayerConstants.Link_Projectiles.SwordBeam);
+            if (this.health == PlayerConstants.HEATH_PER_HEART*this.hearts) CreateProjectile(PlayerConstants.Link_Projectiles.SwordBeam);
+        }
+
+        public void UpdateSpecialWeapon(PlayerConstants.Link_Projectiles specialWeapon)
+        {
+            this.currentSpecialWeapon = specialWeapon;
+        }
+
+        public void SpecialAttack()
+        {
+            if (currentSpecialWeapon != PlayerConstants.Link_Projectiles.None)
+            {
+                UpdateState(PlayerConstants.Link_States.UseItem, this.direction);
+                if (currentSpecialWeapon == PlayerConstants.Link_Projectiles.Potion)
+                {
+                    AddHealth(true);
+                }
+                else CreateProjectile(currentSpecialWeapon);
+            }
         }
 
         public void UseItem(int input)
@@ -180,8 +189,15 @@ namespace LOZ.Tools.PlayerObjects
         {
             if (this.invincibilityFrames == 0)
             {
+                soundEffectList[(int)SoundEffects.LinkHurt].Play();
                 this.health -= 1;
                 this.invincibilityFrames = PlayerConstants.INVINCIBILITY_FRAMES;
+                if (this.health <= 0)
+                {
+                    this.state = PlayerConstants.Link_States.Dead;
+                    soundEffectList[(int)SoundEffects.LinkDie].Play();
+                }
+            }
                 if (this.health <= 0)
                 {
                     this.state = PlayerConstants.Link_States.Dead;
@@ -210,24 +226,38 @@ namespace LOZ.Tools.PlayerObjects
 
             if (!containsProjectile)
             {
-                Vector2 velocity = new Vector2(0, 0);
-                switch (this.direction)
+                bool projectileAvailable = true;
+                if (projectileType == PlayerConstants.Link_Projectiles.Bomb)
                 {
-                    case PlayerConstants.Direction.Up: velocity = new Vector2(0, -1); break;
-                    case PlayerConstants.Direction.Left: velocity = new Vector2(-1, 0); break;
-                    case PlayerConstants.Direction.Right: velocity = new Vector2(1, 0); break;
-                    case PlayerConstants.Direction.Down: velocity = new Vector2(0, 1); break;
+                    if (inventory.bombs > 0)
+                    {
+                        inventory.bombs--;
+                    } else
+                    {
+                        projectileAvailable = false;
+                    }
                 }
 
-                this.projectileFactory.Update(projectileType);
-                this.projectiles.Add(this.projectileFactory.CreateProjectile(velocity, this));
+                if (projectileAvailable)
+                {
+                    Vector2 velocity = new Vector2(0, 0);
+                    switch (this.direction)
+                    {
+                        case PlayerConstants.Direction.Up: velocity = new Vector2(0, -1); break;
+                        case PlayerConstants.Direction.Left: velocity = new Vector2(-1, 0); break;
+                        case PlayerConstants.Direction.Right: velocity = new Vector2(1, 0); break;
+                        case PlayerConstants.Direction.Down: velocity = new Vector2(0, 1); break;
+                    }
+
+                    this.projectileFactory.Update(projectileType);
+                    this.projectiles.Add(this.projectileFactory.CreateProjectile(velocity, this));
+                }
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             this.sprite.Draw(spriteBatch);
-            this.healthText.Draw(spriteBatch);
 
             foreach (IProjectile projectile in projectiles)
             {
@@ -256,8 +286,8 @@ namespace LOZ.Tools.PlayerObjects
         public void UpdateVisual()
         {
             this.sprite.Update((int)position.X, (int)position.Y);
-            this.healthText.SetText(health + "");
-            if (this.invincibilityFrames > 0) this.invincibilityFrames--;
+            if (this.invincibilityFrames > 0)
+                this.invincibilityFrames--;
 
             for (int i = 0; i < projectiles.Count; i++)
             {
@@ -268,6 +298,30 @@ namespace LOZ.Tools.PlayerObjects
                 }
                 else projectiles[i].Update();
             }
+        }
+
+        public int GetHealth()
+        {
+            return this.health;
+        }
+
+        public void AddHealth(bool fairy)
+        {
+            if (fairy) this.health += PlayerConstants.FAIRY_HEALING;
+            else this.health += PlayerConstants.HEART_HEALING;
+
+            if (this.health > (this.hearts * 2)) this.health = this.hearts * 2;
+        }
+
+        public int GetHearts() { 
+            return this.hearts;
+        }
+
+        public void AddHeart()
+        {
+            this.hearts++;
+            soundEffectList[(int)SoundEffects.GetHeart].Play();
+            AddHealth(false);
         }
 
         private void UpdateHitboxes()
@@ -378,6 +432,11 @@ namespace LOZ.Tools.PlayerObjects
                 list.Add(temp);
             }
             return list;
+        }
+        public void Teleport(int xPos,int yPos)
+        {
+            position.X = xPos;
+            position.Y = yPos;
         }
     }
 }

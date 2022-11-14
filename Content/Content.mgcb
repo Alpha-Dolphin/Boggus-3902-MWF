@@ -13,6 +13,198 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Music/DungeonTheme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/DungeonTheme.mp3
+
+#begin SoundEffects/Enemies/AquaScream.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Enemies/AquaScream.wav
+
+#begin SoundEffects/Enemies/BossHit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Enemies/BossHit.wav
+
+#begin SoundEffects/Enemies/DodongoScream.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Enemies/DodongoScream.wav
+
+#begin SoundEffects/Enemies/EnemyDie.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Enemies/EnemyDie.wav
+
+#begin SoundEffects/Enemies/EnemyHit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Enemies/EnemyHit.wav
+
+#begin SoundEffects/Enemies/OtherBossScream.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Enemies/OtherBossScream.wav
+
+#begin SoundEffects/Environment/DoorUnlock.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Environment/DoorUnlock.wav
+
+#begin SoundEffects/Environment/FoundSecret.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Environment/FoundSecret.wav
+
+#begin SoundEffects/Environment/KeyAppear.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Environment/KeyAppear.wav
+
+#begin SoundEffects/Environment/Text.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Environment/Text.wav
+
+#begin SoundEffects/Environment/TextSlow.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Environment/TextSlow.wav
+
+#begin SoundEffects/Environment/WalkingStairs.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Environment/WalkingStairs.wav
+
+#begin SoundEffects/ItemWeapon/ArrowBoomerang.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/ArrowBoomerang.wav
+
+#begin SoundEffects/ItemWeapon/BombBlow.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/BombBlow.wav
+
+#begin SoundEffects/ItemWeapon/BombDrop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/BombDrop.wav
+
+#begin SoundEffects/ItemWeapon/Candle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/Candle.wav
+
+#begin SoundEffects/ItemWeapon/GetHeart.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/GetHeart.wav
+
+#begin SoundEffects/ItemWeapon/GetItem.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/GetItem.wav
+
+#begin SoundEffects/ItemWeapon/GetRupee.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/GetRupee.wav
+
+#begin SoundEffects/ItemWeapon/MagicRod.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/MagicRod.wav
+
+#begin SoundEffects/ItemWeapon/NewItemSong.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/NewItemSong.wav
+
+#begin SoundEffects/ItemWeapon/ShieldDeflect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/ShieldDeflect.wav
+
+#begin SoundEffects/ItemWeapon/SwordCombined.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/SwordCombined.wav
+
+#begin SoundEffects/ItemWeapon/SwordShoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/SwordShoot.wav
+
+#begin SoundEffects/ItemWeapon/SwordSlash.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/ItemWeapon/SwordSlash.wav
+
+#begin SoundEffects/Link/LinkDie.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Link/LinkDie.wav
+
+#begin SoundEffects/Link/LinkHurt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Link/LinkHurt.wav
+
+#begin SoundEffects/Link/LowHealth.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Link/LowHealth.wav
+
+#begin SoundEffects/Link/RefillLoop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Link/RefillLoop.wav
+
+#begin SpriteSheets/BossEnemies_EmptyFlipped.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SpriteSheets/BossEnemies_EmptyFlipped.png
+
 #begin SpriteSheets/Bosses.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -24,6 +216,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SpriteSheets/Bosses.png
+
+#begin SpriteSheets/BossWithFlipped.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SpriteSheets/BossWithFlipped.png
 
 #begin SpriteSheets/Dungeon Enemies.png
 /importer:TextureImporter
@@ -60,6 +264,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SpriteSheets/DungeonEnemies_EmptyBackground.png
+
+#begin SpriteSheets/DungeonEnemies_EmptyFlipped.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SpriteSheets/DungeonEnemies_EmptyFlipped.png
 
 #begin SpriteSheets/EnemyDeathExplosion.png
 /importer:TextureImporter

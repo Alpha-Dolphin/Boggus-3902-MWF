@@ -17,6 +17,7 @@ namespace LOZ.Tools.PlayerObjects
         void Damage();
 
         void UseItem(int input);
+        void Teleport(int xPos, int yPos);
 
         void Draw(SpriteBatch spriteBatch);
 

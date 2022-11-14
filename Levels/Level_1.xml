@@ -186,6 +186,8 @@
 					</yPlacement>
 				</item>
 			</items>
+			<gates>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -344,6 +346,8 @@
 			<items>
 
 			</items>
+			<gates>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -362,6 +366,7 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -370,12 +375,27 @@
 						0
 					</yPlacement>
 					<width>
-						192
+						80
 					</width>
 					<height>
 						32
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						0
@@ -387,9 +407,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						224
@@ -401,9 +436,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -412,7 +462,21 @@
 						144
 					</yPlacement>
 					<width>
-						192
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
 					</width>
 					<height>
 						32
@@ -503,6 +567,12 @@
 			</NPCs>
 			<items>
 			</items>
+			<gates>
+				<gate type="EastKeyholeDoor"/>
+				<gate type="NorthWall"/>
+				<gate type="SouthWall"/>
+				<gate type="WestWall"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -521,6 +591,7 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -529,12 +600,27 @@
 						0
 					</yPlacement>
 					<width>
-						192
+						80
 					</width>
 					<height>
 						32
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						0
@@ -546,9 +632,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						224
@@ -560,9 +661,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -571,7 +687,21 @@
 						144
 					</yPlacement>
 					<width>
-						192
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
 					</width>
 					<height>
 						32
@@ -841,13 +971,19 @@
 					</yPlacement>
 				</item>
 			</items>
+			<gates>
+				<gate type="WestKeyholeDoor"/>
+				<gate type="NorthWall"/>
+				<gate type="EastWall"/>
+				<gate type="SouthKeyholeDoor"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
 				<north id="none"/>
-				<south id ="none"/>
-				<east id ="4"/>
-				<west id ="2"/>
+				<south id ="4"/>
+				<east id ="2"/>
+				<west id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="4">
@@ -859,6 +995,7 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -867,12 +1004,27 @@
 						0
 					</yPlacement>
 					<width>
-						192
+						80
 					</width>
 					<height>
 						32
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						0
@@ -884,9 +1036,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						224
@@ -898,9 +1065,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -909,7 +1091,21 @@
 						144
 					</yPlacement>
 					<width>
-						192
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
 					</width>
 					<height>
 						32
@@ -1331,6 +1527,12 @@
 					</yPlacement>
 				</item>
 			</items>
+			<gates>
+				<gate type="NorthKeyholeDoor"/>
+				<gate type="EastWall"/>
+				<gate type="SouthOpenDoor"/>
+				<gate type="WestWall"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -1349,6 +1551,7 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -1357,12 +1560,27 @@
 						0
 					</yPlacement>
 					<width>
-						192
+						80
 					</width>
 					<height>
 						32
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						0
@@ -1374,9 +1592,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						224
@@ -1388,9 +1621,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -1399,7 +1647,21 @@
 						144
 					</yPlacement>
 					<width>
-						192
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
 					</width>
 					<height>
 						32
@@ -1627,6 +1889,12 @@
 					</yPlacement>
 				</item>
 			</items>
+			<gates>
+				<gate type="NorthWall"/>
+				<gate type="EastDiamondDoor"/>
+				<gate type="SouthKeyholeDoor"/>
+				<gate type="WestWall"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -1645,6 +1913,7 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -1653,12 +1922,27 @@
 						0
 					</yPlacement>
 					<width>
-						192
+						80
 					</width>
 					<height>
 						32
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						0
@@ -1670,9 +1954,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						224
@@ -1684,9 +1983,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -1695,7 +2009,21 @@
 						144
 					</yPlacement>
 					<width>
-						192
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
 					</width>
 					<height>
 						32
@@ -1976,6 +2304,12 @@
 					</yPlacement>
 				</item>
 			</items>
+			<gates>
+				<gate type="NorthWall"/>
+				<gate type="EastWall"/>
+				<gate type="SouthWall"/>
+				<gate type="WestOpenDoor"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -1994,6 +2328,7 @@
 			<background draw ="false" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -2002,12 +2337,27 @@
 						0
 					</yPlacement>
 					<width>
-						192
+						80
 					</width>
 					<height>
 						32
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						0
@@ -2019,9 +2369,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						224
@@ -2033,9 +2398,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -2044,7 +2424,21 @@
 						144
 					</yPlacement>
 					<width>
-						192
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
 					</width>
 					<height>
 						32
@@ -2088,6 +2482,12 @@
 			</NPCs>
 			<items>
 			</items>
+			<gates>
+				<gate type="NorthWall"/>
+				<gate type="EastOpenDoor"/>
+				<gate type="SouthWall"/>
+				<gate type="WestWall"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -2106,6 +2506,7 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -2114,12 +2515,27 @@
 						0
 					</yPlacement>
 					<width>
-						192
+						80
 					</width>
 					<height>
 						32
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						0
@@ -2131,9 +2547,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						224
@@ -2145,9 +2576,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -2156,7 +2602,21 @@
 						144
 					</yPlacement>
 					<width>
-						192
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
 					</width>
 					<height>
 						32
@@ -2210,11 +2670,17 @@
 			</NPCs>
 			<items>
 			</items>
+			<gates>
+				<gate type="NorthWall"/>
+				<gate type="EastDiamondDoor"/>
+				<gate type="SouthKeyholeDoor"/>
+				<gate type="WestOpenDoor"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
 				<north id="none"/>
-				<south id ="none"/>
+				<south id ="12"/>
 				<east id ="9"/>
 				<west id ="7"/>
 			</neighbors>
@@ -2228,18 +2694,120 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						80
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
 						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
@@ -2403,6 +2971,12 @@
 					</yPlacement>
 				</item>
 			</items>
+			<gates>
+				<gate type="NorthOpenDoor"/>
+				<gate type="EastOpenDoor"/>
+				<gate type="SouthBombHole"/>
+				<gate type="WestKeyholeDoor"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -2421,18 +2995,120 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						80
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
 						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
@@ -2513,6 +3189,12 @@
 			<items>
 				
 			</items>
+			<gates>
+				<gate type="NorthWall"/>
+				<gate type="EastKeyholeDoor"/>
+				<gate type="SouthBombHole"/>
+				<gate type="WestOpenDoor"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -2531,18 +3213,120 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						80
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
 						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
@@ -2733,6 +3517,12 @@
 					</yPlacement>
 				</item>
 			</items>
+			<gates>
+				<gate type="NorthKeyholeDoor"/>
+				<gate type="EastOpenDoor"/>
+				<gate type="SouthWall"/>
+				<gate type="WestWall"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -2751,18 +3541,120 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						80
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
 						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
@@ -2888,12 +3780,18 @@
 			<items>
 				
 			</items>
+			<gates>
+				<gate type="NorthKeyholeDoor"/>
+				<gate type="EastDiamondDoor"/>
+				<gate type="SouthWall"/>
+				<gate type="WestWall"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
-				<north id="13"/>
+				<north id="8"/>
 				<south id ="none"/>
-				<east id ="8"/>
+				<east id ="13"/>
 				<west id ="none"/>
 			</neighbors>
 		</room>
@@ -2906,18 +3804,120 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						80
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
 						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
@@ -3026,6 +4026,12 @@
 					</yPlacement>
 				</item>
 			</items>
+			<gates>
+				<gate type="NorthBombHole"/>
+				<gate type="EastOpenDoor"/>
+				<gate type="SouthOpenDoor"/>
+				<gate type="WestOpenDoor"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -3044,6 +4050,7 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -3052,12 +4059,27 @@
 						0
 					</yPlacement>
 					<width>
-						192
+						80
 					</width>
 					<height>
 						32
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						0
@@ -3069,9 +4091,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						224
@@ -3083,9 +4120,24 @@
 						32
 					</width>
 					<height>
-						112
+						40
 					</height>
 				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
 				<barrier>
 					<xPlacement>
 						32
@@ -3094,7 +4146,21 @@
 						144
 					</yPlacement>
 					<width>
-						192
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
 					</width>
 					<height>
 						32
@@ -3232,10 +4298,16 @@
 					</yPlacement>
 				</item>
 			</items>
+			<gates>
+				<gate type="NorthBombHole"/>
+				<gate type="EastWall"/>
+				<gate type="SouthWall"/>
+				<gate type="WestOpenDoor"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
-				<north id="none"/>
+				<north id="10"/>
 				<south id ="none"/>
 				<east id ="none"/>
 				<west id ="13"/>
@@ -3250,18 +4322,120 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						80
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
 						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
@@ -3357,6 +4531,12 @@
 			</NPCs>
 			<items>
 			</items>
+			<gates>
+				<gate type="NorthOpenDoor"/>
+				<gate type="EastWall"/>
+				<gate type="SouthKeyholeDoor"/>
+				<gate type="WestWall"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -3375,18 +4555,120 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						80
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
 						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
@@ -3440,6 +4722,12 @@
 					</yPlacement>
 				</item>
 			</items>
+			<gates>
+				<gate type="NorthWall"/>
+				<gate type="EastOpenDoor"/>
+				<gate type="SouthWall"/>
+				<gate type="WestWall"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
@@ -3458,18 +4746,120 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						80
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
 						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
@@ -3599,6 +4989,12 @@
 			</NPCs>
 			<items>
 			</items>
+			<gates>
+				<gate type="NorthKeyholeDoor"/>
+				<gate type="EastOpenDoor"/>
+				<gate type="SouthOpenDoor"/>
+				<gate type="WestOpenDoor"/>
+			</gates>
 		</room>
 		<room num ="18">
 			<!--Boolean True or False describes if border is drawn at edges-->
@@ -3609,18 +5005,120 @@
 			<background draw ="true" template ="default"/>
 			<!--Defines invisible barriers-->
 			<barriers>
+				<!--NorthSide Boundaries-->
 				<barrier>
 					<xPlacement>
-						0
+						32
 					</xPlacement>
 					<yPlacement>
 						0
 					</yPlacement>
 					<width>
-						0
+						80
 					</width>
 					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
 						0
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<!--West Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						0
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--East Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						32
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						224
+					</xPlacement>
+					<yPlacement>
+						104
+					</yPlacement>
+					<width>
+						32
+					</width>
+					<height>
+						40
+					</height>
+				</barrier>
+				<!--South Side Boundaries-->
+				<barrier>
+					<xPlacement>
+						32
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
+					</height>
+				</barrier>
+				<barrier>
+					<xPlacement>
+						144
+					</xPlacement>
+					<yPlacement>
+						144
+					</yPlacement>
+					<width>
+						80
+					</width>
+					<height>
+						32
 					</height>
 				</barrier>
 			</barriers>
@@ -3801,6 +5299,12 @@
 					</yPlacement>
 				</item>
 			</items>
+			<gates>
+				<gate type="NorthWall"/>
+				<gate type="EastWall"/>
+				<gate type="SouthWall"/>
+				<gate type="WestOpenDoor"/>
+			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->

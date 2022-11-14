@@ -10,26 +10,44 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
+using System;
+
+
+using LOZ.Tools;
+
+using LOZ.Tools.LevelManager;
+using LOZ.Tools.EnvironmentObjects;
+using LOZ.Tools.RoomTransitionHandler;
+using LOZ.Tools.HUDObjects;
+using Microsoft.Xna.Framework.Media;
+using LOZ.Tools.ItemObjects;
+using Microsoft.Xna.Framework.Audio;
+using LOZ.Tools.MusicObjects;
+using LOZ.Tools.SoundObjects;
+
 namespace LOZ
 {
     public class Game1 : Game
     {
         private List<IEnemy> enemyList;
         public static List<IEnemy> enemyDieList = new();
+        private List<IItem> itemList;
         private List<IEnvironment> blockList;
+        private List<IGate> gateList;
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
         public Link link;
         private KeyboardController controller;
         private MouseController mouseController;
-        public static ICommand linkCommandHandler;
-        IEnemy test;
+        public static LinkCommand linkCommandHandler;
+        private RoomTransitionHandler roomTransitionHandler;
+
         private List<Room> rooms;
-        public static int currentRoom = 0;
+        public static int currentRoom = 2;
         private TextSprite currentRoomIndicator = new();
 
-        //private HUD hud;
+        private HUD hud;
 
         public static LevelManager lm = new();
         public static Texture2D LINK_SPRITESHEET;
@@ -42,6 +60,12 @@ namespace LOZ
         public static Texture2D ITEM_SPRITESHEET;
         public static Texture2D HUD_SPRITESHEET;
 
+        private Song backgroundMusic;
+        private MusicHandler musicBox;
+
+        public static List<SoundEffect> soundEffectList;
+
+        private KeyboardState previousState;
 
         /* hanging onto to save time later
        private string creditsString = "Credits\nProgram Made By: Team BoggusMWF\nSprites from: https://www.spriters-resource.com/nes/legendofzelda/";
@@ -59,6 +83,7 @@ namespace LOZ
         {
             // TODO: Add your initialization logic here
             LoadContent();
+            roomTransitionHandler = new RoomTransitionHandler();
 
             _graphics.PreferredBackBufferWidth = 1024;
             _graphics.PreferredBackBufferHeight = 704 + HUDConstants.TOP_HEIGHT;
@@ -67,20 +92,21 @@ namespace LOZ
             EnvironmentConstants.Initialize(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             link = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.DEFAULT_ITEMS, PlayerConstants.MAX_HEALTH,
-                PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION,FONT);
+                PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION);
             linkCommandHandler = new LinkCommand((Link) link);
 
             /*Declaration of controllers*/
             controller = new KeyboardController();
             mouseController = new MouseController();
 
+  
             lm = new LevelManager();
             lm.initialize();
             rooms = lm.RoomList;
 
             currentRoomIndicator.SetPosition(0, 20);
 
-            //hud = new HUD(HUD_SPRITESHEET, ITEM_SPRITESHEET, FONT);
+            hud = new HUD(HUD_SPRITESHEET, ITEM_SPRITESHEET, FONT, link);
 
             base.Initialize();
         }
@@ -91,6 +117,14 @@ namespace LOZ
             Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
             Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
 
+            musicBox = new MusicHandler();
+            backgroundMusic = Content.Load<Song>(@"Music\DungeonTheme");
+            musicBox.SelectSong(backgroundMusic);
+            // musicBox.Play();
+
+            SoundEffectManager soundEffectManager = new (Content);
+            soundEffectList = soundEffectManager.FillEffects();
+            
             LINK_SPRITESHEET = Content.Load<Texture2D>(PlayerConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
             currentRoomIndicator.SetFont(FONT);
@@ -109,53 +143,113 @@ namespace LOZ
             /*
              * Update logic here
              */
-
             base.Update(gameTime);
-
+            
+            // Track current state to see if M is held or not
+            KeyboardState currentState = Keyboard.GetState();
             List<Keys> pressed = controller.Update();
-            mouseController.Update();
-
-            linkCommandHandler.Execute(pressed);
-            rooms[currentRoom].Update(gameTime);
-            foreach (IEnemy enemy in rooms[currentRoom].enemyList)
+            if (hud.Paused())
             {
-                enemy.Update(gameTime);
-                enemy.Move(gameTime);
+                if (pressed.Contains(Keys.Right) && previousState.IsKeyUp(Keys.Right))
+                {
+                    hud.NextItem();
+                }
+                else if (pressed.Contains(Keys.Left) && previousState.IsKeyUp(Keys.Left))
+                {
+                    hud.PreviousItem();
+                }
+            }
+            else
+            {
+                mouseController.Update();
+
+                linkCommandHandler.Execute(pressed);
+                rooms[currentRoom].Update(gameTime);
+                foreach (IEnemy enemy in rooms[currentRoom].enemyList)
+                {
+                    enemy.Update(gameTime);
+                    enemy.Move(gameTime);
+                }
             }
 
-            //hud.Update(link, pressed);
-            
+            hud.Update(pressed);
+
             if (pressed.Contains(Keys.Q))
             {
                 this.Exit();
             }
+
+            // If M is pressed, but not held, mute the song
+            if (pressed.Contains(Keys.M) && previousState.IsKeyUp(Keys.M))
+            {
+                musicBox.ToggleMute();
+            }
+
             currentRoomIndicator.SetText("Current room number: " + currentRoom);
+            
+            
+            previousState = currentState;
         }
 
         private void UpdateCollision()
         {
             enemyList = rooms[currentRoom].enemyList;
+            itemList = rooms[currentRoom].itemList;
             blockList = rooms[currentRoom].environmentList;
+            gateList = rooms[currentRoom].gateList;
             foreach (IEnemy ene in enemyList)
             {
-                if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(ene, link);
+                if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox()))
+                {
+                    Collision.CollisionChecker(ene, link);
+                }
                 foreach (IEnvironment bL in blockList)
                 {
-                    if (Collision.Intersects(bL.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(bL, ene);
+                    if (Collision.Intersects(bL.GetHurtbox(), ene.GetHurtbox()))
+                    {
+                        Collision.CollisionChecker(bL, ene);
+                    }
                 }
                 foreach (ICollidable weapon in link.GetHitboxes())
                 {
-                    if (Collision.Intersects(weapon.GetHurtbox(), ene.GetHurtbox())) Collision.CollisionChecker(weapon, ene);
+                    if (Collision.Intersects(weapon.GetHurtbox(), ene.GetHurtbox()))
+                    {
+                        Collision.CollisionChecker(weapon, ene);
+                    }
                 }
             }
+
             enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
+
+            for(int i = 0; i < itemList.Count; i++)
+            {
+                if (Collision.Intersects(link.GetHurtbox(), itemList[i].GetHurtbox()))
+                {
+                    linkCommandHandler.GetItem(itemList[i]);
+                    itemList.RemoveAt(i);
+                    i--;
+                }
+            }
+
             foreach (IEnvironment bL in blockList)
             {
                 if (Collision.Intersects(link.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(link, bL);
             }
-
+            foreach (IGate gate in gateList)
+            {
+                if (Collision.Intersects(link.GetHurtbox(), gate.GetHurtbox()))
+                {
+                    if (gate.IsGateOpen())
+                    {
+                        roomTransitionHandler.handleTransition(rooms[currentRoom], gate, link);
+                    }
+                    else
+                    {
+                        Collision.CollisionChecker(gate, link);
+                    }
+                }
+            }
         }
-    
 
         protected override void Draw(GameTime gameTime)
         {
