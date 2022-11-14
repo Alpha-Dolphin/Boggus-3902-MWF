@@ -184,7 +184,9 @@ namespace LOZ.Tools.Command
             {
                 link.inventory.rupees++;
             }
-            else if (typeof(TriforcePiece) == item.GetType()) { }
+            else if (typeof(TriforcePiece) == item.GetType()) {
+                link.inventory.triforcePiece = true;
+            }
             else if (typeof(WoodenBoomerang) == item.GetType())
             {
                 link.inventory.boomerang = true;

@@ -157,12 +157,15 @@ namespace LOZ.Tools.PlayerObjects
 
         public void SpecialAttack()
         {
-            UpdateState(PlayerConstants.Link_States.UseItem, this.direction);
-            if(currentSpecialWeapon == PlayerConstants.Link_Projectiles.Potion)
+            if (currentSpecialWeapon != PlayerConstants.Link_Projectiles.None)
             {
-                AddHealth(true);
+                UpdateState(PlayerConstants.Link_States.UseItem, this.direction);
+                if (currentSpecialWeapon == PlayerConstants.Link_Projectiles.Potion)
+                {
+                    AddHealth(true);
+                }
+                else CreateProjectile(currentSpecialWeapon);
             }
-            else CreateProjectile(currentSpecialWeapon);
         }
 
         public void UseItem(int input)

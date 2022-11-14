@@ -16,6 +16,7 @@ namespace LOZ.Tools.PlayerObjects
         public bool compass { get; set; } = false;
         public bool potion { get; set; } = false;
         public bool bomb { get; set; } = false;
+        public bool triforcePiece { get; set; } = false;
 
         public int rupees { get; set; } = 0;
         public int keys { get; set; } = 0;
