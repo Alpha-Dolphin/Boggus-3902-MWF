@@ -10,7 +10,7 @@ namespace LOZ.Tools.RoomTransitionHandler
 {
     internal class RoomTransitionHandler
     {
-        public void handleTransition(Room room, IGate gate, IPlayer link)
+        public static void HandleTransition(Room room, IGate gate, IPlayer link)
         {
 
             switch (gate.GetDirection())
@@ -35,10 +35,10 @@ namespace LOZ.Tools.RoomTransitionHandler
             }
                 
         }
-        public void handleTransitionAbs(int roomNumber, IPlayer link)
+        public static void HandleTransitionAbs(int roomNumber, IPlayer link, int X, int Y)
         {
-
-//
+            LOZ.Game1.currentRoom = roomNumber;
+            link.Teleport(X, Y);
 
         }
     }
