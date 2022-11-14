@@ -19,9 +19,9 @@ namespace LOZ.Tools
         //readonly ISpriteEnemy slimeSprite;
         readonly WallMasterSprite wallMasterSprite;
 
-        double prevLinkValue;
+        Vector2 prevLinkPos;
 
-        public bool grabbed;
+        int enemyState;
 
         public void SetHurtbox(Rectangle rect)
         {
@@ -30,13 +30,14 @@ namespace LOZ.Tools
         }
         public Wallmaster(int X, int Y)
         {
-            enemyDirection.X = 0;
+            enemyDirection.X = 1;
             enemyDirection.Y = 0;
 
             wallMasterSprite = new WallMasterSprite();
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;
+            enemyState = 0;
         }
         public Rectangle GetHurtbox()
         {
@@ -67,27 +68,29 @@ namespace LOZ.Tools
         public void Update(GameTime gameTime)
         {
             MovementUpdate(gameTime);
-            wallMasterSprite.Update(grabbed);
+            wallMasterSprite.Update(gameTime, enemyState);
         }
 
         private void MovementUpdate(GameTime gameTime)
         {
-            if ((enemyDirection.X != 0 && enemyPosition.X == Link.position.X) || (enemyDirection.Y != 0 && enemyPosition.Y == Link.position.Y))
+            if ((enemyDirection.X != 0 && prevLinkPos.Y < Link.position.Y) || (enemyDirection.Y != 0 && prevLinkPos.X < Link.position.X))
             {
                 enemyDirection = new(0, 0);
-                Rectangle linkRect = new((int)Link.position.X, (int)Link.position.Y, 16, 16);
-                Rectangle dist = Rectangle.Union(GetHurtbox(), linkRect);
-                if (dist.Bottom - dist.Top > dist.Right - dist.Left)
+                Rectangle linkRect = new((int)Link.position.X, (int)Link.position.Y, 1, 1);
+                Rectangle enemyRect = GetHurtbox();
+                Rectangle dist = Rectangle.Union(enemyRect, linkRect);
+                if (dist.Bottom - dist.Top < dist.Right - dist.Left)
                 {
-                    if (dist.Right == linkRect.Right) enemyDirection.X = 1;
-                    else enemyDirection.X = -1;
+                    if (enemyRect.Left > linkRect.Left) enemyDirection.X = -1;
+                    else enemyDirection.X = 1;
                 }
                 else
                 {
-                    if (dist.Bottom == linkRect.Bottom) enemyDirection.Y = 1;
-                    else enemyDirection.Y = -1;
+                    if (enemyRect.Top > linkRect.Top) enemyDirection.Y = -1;
+                    else enemyDirection.Y = 1;
                 }
             }
+            prevLinkPos = Link.position;
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework.Input;
+using LOZ.Tools.LevelManager;
 
 namespace LOZ.Tools.PlayerObjects
 {
@@ -181,8 +182,18 @@ namespace LOZ.Tools.PlayerObjects
             {
                 this.health -= 1;
                 this.invincibilityFrames = PlayerConstants.INVINCIBILITY_FRAMES;
-                if (this.health <= 0) this.state = PlayerConstants.Link_States.Dead;
+                if (this.health <= 0)
+                {
+                    this.state = PlayerConstants.Link_States.Dead;
+                    Die();
+                }
             }
+        }
+        private void Die()
+        {
+            //Death animation or something
+            Game1.currentRoom = 1;
+            //Game1.Initialize();
         }
 
         private void CreateProjectile(PlayerConstants.Link_Projectiles projectileType)

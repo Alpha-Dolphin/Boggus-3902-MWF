@@ -38,15 +38,15 @@ namespace LOZ.Tools
                 if (typeof(PushBlock) == a.GetType() && b is not IEnemy) Collide(b, a);
                 else Collide(a, b);
             }
-            else if (a is IEnemy)
+            else if (a is IEnemy aE)
             {
-                if (b is Link damaged) EnemyCollide(a, damaged);
+                if (b is Link damaged) EnemyCollide(aE, damaged);
             }
         }
 
         private static void EnemyCollide(IEnemy b, Link l)
         {
-            if (typeof(Wallmaster) == b.GetType()) /*Load room 1*/;
+            if (typeof(Wallmaster) == b.GetType()) Game1.le;
             else if (b is Trap bt) bt.Collide(-1);
             else ((LinkCommand)Game1.linkCommandHandler).ExecuteDamage();
         }

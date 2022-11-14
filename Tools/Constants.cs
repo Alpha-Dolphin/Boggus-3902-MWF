@@ -30,6 +30,8 @@ public enum Enemy
     Rope,
     Dodongo,
     Aquamentus,
+    Wallmaster,
+    Trap
 }
 
 public enum NPC

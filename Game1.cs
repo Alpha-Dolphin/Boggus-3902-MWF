@@ -1,20 +1,14 @@
-﻿using LOZ.Tools.Command;
+﻿using LOZ.Tools;
+using LOZ.Tools.Command;
+using LOZ.Tools.Controller;
+using LOZ.Tools.EnvironmentObjects;
+using LOZ.Tools.HUDObjects;
+using LOZ.Tools.LevelManager;
 using LOZ.Tools.PlayerObjects;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using LOZ.Tools.Controller;
-
-using System;
-
-
-using LOZ.Tools;
-
-using LOZ.Tools.LevelManager;
-using LOZ.Tools.EnvironmentObjects;
-using LOZ.Tools.HUDObjects;
 
 namespace LOZ
 {
@@ -30,9 +24,9 @@ namespace LOZ
         private KeyboardController controller;
         private MouseController mouseController;
         public static ICommand linkCommandHandler;
-
+        IEnemy test;
         private List<Room> rooms;
-        public static int currentRoom = 4;
+        public static int currentRoom = 0;
         private TextSprite currentRoomIndicator = new();
 
         //private HUD hud;
@@ -79,7 +73,6 @@ namespace LOZ
             /*Declaration of controllers*/
             controller = new KeyboardController();
             mouseController = new MouseController();
-
 
             lm = new LevelManager();
             lm.initialize();
@@ -136,7 +129,6 @@ namespace LOZ
             {
                 this.Exit();
             }
-
             currentRoomIndicator.SetText("Current room number: " + currentRoom);
         }
 

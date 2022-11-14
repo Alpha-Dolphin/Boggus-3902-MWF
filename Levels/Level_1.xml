@@ -96,7 +96,7 @@
 			</environment>
 			<enemies>
 				<!--One enemy element for each enemy, type attribute is the name of the object to place-->
-				<enemy type ="Keese">
+				<enemy type ="Trap">
 					<!--Placement info for where enemy spawns-->
 					<xPlacement>
 						32
@@ -105,7 +105,7 @@
 						48
 					</yPlacement>
 				</enemy>
-				<enemy type ="Stalfos">
+				<enemy type ="Wallmaster">
 					<!--Placement info for where enemy spawns-->
 					<xPlacement>
 						48
