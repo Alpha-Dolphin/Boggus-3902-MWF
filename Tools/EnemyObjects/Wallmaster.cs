@@ -73,7 +73,7 @@ namespace LOZ.Tools
 
         private void MovementUpdate(GameTime gameTime)
         {
-            if ((enemyDirection.X != 0 && prevLinkPos.Y < Link.position.Y) || (enemyDirection.Y != 0 && prevLinkPos.X < Link.position.X))
+            if ((enemyDirection.X != 0 && prevLinkPos.Y * enemyDirection.X < Link.position.Y) || (enemyDirection.Y != 0 && prevLinkPos.X * enemyDirection.Y < Link.position.X))
             {
                 enemyDirection = new(0, 0);
                 Rectangle linkRect = new((int)Link.position.X, (int)Link.position.Y, 16, 16);
