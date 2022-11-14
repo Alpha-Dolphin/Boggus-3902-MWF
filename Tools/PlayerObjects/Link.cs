@@ -49,7 +49,7 @@ namespace LOZ.Tools.PlayerObjects
             inventory = new LinkInventory();
         }
 
-        public Link(int xPos, int yPos, string[] items, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction)
+        public Link(int xPos, int yPos, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction)
         {
             Link.position = new Vector2(xPos, yPos);
 
