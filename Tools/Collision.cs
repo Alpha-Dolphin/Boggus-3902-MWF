@@ -51,7 +51,7 @@ namespace LOZ.Tools
 
         private static void EnemyCollide(IEnemy b, Link l)
         {
-            if (typeof(Wallmaster) == b.GetType()) Game1.roomTransitionHandler.HandleTransitionAbs(17, l, 150, 100);
+            if (typeof(Wallmaster) == b.GetType()) Game1.roomTransitionHandler.HandleTransitionAbs(17, l, 120, 140);
             else if (b is Trap bt) bt.Collide(-1);
             else ((LinkCommand)Game1.linkCommandHandler).ExecuteDamage();
         }
