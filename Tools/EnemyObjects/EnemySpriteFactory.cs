@@ -30,14 +30,12 @@ namespace LOZ.Tools
             if (pressed.Contains(Keys.O) && !held.Contains(Keys.O))
             {
                 //I don't know why, but the modulo operator wouldn't work so I'm doing this
-                curr++;
-                if (curr > 7) curr = 0;
+                curr = curr++ % 9;
                 return true;
             }
             else if (pressed.Contains(Keys.P) && !held.Contains(Keys.P))
             {
-                curr--;
-                if (curr < 0) curr = 7;
+                curr = curr-- % 9;
                 return true;
             }
             return false;
@@ -52,7 +50,8 @@ namespace LOZ.Tools
             else if (curr == 4) return CreateZol();
             else if (curr == 5) return CreateRope();
             else if (curr == 6) return CreateDodongo();
-            else if (curr == 7) return CreateAquamentus();
+            else if (curr == 7) return CreateWallmaster();
+            else if (curr == 8) return CreateTrap();
             else return CreateAquamentus();
 
             //Cobbling together broken NPC code
@@ -67,7 +66,6 @@ namespace LOZ.Tools
         {
             return new Slime(X, Y);
         }
-
         public IEnemy CreateGoriya()
         {
             return new Goriya(X, Y);
@@ -91,6 +89,16 @@ namespace LOZ.Tools
         public IEnemy CreateDodongo()
         {
             return new Dodongo(X, Y);
+        }
+
+        public IEnemy CreateWallmaster()
+        {
+            return new Wallmaster(X, Y);
+        }
+
+        public IEnemy CreateTrap()
+        {
+            return new Trap(X, Y);
         }
     }
 }

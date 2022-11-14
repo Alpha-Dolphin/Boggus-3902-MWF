@@ -30,6 +30,8 @@ public enum Enemy
     Rope,
     Dodongo,
     Aquamentus,
+    Wallmaster,
+    Trap
 }
 
 public enum NPC
@@ -90,14 +92,16 @@ public enum Direction
 public class Constants
 {
     public const string DungeonSpriteSheetLocation = "./SpriteSheets/Dungeon Tileset";
-    public const string RegEnemySpriteSheetLocation = "SpriteSheets/DungeonEnemies_EmptyFlipped";
-    public const string BossesSpriteSheetLocation = "./SpriteSheets/BossEnemies_EmptyFlipped";
+    public const string RegEnemySpriteSheetLocation = "SpriteSheets/DungeonEnemies_EmptyBackground";
+    public const string BossesSpriteSheetLocation = "./SpriteSheets/Bosses";
     public const string NPCSpriteSheetLocation = "./SpriteSheets/NPCs";
     public const string ItemSpriteSheetLocation = "./SpriteSheets/Items";
-    public const string HUDSpriteSheetLocation = "./SpriteSheets/HUD";
+    public const string ExplosionSpriteSheetLocation = "./SpriteSheets/EnemyDeathExplosion";
     public const int objectScale = 2;
     public const int enviroDefaultX = 10;
     public const int enviroDefaultY = 10;
+    public const double enemyEntryExitTime = 500;
+    public const string HUDSpriteSheetLocation = "./SpriteSheets/HUD";
     public const int numRooms = 19;
     public const bool DEBUG = true;
 }

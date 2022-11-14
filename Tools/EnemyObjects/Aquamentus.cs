@@ -73,7 +73,7 @@ namespace LOZ.Tools
 
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = new Vector2(aquamentusSprite.GetDestinationRectangle().Width, aquamentusSprite.GetDestinationRectangle().Height);
+            Vector2 wH = new (aquamentusSprite.GetDestinationRectangle().Width, aquamentusSprite.GetDestinationRectangle().Height);
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 

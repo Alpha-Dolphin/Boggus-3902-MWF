@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework.Input;
+using LOZ.Tools.LevelManager;
 using System.Runtime.CompilerServices;
 
 namespace LOZ.Tools.PlayerObjects

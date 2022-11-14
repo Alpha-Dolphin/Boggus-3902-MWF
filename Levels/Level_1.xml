@@ -96,49 +96,13 @@
 			</environment>
 			<enemies>
 				<!--One enemy element for each enemy, type attribute is the name of the object to place-->
-				<enemy type ="Keese">
+				<enemy type ="Wallmaster">
 					<!--Placement info for where enemy spawns-->
 					<xPlacement>
-						32
+						350
 					</xPlacement>
 					<yPlacement>
-						48
-					</yPlacement>
-				</enemy>
-				<enemy type ="Stalfos">
-					<!--Placement info for where enemy spawns-->
-					<xPlacement>
-						48
-					</xPlacement>
-					<yPlacement>
-						48
-					</yPlacement>
-				</enemy>
-				<enemy type ="Goriya">
-					<!--Placement info for where enemy spawns-->
-					<xPlacement>
-						64
-					</xPlacement>
-					<yPlacement>
-						48
-					</yPlacement>
-				</enemy>
-				<enemy type ="Aquamentus">
-					<!--Placement info for where enemy spawns-->
-					<xPlacement>
-						80
-					</xPlacement>
-					<yPlacement>
-						48
-					</yPlacement>
-				</enemy>
-				<enemy type ="Slime">
-					<!--Placement info for where enemy spawns-->
-					<xPlacement>
-						96
-					</xPlacement>
-					<yPlacement>
-						48
+						400
 					</yPlacement>
 				</enemy>
 			</enemies>

@@ -41,7 +41,7 @@ namespace LOZ.Tools.LevelManager
             if (roomNumber == 7)
             {
                 this.RoomInterior = new Sprite(texture, EnvironmentConstants.EXTERIOR_WIDTH,
-                EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { EnvironmentConstants.ROOMS[7] });
+                EnvironmentConstants.EXTERIOR_WIDTH + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale, new List<Rectangle>() { new Rectangle(1, 192, 192, 112) });
             }
             else 
             {

@@ -151,7 +151,7 @@ namespace LOZ.Tools.Sprites
         }
         public Rectangle GetSourceRectangle()
         {
-            return frames[currentFrame / frameRate]; ;
+            return frames[currentFrame / frameRate];
         }
 
         public void SetXScale(int xScale) {

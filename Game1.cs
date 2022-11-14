@@ -1,11 +1,14 @@
-﻿using LOZ.Tools.Command;
+﻿using LOZ.Tools;
+using LOZ.Tools.Command;
+using LOZ.Tools.Controller;
+using LOZ.Tools.EnvironmentObjects;
+using LOZ.Tools.HUDObjects;
+using LOZ.Tools.LevelManager;
 using LOZ.Tools.PlayerObjects;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using LOZ.Tools.Controller;
 
 using System;
 
@@ -31,7 +34,7 @@ namespace LOZ
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
-        private Link link;
+        public Link link;
         private KeyboardController controller;
         private MouseController mouseController;
         public static LinkCommand linkCommandHandler;
@@ -41,7 +44,7 @@ namespace LOZ
         public static int currentRoom = 2;
         private TextSprite currentRoomIndicator = new();
 
-        private HUD hud;
+        //private HUD hud;
 
         public static LevelManager lm = new();
         public static Texture2D LINK_SPRITESHEET;
@@ -49,6 +52,7 @@ namespace LOZ
         public static Texture2D ENVIRONMENT_SPRITESHEET;
         public static Texture2D REGULAR_ENEMIES_SPRITESHEET;
         public static Texture2D BOSSES_SPRITESHEET;
+        public static Texture2D EXPLOSION;
         public static Texture2D NPC_SPRITESHEET;
         public static Texture2D ITEM_SPRITESHEET;
         public static Texture2D HUD_SPRITESHEET;
@@ -89,7 +93,6 @@ namespace LOZ
             controller = new KeyboardController();
             mouseController = new MouseController();
 
-
             lm = new LevelManager();
             lm.initialize();
             rooms = lm.RoomList;
@@ -119,7 +122,7 @@ namespace LOZ
             REGULAR_ENEMIES_SPRITESHEET = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
             BOSSES_SPRITESHEET = Content.Load<Texture2D>(Constants.BossesSpriteSheetLocation);
             ITEM_SPRITESHEET = Content.Load<Texture2D>(Constants.ItemSpriteSheetLocation);
-            HUD_SPRITESHEET = Content.Load<Texture2D>(Constants.HUDSpriteSheetLocation);
+            EXPLOSION = Content.Load<Texture2D>(Constants.ExplosionSpriteSheetLocation);
         }
 
         protected override void Update(GameTime gameTime)
@@ -258,19 +261,24 @@ namespace LOZ
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             /*Draw everything*/
-            if (!hud.Paused())
+            //if (!hud.Paused())
             {
                 rooms[currentRoom].Draw(spriteBatch);
                 link.Draw(spriteBatch);
                 currentRoomIndicator.Draw(spriteBatch);
             }
 
-            hud.Draw(spriteBatch);
+            //hud.Draw(spriteBatch);
 
             /*End drawing*/
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public static void resetGame()
+        {
+
         }
     }
 }
