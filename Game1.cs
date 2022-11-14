@@ -18,6 +18,9 @@ using LOZ.Tools.RoomTransitionHandler;
 using LOZ.Tools.HUDObjects;
 using Microsoft.Xna.Framework.Media;
 using LOZ.Tools.ItemObjects;
+using Microsoft.Xna.Framework.Audio;
+using LOZ.Tools.MusicObjects;
+using LOZ.Tools.SoundObjects;
 
 namespace LOZ
 {
@@ -54,6 +57,9 @@ namespace LOZ
         public static Texture2D HUD_SPRITESHEET;
 
         private Song backgroundMusic;
+        private MusicHandler musicBox;
+
+        public static List<SoundEffect> soundEffectList;
 
         private KeyboardState previousState;
 
@@ -89,7 +95,7 @@ namespace LOZ
             controller = new KeyboardController();
             mouseController = new MouseController();
 
-
+  
             lm = new LevelManager();
             lm.initialize();
             rooms = lm.RoomList;
@@ -107,10 +113,14 @@ namespace LOZ
             Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
             Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
 
+            musicBox = new MusicHandler();
             backgroundMusic = Content.Load<Song>(@"Music\DungeonTheme");
-            //MediaPlayer.Play(backgroundMusic);
-            //MediaPlayer.IsRepeating = true;
+            musicBox.SelectSong(backgroundMusic);
+            // musicBox.Play();
 
+            SoundEffectManager soundEffectManager = new (Content);
+            soundEffectList = soundEffectManager.FillEffects();
+            
             LINK_SPRITESHEET = Content.Load<Texture2D>(PlayerConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
             currentRoomIndicator.SetFont(FONT);
@@ -168,11 +178,11 @@ namespace LOZ
             // If M is pressed, but not held, mute the song
             if (pressed.Contains(Keys.M) && previousState.IsKeyUp(Keys.M))
             {
-                UpdateSong();
+                musicBox.ToggleMute();
             }
 
             currentRoomIndicator.SetText("Current room number: " + currentRoom);
-
+            
             
             previousState = currentState;
         }
@@ -236,18 +246,6 @@ namespace LOZ
                 }
             }
         }
-
-        private void UpdateSong()
-        {
-            if(MediaPlayer.IsMuted)
-            {
-                MediaPlayer.IsMuted = false;
-
-            } else
-            {
-                MediaPlayer.IsMuted = true;
-            }
-        }   
 
         protected override void Draw(GameTime gameTime)
         {
