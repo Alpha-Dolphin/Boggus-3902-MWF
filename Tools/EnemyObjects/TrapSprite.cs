@@ -13,7 +13,7 @@ namespace LOZ.Tools.EnemyObjects
 
     namespace LOZ.Tools
     {
-        internal class WallMasterSprite : ISpriteEnemy
+        internal class TrapSprite : ISpriteEnemy
         {
             Rectangle anim;
 
@@ -38,8 +38,8 @@ namespace LOZ.Tools.EnemyObjects
 
             public void Update(bool grabbed)
             {
-                Rectangle[] wallMasterFrames = new[] { new Rectangle(1, 11, 8, 16)};
-                anim = grabbed ? wallMasterFrames[1] : wallMasterFrames[0];
+                Rectangle[] trapFrames = new[] { new Rectangle(1, 11, 8, 16)};
+                anim = grabbed ? trapFrames[1] : trapFrames[0];
             }
 
             public Vector2 GetWidthHeight()
