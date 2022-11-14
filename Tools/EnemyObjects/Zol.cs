@@ -15,7 +15,7 @@ namespace LOZ.Tools.EnemyObjects
         readonly ISpriteEnemy ZolSprite;
 
         readonly Random rand;
-
+        int enemyState;
         double moveCheck;
         double moveTime;
         double moveProb;
@@ -71,7 +71,7 @@ namespace LOZ.Tools.EnemyObjects
         public void Update(GameTime gameTime)
         {
             MovementUpdate(gameTime);
-            ZolSprite.Update(gameTime);
+            ZolSprite.Update(gameTime, enemyState);
         }
 
         private void MovementUpdate(GameTime gameTime)

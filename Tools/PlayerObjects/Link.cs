@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    internal class Link : IPlayer, ICollidable
+    public class Link : IPlayer, ICollidable
     {
         public static Vector2 position;
 

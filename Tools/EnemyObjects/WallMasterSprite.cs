@@ -31,7 +31,7 @@ namespace LOZ.Tools.EnemyObjects
                     0f
                 );
             }
-            public void Update(GameTime gameTime)
+            public void Update(GameTime gameTime, int enemyState)
             {
                 //Nothing
             }

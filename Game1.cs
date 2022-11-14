@@ -26,16 +26,16 @@ namespace LOZ
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
-        private Link link;
+        public Link link;
         private KeyboardController controller;
         private MouseController mouseController;
         public static ICommand linkCommandHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 10;
+        public static int currentRoom = 4;
         private TextSprite currentRoomIndicator = new();
 
-        private HUD hud;
+        //private HUD hud;
 
         public static LevelManager lm = new();
         public static Texture2D LINK_SPRITESHEET;
@@ -43,6 +43,7 @@ namespace LOZ
         public static Texture2D ENVIRONMENT_SPRITESHEET;
         public static Texture2D REGULAR_ENEMIES_SPRITESHEET;
         public static Texture2D BOSSES_SPRITESHEET;
+        public static Texture2D EXPLOSION;
         public static Texture2D NPC_SPRITESHEET;
         public static Texture2D ITEM_SPRITESHEET;
         public static Texture2D HUD_SPRITESHEET;
@@ -86,7 +87,7 @@ namespace LOZ
 
             currentRoomIndicator.SetPosition(0, 20);
 
-            hud = new HUD(HUD_SPRITESHEET, ITEM_SPRITESHEET, FONT);
+            //hud = new HUD(HUD_SPRITESHEET, ITEM_SPRITESHEET, FONT);
 
             base.Initialize();
         }
@@ -105,7 +106,7 @@ namespace LOZ
             REGULAR_ENEMIES_SPRITESHEET = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
             BOSSES_SPRITESHEET = Content.Load<Texture2D>(Constants.BossesSpriteSheetLocation);
             ITEM_SPRITESHEET = Content.Load<Texture2D>(Constants.ItemSpriteSheetLocation);
-            HUD_SPRITESHEET = Content.Load<Texture2D>(Constants.HUDSpriteSheetLocation);
+            EXPLOSION = Content.Load<Texture2D>(Constants.ExplosionSpriteSheetLocation);
         }
 
         protected override void Update(GameTime gameTime)
@@ -129,7 +130,7 @@ namespace LOZ
                 enemy.Move(gameTime);
             }
 
-            hud.Update(link, pressed);
+            //hud.Update(link, pressed);
             
             if (pressed.Contains(Keys.Q))
             {
@@ -173,14 +174,14 @@ namespace LOZ
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             /*Draw everything*/
-            if (!hud.Paused())
+            //if (!hud.Paused())
             {
                 rooms[currentRoom].Draw(spriteBatch);
                 link.Draw(spriteBatch);
                 currentRoomIndicator.Draw(spriteBatch);
             }
 
-            hud.Draw(spriteBatch);
+            //hud.Draw(spriteBatch);
 
             /*End drawing*/
             spriteBatch.End();

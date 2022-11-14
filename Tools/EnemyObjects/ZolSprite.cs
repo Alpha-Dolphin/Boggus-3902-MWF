@@ -26,7 +26,7 @@ namespace LOZ.Tools.EnemyObjects
                 0f
             );
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, int enemyState)
         {
             Rectangle[] SlimeFrames = new[] { new Rectangle(77, 11, 16, 16), new Rectangle(94, 11, 16, 16) };
             anim = SlimeFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2];
