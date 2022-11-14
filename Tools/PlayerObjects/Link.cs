@@ -185,6 +185,7 @@ namespace LOZ.Tools.PlayerObjects
         {
             if (this.invincibilityFrames == 0)
             {
+                soundEffectList[(int)SoundEffects.ArrowBoomerang].Play();
                 this.health -= 1;
                 this.invincibilityFrames = PlayerConstants.INVINCIBILITY_FRAMES;
                 if (this.health <= 0)
