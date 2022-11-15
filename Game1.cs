@@ -9,16 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
-using System;
-
-
-using LOZ.Tools;
-
-using LOZ.Tools.LevelManager;
-using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.RoomTransitionHandler;
-using LOZ.Tools.HUDObjects;
 using Microsoft.Xna.Framework.Media;
 using LOZ.Tools.ItemObjects;
 using Microsoft.Xna.Framework.Audio;
@@ -39,7 +30,7 @@ namespace LOZ
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
-        public Link link;
+        public static Link link;
         private KeyboardController controller;
         private MouseController mouseController;
         public static LinkCommand linkCommandHandler;
@@ -47,7 +38,7 @@ namespace LOZ
         internal static GameStateTransitionHandler gameStateTransitionHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 0;
+        public static int currentRoom = 7;
         private TextSprite currentRoomIndicator = new();
 
         private HUD hud;
@@ -98,7 +89,7 @@ namespace LOZ
 
             EnvironmentConstants.Initialize(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
-            link = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.DEFAULT_ITEMS, PlayerConstants.MAX_HEALTH,
+            link = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.MAX_HEALTH,
                 PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION);
             linkCommandHandler = new LinkCommand((Link) link);
 
@@ -126,7 +117,7 @@ namespace LOZ
             musicBox = new MusicHandler();
             backgroundMusic = Content.Load<Song>(@"Music\DungeonTheme");
             musicBox.SelectSong(backgroundMusic);
-            // musicBox.Play();
+            musicBox.Play();
 
             SoundEffectManager soundEffectManager = new (Content);
             soundEffectList = soundEffectManager.FillEffects();
@@ -230,6 +221,13 @@ namespace LOZ
                         Collision.CollisionChecker(weapon, ene);
                     }
                 }
+                foreach (IGate gate in gateList)
+                {
+                    if (Collision.Intersects(ene.GetHurtbox(), gate.GetHurtbox()))
+                    {
+                        Collision.CollisionChecker(gate, ene);
+                    }
+                }
             }
 
             enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
@@ -247,6 +245,17 @@ namespace LOZ
             foreach (IEnvironment bL in blockList)
             {
                 if (Collision.Intersects(link.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(link, bL);
+                foreach (IEnvironment bL2 in blockList)
+                {
+                    if (typeof(PushBlock) == bL.GetType() && bL != bL2)
+                    {
+                        if (Collision.Intersects(bL2.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(bL, bL2);
+                    }
+                }
+                foreach (IGate g in gateList)
+                {
+                    if (Collision.Intersects(g.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(bL, g);
+                }
             }
             foreach (IGate gate in gateList)
             {
@@ -259,6 +268,11 @@ namespace LOZ
                     else
                     {
                         Collision.CollisionChecker(gate, link);
+                        if (link.inventory.keys > 0 )
+                        {
+                            roomTransitionHandler.unlockDoor(gate, rooms,currentRoom);
+                            link.inventory.keys--;
+                        }
                     }
                 }
             }
@@ -295,9 +309,10 @@ namespace LOZ
             base.Draw(gameTime);
         }
 
-        public static void resetGame()
+        public static void ResetGame()
         {
-
+            link.Reset();
+            roomTransitionHandler.HandleTransitionAbs(17, link, 120, 140);
         }
     }
 }

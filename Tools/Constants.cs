@@ -80,6 +80,8 @@ public enum Gate
     SouthOpenDoor,
     EastOpenDoor,
     WestOpenDoor,
+    Stairs,
+    InvisibleGate,
 }
 public enum Direction
 {
@@ -87,6 +89,8 @@ public enum Direction
     South,
     East,
     West,
+    Down,
+    Up,
 }
 public enum SoundEffects
 {

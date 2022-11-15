@@ -10,6 +10,7 @@ using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework.Graphics;
 using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.HUDObjects;
+using LOZ.Tools.GateObjects;
 
 namespace LOZ.Tools.LevelManager
 {
@@ -31,6 +32,8 @@ namespace LOZ.Tools.LevelManager
         public int southNeighbor { get; set; } = 0;
         public int westNeighbor { get; set; } = 0;
         public int eastNeighbor { get; set; } = 0;
+        public int downNeighbor { get; set; } = 0;
+        public int upNeighbor { get; set; } = 0;
         public int roomNumber { get; set; } = 0;
         public bool border { get; set; }
         public string template { get; set; }/*template is null if there is no template*/
@@ -111,6 +114,20 @@ namespace LOZ.Tools.LevelManager
             foreach (IItem item in itemList)
             {
                 item.Update(gameTime);
+            }
+            if (enemyList.Count == 0)
+            {
+                foreach(IGate gate in gateList)
+                {
+                    if (gate.GetType().Equals(typeof(NorthDiamondDoor))
+                        || gate.GetType().Equals(typeof(SouthDiamondDoor))
+                        || gate.GetType().Equals(typeof(EastDiamondDoor))
+                        || gate.GetType().Equals(typeof(WestDiamondDoor))
+                        )
+                    {
+                        gate.Open();
+                    }
+                }
             }
         }
 

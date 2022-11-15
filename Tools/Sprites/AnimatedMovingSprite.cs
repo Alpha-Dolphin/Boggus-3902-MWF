@@ -15,6 +15,8 @@ namespace LOZ.Tools.Sprites
 {
     public class AnimatedMovingSprite : ISprite
     {
+        double enemyTimer;
+
         public static int xScale = 3;
         public static int yScale = 3;
 
@@ -35,6 +37,8 @@ namespace LOZ.Tools.Sprites
         private int currentFrame = 0;
         public AnimatedMovingSprite(Texture2D picture, int x, int y, List<Rectangle> frames)
         {
+            enemyTimer = 0;
+
             this.picture = picture;
             this.x = x;
             this.y = y;
@@ -107,6 +111,34 @@ namespace LOZ.Tools.Sprites
             int currentY = y + (int)currentLocationShift.Y;
             destinationRectangle = new Rectangle(currentX, currentY, sourceRectangle.Width, sourceRectangle.Height);
             spriteBatch.Draw(picture, new Rectangle(destinationRectangle.X*xScale, destinationRectangle.Y*yScale, destinationRectangle.Width*xScale, destinationRectangle.Height*yScale), 
+                sourceRectangle, PlayerConstants.DEFAULT_PICTURE_COLOR);
+        }
+
+        public void EnemyDraw(SpriteBatch spriteBatch, GameTime gameTime, int enemyState)
+        {
+            Rectangle sourceRectangle = frames[currentFrame / frameRate];
+            Vector2 currentLocationShift = locationShift[currentFrame / frameRate];
+            int currentX = x + (int)currentLocationShift.X;
+            int currentY = y + (int)currentLocationShift.Y;
+            destinationRectangle = new Rectangle(currentX, currentY, sourceRectangle.Width, sourceRectangle.Height); if (enemyState == 0)
+            {
+                picture = Game1.REGULAR_ENEMIES_SPRITESHEET;
+                sourceRectangle = new Rectangle(1, 59, 16, 16);
+            }
+            else if (enemyState == 1)
+            {
+                if (gameTime.TotalGameTime.TotalMilliseconds - enemyTimer > Constants.enemyEntryExitTime) enemyTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                sourceRectangle = IEnemy.Appear(enemyTimer);
+                picture = Game1.LINK_SPRITESHEET;
+            }
+            else if (enemyState == -1)
+            {
+                if (gameTime.TotalGameTime.TotalMilliseconds - enemyTimer > Constants.enemyEntryExitTime) enemyTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                sourceRectangle = IEnemy.Disappear(enemyTimer);
+                picture = Game1.EXPLOSION;
+            }
+            enemyTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+            spriteBatch.Draw(picture, new Rectangle(destinationRectangle.X * xScale, destinationRectangle.Y * yScale, destinationRectangle.Width * xScale, destinationRectangle.Height * yScale),
                 sourceRectangle, PlayerConstants.DEFAULT_PICTURE_COLOR);
         }
 

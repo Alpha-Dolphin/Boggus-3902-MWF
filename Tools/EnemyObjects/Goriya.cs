@@ -7,146 +7,138 @@ using Microsoft.Xna.Framework;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using LOZ.Tools.PlayerObjects;
 using LOZ.Tools.EnemyObjects;
-using LOZ.Tools.Sprites;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LOZ.Tools
 {
-    internal class Goriya : IEnemy, ICollidable
+    internal class Goriya : IEnemy
     {
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection;
-        EnemyConstants.Direction direction;
-        bool directionChange = false;
         Vector2 enemyPosition;
 
-        //readonly GoriyaSprite goriyaSprite;
-        AnimatedMovingSprite goriyaSprite;
+        readonly GoriyaSprite goriyaSprite;
 
-        //readonly EnemyObjects.Boomerang boomerang;
-        PlayerObjects.Boomerang boomerang;
+        readonly EnemyObjects.Boomerang boomerang;
+
+        int enemyState;
+
+        double stateTime;
 
         readonly Random rand;
 
         double moveCheck;
         double moveTime;
         double moveProb;
-        public void SetHurtbox(Rectangle rect)
-        {
-            enemyPosition.Y = rect.Y;
-            enemyPosition.X = rect.X;
-        }
+
         public Goriya(int X, int Y)
         {
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
-            direction = EnemyConstants.Direction.Down;
 
-            enemyPosition.Y = Y;
             enemyPosition.X = X;
+            enemyPosition.Y = Y;
 
             rand = new();
 
-            goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
-                EnemyConstants.GORIYA_DOWN);
+            enemyState = 1;
+
+            stateTime = 0;
+
+            boomerang = new EnemyObjects.Boomerang();
+
+            goriyaSprite = new GoriyaSprite();
 
             moveCheck = -1;
         }
 
-        public Rectangle GetHurtbox()
+        public Rectangle GetRectangle()
         {
-            Vector2 wH = new Vector2(goriyaSprite.GetDestinationRectangle().Width, goriyaSprite.GetDestinationRectangle().Height);
+            Vector2 wH = goriyaSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Attack(GameTime gameTime)
         {
-            Vector2 velocity = new Vector2(0, 0);
-
-            switch (this.direction)
-            {
-                case EnemyConstants.Direction.Up: velocity = new Vector2(0, -1); break;
-                case EnemyConstants.Direction.Left: velocity = new Vector2(-1, 0); break;
-                case EnemyConstants.Direction.Right: velocity = new Vector2(1, 0); break;
-                case EnemyConstants.Direction.Down: velocity = new Vector2(0, 1); break;
-            }
-
-            boomerang = new PlayerObjects.Boomerang(Game1.LINK_SPRITESHEET, this, enemyPosition, PlayerConstants.BOOMERANG_SPEED * velocity);
+            boomerang.Activate(enemyDirection, enemyPosition);
         }
 
         public void Die()
         {
+            enemyState = -1;
+        }
+
+        private void DeleteEnemy()
+        {
             Game1.enemyDieList.Add(this);
+            soundEffectList[(int)SoundEffects.EnemyDie].Play();
+
         }
 
         public void Move(GameTime gameTime)
         {
-            EnemyConstants.Direction temp;
-            if (boomerang == null)
+            if (boomerang.GetAttackTime() < 0.0)
             {
-                Vector2 delta = new Vector2((float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25), (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25));
-                if (Math.Abs(delta.X) > 0)
-                {
-                    temp = delta.X > 0 ? EnemyConstants.Direction.Right : EnemyConstants.Direction.Left;
-                }
-                else if (Math.Abs(delta.Y) > 0)
-                {
-
-                    temp = delta.Y > 0 ? EnemyConstants.Direction.Down : EnemyConstants.Direction.Up;
-                }
-                else
-                {
-                    temp = EnemyConstants.Direction.None;
-                }
-
-                directionChange = !temp.Equals(direction);
-                direction = temp;
-
-                enemyPosition += delta;
+                enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
+                enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
             }
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            goriyaSprite.Draw(_spriteBatch);
-            if (boomerang != null) boomerang.Draw(_spriteBatch);
+            goriyaSprite.Draw(_spriteBatch, enemyPosition);
+            if (boomerang.GetAttackTime() > 0.0) boomerang.Draw(_spriteBatch);
         }
 
         public void Update(GameTime gameTime)
         {
-            goriyaSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
-            MovementUpdate(gameTime);
-            AttackUpdate(gameTime);
-            if (boomerang != null)
+            StateHandler(gameTime);
+            goriyaSprite.Update(gameTime, enemyState, enemyDirection);
+            if (enemyState == 0 && boomerang.GetAttackTime() < 0.0)
             {
-                boomerang.Update();
-                if (!boomerang.stillExists()) boomerang = null;
+                MovementUpdate(gameTime);
+                AttackUpdate(gameTime);
             }
-
-            if (directionChange)
+            else if (enemyState == 0)
             {
-                switch (direction)
+                boomerang.Update(gameTime);
+            }
+        }
+        private void StateHandler(GameTime gameTime)
+        {
+            if (enemyState == 1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
                 {
-                    case EnemyConstants.Direction.Up:
-                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
-                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_UP); break;
-                    case EnemyConstants.Direction.Left:
-                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
-                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_LEFT); break;
-                    case EnemyConstants.Direction.Right:
-                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
-                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_RIGHT); break;
-                    case EnemyConstants.Direction.Down:
-                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
-                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_DOWN); break;
-                    case EnemyConstants.Direction.None:
-                        goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
-                        (int)enemyPosition.X, (int)enemyPosition.Y, new List<Rectangle>() { goriyaSprite.GetSourceRectangle() }); break;
+                    stateTime = 0;
+                    enemyState = 0;
+                }
+            }
+            else if (enemyState == -1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    DeleteEnemy();
                 }
             }
         }
-
         private void AttackUpdate(GameTime gameTime)
         {
             if (rand.Next() % 4950 <= 25) Attack(gameTime);
+        }
+
+        public void SetHurtbox(Rectangle rect)
+        {
+            enemyPosition.Y = rect.Y;
+            enemyPosition.X = rect.X;
+        }
+
+        public Rectangle GetHurtbox()
+        {
+            Vector2 wH = goriyaSprite.GetWidthHeight();
+            return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         private void MovementUpdate(GameTime gameTime)

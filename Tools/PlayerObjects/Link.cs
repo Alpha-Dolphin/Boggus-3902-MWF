@@ -46,9 +46,10 @@ namespace LOZ.Tools.PlayerObjects
             Link.position = new Vector2(0, 0);
             health = PlayerConstants.MAX_HEALTH;
             direction = PlayerConstants.Direction.Up;
+            inventory = new LinkInventory();
         }
 
-        public Link(int xPos, int yPos, string[] items, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction)
+        public Link(int xPos, int yPos, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction)
         {
             Link.position = new Vector2(xPos, yPos);
 
@@ -67,7 +68,25 @@ namespace LOZ.Tools.PlayerObjects
             UpdateSprite();
             this.swordHitbox = null;
         }
+        public void Reset()
+        {
+            Link.position = new Vector2(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y);
 
+            inventory = new LinkInventory();
+
+            this.currentSpecialWeapon = PlayerConstants.Link_Projectiles.None;
+            this.projectiles = new List<IProjectile>();
+            this.health = PlayerConstants.MAX_HEALTH;
+            this.hearts = health / 2 + hearts % 2;
+            this.state = PlayerConstants.DEFAULT_STATE;
+            this.direction = PlayerConstants.DEFAULT_DIRECTION;
+            this.hitboxes = new List<Rectangle>();
+            this.hurtbox = new Rectangle(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.LINK_MOVEDOWN_FRAME1.Width, PlayerConstants.LINK_MOVEDOWN_FRAME1.Height);
+
+            this.projectileFactory = new ProjectileFactory(PlayerConstants.Link_Projectiles.BlueArrow, this.spriteSheet);
+            UpdateSprite();
+            this.swordHitbox = null;
+        }
         private void UpdateSprite()
         {
             switch (this.state)
@@ -196,6 +215,7 @@ namespace LOZ.Tools.PlayerObjects
                 {
                     this.state = PlayerConstants.Link_States.Dead;
                     soundEffectList[(int)SoundEffects.LinkDie].Play();
+                    Game1.ResetGame();
                 }
             }
         }

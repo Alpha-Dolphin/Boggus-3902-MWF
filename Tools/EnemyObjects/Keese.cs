@@ -5,20 +5,25 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using LOZ.Tools.EnemyObjects;
 using LOZ.Tools.Sprites;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LOZ.Tools
 {
     internal class Keese : IEnemy, ICollidable
     {
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         readonly Random rand = new();
 
         Vector2 enemyDirection; Vector2 enemyPosition;
-        //readonly ISpriteEnemy keeseSprite;
-        AnimatedMovingSprite keeseSprite;
+        readonly ISpriteEnemy keeseSprite;
+        //AnimatedMovingSprite keeseSprite;
 
         double moveCounter;
         double timeToMove;
         double moveCheck;
+
+        int enemyState;
+        double stateTime;
         public void SetHurtbox(Rectangle rect)
         {
             enemyPosition.Y = rect.Y;
@@ -32,8 +37,10 @@ namespace LOZ.Tools
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
-            keeseSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
-                new List<Rectangle> { new Rectangle(183, 11, 16, 16), new Rectangle(200, 11, 16, 16) });
+            keeseSprite = new KeeseSprite();
+
+            stateTime = 0.0;
+            enemyState = 1;
 
             moveCounter = 0.0;
             timeToMove = 0.0;
@@ -42,7 +49,7 @@ namespace LOZ.Tools
 
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = new Vector2(keeseSprite.GetDestinationRectangle().Width, keeseSprite.GetDestinationRectangle().Height);
+            Vector2 wH = keeseSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
@@ -53,7 +60,13 @@ namespace LOZ.Tools
 
         public void Die()
         {
+            enemyState = -1;
+        }
+
+        private void DeleteEnemy()
+        {
             Game1.enemyDieList.Add(this);
+            soundEffectList[(int)SoundEffects.EnemyDie].Play();
         }
 
         public void Move(GameTime gameTime)
@@ -72,15 +85,36 @@ namespace LOZ.Tools
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            keeseSprite.Draw(_spriteBatch);
+            keeseSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
         {
-            MovementUpdate(gameTime);
-            keeseSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
+            StateHandler(gameTime);
+            if (enemyState == 0) MovementUpdate(gameTime);
+            keeseSprite.Update(gameTime, enemyState);
         }
 
+        private void StateHandler(GameTime gameTime)
+        {
+            if (enemyState == 1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    stateTime = 0;
+                    enemyState = 0;
+                }
+            }
+            else if (enemyState == -1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    DeleteEnemy();
+                }
+            }
+        }
         private void MovementUpdate(GameTime gameTime)
         {
             if (moveCheck <= 0)
