@@ -7,11 +7,13 @@ using Microsoft.Xna.Framework;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using LOZ.Tools;
 using LOZ.Tools.Sprites;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LOZ.Tools
 {
     internal class Slime : IEnemy, ICollidable
     {
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection; Vector2 enemyPosition;
         readonly ISpriteEnemy slimeSprite;
         //AnimatedMovingSprite slimeSprite;
@@ -68,6 +70,7 @@ namespace LOZ.Tools
         private void DeleteEnemy()
         {
             Game1.enemyDieList.Add(this);
+            soundEffectList[(int)SoundEffects.EnemyDie].Play();
         }
 
         public void Move(GameTime gameTime)

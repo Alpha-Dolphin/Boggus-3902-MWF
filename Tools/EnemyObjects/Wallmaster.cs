@@ -10,11 +10,13 @@ using LOZ.Tools.Sprites;
 using LOZ.Tools.EnemyObjects.LOZ.Tools;
 using LOZ.Tools.PlayerObjects;
 using System.Collections;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LOZ.Tools
 {
     internal class Wallmaster : IEnemy, ICollidable
     {
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection; Vector2 enemyPosition;
 
         readonly WallMasterSprite wallMasterSprite;
@@ -62,6 +64,7 @@ namespace LOZ.Tools
         private void DeleteEnemy()
         {
             Game1.enemyDieList.Add(this);
+            soundEffectList[(int)SoundEffects.EnemyDie].Play();
         }
 
         public void Move(GameTime gameTime)

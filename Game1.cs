@@ -110,7 +110,7 @@ namespace LOZ
             musicBox = new MusicHandler();
             backgroundMusic = Content.Load<Song>(@"Music\DungeonTheme");
             musicBox.SelectSong(backgroundMusic);
-            // musicBox.Play();
+            musicBox.Play();
 
             SoundEffectManager soundEffectManager = new (Content);
             soundEffectList = soundEffectManager.FillEffects();

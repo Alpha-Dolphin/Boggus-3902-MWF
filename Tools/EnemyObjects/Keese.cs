@@ -5,11 +5,13 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using LOZ.Tools.EnemyObjects;
 using LOZ.Tools.Sprites;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LOZ.Tools
 {
     internal class Keese : IEnemy, ICollidable
     {
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         readonly Random rand = new();
 
         Vector2 enemyDirection; Vector2 enemyPosition;
@@ -64,6 +66,7 @@ namespace LOZ.Tools
         private void DeleteEnemy()
         {
             Game1.enemyDieList.Add(this);
+            soundEffectList[(int)SoundEffects.EnemyDie].Play();
         }
 
         public void Move(GameTime gameTime)

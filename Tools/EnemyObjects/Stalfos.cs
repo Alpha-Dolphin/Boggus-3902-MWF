@@ -12,11 +12,13 @@ using LOZ.Tools;
 using LOZ.Tools.Sprites;
 using LOZ.Tools.EnemyObjects;
 using System.Data;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LOZ.Tools
 {
     internal class Stalfos : IEnemy, ICollidable
     {
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection; Vector2 enemyPosition;
         readonly ISpriteEnemy stalfosSprite;
         int enemyState;
@@ -68,6 +70,7 @@ namespace LOZ.Tools
         private void DeleteEnemy()
         {
             Game1.enemyDieList.Add(this);
+            soundEffectList[(int)SoundEffects.EnemyDie].Play();
         }
 
         public void Move(GameTime gameTime)

@@ -10,11 +10,13 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using LOZ.Tools.PlayerObjects;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LOZ.Tools.PlayerObjects
 {
     internal class Dodongo : IEnemy, ICollidable
     {
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection;
         EnemyConstants.Direction direction;
         bool directionChange = false;
@@ -69,6 +71,7 @@ namespace LOZ.Tools.PlayerObjects
         public void Die()
         {
             enemyState = -1;
+            soundEffectList[(int)SoundEffects.DodongoScream].Play();
         }
 
         public void DeleteEnemy()
