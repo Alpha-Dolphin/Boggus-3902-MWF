@@ -47,9 +47,9 @@ namespace LOZ.Tools.RoomTransitionHandler
             }
                 
         }
-        public void unlockDoor(IGate gate,List<Room> rooms,int currentRoomNum)
+        public void unlockDoor(IGate gate, List<Room> rooms, int currentRoomNum)
         {
-            if(
+            if (
             gate.GetType().Equals(typeof(WestKeyholeDoor))
             || gate.GetType().Equals(typeof(EastKeyholeDoor))
             || gate.GetType().Equals(typeof(NorthKeyholeDoor))
@@ -101,9 +101,11 @@ namespace LOZ.Tools.RoomTransitionHandler
                         }
                         break;
 
+                }
+
             }
-                
         }
+
         public void HandleTransitionAbs(int roomNumber, IPlayer link, int X, int Y)
         {
             LOZ.Game1.currentRoom = roomNumber;
