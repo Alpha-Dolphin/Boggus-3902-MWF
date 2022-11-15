@@ -128,6 +128,7 @@ public enum SoundEffects
 public class Constants
 {
     public const string DungeonSpriteSheetLocation = "./SpriteSheets/Dungeon Tileset";
+    public const string FontSpriteSheetLocation = "./SpriteSheets/NES - The Legend of Zelda - Fonts";
     public const string RegEnemySpriteSheetLocation = "SpriteSheets/DungeonEnemies_EmptyFlipped";
     public const string BossesSpriteSheetLocation = "./SpriteSheets/BossEnemies_EmptyFlipped";
     public const string NPCSpriteSheetLocation = "./SpriteSheets/NPCs";
