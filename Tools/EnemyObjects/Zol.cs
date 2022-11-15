@@ -70,6 +70,7 @@ namespace LOZ.Tools.EnemyObjects
         private void DeleteEnemy()
         {
             Game1.enemyDieList.Add(this);
+            soundEffectList[(int)SoundEffects.EnemyDie].Play();
         }
 
 
