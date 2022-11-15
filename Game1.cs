@@ -291,7 +291,7 @@ namespace LOZ
 
         public static void ResetGame(Link a)
         {
-            a = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.DEFAULT_ITEMS, PlayerConstants.MAX_HEALTH,
+            a = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.MAX_HEALTH,
                 PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION);
             roomTransitionHandler.HandleTransitionAbs(17, a, 120, 140);
         }
