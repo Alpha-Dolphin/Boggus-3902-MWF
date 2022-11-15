@@ -14,17 +14,26 @@ namespace LOZ.Tools.GameStateTransitionHandler
 {
 	internal class GameStateTransitionHandler
 	{
-		GameOverScreen GameOverScreenState = new GameOverScreen();
-		public void HandleTransition(int state,Texture2D FontSpriteSheet, SpriteBatch spriteBatch)
-		{
-			switch (state)
-			{
-				case 0:
-					GameOverScreenState.Draw(FontSpriteSheet,spriteBatch);
-					break;
-			}
+        GameOverScreen GameOverScreenState = new GameOverScreen();
+        PauseScreen PauseScreenState = new PauseScreen();
+        WinScreen WinScreenState = new WinScreen();
 
-		}
-					
-	}
+        public void HandleTransition(int state, Texture2D FontSpriteSheet, SpriteBatch spriteBatch)
+        {
+            switch (state)
+            {
+                case 0:
+                    GameOverScreenState.Draw(FontSpriteSheet, spriteBatch);
+                    break;
+                case 1:
+                    PauseScreenState.Draw(FontSpriteSheet, spriteBatch);
+                    break;
+                case 2:
+                    WinScreenState.Draw(FontSpriteSheet, spriteBatch);
+                    break;
+            }
+
+        }
+
+    }
 }
