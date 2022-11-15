@@ -19,30 +19,30 @@ namespace LOZ.Tools.GameStateTransitionHandler
         {
             Texture2D blackRectangle = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             blackRectangle.SetData(new[] { Color.Black });
-            spriteBatch.Draw(blackRectangle, new Rectangle(0, 0, 100, 100), Color.Black);
+            spriteBatch.Draw(blackRectangle, new Rectangle(0, 0, EnvironmentConstants.SCREEN_WIDTH, EnvironmentConstants.SCREEN_HEIGHT), Color.Black);
             sourceRectangle = new Rectangle(336, 40, 7, 7);
-            destinationRectangle = new Rectangle(100,300,21,21);
+            destinationRectangle = new Rectangle(EnvironmentConstants.SCREEN_WIDTH/2-88, EnvironmentConstants.SCREEN_HEIGHT/2, 21,21);
             spriteBatch.Draw(FontSpriteSheet, destinationRectangle, sourceRectangle, Color.White);
             sourceRectangle = new Rectangle(496, 24, 7, 7);
-            destinationRectangle = new Rectangle(121, 300, 21, 21);
+            destinationRectangle = new Rectangle(EnvironmentConstants.SCREEN_WIDTH/2-67, EnvironmentConstants.SCREEN_HEIGHT / 2, 21, 21);
             spriteBatch.Draw(FontSpriteSheet, destinationRectangle, sourceRectangle, Color.White);
             sourceRectangle = new Rectangle(432, 40, 7, 7);
-            destinationRectangle = new Rectangle(142, 300, 21, 21);
+            destinationRectangle = new Rectangle(EnvironmentConstants.SCREEN_WIDTH/2-46, EnvironmentConstants.SCREEN_HEIGHT / 2, 21, 21);
             spriteBatch.Draw(FontSpriteSheet, destinationRectangle, sourceRectangle, Color.White);
             sourceRectangle = new Rectangle(560, 24, 7, 7);
-            destinationRectangle = new Rectangle(163, 300, 21, 21);
+            destinationRectangle = new Rectangle(EnvironmentConstants.SCREEN_WIDTH/2-25, EnvironmentConstants.SCREEN_HEIGHT / 2, 21, 21);
             spriteBatch.Draw(FontSpriteSheet, destinationRectangle, sourceRectangle, Color.White);
             sourceRectangle = new Rectangle(464, 40, 7, 7);
-            destinationRectangle = new Rectangle(210, 300, 21, 21);
+            destinationRectangle = new Rectangle(EnvironmentConstants.SCREEN_WIDTH/2+25, EnvironmentConstants.SCREEN_HEIGHT / 2, 21, 21);
             spriteBatch.Draw(FontSpriteSheet, destinationRectangle, sourceRectangle, Color.White);
             sourceRectangle = new Rectangle(576, 40, 7, 7);
-            destinationRectangle = new Rectangle(231, 300, 21, 21);
+            destinationRectangle = new Rectangle(EnvironmentConstants.SCREEN_WIDTH/2+46, EnvironmentConstants.SCREEN_HEIGHT / 2, 21, 21);
             spriteBatch.Draw(FontSpriteSheet, destinationRectangle, sourceRectangle, Color.White);
             sourceRectangle = new Rectangle(560, 24, 7, 7);
-            destinationRectangle = new Rectangle(252, 300, 21, 21);
+            destinationRectangle = new Rectangle(EnvironmentConstants.SCREEN_WIDTH/2+67, EnvironmentConstants.SCREEN_HEIGHT / 2, 21, 21);
             spriteBatch.Draw(FontSpriteSheet, destinationRectangle, sourceRectangle, Color.White);
             sourceRectangle = new Rectangle(512, 40, 7, 7);
-            destinationRectangle = new Rectangle(273, 300, 21, 21);
+            destinationRectangle = new Rectangle(EnvironmentConstants.SCREEN_WIDTH/2+88, EnvironmentConstants.SCREEN_HEIGHT / 2, 21, 21);
             spriteBatch.Draw(FontSpriteSheet, destinationRectangle, sourceRectangle, Color.White);
         }
 
