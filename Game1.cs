@@ -56,7 +56,7 @@ namespace LOZ
         public static Texture2D FONT_SPRITESHEET;
 
         private Song backgroundMusic;
-        private MusicHandler musicBox;
+        private static MusicHandler musicBox = new MusicHandler();
 
         public static List<SoundEffect> soundEffectList;
 
@@ -113,8 +113,6 @@ namespace LOZ
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
             Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
-
-            musicBox = new MusicHandler();
             backgroundMusic = Content.Load<Song>(@"Music\DungeonTheme");
             musicBox.SelectSong(backgroundMusic);
             musicBox.Play();
@@ -290,6 +288,7 @@ namespace LOZ
             /*Initialize sprite drawing*/
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
+
             /*Draw everything*/
             if (gameState != 0)
             {
@@ -315,6 +314,7 @@ namespace LOZ
 
         public static void ResetGame()
         {
+            musicBox.Stop();
             link.Reset();
             roomTransitionHandler.HandleTransitionAbs(17, link, 120, 140);
         }

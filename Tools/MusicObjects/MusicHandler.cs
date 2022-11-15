@@ -22,6 +22,11 @@ namespace LOZ.Tools.MusicObjects
             MediaPlayer.Play(this.currentSong);
         }
 
+        public void Stop()
+        {
+            MediaPlayer.Stop();
+        }
+
         public void ToggleMute()
         {
             if (MediaPlayer.IsMuted)
