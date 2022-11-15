@@ -211,12 +211,12 @@ namespace LOZ.Tools.PlayerObjects
                 soundEffectList[(int)SoundEffects.LinkHurt].Play();
                 this.health -= 1;
                 this.invincibilityFrames = PlayerConstants.INVINCIBILITY_FRAMES;
-                if (this.health <= 0)
-                {
-                    this.state = PlayerConstants.Link_States.Dead;
-                    soundEffectList[(int)SoundEffects.LinkDie].Play();
-                    Game1.ResetGame();
-                }
+                //if (this.health <= 0)
+                //{
+                    //this.state = PlayerConstants.Link_States.Dead;
+                    //soundEffectList[(int)SoundEffects.LinkDie].Play();
+                    //Game1.ResetGame();
+                //}
             }
         }
 

@@ -286,6 +286,7 @@ namespace LOZ
             /*Initialize sprite drawing*/
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
+
             /*Draw everything*/
             if (gameState != 0)
             {
