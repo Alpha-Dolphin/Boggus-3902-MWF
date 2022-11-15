@@ -231,6 +231,14 @@ namespace LOZ.Tools.LevelManager
             {
                 room.westNeighbor = parseHolder;
             }
+            if (int.TryParse(xmlNeigbors.SelectSingleNode("down").Attributes["id"].Value, out parseHolder))
+            {
+                room.downNeighbor = parseHolder;
+            }
+            if (int.TryParse(xmlNeigbors.SelectSingleNode("up").Attributes["id"].Value, out parseHolder))
+            {
+                room.upNeighbor = parseHolder;
+            }
         }
 
     }

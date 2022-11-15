@@ -25,6 +25,7 @@ using Microsoft.Xna.Framework.Audio;
 using LOZ.Tools.MusicObjects;
 using LOZ.Tools.SoundObjects;
 using System.Runtime.CompilerServices;
+using LOZ.Tools.GateObjects;
 
 namespace LOZ
 {
@@ -38,7 +39,7 @@ namespace LOZ
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
-        public Link link;
+        public static Link link;
         private KeyboardController controller;
         private MouseController mouseController;
         public static LinkCommand linkCommandHandler;
@@ -218,6 +219,13 @@ namespace LOZ
                         Collision.CollisionChecker(weapon, ene);
                     }
                 }
+                foreach (IGate gate in gateList)
+                {
+                    if (Collision.Intersects(ene.GetHurtbox(), gate.GetHurtbox()))
+                    {
+                        Collision.CollisionChecker(gate, ene);
+                    }
+                }
             }
 
             enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
@@ -247,6 +255,11 @@ namespace LOZ
                     else
                     {
                         Collision.CollisionChecker(gate, link);
+                        if (link.inventory.keys > 0 )
+                        {
+                            roomTransitionHandler.unlockDoor(gate, rooms,currentRoom);
+                            link.inventory.keys--;
+                        }
                     }
                 }
             }
@@ -278,7 +291,7 @@ namespace LOZ
 
         public static void ResetGame(Link a)
         {
-            a = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.DEFAULT_ITEMS, PlayerConstants.MAX_HEALTH,
+            a = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.MAX_HEALTH,
                 PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION);
             roomTransitionHandler.HandleTransitionAbs(17, a, 120, 140);
         }

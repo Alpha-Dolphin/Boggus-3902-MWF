@@ -40,7 +40,7 @@ namespace LOZ.Tools.GateObjects
 
         public Rectangle GetHurtbox()
         {
-            return new Rectangle(xPosition, yPosition, 32, 32);
+            return new Rectangle(xPosition, yPosition, closedSprite.width, closedSprite.height);
         }
 
         public void SetHurtbox(Rectangle rect)

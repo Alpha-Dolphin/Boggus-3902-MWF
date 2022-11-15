@@ -5,19 +5,21 @@ using System.Collections.Generic;
 
 namespace LOZ.Tools.GateObjects
 {
-    internal class NorthWall : IGate
+    internal class Stairs : IGate
     {
-        private int xPosition = GateConstants.NORTH_INITIAL_X;
-        private int yPosition = GateConstants.NORTH_INITIAL_Y;
-        private Direction direction = Direction.North;
-        private bool doorOpen = false;
-        private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.NORTH_INITIAL_X, GateConstants.NORTH_INITIAL_Y, new List<Rectangle>() { new Rectangle(815, 11, 32, 32) });
-        private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.NORTH_INITIAL_X, GateConstants.NORTH_INITIAL_Y, new List<Rectangle>() { new Rectangle(815, 11, 32, 32) });
+        private int xPosition = 128;
+        private int yPosition = 80;
+        private Direction direction = Direction.Down;
+        private bool doorOpen = true;
+        private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.CENTER_X, GateConstants.CENTER_Y, new List<Rectangle>() { new Rectangle(1035, 28, 16, 16) });
+        private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.CENTER_X, GateConstants.CENTER_Y, new List<Rectangle>() { new Rectangle(1035, 28, 16, 16) });
         public void Open()
         {
+
         }
         public void Close()
         {
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

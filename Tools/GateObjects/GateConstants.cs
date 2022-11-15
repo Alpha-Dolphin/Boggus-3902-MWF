@@ -19,5 +19,11 @@ namespace LOZ.Tools.GateObjects
 
         public const int WEST_INITIAL_X = 0;
         public const int WEST_INITIAL_Y = 72;
+
+        public const int CENTER_X = 128;
+        public const int CENTER_Y = 80;
+
+        public const int ITEM_ROOM_GATE_X = 48;
+        public const int ITEM_ROOM_GATE_Y = 0;
     }
 }

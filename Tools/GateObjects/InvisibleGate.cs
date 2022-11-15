@@ -2,34 +2,27 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-
 namespace LOZ.Tools.GateObjects
 {
-    internal class NorthWall : IGate
+    internal class InvisibleGate : IGate
     {
-        private int xPosition = GateConstants.NORTH_INITIAL_X;
-        private int yPosition = GateConstants.NORTH_INITIAL_Y;
-        private Direction direction = Direction.North;
-        private bool doorOpen = false;
-        private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.NORTH_INITIAL_X, GateConstants.NORTH_INITIAL_Y, new List<Rectangle>() { new Rectangle(815, 11, 32, 32) });
-        private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.NORTH_INITIAL_X, GateConstants.NORTH_INITIAL_Y, new List<Rectangle>() { new Rectangle(815, 11, 32, 32) });
+        private int xPosition = GateConstants.ITEM_ROOM_GATE_X;
+        private int yPosition = GateConstants.ITEM_ROOM_GATE_Y;
+        private Direction direction = Direction.Up;
+        private bool doorOpen = true;
+        private Sprite closedSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.ITEM_ROOM_GATE_X, GateConstants.ITEM_ROOM_GATE_Y, new List<Rectangle>() { new Rectangle(1035, 28, 16, 1) });
+        private Sprite openSprite = new Sprite(Game1.ENVIRONMENT_SPRITESHEET, GateConstants.ITEM_ROOM_GATE_X, GateConstants.ITEM_ROOM_GATE_Y, new List<Rectangle>() { new Rectangle(1035, 28, 16, 1) });
         public void Open()
         {
+
         }
         public void Close()
         {
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (doorOpen)
-            {
-                openSprite.Draw(spriteBatch);
-            }
-            else
-            {
-                closedSprite.Draw(spriteBatch);
-            }
 
         }
 
