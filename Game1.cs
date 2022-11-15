@@ -228,6 +228,10 @@ namespace LOZ
                         Collision.CollisionChecker(gate, ene);
                     }
                 }
+                foreach (IEnemy ene2 in enemyList)
+                {
+                    if (ene != ene2 && Collision.Intersects(ene.GetHurtbox(), ene2.GetHurtbox())) Collision.CollisionChecker(ene, ene2);
+                }
             }
 
             enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
