@@ -13,8 +13,8 @@ namespace LOZ.Tools.GameStateTransitionHandler
 
     internal class GameOverScreen
     {
-        Rectangle sourceRectangle
-        Rectangle destinationRectangle
+        Rectangle sourceRectangle;
+        Rectangle destinationRectangle;
         public void Draw(Texture2D FontSpriteSheet, SpriteBatch spriteBatch)
         {
             sourceRectangle = new Rectangle(336, 40, 7, 7);
