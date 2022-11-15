@@ -9,7 +9,7 @@ using MediaPlayer = Microsoft.Xna.Framework.Media.MediaPlayer;
 
 namespace LOZ.Tools.MusicObjects
 {
-    internal class MusicHandler
+    public class MusicHandler
     {
         private Song currentSong;
 

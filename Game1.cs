@@ -56,7 +56,7 @@ namespace LOZ
         public static Texture2D FONT_SPRITESHEET;
 
         private Song backgroundMusic;
-        private static MusicHandler musicBox = new MusicHandler();
+        public static MusicHandler musicBox = new MusicHandler();
 
         public static List<SoundEffect> soundEffectList;
 
@@ -314,7 +314,6 @@ namespace LOZ
 
         public static void ResetGame()
         {
-            musicBox.Stop();
             link.Reset();
             roomTransitionHandler.HandleTransitionAbs(17, link, 120, 140);
         }
