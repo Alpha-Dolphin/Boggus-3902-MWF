@@ -243,6 +243,17 @@ namespace LOZ
             foreach (IEnvironment bL in blockList)
             {
                 if (Collision.Intersects(link.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(link, bL);
+                foreach (IEnvironment bL2 in blockList)
+                {
+                    if (typeof(PushBlock) == bL.GetType() && bL != bL2)
+                    {
+                        if (Collision.Intersects(bL2.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(bL, bL2);
+                    }
+                }
+                foreach (IGate g in gateList)
+                {
+                    if (Collision.Intersects(g.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(bL, g);
+                }
             }
             foreach (IGate gate in gateList)
             {
