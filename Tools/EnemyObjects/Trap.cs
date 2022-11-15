@@ -13,13 +13,14 @@ namespace LOZ.Tools
         //readonly ISpriteEnemy slimeSprite;
         readonly TrapSprite trapSprite;
 
-        readonly Vector2 originalPosition;
+        Vector2 originalPosition;
 
         int enemyState;
 
         public void SetHurtbox(Rectangle rect)
         {
-            //Do nothing
+            enemyPosition.Y = rect.Y;
+            enemyPosition.X = rect.X;
         }
         public Trap(int X, int Y)
         {
@@ -84,14 +85,15 @@ namespace LOZ.Tools
             Rectangle enemyRect = GetHurtbox();
             if (enemyState == 0 &&
                     (
-                        Rectangle.Intersect(new Rectangle(-50, (int)enemyPosition.Y, 1000, 16), linkRect) != new Rectangle()
-                        || Rectangle.Intersect(new Rectangle((int)enemyPosition.X, -50, 16, 1000), linkRect) != new Rectangle()
+                        Rectangle.Intersect(new Rectangle(-50, (int)enemyPosition.Y + 1, 1000, 2), linkRect) != new Rectangle()
+                        ||
+                        Rectangle.Intersect(new Rectangle((int)enemyPosition.X + 1, -50, 2, 1000), linkRect) != new Rectangle()
                     )
                 )
             {
+                originalPosition = new(GetHurtbox().X, GetHurtbox().Y);
                 enemyDirection = new(0, 0);
                 enemyState = 4;
-                Rectangle dist = Rectangle.Union(enemyRect, linkRect);
                 if (Rectangle.Intersect(new Rectangle(-50, (int)enemyPosition.Y, 1000, 16), linkRect) != new Rectangle())
                 {
                     if (enemyRect.Left > linkRect.Left) enemyDirection.X = -1;
