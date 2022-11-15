@@ -9,23 +9,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
-using System;
-
-
-using LOZ.Tools;
-
-using LOZ.Tools.LevelManager;
-using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.RoomTransitionHandler;
-using LOZ.Tools.HUDObjects;
 using Microsoft.Xna.Framework.Media;
 using LOZ.Tools.ItemObjects;
 using Microsoft.Xna.Framework.Audio;
 using LOZ.Tools.MusicObjects;
 using LOZ.Tools.SoundObjects;
-using System.Runtime.CompilerServices;
-using LOZ.Tools.GateObjects;
 
 namespace LOZ
 {
@@ -302,9 +291,8 @@ namespace LOZ
 
         public static void ResetGame(Link a)
         {
-            a = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.MAX_HEALTH,
-                PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION);
-            roomTransitionHandler.HandleTransitionAbs(17, a, 120, 140);
+            link.Reset();
+            roomTransitionHandler.HandleTransitionAbs(17, link, 120, 140);
         }
     }
 }
