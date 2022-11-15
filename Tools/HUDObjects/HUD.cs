@@ -99,7 +99,6 @@ namespace LOZ.Tools.HUDObjects
             keyTimes = new Sprite(HUDSpriteSheet, HUDConstants.KEY_TIMES, new List<Rectangle>() { HUDConstants.X });
             bombTimes = new Sprite(HUDSpriteSheet, HUDConstants.BOMB_TIMES, new List<Rectangle>() { HUDConstants.X });
 
-            specialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y, new List<Rectangle>() { ItemConstants.BOOMERANG });
             sword = new Sprite(itemSpriteSheet, HUDConstants.SWORD_X, HUDConstants.SWORD_Y, new List<Rectangle>() { ItemConstants.WOODEN_SWORD });
 
             
