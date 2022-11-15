@@ -566,7 +566,42 @@
 			</environment>
 			<enemies>
 				<!--Blade traps in this room, that object is not implemented-->
-				
+				<enemy type ="Trap">
+					<!--Placement info for where enemy spawns-->
+					<xPlacement>
+						40
+					</xPlacement>
+					<yPlacement>
+						40
+					</yPlacement>
+				</enemy>
+				<enemy type ="Trap">
+					<!--Placement info for where enemy spawns-->
+					<xPlacement>
+						215
+					</xPlacement>
+					<yPlacement>
+						40
+					</yPlacement>
+				</enemy>
+				<enemy type ="Trap">
+					<!--Placement info for where enemy spawns-->
+					<xPlacement>
+						215
+					</xPlacement>
+					<yPlacement>
+						135
+					</yPlacement>
+				</enemy>
+				<enemy type ="Trap">
+					<!--Placement info for where enemy spawns-->
+					<xPlacement>
+						40
+					</xPlacement>
+					<yPlacement>
+						135
+					</yPlacement>
+				</enemy>
 			</enemies>
 			<NPCs>
 			</NPCs>
@@ -3522,7 +3557,42 @@
 				</tile>
 			</environment>
 			<enemies>
-				
+				<enemy type ="Wallmaster">
+					<!--Placement info for where enemy spawns-->
+					<xPlacement>
+						50
+					</xPlacement>
+					<yPlacement>
+						150
+					</yPlacement>
+				</enemy>
+				<enemy type ="Wallmaster">
+					<!--Placement info for where enemy spawns-->
+					<xPlacement>
+						200
+					</xPlacement>
+					<yPlacement>
+						100
+					</yPlacement>
+				</enemy>
+				<enemy type ="Wallmaster">
+					<!--Placement info for where enemy spawns-->
+					<xPlacement>
+						150
+					</xPlacement>
+					<yPlacement>
+						200
+					</yPlacement>
+				</enemy>
+				<enemy type ="Wallmaster">
+					<!--Placement info for where enemy spawns-->
+					<xPlacement>
+						150
+					</xPlacement>
+					<yPlacement>
+						150
+					</yPlacement>
+				</enemy>
 			</enemies>
 			<NPCs>
 				
@@ -3543,9 +3613,9 @@
 			</items>
 			<gates>
 				<gate type="NorthKeyholeDoor"/>
-				<gate type="EastOpenDoor"/>
+				<gate type="WestOpenDoor"/>
 				<gate type="SouthWall"/>
-				<gate type="WestWall"/>
+				<gate type="EastWall"/>
 			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>

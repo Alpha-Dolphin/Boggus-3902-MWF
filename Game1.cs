@@ -38,7 +38,7 @@ namespace LOZ
         internal static GameStateTransitionHandler gameStateTransitionHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 7;
+        public static int currentRoom = 2;
         private TextSprite currentRoomIndicator = new();
 
         private HUD hud;

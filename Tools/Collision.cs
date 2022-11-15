@@ -37,6 +37,10 @@ namespace LOZ.Tools
             else if (a is IEnvironment)
             {
                 if (typeof(PushBlock) == a.GetType() && b is not IEnemy) Collide(b, a);
+                else if (b is Trap bt)
+                {
+                    bt.Collide(-1);
+                }
                 else Collide(a, b);
             }
             else if (a is IEnemy aE)
@@ -52,7 +56,11 @@ namespace LOZ.Tools
         private static void EnemyCollide(IEnemy b, Link l)
         {
             if (typeof(Wallmaster) == b.GetType()) Game1.roomTransitionHandler.HandleTransitionAbs(17, l, 120, 140);
-            else if (b is Trap bt) bt.Collide(-1);
+            else if (b is Trap bt)
+            {
+                bt.Collide(-1);
+                ((LinkCommand)Game1.linkCommandHandler).ExecuteDamage();
+            }
             else ((LinkCommand)Game1.linkCommandHandler).ExecuteDamage();
         }
 
