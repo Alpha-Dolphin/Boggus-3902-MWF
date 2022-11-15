@@ -3543,9 +3543,9 @@
 			</items>
 			<gates>
 				<gate type="NorthKeyholeDoor"/>
-				<gate type="EastOpenDoor"/>
+				<gate type="WestOpenDoor"/>
 				<gate type="SouthWall"/>
-				<gate type="WestWall"/>
+				<gate type="EastWall"/>
 			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
