@@ -105,7 +105,7 @@ namespace LOZ.Tools
 
         public void Update(GameTime gameTime)
         {
-            stateHandler(gameTime);
+            StateHandler(gameTime);
 
             if (enemyState == 0)
             {
@@ -129,7 +129,7 @@ namespace LOZ.Tools
             }
         }
 
-        private void stateHandler(GameTime gameTime)
+        private void StateHandler(GameTime gameTime)
         {
             if (enemyState == 1)
             {

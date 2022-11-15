@@ -18,12 +18,14 @@ namespace LOZ.Tools
     {
         private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection; Vector2 enemyPosition;
-        //readonly ISpriteEnemy slimeSprite;
+
         readonly WallMasterSprite wallMasterSprite;
 
         Vector2 prevLinkPos;
 
         int enemyState;
+
+        double stateTime;
 
         public void SetHurtbox(Rectangle rect)
         {
@@ -39,7 +41,10 @@ namespace LOZ.Tools
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;
-            enemyState = 0;
+
+            enemyState = 1;
+
+            stateTime = 0.0;
         }
         public Rectangle GetHurtbox()
         {
@@ -53,7 +58,12 @@ namespace LOZ.Tools
 
         public void Die()
         {
-            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
+            enemyState = -1;
+        }
+
+        private void DeleteEnemy()
+        {
+            Game1.enemyDieList.Add(this);
         }
 
         public void Move(GameTime gameTime)
@@ -69,10 +79,31 @@ namespace LOZ.Tools
 
         public void Update(GameTime gameTime)
         {
-            MovementUpdate(gameTime);
+            StateHandler(gameTime);
+            if(enemyState == 0) MovementUpdate(gameTime);
             wallMasterSprite.Update(gameTime, enemyState);
         }
 
+        private void StateHandler(GameTime gameTime)
+        {
+            if (enemyState == 1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    stateTime = 0;
+                    enemyState = 0;
+                }
+            }
+            else if (enemyState == -1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    DeleteEnemy();
+                }
+            }
+        }
         private void MovementUpdate(GameTime gameTime)
         {
             if ((enemyDirection.X != 0 && prevLinkPos.Y * enemyDirection.X < Link.position.Y) || (enemyDirection.Y != 0 && prevLinkPos.X * enemyDirection.Y < Link.position.X))

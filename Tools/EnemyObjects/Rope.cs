@@ -83,11 +83,11 @@ namespace LOZ.Tools.EnemyObjects
 
         public void Update(GameTime gameTime)
         {
-            stateHandler(gameTime);
+            StateHandler(gameTime);
             if (enemyState == 0) MovementUpdate(gameTime);
             RopeSprite.Update(gameTime, enemyState);
         }
-        private void stateHandler(GameTime gameTime)
+        private void StateHandler(GameTime gameTime)
         {
             if (enemyState == 1)
             {
