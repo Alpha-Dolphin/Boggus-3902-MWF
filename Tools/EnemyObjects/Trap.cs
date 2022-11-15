@@ -81,7 +81,7 @@ namespace LOZ.Tools
                 enemyState = 0;
                 enemyDirection = new Vector2(0, 0);
             }
-            Rectangle linkRect = new((int)Link.position.X, (int)Link.position.Y, 16, 16);
+            Rectangle linkRect = new((int)Link.position.X + 8, (int)Link.position.Y + 8, 2, 2);
             Rectangle enemyRect = GetHurtbox();
             if (enemyState == 0 &&
                     (
