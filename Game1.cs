@@ -24,11 +24,13 @@ using LOZ.Tools.ItemObjects;
 using Microsoft.Xna.Framework.Audio;
 using LOZ.Tools.MusicObjects;
 using LOZ.Tools.SoundObjects;
+using LOZ.Tools.GameStateTransitionHandler;
 
 namespace LOZ
 {
     public class Game1 : Game
     {
+        public int gameState;
         private List<IEnemy> enemyList;
         public static List<IEnemy> enemyDieList = new();
         private List<IItem> itemList;
@@ -42,6 +44,7 @@ namespace LOZ
         private MouseController mouseController;
         public static LinkCommand linkCommandHandler;
         internal static RoomTransitionHandler roomTransitionHandler;
+        internal static GameStateTransitionHandler gameStateTransitionHandler;
 
         private List<Room> rooms;
         public static int currentRoom = 0;
@@ -59,6 +62,7 @@ namespace LOZ
         public static Texture2D NPC_SPRITESHEET;
         public static Texture2D ITEM_SPRITESHEET;
         public static Texture2D HUD_SPRITESHEET;
+        public static Texture2D FONT_SPRITESHEET;
 
         private Song backgroundMusic;
         private MusicHandler musicBox;
@@ -79,10 +83,13 @@ namespace LOZ
             IsMouseVisible = true;
         }
 
+
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
             LoadContent();
+            gameState = 1;
+            gameStateTransitionHandler = new GameStateTransitionHandler();
             roomTransitionHandler = new RoomTransitionHandler();
 
             _graphics.PreferredBackBufferWidth = 1024;
@@ -134,6 +141,7 @@ namespace LOZ
             ITEM_SPRITESHEET = Content.Load<Texture2D>(Constants.ItemSpriteSheetLocation);
             EXPLOSION = Content.Load<Texture2D>(Constants.ExplosionSpriteSheetLocation);
             HUD_SPRITESHEET = Content.Load<Texture2D>(Constants.HUDSpriteSheetLocation);
+            FONT_SPRITESHEET = Content.Load<Texture2D>(Constants.FontSpriteSheetLocation);
         }
 
         protected override void Update(GameTime gameTime)
@@ -144,6 +152,11 @@ namespace LOZ
              * Update logic here
              */
             base.Update(gameTime);
+
+            if (link.GetHealth() == 0)
+            {
+                gameState = 0; 
+            }
             
             // Track current state to see if M is held or not
             KeyboardState currentState = Keyboard.GetState();
@@ -260,15 +273,22 @@ namespace LOZ
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             /*Draw everything*/
-            if (!hud.Paused())
+            if (gameState != 0)
             {
-                rooms[currentRoom].Draw(spriteBatch);
-                link.Draw(spriteBatch);
-                currentRoomIndicator.Draw(spriteBatch);
+                if (!hud.Paused())
+                {
+                    rooms[currentRoom].Draw(spriteBatch);
+                    link.Draw(spriteBatch);
+                    currentRoomIndicator.Draw(spriteBatch);
+                }
+
+                hud.Draw(spriteBatch);
             }
-
-            hud.Draw(spriteBatch);
-
+            else
+            {
+                gameStateTransitionHandler.HandleTransition(gameState,FONT_SPRITESHEET,spriteBatch);
+            }
+            
             /*End drawing*/
             spriteBatch.End();
 
