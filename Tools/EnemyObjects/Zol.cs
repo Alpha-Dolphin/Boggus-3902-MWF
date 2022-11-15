@@ -5,17 +5,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LOZ.Tools.EnemyObjects
 {
     internal class Zol : IEnemy, ICollidable
     {
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection;
         Vector2 enemyPosition;
         readonly ISpriteEnemy ZolSprite;
 
         readonly Random rand;
+
         int enemyState;
+
+        double stateTime;
+
         double moveCheck;
         double moveTime;
         double moveProb;
@@ -34,6 +40,10 @@ namespace LOZ.Tools.EnemyObjects
             ZolSprite = new ZolSprite();
 
             rand = new();
+
+            enemyState = 1;
+
+            stateTime = 0.0;
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;
@@ -54,8 +64,15 @@ namespace LOZ.Tools.EnemyObjects
 
         public void Die()
         {
-            Game1.enemyDieList.Add(this);
+            enemyState = -1;
         }
+
+        private void DeleteEnemy()
+        {
+            Game1.enemyDieList.Add(this);
+            soundEffectList[(int)SoundEffects.EnemyDie].Play();
+        }
+
 
         public void Move(GameTime gameTime)
         {
@@ -70,10 +87,30 @@ namespace LOZ.Tools.EnemyObjects
 
         public void Update(GameTime gameTime)
         {
-            MovementUpdate(gameTime);
+            StateHandler(gameTime);
+            if (enemyState == 0) MovementUpdate(gameTime);
             ZolSprite.Update(gameTime, enemyState);
         }
-
+        private void StateHandler(GameTime gameTime)
+        {
+            if (enemyState == 1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    stateTime = 0;
+                    enemyState = 0;
+                }
+            }
+            else if (enemyState == -1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    DeleteEnemy();
+                }
+            }
+        }
         private void MovementUpdate(GameTime gameTime)
         {
             if (moveTime <= 0 && moveCheck <= 0)

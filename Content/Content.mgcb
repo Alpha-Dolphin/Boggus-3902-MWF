@@ -337,6 +337,18 @@
 /processorParam:TextureFormat=Color
 /build:SpriteSheets/Link.png
 
+#begin SpriteSheets/NES - The Legend of Zelda - Fonts.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SpriteSheets/NES - The Legend of Zelda - Fonts.png
+
 #begin SpriteSheets/NPCs.png
 /importer:TextureImporter
 /processor:TextureProcessor

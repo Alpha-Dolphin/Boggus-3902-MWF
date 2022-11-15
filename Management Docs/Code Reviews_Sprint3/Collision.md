@@ -5,7 +5,6 @@ File Reviewed: .\Tools\Collision.cs
 File Author: Ben Elleman
 Time Taken For Review: 25 Minutes
 
-NOT UPDATED
 Readability:
 
 	Good in readability, most of the code is clear on what exactly it's doing. The comments about the

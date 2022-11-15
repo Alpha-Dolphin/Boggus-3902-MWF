@@ -11,14 +11,19 @@ namespace LOZ.Tools.EnemyObjects
 {
     internal class Rope : IEnemy, ICollidable
     {
-        Vector2 enemyDirection; Vector2 enemyPosition;readonly ISpriteEnemy RopeSprite;
+        Vector2 enemyDirection;
+        Vector2 enemyPosition;
+        readonly ISpriteEnemy RopeSprite;
 
         readonly Random rand;
 
         double moveCheck;
         double moveTime;
         double moveProb;
+
+        double stateTime;
         int enemyState;
+
         const double moveDelay = 1000;
         public void SetHurtbox(Rectangle rect)
         {
@@ -37,6 +42,10 @@ namespace LOZ.Tools.EnemyObjects
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
+            stateTime = 0.0;
+
+            enemyState = 1;
+
             moveCheck = -1;
         }
 
@@ -47,6 +56,11 @@ namespace LOZ.Tools.EnemyObjects
 
         public void Die()
         {
+            enemyState = -1;
+        }
+
+        private void DeleteEnemy()
+        {
             Game1.enemyDieList.Add(this);
         }
 
@@ -55,6 +69,7 @@ namespace LOZ.Tools.EnemyObjects
             Vector2 wH = RopeSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
+
         public void Move(GameTime gameTime)
         {
             enemyPosition.X += enemyDirection.X;
@@ -68,10 +83,30 @@ namespace LOZ.Tools.EnemyObjects
 
         public void Update(GameTime gameTime)
         {
-            MovementUpdate(gameTime);
+            StateHandler(gameTime);
+            if (enemyState == 0) MovementUpdate(gameTime);
             RopeSprite.Update(gameTime, enemyState);
         }
-
+        private void StateHandler(GameTime gameTime)
+        {
+            if (enemyState == 1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    stateTime = 0;
+                    enemyState = 0;
+                }
+            }
+            else if (enemyState == -1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    DeleteEnemy();
+                }
+            }
+        }
         private void MovementUpdate(GameTime gameTime)
         {
             if (moveTime <= 0 && moveCheck <= 0)

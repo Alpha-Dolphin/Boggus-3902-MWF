@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Levels",
+    "\\Tools",
+    "\\Tools\\EnvironmentObjects",
+    "\\Tools\\Interfaces",
+    "\\Tools\\LevelManager"
   ],
-  "SelectedNode": "\\LOZ.sln",
+  "SelectedNode": "\\Game1.cs",
   "PreviewInSolutionExplorer": false
 }
