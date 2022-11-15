@@ -1,11 +1,14 @@
-﻿using LOZ.Tools.Command;
+﻿using LOZ.Tools;
+using LOZ.Tools.Command;
+using LOZ.Tools.Controller;
+using LOZ.Tools.EnvironmentObjects;
+using LOZ.Tools.HUDObjects;
+using LOZ.Tools.LevelManager;
 using LOZ.Tools.PlayerObjects;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using LOZ.Tools.Controller;
 
 using System;
 
@@ -18,6 +21,10 @@ using LOZ.Tools.RoomTransitionHandler;
 using LOZ.Tools.HUDObjects;
 using Microsoft.Xna.Framework.Media;
 using LOZ.Tools.ItemObjects;
+using Microsoft.Xna.Framework.Audio;
+using LOZ.Tools.MusicObjects;
+using LOZ.Tools.SoundObjects;
+using System.Runtime.CompilerServices;
 using LOZ.Tools.GateObjects;
 
 namespace LOZ
@@ -36,10 +43,10 @@ namespace LOZ
         private KeyboardController controller;
         private MouseController mouseController;
         public static LinkCommand linkCommandHandler;
-        private RoomTransitionHandler roomTransitionHandler;
+        internal static RoomTransitionHandler roomTransitionHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 2;
+        public static int currentRoom = 8;
         private TextSprite currentRoomIndicator = new();
 
         private HUD hud;
@@ -50,11 +57,15 @@ namespace LOZ
         public static Texture2D ENVIRONMENT_SPRITESHEET;
         public static Texture2D REGULAR_ENEMIES_SPRITESHEET;
         public static Texture2D BOSSES_SPRITESHEET;
+        public static Texture2D EXPLOSION;
         public static Texture2D NPC_SPRITESHEET;
         public static Texture2D ITEM_SPRITESHEET;
         public static Texture2D HUD_SPRITESHEET;
 
         private Song backgroundMusic;
+        private MusicHandler musicBox;
+
+        public static List<SoundEffect> soundEffectList;
 
         private KeyboardState previousState;
 
@@ -82,14 +93,13 @@ namespace LOZ
 
             EnvironmentConstants.Initialize(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
-            link = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.DEFAULT_ITEMS, PlayerConstants.MAX_HEALTH,
+            link = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.MAX_HEALTH,
                 PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION);
             linkCommandHandler = new LinkCommand((Link) link);
 
             /*Declaration of controllers*/
             controller = new KeyboardController();
             mouseController = new MouseController();
-
 
             lm = new LevelManager();
             lm.initialize();
@@ -108,10 +118,14 @@ namespace LOZ
             Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
             Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
 
+            musicBox = new MusicHandler();
             backgroundMusic = Content.Load<Song>(@"Music\DungeonTheme");
-            //MediaPlayer.Play(backgroundMusic);
-            //MediaPlayer.IsRepeating = true;
+            musicBox.SelectSong(backgroundMusic);
+            // musicBox.Play();
 
+            SoundEffectManager soundEffectManager = new (Content);
+            soundEffectList = soundEffectManager.FillEffects();
+            
             LINK_SPRITESHEET = Content.Load<Texture2D>(PlayerConstants.LINK_SPRITESHEET_NAME);
             FONT = Content.Load<SpriteFont>(@"textFonts\MainText");
             currentRoomIndicator.SetFont(FONT);
@@ -120,6 +134,7 @@ namespace LOZ
             REGULAR_ENEMIES_SPRITESHEET = Content.Load<Texture2D>(Constants.RegEnemySpriteSheetLocation);
             BOSSES_SPRITESHEET = Content.Load<Texture2D>(Constants.BossesSpriteSheetLocation);
             ITEM_SPRITESHEET = Content.Load<Texture2D>(Constants.ItemSpriteSheetLocation);
+            EXPLOSION = Content.Load<Texture2D>(Constants.ExplosionSpriteSheetLocation);
             HUD_SPRITESHEET = Content.Load<Texture2D>(Constants.HUDSpriteSheetLocation);
         }
 
@@ -169,11 +184,11 @@ namespace LOZ
             // If M is pressed, but not held, mute the song
             if (pressed.Contains(Keys.M) && previousState.IsKeyUp(Keys.M))
             {
-                UpdateSong();
+                musicBox.ToggleMute();
             }
 
             currentRoomIndicator.SetText("Current room number: " + currentRoom);
-
+            
             
             previousState = currentState;
         }
@@ -235,7 +250,7 @@ namespace LOZ
                 {
                     if (gate.IsGateOpen())
                     {
-                        roomTransitionHandler.handleTransition(rooms[currentRoom], gate, link);
+                        roomTransitionHandler.HandleTransition(rooms[currentRoom], gate, link);
                     }
                     else
                     {
@@ -249,18 +264,6 @@ namespace LOZ
                 }
             }
         }
-
-        private void UpdateSong()
-        {
-            if(MediaPlayer.IsMuted)
-            {
-                MediaPlayer.IsMuted = false;
-
-            } else
-            {
-                MediaPlayer.IsMuted = true;
-            }
-        }   
 
         protected override void Draw(GameTime gameTime)
         {
@@ -284,6 +287,13 @@ namespace LOZ
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public static void ResetGame(Link a)
+        {
+            a = new Link(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.DEFAULT_ITEMS, PlayerConstants.MAX_HEALTH,
+                PlayerConstants.DEFAULT_STATE, PlayerConstants.DEFAULT_DIRECTION);
+            roomTransitionHandler.HandleTransitionAbs(17, a, 120, 140);
         }
     }
 }

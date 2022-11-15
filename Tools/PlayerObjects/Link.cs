@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 
 using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework.Input;
+using LOZ.Tools.LevelManager;
 using System.Runtime.CompilerServices;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LOZ.Tools.PlayerObjects
 {
@@ -37,14 +39,17 @@ namespace LOZ.Tools.PlayerObjects
         private PlayerConstants.Link_States state;
         private PlayerConstants.Direction direction;
 
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+
         public Link()
         {
             Link.position = new Vector2(0, 0);
             health = PlayerConstants.MAX_HEALTH;
             direction = PlayerConstants.Direction.Up;
+            inventory = new LinkInventory();
         }
 
-        public Link(int xPos, int yPos, string[] items, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction)
+        public Link(int xPos, int yPos, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction)
         {
             Link.position = new Vector2(xPos, yPos);
 
@@ -185,9 +190,15 @@ namespace LOZ.Tools.PlayerObjects
         {
             if (this.invincibilityFrames == 0)
             {
+                soundEffectList[(int)SoundEffects.LinkHurt].Play();
                 this.health -= 1;
                 this.invincibilityFrames = PlayerConstants.INVINCIBILITY_FRAMES;
-                if (this.health <= 0) this.state = PlayerConstants.Link_States.Dead;
+                if (this.health <= 0)
+                {
+                    this.state = PlayerConstants.Link_States.Dead;
+                    soundEffectList[(int)SoundEffects.LinkDie].Play();
+                    Game1.ResetGame(this);
+                }
             }
         }
 
@@ -300,6 +311,7 @@ namespace LOZ.Tools.PlayerObjects
         public void AddHeart()
         {
             this.hearts++;
+            soundEffectList[(int)SoundEffects.GetHeart].Play();
             AddHealth(false);
         }
 

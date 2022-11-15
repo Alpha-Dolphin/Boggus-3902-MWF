@@ -35,7 +35,7 @@ namespace LOZ.Tools
             return new Vector2(anim.Width, anim.Height);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, int enemyState)
         {
             Rectangle[] aquementusFrames = new[] { new Rectangle(1, 11, 24, 32), new Rectangle(26, 11, 24, 32), new Rectangle(51, 11, 24, 32), new Rectangle(76, 11, 24, 32) };
 

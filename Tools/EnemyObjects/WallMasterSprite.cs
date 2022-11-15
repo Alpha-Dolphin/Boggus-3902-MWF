@@ -21,25 +21,20 @@ namespace LOZ.Tools.EnemyObjects
             {
                 _spriteBatch.Draw(
                     Game1.REGULAR_ENEMIES_SPRITESHEET,
-                    enemyPosition,
+                    enemyPosition * Constants.objectScale * 2,
                     anim,
                     Color.White,
                     0f,
                     new Vector2(anim.Width / 2, anim.Height / 2),
-                    2,
+                    2 * Constants.objectScale,
                     SpriteEffects.None,
                     0f
                 );
             }
-            public void Update(GameTime gameTime)
+            public void Update(GameTime gameTime, int enemyState)
             {
-                //Nothing
-            }
-
-            public void Update(bool grabbed)
-            {
-                Rectangle[] wallMasterFrames = new[] { new Rectangle(1, 11, 8, 16)};
-                anim = grabbed ? wallMasterFrames[1] : wallMasterFrames[0];
+                Rectangle[] wallMasterFrames = new[] { new Rectangle(393, 11, 16, 16), new Rectangle(410, 11, 16, 16) };
+                anim = enemyState == 1 ? wallMasterFrames[1] : wallMasterFrames[0];
             }
 
             public Vector2 GetWidthHeight()

@@ -67,7 +67,6 @@ namespace LOZ.Tools.HUDObjects
         Sprite specialWeapon;
         Sprite sword;
 
-        //TextSprite life;
         private int health;
         Sprite[] hearts;
 
@@ -100,7 +99,7 @@ namespace LOZ.Tools.HUDObjects
             keyTimes = new Sprite(HUDSpriteSheet, HUDConstants.KEY_TIMES, new List<Rectangle>() { HUDConstants.X });
             bombTimes = new Sprite(HUDSpriteSheet, HUDConstants.BOMB_TIMES, new List<Rectangle>() { HUDConstants.X });
 
-            //specialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y, new List<Rectangle>() { ItemConstants.BOOMERANG });
+            specialWeapon = new Sprite(itemSpriteSheet, HUDConstants.SPECIALWEAPON_X, HUDConstants.SPECIALWEAPON_Y, new List<Rectangle>() { ItemConstants.BOOMERANG });
             sword = new Sprite(itemSpriteSheet, HUDConstants.SWORD_X, HUDConstants.SWORD_Y, new List<Rectangle>() { ItemConstants.WOODEN_SWORD });
 
             
@@ -272,6 +271,11 @@ namespace LOZ.Tools.HUDObjects
             }
 
             return returnVal;
+        }
+
+        public void UpdateLink(Link link)
+        {
+            this.link = link;
         }
 
         public void Update(List<Keys> keys)
