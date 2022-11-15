@@ -45,6 +45,10 @@ namespace LOZ.Tools
             }
             else if (a is IEnemy aE)
             {
+                if (b is IEnemy bE)
+                {
+                    EnemyCollide(aE, bE);
+                }
                 if (b is Link damaged) EnemyCollide(aE, damaged);
             }
             else if(a is IGate)
@@ -53,15 +57,17 @@ namespace LOZ.Tools
             }
         }
 
-        private static void EnemyCollide(IEnemy b, Link l)
+        private static void EnemyCollide(IEnemy b, ICollidable P)
         {
-            if (typeof(Wallmaster) == b.GetType()) Game1.roomTransitionHandler.HandleTransitionAbs(17, l, 120, 140);
-            else if (b is Trap bt)
-            {
-                bt.Collide(-1);
-                ((LinkCommand)Game1.linkCommandHandler).ExecuteDamage();
+            if (P is Link l){
+                if (typeof(Wallmaster) == b.GetType()) Game1.roomTransitionHandler.HandleTransitionAbs(17, l, 120, 140);
+                else ((LinkCommand)Game1.linkCommandHandler).ExecuteDamage();
             }
-            else ((LinkCommand)Game1.linkCommandHandler).ExecuteDamage();
+            if (P is IEnemy X)
+            {
+                if (b is Trap bT) bT.Collide(-1);
+                if (X is Trap xT) xT.Collide(-1);
+            }
         }
 
         static void Collide(ICollidable unchanged, ICollidable changed)

@@ -38,7 +38,7 @@ namespace LOZ.Tools
         }
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = trapSprite.GetWidthHeight();
+            Vector2 wH = new(5,5);
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
         public void Attack(GameTime gameTime)
@@ -85,9 +85,9 @@ namespace LOZ.Tools
             Rectangle enemyRect = GetHurtbox();
             if (enemyState == 0 &&
                     (
-                        Rectangle.Intersect(new Rectangle(-50, (int)enemyPosition.Y + 1, 1000, 2), linkRect) != new Rectangle()
+                        Rectangle.Intersect(new Rectangle(-50, (int)enemyPosition.Y, 1000, 16), linkRect) != new Rectangle()
                         ||
-                        Rectangle.Intersect(new Rectangle((int)enemyPosition.X + 1, -50, 2, 1000), linkRect) != new Rectangle()
+                        Rectangle.Intersect(new Rectangle((int)enemyPosition.X, -50, 16, 1000), linkRect) != new Rectangle()
                     )
                 )
             {
