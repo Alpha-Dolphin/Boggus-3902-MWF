@@ -9,23 +9,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
-using System;
-
-
-using LOZ.Tools;
-
-using LOZ.Tools.LevelManager;
-using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.RoomTransitionHandler;
-using LOZ.Tools.HUDObjects;
 using Microsoft.Xna.Framework.Media;
 using LOZ.Tools.ItemObjects;
 using Microsoft.Xna.Framework.Audio;
 using LOZ.Tools.MusicObjects;
 using LOZ.Tools.SoundObjects;
-using System.Runtime.CompilerServices;
-using LOZ.Tools.GateObjects;
 
 namespace LOZ
 {
