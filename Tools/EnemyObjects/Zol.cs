@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LOZ.Tools.EnemyObjects
 {
     internal class Zol : IEnemy, ICollidable
     {
+        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection;
         Vector2 enemyPosition;
         readonly ISpriteEnemy ZolSprite;

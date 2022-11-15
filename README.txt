@@ -1,4 +1,4 @@
-Current State: Sprint 3 functionality almost entirely implemented.
+Current State: Sprint 4 functionality almost entirely implemented.
 
 Key mappings
 	
