@@ -289,7 +289,7 @@ namespace LOZ
             base.Draw(gameTime);
         }
 
-        public static void ResetGame(Link a)
+        public static void ResetGame()
         {
             link.Reset();
             roomTransitionHandler.HandleTransitionAbs(17, link, 120, 140);

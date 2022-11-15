@@ -215,7 +215,7 @@ namespace LOZ.Tools.PlayerObjects
                 {
                     this.state = PlayerConstants.Link_States.Dead;
                     soundEffectList[(int)SoundEffects.LinkDie].Play();
-                    Game1.ResetGame(this);
+                    Game1.ResetGame();
                 }
             }
         }
