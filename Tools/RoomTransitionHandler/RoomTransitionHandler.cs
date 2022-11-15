@@ -35,6 +35,14 @@ namespace LOZ.Tools.RoomTransitionHandler
                     LOZ.Game1.currentRoom = room.southNeighbor;
                     link.Teleport(116, 32 + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale);
                     break;
+                case Direction.Down:
+                    LOZ.Game1.currentRoom = room.downNeighbor;
+                    link.Teleport(48, 1 + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale);
+                    break;
+                case Direction.Up:
+                    LOZ.Game1.currentRoom = room.upNeighbor;
+                    link.Teleport(112, 80 + HUDConstants.TOP_HEIGHT / AnimatedMovingSprite.yScale);
+                    break;
 
             }
                 

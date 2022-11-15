@@ -231,6 +231,8 @@
 				<south id ="none"/>
 				<east id ="none"/>
 				<west id ="none"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="1">
@@ -383,14 +385,17 @@
 
 			</items>
 			<gates>
+				<gate type ="InvisibleGate"/>
 			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
-				<north id="2"/>
+				<north id="none"/>
 				<south id ="none"/>
 				<east id ="none"/>
 				<west id ="none"/>
+				<down id ="none"/>
+				<up id ="2"/>
 			</neighbors>
 		</room>
 		<room num ="2">
@@ -608,14 +613,17 @@
 				<gate type="NorthWall"/>
 				<gate type="SouthWall"/>
 				<gate type="WestWall"/>
+				<gate type ="Stairs"/>
 			</gates>
 			<!--neighbors contains the labels for adjacent rooms-->
 			<neighbors>
 				<!--id indicates room number-->
 				<north id="none"/>
-				<south id ="none"/>
+				<south id ="1"/>
 				<east id ="3"/>
 				<west id ="none"/>
+				<down id ="1"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="3">
@@ -1020,6 +1028,8 @@
 				<south id ="4"/>
 				<east id ="none"/>
 				<west id ="2"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="4">
@@ -1576,6 +1586,8 @@
 				<south id ="9"/>
 				<east id ="none"/>
 				<west id ="none"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="5">
@@ -1938,6 +1950,8 @@
 				<south id ="11"/>
 				<east id ="6"/>
 				<west id ="none"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="6">
@@ -2353,6 +2367,8 @@
 				<south id ="none"/>
 				<east id ="none"/>
 				<west id ="5"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="7">
@@ -2531,6 +2547,8 @@
 				<south id ="none"/>
 				<east id ="8"/>
 				<west id ="none"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="8">
@@ -2719,6 +2737,8 @@
 				<south id ="12"/>
 				<east id ="9"/>
 				<west id ="7"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="9">
@@ -3020,6 +3040,8 @@
 				<south id ="13"/>
 				<east id ="10"/>
 				<west id ="8"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="10">
@@ -3238,6 +3260,8 @@
 				<south id ="14"/>
 				<east id ="11"/>
 				<west id ="9"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="11">
@@ -3566,6 +3590,8 @@
 				<south id ="none"/>
 				<east id ="none"/>
 				<west id ="10"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="12">
@@ -3829,6 +3855,8 @@
 				<south id ="none"/>
 				<east id ="13"/>
 				<west id ="none"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="13">
@@ -4075,6 +4103,8 @@
 				<south id ="15"/>
 				<east id ="14"/>
 				<west id ="12"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="14">
@@ -4347,6 +4377,8 @@
 				<south id ="none"/>
 				<east id ="none"/>
 				<west id ="13"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="15">
@@ -4580,6 +4612,8 @@
 				<south id ="17"/>
 				<east id ="none"/>
 				<west id ="none"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="16">
@@ -4771,6 +4805,8 @@
 				<south id ="none"/>
 				<east id ="17"/>
 				<west id ="none"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 		<room num ="17">
@@ -5018,6 +5054,8 @@
 				<south id ="none"/>
 				<east id ="18"/>
 				<west id ="16"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 			<enemies>
 			</enemies>
@@ -5348,6 +5386,8 @@
 				<south id ="none"/>
 				<east id ="none"/>
 				<west id ="17"/>
+				<down id ="none"/>
+				<up id ="none"/>
 			</neighbors>
 		</room>
 	</level>

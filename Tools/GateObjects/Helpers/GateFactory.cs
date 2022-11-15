@@ -72,6 +72,12 @@ namespace LOZ.Tools.GateObjects.Helpers
                 case Gate.WestOpenDoor:
                     return new WestOpenDoor();
 
+                case Gate.Stairs:
+                    return new Stairs();
+
+                case Gate.InvisibleGate:
+                    return new InvisibleGate();
+
                 default:
                     return new WestWall();
             }
