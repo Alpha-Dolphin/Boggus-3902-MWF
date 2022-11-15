@@ -119,7 +119,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Update(GameTime gameTime)
         {
-            stateHandler(gameTime);
+            StateHandler(gameTime);
             if (enemyState == 0)
             {
                 dodongoSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
@@ -150,7 +150,7 @@ namespace LOZ.Tools.PlayerObjects
             }
 
         }
-        private void stateHandler(GameTime gameTime)
+        private void StateHandler(GameTime gameTime)
         {
             if (enemyState == 1)
             {

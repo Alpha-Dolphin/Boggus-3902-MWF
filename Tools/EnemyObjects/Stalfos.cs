@@ -84,11 +84,11 @@ namespace LOZ.Tools
         public void Update(GameTime gameTime)
         {
             if (enemyState == 0) MovementUpdate(gameTime);
-            stateHandler(gameTime);
+            StateHandler(gameTime);
             stalfosSprite.Update(gameTime, enemyState);
         }
 
-        private void stateHandler(GameTime gameTime)
+        private void StateHandler(GameTime gameTime)
         {
             if (enemyState == 1) {
                 stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
