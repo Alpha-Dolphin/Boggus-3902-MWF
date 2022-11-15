@@ -13,14 +13,18 @@ namespace LOZ.Tools
     internal class Slime : IEnemy, ICollidable
     {
         Vector2 enemyDirection; Vector2 enemyPosition;
-        //readonly ISpriteEnemy slimeSprite;
-        AnimatedMovingSprite slimeSprite;
+        readonly ISpriteEnemy slimeSprite;
+        //AnimatedMovingSprite slimeSprite;
 
         readonly Random rand;
 
         double moveCheck;
         double moveTime;
         double moveProb;
+
+        int enemyState;
+
+        double stateTime;
 
         const double moveDelay = 1000;
         public void SetHurtbox(Rectangle rect)
@@ -33,10 +37,13 @@ namespace LOZ.Tools
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
 
-            slimeSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
-                new List<Rectangle> { new Rectangle(1, 11, 8, 16), new Rectangle(10, 11, 8, 16) });
+            slimeSprite = new SlimeSprite();
 
             rand = new();
+
+            enemyState = 1;
+
+            stateTime = 0.0;
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;
@@ -45,7 +52,7 @@ namespace LOZ.Tools
         }
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = new Vector2(slimeSprite.GetDestinationRectangle().Width, slimeSprite.GetDestinationRectangle().Height);
+            Vector2 wH = slimeSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
         public void Attack(GameTime gameTime)
@@ -54,6 +61,11 @@ namespace LOZ.Tools
         }
 
         public void Die()
+        {
+            enemyState = -1;
+        }
+
+        private void DeleteEnemy()
         {
             Game1.enemyDieList.Add(this);
         }
@@ -66,15 +78,35 @@ namespace LOZ.Tools
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            slimeSprite.Draw(_spriteBatch);
+            slimeSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
         {
-            MovementUpdate(gameTime);
-            slimeSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
+            stateHandler(gameTime);
+            if (enemyState == 0) MovementUpdate(gameTime);
+            slimeSprite.Update(gameTime, enemyState);
         }
-
+        private void stateHandler(GameTime gameTime)
+        {
+            if (enemyState == 1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    stateTime = 0;
+                    enemyState = 0;
+                }
+            }
+            else if (enemyState == -1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    DeleteEnemy();
+                }
+            }
+        }
         private void MovementUpdate(GameTime gameTime)
         {
             if (moveTime <= 0 && moveCheck <= 0)

@@ -18,6 +18,10 @@ namespace LOZ.Tools
         bool directionChange = false;
         Vector2 enemyPosition;
 
+        int enemyState;
+
+        double stateTime;
+
         //readonly GoriyaSprite goriyaSprite;
         AnimatedMovingSprite goriyaSprite;
 
@@ -44,6 +48,10 @@ namespace LOZ.Tools
             enemyPosition.X = X;
 
             rand = new();
+
+            stateTime = 0.0;
+
+            enemyState = 1;
 
             goriyaSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
                 EnemyConstants.GORIYA_DOWN);
@@ -73,6 +81,10 @@ namespace LOZ.Tools
         }
 
         public void Die()
+        {
+            enemyState = -1;
+        }
+        private void DeleteEnemy()
         {
             Game1.enemyDieList.Add(this);
         }
@@ -112,9 +124,13 @@ namespace LOZ.Tools
 
         public void Update(GameTime gameTime)
         {
+            stateHandler(gameTime);
             goriyaSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
-            MovementUpdate(gameTime);
-            AttackUpdate(gameTime);
+            if (enemyState == 0)
+            {
+                MovementUpdate(gameTime);
+                AttackUpdate(gameTime);
+            }
             if (boomerang != null)
             {
                 boomerang.Update();
@@ -144,6 +160,26 @@ namespace LOZ.Tools
             }
         }
 
+        private void stateHandler(GameTime gameTime)
+        {
+            if (enemyState == 1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    stateTime = 0;
+                    enemyState = 0;
+                }
+            }
+            else if (enemyState == -1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    DeleteEnemy();
+                }
+            }
+        }
         private void AttackUpdate(GameTime gameTime)
         {
             if (rand.Next() % 4950 <= 25) Attack(gameTime);

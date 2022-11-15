@@ -20,6 +20,9 @@ namespace LOZ.Tools.PlayerObjects
         bool directionChange = false;
         Vector2 enemyPosition;
 
+        double stateTime;
+
+        int enemyState;
 
         AnimatedMovingSprite dodongoSprite;
 
@@ -46,6 +49,10 @@ namespace LOZ.Tools.PlayerObjects
 
             rand = new();
 
+            enemyState = 1;
+
+            stateTime = 0;
+
             attackTime = -1;
 
             dodongoSprite = new AnimatedMovingSprite(Game1.BOSSES_SPRITESHEET, (int) enemyPosition.X, (int) enemyPosition.Y, 
@@ -60,6 +67,11 @@ namespace LOZ.Tools.PlayerObjects
         }
 
         public void Die()
+        {
+            enemyState = -1;
+        }
+
+        public void DeleteEnemy()
         {
             Game1.enemyDieList.Add(this);
         }
@@ -107,9 +119,13 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Update(GameTime gameTime)
         {
-            dodongoSprite.Update((int) enemyPosition.X, (int) enemyPosition.Y);
-            AttackUpdate(gameTime);
-            if (attackTime < 0.0) MovementUpdate(gameTime);
+            stateHandler(gameTime);
+            if (enemyState == 0)
+            {
+                dodongoSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
+                AttackUpdate(gameTime);
+                if (attackTime < 0.0) MovementUpdate(gameTime);
+            }
 
             if (directionChange)
             {
@@ -134,7 +150,26 @@ namespace LOZ.Tools.PlayerObjects
             }
 
         }
-
+        private void stateHandler(GameTime gameTime)
+        {
+            if (enemyState == 1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    stateTime = 0;
+                    enemyState = 0;
+                }
+            }
+            else if (enemyState == -1)
+            {
+                stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (stateTime > Constants.enemyEntryExitTime)
+                {
+                    DeleteEnemy();
+                }
+            }
+        }
         private void AttackUpdate(GameTime gameTime)
         {
             if (attackTime > 0.0) Attack(gameTime);
