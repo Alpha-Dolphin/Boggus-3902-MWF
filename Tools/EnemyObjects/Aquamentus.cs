@@ -22,7 +22,6 @@ namespace LOZ.Tools
         int enemyState;
 
         public readonly ISpriteEnemy aquamentusSprite;
-        //AnimatedMovingSprite aquamentusSprite;
 
         readonly Random rand;
 
@@ -56,7 +55,7 @@ namespace LOZ.Tools
 
             stateTime = 0;
 
-            aquamentusSprite = new AquementusSprite();
+            aquamentusSprite = new EnemySprite(Game1.BOSSES_SPRITESHEET, new[] { new Rectangle(1, 11, 24, 32), new Rectangle(26, 11, 24, 32), new Rectangle(51, 11, 24, 32), new Rectangle(76, 11, 24, 32) });
 
             rand = new();
 

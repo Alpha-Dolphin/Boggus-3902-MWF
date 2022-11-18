@@ -1,4 +1,3 @@
-using LOZ.Tools.EnemyObjects.LOZ.Tools;
 using LOZ.Tools.PlayerObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -10,8 +9,7 @@ namespace LOZ.Tools
     internal class Trap : IEnemy, ICollidable
     {
         Vector2 enemyDirection; Vector2 enemyPosition;
-        //readonly ISpriteEnemy slimeSprite;
-        readonly TrapSprite trapSprite;
+        readonly ISpriteEnemy trapSprite;
 
         Vector2 originalPosition;
 
@@ -27,7 +25,7 @@ namespace LOZ.Tools
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
 
-            trapSprite = new TrapSprite();
+            trapSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(164, 59, 16, 16) });
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;
@@ -53,8 +51,8 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
-            enemyPosition.X += enemyDirection.X * enemyState / 2;
-            enemyPosition.Y += enemyDirection.Y * enemyState / 2;
+            enemyPosition.X += enemyDirection.X * enemyState / 4;
+            enemyPosition.Y += enemyDirection.Y * enemyState / 4;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
@@ -75,7 +73,7 @@ namespace LOZ.Tools
 
         private void MovementUpdate(GameTime gameTime)
         {
-            if ((enemyState == -1) 
+            if ((enemyState == -2) 
                 && Rectangle.Intersect(new Rectangle(GetHurtbox().X, GetHurtbox().Y, 1, 1), new Rectangle((int) originalPosition.X, (int) originalPosition.Y, 1, 1)) != new Rectangle())
             {
                 enemyState = 0;
@@ -93,7 +91,7 @@ namespace LOZ.Tools
             {
                 originalPosition = new(GetHurtbox().X, GetHurtbox().Y);
                 enemyDirection = new(0, 0);
-                enemyState = 4;
+                enemyState = 8;
                 if (Rectangle.Intersect(new Rectangle(-50, (int)enemyPosition.Y, 1000, 16), linkRect) != new Rectangle())
                 {
                     if (enemyRect.Left > linkRect.Left) enemyDirection.X = -1;

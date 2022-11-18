@@ -5,11 +5,30 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LOZ.Tools
 {
-    internal class KeeseSprite : ISpriteEnemy
+    internal class EnemySprite : ISpriteEnemy
     {
+        readonly Rectangle[] enemyFrames;
+
         Rectangle anim;
+
         Texture2D currSheet;
+        readonly Texture2D enemySheet;
+
         double timer;
+
+        readonly int mode;
+        public EnemySprite(Texture2D sheet, Rectangle[] frames)
+        {
+            enemyFrames = frames;
+            enemySheet = sheet;
+        }
+        public EnemySprite(Texture2D sheet, Rectangle[] frames, int special)
+        {
+            enemyFrames = frames;
+            enemySheet = sheet;
+
+            mode = special;
+        }
 
         public void Draw(SpriteBatch _spriteBatch, Vector2 enemyPosition)
         {
@@ -21,7 +40,7 @@ namespace LOZ.Tools
                 0f,
                 new Vector2(anim.Width / 2, anim.Height / 2),
                 2 * Constants.objectScale,
-                SpriteEffects.None,
+                (mode == 1 && (((int)timer /250) % 2) == 0) ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
                 0f
             );
         }
@@ -33,12 +52,10 @@ namespace LOZ.Tools
 
         public void Update(GameTime gameTime, int enemyState)
         {
-            Rectangle[] KeeseFrames = new[] { new Rectangle(183, 11, 16, 16), new Rectangle(200, 11, 16, 16) };
-
             if (enemyState == 0)
             {
-                anim = KeeseFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / (50 * KeeseFrames.Length)) % KeeseFrames.Length];
-                currSheet = Game1.REGULAR_ENEMIES_SPRITESHEET;
+                anim = enemyFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / (50 * enemyFrames.Length)) % enemyFrames.Length];
+                currSheet = enemySheet;
             }
             else if (enemyState == 1)
             {

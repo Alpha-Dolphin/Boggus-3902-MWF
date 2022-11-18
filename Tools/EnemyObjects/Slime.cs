@@ -16,7 +16,6 @@ namespace LOZ.Tools
         private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection; Vector2 enemyPosition;
         readonly ISpriteEnemy slimeSprite;
-        //AnimatedMovingSprite slimeSprite;
 
         readonly Random rand;
 
@@ -39,7 +38,7 @@ namespace LOZ.Tools
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
 
-            slimeSprite = new SlimeSprite();
+            slimeSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(1, 11, 8, 16), new Rectangle(10, 11, 8, 16) });
 
             rand = new();
 

@@ -19,7 +19,7 @@ namespace LOZ.Tools.EnemyObjects
 
         const int attackLength = 3000;
         double attackTime;
-        public void SetHurtbox(Rectangle rect)
+        public void SetHurtbox(Rectangle rectz
         {
             enemyPosition.Y = rect.Y;
             enemyPosition.X = rect.X;

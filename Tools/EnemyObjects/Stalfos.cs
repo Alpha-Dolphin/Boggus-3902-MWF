@@ -43,7 +43,7 @@ namespace LOZ.Tools
             enemyState = 1;
             stateTime = 0;
 
-            stalfosSprite = new StalfosSprite();
+            stalfosSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(1, 59, 16, 16) }, 1);
 
             enemyDirection.X = 0;
             enemyDirection.Y = 0;

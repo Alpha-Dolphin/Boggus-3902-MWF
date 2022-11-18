@@ -65,8 +65,8 @@ namespace LOZ.Tools
             }
             if (P is IEnemy X)
             {
-                if (b is Trap bT) bT.Collide(-1);
-                if (X is Trap xT) xT.Collide(-1);
+                if (b is Trap bT) bT.Collide(-2);
+                if (X is Trap xT) xT.Collide(-2);
             }
         }
 

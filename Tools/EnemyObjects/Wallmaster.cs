@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using LOZ.Tools;
 using LOZ.Tools.Sprites;
-using LOZ.Tools.EnemyObjects.LOZ.Tools;
 using LOZ.Tools.PlayerObjects;
 using System.Collections;
 using Microsoft.Xna.Framework.Audio;
@@ -19,7 +18,7 @@ namespace LOZ.Tools
         private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection; Vector2 enemyPosition;
 
-        readonly WallMasterSprite wallMasterSprite;
+        readonly ISpriteEnemy wallMasterSprite;
 
         Vector2 prevLinkPos;
 
@@ -37,7 +36,7 @@ namespace LOZ.Tools
             enemyDirection.X = 1;
             enemyDirection.Y = 0;
 
-            wallMasterSprite = new WallMasterSprite();
+            wallMasterSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(393, 11, 16, 16), new Rectangle(410, 11, 16, 16) });
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;

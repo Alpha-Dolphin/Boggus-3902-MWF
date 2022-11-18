@@ -37,7 +37,7 @@ namespace LOZ.Tools.EnemyObjects
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
 
-            ZolSprite = new ZolSprite();
+            ZolSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(77, 11, 16, 16), new Rectangle(94, 11, 16, 16) });
 
             rand = new();
 

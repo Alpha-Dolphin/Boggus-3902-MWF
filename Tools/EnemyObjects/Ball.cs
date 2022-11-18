@@ -18,8 +18,7 @@ namespace LOZ.Tools
         double ballLife;
         const int ballDespawnMS = 3000;
 
-        //readonly BallSprite ballSprite;
-        AnimatedMovingSprite ballSprite;
+        readonly ISpriteEnemy ballSprite;
 
         readonly int m;
         public void SetHurtbox(Rectangle rect)
@@ -31,13 +30,12 @@ namespace LOZ.Tools
         {
             ballLife = -1;
 
-            ballSprite = new AnimatedMovingSprite(Game1.BOSSES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
-                EnemyConstants.AQUAMENTUS_PROJECTILE );
+            ballSprite = new EnemySprite(Game1.BOSSES_SPRITESHEET, new[] { new Rectangle(101, 11, 8, 16), new Rectangle(110, 11, 8, 16), new Rectangle(119, 11, 8, 16), new Rectangle(128, 11, 8, 16) });
             m = mode % 3;
         }
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = new Vector2(ballSprite.GetDestinationRectangle().Width, ballSprite.GetDestinationRectangle().Height);
+            Vector2 wH = ballSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
@@ -69,14 +67,14 @@ namespace LOZ.Tools
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            ballSprite.Draw(_spriteBatch);
+            ballSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
         {
             Move(gameTime);
             ballLife -= gameTime.ElapsedGameTime.TotalMilliseconds;
-            ballSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
+            ballSprite.Update(gameTime, 0);
         }
 
         public double GetBallLife()

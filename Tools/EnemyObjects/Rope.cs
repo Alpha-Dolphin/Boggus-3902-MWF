@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 
-namespace LOZ.Tools.EnemyObjects
+namespace LOZ.Tools
 {
     internal class Rope : IEnemy, ICollidable
     {
@@ -35,7 +35,7 @@ namespace LOZ.Tools.EnemyObjects
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
 
-            RopeSprite = new RopeSprite();
+            RopeSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(126, 59, 16, 16), new Rectangle(143, 59, 16, 16) });
 
             rand = new();
 
