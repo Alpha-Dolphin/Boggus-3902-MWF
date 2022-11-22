@@ -24,6 +24,8 @@ namespace LOZ.Tools
         double stateTime;
         int enemyState;
 
+        int enemyHealth;
+
         const double moveDelay = 1000;
         public void SetHurtbox(Rectangle rect)
         {
@@ -44,6 +46,8 @@ namespace LOZ.Tools
 
             stateTime = 0.0;
 
+            enemyHealth = 0;
+
             enemyState = 1;
 
             moveCheck = -1;
@@ -54,9 +58,10 @@ namespace LOZ.Tools
             //Nothing
         }
 
-        public void Die()
+        public void Damage()
         {
-            enemyState = -1;
+            enemyHealth--;
+            if (enemyHealth <= 0) enemyState = -1;
         }
 
         private void DeleteEnemy()

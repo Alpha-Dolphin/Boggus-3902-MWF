@@ -45,7 +45,7 @@ public interface ICollision
 public interface IEnemy : ICharacter
 {
     void Attack(GameTime gameTime);
-    void Die();
+    void Damage();
     void Move(GameTime gameTime);
     void Draw(SpriteBatch _spriteBatch);
     void Update(GameTime gameTime);

@@ -44,7 +44,7 @@ namespace LOZ.Tools
             //Nothing
         }
 
-        public void Die()
+        public void Damage()
         {
             Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
         }

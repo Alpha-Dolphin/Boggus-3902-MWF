@@ -56,7 +56,7 @@ namespace LOZ.Tools.EnemyObjects
             attackTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
-        public void Die()
+        public void Damage()
         {
             //Cannot be killed
         }

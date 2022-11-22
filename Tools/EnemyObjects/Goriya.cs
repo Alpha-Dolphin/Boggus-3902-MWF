@@ -23,6 +23,8 @@ namespace LOZ.Tools
 
         int enemyState;
 
+        int enemyHealth;
+
         double stateTime;
 
         readonly Random rand;
@@ -42,6 +44,8 @@ namespace LOZ.Tools
             rand = new();
 
             enemyState = 1;
+
+            enemyHealth = 4;
 
             stateTime = 0;
 
@@ -63,9 +67,10 @@ namespace LOZ.Tools
             boomerang.Activate(enemyDirection, enemyPosition);
         }
 
-        public void Die()
+        public void Damage()
         {
-            enemyState = -1;
+            enemyHealth--;
+            if (enemyHealth <= 0) enemyState = -1;
         }
 
         private void DeleteEnemy()

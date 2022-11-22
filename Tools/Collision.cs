@@ -26,7 +26,7 @@ namespace LOZ.Tools
             //NOTE - If object is of type rectangle, it is a Link weapon hitbox. Bad design, but it will work for now
             if (typeof(Weapon) == a.GetType())
             {
-                if (b is IEnemy bEnemy) bEnemy.Die();
+                if (b is IEnemy bEnemy) bEnemy.Damage();
             }
             else if (a is Link)
             {

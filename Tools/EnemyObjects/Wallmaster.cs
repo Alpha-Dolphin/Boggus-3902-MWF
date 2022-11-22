@@ -21,7 +21,9 @@ namespace LOZ.Tools
         readonly ISpriteEnemy wallMasterSprite;
 
         Vector2 prevLinkPos;
-
+        
+        int enemyHealth;
+        
         int enemyState;
 
         double stateTime;
@@ -41,6 +43,8 @@ namespace LOZ.Tools
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
+            enemyHealth = 1;
+
             enemyState = 1;
 
             stateTime = 0.0;
@@ -55,9 +59,10 @@ namespace LOZ.Tools
             //Nothing
         }
 
-        public void Die()
+        public void Damage()
         {
-            enemyState = -1;
+            enemyHealth--;
+            if (enemyHealth <= 0) enemyState = -1;
         }
 
         private void DeleteEnemy()

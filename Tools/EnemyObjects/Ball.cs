@@ -55,7 +55,7 @@ namespace LOZ.Tools
             }
         }
 
-        public void Die()
+        public void Damage()
         {
             Game1.enemyDieList.Add(this);
         }

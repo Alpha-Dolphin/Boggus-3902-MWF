@@ -25,6 +25,8 @@ namespace LOZ.Tools.PlayerObjects
 
         int enemyState;
 
+        int enemyHealth;
+
         readonly EnemySprite dodongoSprite;
 
         readonly Random rand;
@@ -52,6 +54,8 @@ namespace LOZ.Tools.PlayerObjects
 
             enemyState = 1;
 
+            enemyHealth = 10;
+
             stateTime = 0;
 
             attackTime = -1;
@@ -62,12 +66,13 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Attack(GameTime gameTime)
         {
-
+            //Nothing
         }
 
-        public void Die()
+        public void Damage()
         {
-            enemyState = -1;
+            enemyHealth--;
+            if (enemyHealth <= 0) enemyState = -1;
             soundEffectList[(int)SoundEffects.DodongoScream].Play();
         }
 

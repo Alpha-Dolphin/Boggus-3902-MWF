@@ -21,6 +21,8 @@ namespace LOZ.Tools
 
         int enemyState;
 
+        int enemyHealth;
+
         public readonly ISpriteEnemy aquamentusSprite;
 
         readonly Random rand;
@@ -53,6 +55,8 @@ namespace LOZ.Tools
 
             enemyState = 0;
 
+            enemyHealth = 20;
+
             stateTime = 0;
 
             aquamentusSprite = new EnemySprite(Game1.BOSSES_SPRITESHEET, new[] { new Rectangle(1, 11, 24, 32), new Rectangle(26, 11, 24, 32), new Rectangle(51, 11, 24, 32), new Rectangle(76, 11, 24, 32) });
@@ -69,9 +73,11 @@ namespace LOZ.Tools
             ball3.Activate(enemyPosition.X, enemyPosition.Y);
         }
 
-        public void Die()
+        public void Damage()
         {
             soundEffectList[(int)SoundEffects.AquaScream].Play();
+            enemyHealth--;
+            if (enemyHealth <= 0) enemyState = -1;
         }
 
         private void DeleteEnemy()

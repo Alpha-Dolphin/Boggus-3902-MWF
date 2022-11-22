@@ -16,7 +16,6 @@ namespace LOZ.Tools
 
         Vector2 enemyDirection; Vector2 enemyPosition;
         readonly ISpriteEnemy keeseSprite;
-        //AnimatedMovingSprite keeseSprite;
 
         double moveCounter;
         double timeToMove;
@@ -24,6 +23,8 @@ namespace LOZ.Tools
 
         int enemyState;
         double stateTime;
+
+        int enemyHealth;
         public void SetHurtbox(Rectangle rect)
         {
             enemyPosition.Y = rect.Y;
@@ -38,6 +39,8 @@ namespace LOZ.Tools
             enemyPosition.X = X;
 
             keeseSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(183, 11, 16, 16), new Rectangle(200, 11, 16, 16) });
+
+            enemyHealth = 1;
 
             stateTime = 0.0;
             enemyState = 1;
@@ -58,9 +61,10 @@ namespace LOZ.Tools
             //Nothing
         }
 
-        public void Die()
+        public void Damage()
         {
-            enemyState = -1;
+            enemyHealth--;
+            if (enemyHealth <= 0) enemyState = -1;
         }
 
         private void DeleteEnemy()

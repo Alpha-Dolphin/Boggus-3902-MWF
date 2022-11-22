@@ -26,6 +26,8 @@ namespace LOZ.Tools
 
         readonly Random rand = new();
 
+        int enemyHealth;
+
         double moveCheck;
         double moveTime;
         double moveProb;
@@ -42,6 +44,8 @@ namespace LOZ.Tools
 
             enemyState = 1;
             stateTime = 0;
+
+            enemyHealth = 4;
 
             stalfosSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(1, 59, 16, 16) }, 1);
 
@@ -62,9 +66,10 @@ namespace LOZ.Tools
             //Nothing
         }
 
-        public void Die()
+        public void Damage()
         {
-            enemyState = -1;
+            enemyHealth--;
+            if (enemyHealth <= 0) enemyState = -1;
         }
 
         private void DeleteEnemy()

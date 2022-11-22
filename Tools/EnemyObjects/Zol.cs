@@ -20,6 +20,8 @@ namespace LOZ.Tools.EnemyObjects
 
         int enemyState;
 
+        int enemyHealth;
+
         double stateTime;
 
         double moveCheck;
@@ -45,6 +47,8 @@ namespace LOZ.Tools.EnemyObjects
 
             stateTime = 0.0;
 
+            enemyHealth = 4;
+
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
@@ -62,9 +66,10 @@ namespace LOZ.Tools.EnemyObjects
             //Nothing
         }
 
-        public void Die()
+        public void Damage()
         {
-            enemyState = -1;
+            enemyHealth--;
+            if (enemyHealth <= 0) enemyState = -1;
         }
 
         private void DeleteEnemy()
