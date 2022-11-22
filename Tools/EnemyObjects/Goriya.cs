@@ -17,7 +17,7 @@ namespace LOZ.Tools
         Vector2 enemyDirection;
         Vector2 enemyPosition;
 
-        readonly GoriyaSprite goriyaSprite;
+        readonly EnemySprite goriyaSprite;
 
         readonly EnemyObjects.Boomerang boomerang;
 
@@ -47,7 +47,7 @@ namespace LOZ.Tools
 
             boomerang = new EnemyObjects.Boomerang();
 
-            goriyaSprite = new GoriyaSprite();
+            goriyaSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(222, 11, 16, 16), new Rectangle(239, 11, 16, 16), new Rectangle(256, 11, 16, 16), new Rectangle(273, 11, 16, 16) }, 3);
 
             moveCheck = -1;
         }
@@ -72,7 +72,6 @@ namespace LOZ.Tools
         {
             Game1.enemyDieList.Add(this);
             soundEffectList[(int)SoundEffects.EnemyDie].Play();
-
         }
 
         public void Move(GameTime gameTime)

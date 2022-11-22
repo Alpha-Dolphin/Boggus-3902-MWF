@@ -2,6 +2,7 @@
 using LOZ;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace LOZ.Tools
 {
@@ -13,17 +14,22 @@ namespace LOZ.Tools
 
         Texture2D currSheet;
         readonly Texture2D enemySheet;
+        SpriteEffects enemySpriteEffect;
 
         double timer;
 
         readonly int mode;
         public EnemySprite(Texture2D sheet, Rectangle[] frames)
         {
+            currSheet = Game1.REGULAR_ENEMIES_SPRITESHEET;
+
             enemyFrames = frames;
             enemySheet = sheet;
         }
         public EnemySprite(Texture2D sheet, Rectangle[] frames, int special)
         {
+            currSheet = Game1.REGULAR_ENEMIES_SPRITESHEET;
+
             enemyFrames = frames;
             enemySheet = sheet;
 
@@ -37,10 +43,10 @@ namespace LOZ.Tools
                 enemyPosition * Constants.objectScale * 2,
                 anim,
                 Color.White,
-                0f,
+                (mode == 2) ? (float)(timer / 50 % 8 * Math.PI / 4) : 0f,
                 new Vector2(anim.Width / 2, anim.Height / 2),
                 2 * Constants.objectScale,
-                (mode == 1 && (((int)timer /250) % 2) == 0) ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
+                (mode == 1 && (((int)timer /250) % 2) == 0) ? SpriteEffects.FlipHorizontally : (mode == 3) ? enemySpriteEffect : SpriteEffects.None,
                 0f
             );
         }
@@ -56,6 +62,31 @@ namespace LOZ.Tools
             {
                 anim = enemyFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / (50 * enemyFrames.Length)) % enemyFrames.Length];
                 currSheet = enemySheet;
+            }
+            else if (enemyState == 1)
+            {
+                if (gameTime.TotalGameTime.TotalMilliseconds - timer > Constants.enemyEntryExitTime) timer = gameTime.TotalGameTime.TotalMilliseconds;
+                anim = IEnemy.Appear(timer);
+                currSheet = Game1.LINK_SPRITESHEET;
+            }
+            else if (enemyState == -1)
+            {
+                if (gameTime.TotalGameTime.TotalMilliseconds - timer > Constants.enemyEntryExitTime) timer = gameTime.TotalGameTime.TotalMilliseconds;
+                anim = IEnemy.Disappear(timer);
+                currSheet = Game1.EXPLOSION;
+            }
+            timer += gameTime.ElapsedGameTime.TotalMilliseconds;
+        }
+        public void Update(GameTime gameTime, int enemyState, Vector2 enemyDirection)
+        {
+            if (enemyState == 0)
+            {
+                if (enemyDirection.Y == 0) anim = enemyFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2 + 2];
+                else if (enemyDirection.Y > 0) anim = enemyFrames[0];
+                else if (enemyDirection.Y < 0) anim = enemyFrames[1];
+
+                enemySpriteEffect = enemyDirection.Y != 0 ? (((int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2 == 1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None) : (enemyDirection.X < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+                currSheet = Game1.REGULAR_ENEMIES_SPRITESHEET;
             }
             else if (enemyState == 1)
             {
