@@ -13,14 +13,14 @@ namespace LOZ.Tools.PlayerObjects
     {
         private Vector2 position;
         private Vector2 velocity;
-        private ICharacter owner;
+        private ICollidable owner;
         private AnimatedMovingSprite sprite;
         private bool movingAway = true;
 
         private bool exists = true;
 
         public Boomerang() { }
-        public Boomerang(Texture2D spriteSheet, ICharacter owner, Vector2 position, Vector2 velocity)
+        public Boomerang(Texture2D spriteSheet, ICollidable owner, Vector2 position, Vector2 velocity)
         {
             this.owner = owner;
             this.position = position;

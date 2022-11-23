@@ -72,7 +72,7 @@ namespace LOZ.Tools.EnemyObjects
             if (enemyHealth <= 0) enemyState = -1;
         }
 
-        private void DeleteEnemy()
+        private void Die()
         {
             Game1.enemyDieList.Add(this);
             soundEffectList[(int)SoundEffects.EnemyDie].Play();
@@ -112,7 +112,7 @@ namespace LOZ.Tools.EnemyObjects
                 stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (stateTime > Constants.enemyEntryExitTime)
                 {
-                    DeleteEnemy();
+                    Die();
                 }
             }
         }

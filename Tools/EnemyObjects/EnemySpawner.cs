@@ -1,62 +1,62 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using LOZ.Tools;
+using Microsoft.Xna.Framework;
+using System;
+using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
+using LOZ.Tools.EnemyObjects;
 using LOZ.Tools.Sprites;
-using LOZ.Tools.PlayerObjects;
-using System.Collections;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
 
 namespace LOZ.Tools
 {
-    internal class Wallmaster : IEnemy, ICollidable
+    internal class EnemySpawner : IEnemy, ICollidable
     {
         private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly Random rand = new();
+
         Vector2 enemyDirection; Vector2 enemyPosition;
+        readonly ISpriteEnemy spawnerSprite;
 
-        readonly ISpriteEnemy wallMasterSprite;
-
-        Vector2 prevLinkPos;
-        
-        int enemyHealth;
-        
         int enemyState;
-
         double stateTime;
 
+        double attackTimer;
+        double attackCooldown;
+
+        int enemyHealth;
         public void SetHurtbox(Rectangle rect)
         {
             enemyPosition.Y = rect.Y;
             enemyPosition.X = rect.X;
         }
-        public Wallmaster(int X, int Y)
+        public EnemySpawner(int X, int Y)
         {
-            enemyDirection.X = 1;
+            enemyDirection.X = 0;
             enemyDirection.Y = 0;
-
-            wallMasterSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(393, 11, 16, 16), new Rectangle(410, 11, 16, 16) });
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
-            enemyHealth = 1;
+            spawnerSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(183, 11, 16, 16), new Rectangle(200, 11, 16, 16) });
 
-            enemyState = 1;
+            enemyHealth = 1;
+            
+            attackTimer = 0;
+            attackCooldown = 0;
 
             stateTime = 0.0;
+            enemyState = 1;
         }
+
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = wallMasterSprite.GetWidthHeight();
+            Vector2 wH = spawnerSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
+
         public void Attack(GameTime gameTime)
         {
-            //Nothing
+            //EnemyFactory
         }
 
         public void Damage()
@@ -73,20 +73,19 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
-            enemyPosition.X += enemyDirection.X;
-            enemyPosition.Y += enemyDirection.Y;
+            //No movement
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            wallMasterSprite.Draw(_spriteBatch, enemyPosition);
+            spawnerSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
         {
             StateHandler(gameTime);
-            if(enemyState == 0) MovementUpdate(gameTime);
-            wallMasterSprite.Update(gameTime, enemyState);
+            if (enemyState == 0) AttackUpdate(gameTime);
+            spawnerSprite.Update(gameTime, enemyState);
         }
 
         private void StateHandler(GameTime gameTime)
@@ -109,26 +108,24 @@ namespace LOZ.Tools
                 }
             }
         }
-        private void MovementUpdate(GameTime gameTime)
+        private void AttackUpdate(GameTime gameTime)
         {
-            if ((enemyDirection.X != 0 && prevLinkPos.Y * enemyDirection.X < Link.position.Y) || (enemyDirection.Y != 0 && prevLinkPos.X * enemyDirection.Y < Link.position.X))
+            if (attackCooldown <= 0)
             {
-                enemyDirection = new(0, 0);
-                Rectangle linkRect = new((int)Link.position.X, (int)Link.position.Y, 16, 16);
-                Rectangle enemyRect = GetHurtbox();
-                Rectangle dist = Rectangle.Union(enemyRect, linkRect);
-                if (dist.Bottom - dist.Top < dist.Right - dist.Left)
+                attackCooldown = 25;
+                if (rand.Next() % (4950 / 2) + 50 > attackTimer)
                 {
-                    if (enemyRect.Left > linkRect.Left) enemyDirection.X = -1;
-                    else enemyDirection.X = 1;
+                    Attack(gameTime);
                 }
                 else
                 {
-                    if (enemyRect.Top > linkRect.Top) enemyDirection.Y = -1;
-                    else enemyDirection.Y = 1;
+                    attackTimer++;
                 }
             }
-            prevLinkPos = Link.position;
+            else
+            {
+                attackCooldown -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
         }
     }
 }

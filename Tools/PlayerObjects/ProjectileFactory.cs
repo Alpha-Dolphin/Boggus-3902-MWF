@@ -25,7 +25,7 @@ namespace LOZ.Tools.PlayerObjects
             this.projectileType = projectileType;
         }
 
-        public IProjectile CreateProjectile(Vector2 velocity, ICharacter owner)
+        public IProjectile CreateProjectile(Vector2 velocity, ICollidable owner)
         {
             switch (this.projectileType)
             {

@@ -26,7 +26,7 @@ namespace LOZ.Tools.LevelManager
 
         /*Initialize needed object factories*/
         EnvironmentFactory environmentFactory = new EnvironmentFactory();
-        EnemySpriteFactory enemySpriteFactory = new EnemySpriteFactory();
+        EnemyFactory enemySpriteFactory = new EnemyFactory();
         NPCFactory npcFactory = new NPCFactory(0, Game1.NPC_SPRITESHEET);
         ItemFactory itemFactory = new ItemFactory(Game1.ITEM_SPRITESHEET);
         GateFactory gateFactory = new GateFactory();

@@ -46,7 +46,7 @@ namespace LOZ.Tools
 
         public void Damage()
         {
-            Game1.lm.RoomList[Game1.currentRoom].enemyList.Remove(this);
+            //Nothing
         }
 
         public void Move(GameTime gameTime)

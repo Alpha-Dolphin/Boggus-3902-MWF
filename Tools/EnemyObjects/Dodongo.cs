@@ -76,7 +76,7 @@ namespace LOZ.Tools.PlayerObjects
             soundEffectList[(int)SoundEffects.DodongoScream].Play();
         }
 
-        public void DeleteEnemy()
+        public void Die()
         {
             Game1.enemyDieList.Add(this);
         }
@@ -127,7 +127,7 @@ namespace LOZ.Tools.PlayerObjects
                 stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (stateTime > Constants.enemyEntryExitTime)
                 {
-                    DeleteEnemy();
+                    Die();
                 }
             }
         }
