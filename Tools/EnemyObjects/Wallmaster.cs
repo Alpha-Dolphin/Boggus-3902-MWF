@@ -19,7 +19,7 @@ namespace LOZ.Tools
         Vector2 enemyDirection; Vector2 enemyPosition;
 
         readonly ISpriteEnemy wallMasterSprite;
-
+        private Vector2 prevEnemyPos;
         Vector2 prevLinkPos;
         
         int enemyHealth;
@@ -85,8 +85,8 @@ namespace LOZ.Tools
         public void Update(GameTime gameTime)
         {
             StateHandler(gameTime);
-            if(enemyState == 0) MovementUpdate(gameTime);
             wallMasterSprite.Update(gameTime, enemyState);
+            if (enemyState == 0) MovementUpdate(gameTime);
         }
 
         private void StateHandler(GameTime gameTime)
@@ -111,23 +111,32 @@ namespace LOZ.Tools
         }
         private void MovementUpdate(GameTime gameTime)
         {
-            if ((enemyDirection.X != 0 && prevLinkPos.Y * enemyDirection.X < Link.position.Y) || (enemyDirection.Y != 0 && prevLinkPos.X * enemyDirection.Y < Link.position.X))
+            //In the future, implement some code if there is an object between Link and the wallmasters
+/*            if (prevEnemyPos != enemyPosition && prevLinkPos == Link.position)
+            {*/
+                if ((enemyDirection.X != 0 && prevLinkPos.Y * enemyDirection.X < Link.position.Y) || (enemyDirection.Y != 0 && prevLinkPos.X * enemyDirection.Y < Link.position.X))
+                {
+                    enemyDirection = new(0, 0);
+                    Rectangle linkRect = new((int)Link.position.X + 4, (int)Link.position.Y + 4, 8, 8);
+                    Rectangle enemyRect = GetHurtbox();
+                    Rectangle dist = Rectangle.Union(enemyRect, linkRect);
+                    if (dist.Bottom - dist.Top < dist.Right - dist.Left)
+                    {
+                        if (enemyRect.Left > linkRect.Left) enemyDirection.X = -1;
+                        else enemyDirection.X = 1;
+                    }
+                    else
+                    {
+                        if (enemyRect.Top > linkRect.Top) enemyDirection.Y = -1;
+                        else enemyDirection.Y = 1;
+                    }
+                }
+/*            }
+            else
             {
-                enemyDirection = new(0, 0);
-                Rectangle linkRect = new((int)Link.position.X, (int)Link.position.Y, 16, 16);
-                Rectangle enemyRect = GetHurtbox();
-                Rectangle dist = Rectangle.Union(enemyRect, linkRect);
-                if (dist.Bottom - dist.Top < dist.Right - dist.Left)
-                {
-                    if (enemyRect.Left > linkRect.Left) enemyDirection.X = -1;
-                    else enemyDirection.X = 1;
-                }
-                else
-                {
-                    if (enemyRect.Top > linkRect.Top) enemyDirection.Y = -1;
-                    else enemyDirection.Y = 1;
-                }
+                (enemyDirection.X, enemyDirection.Y) = (enemyDirection.Y, enemyDirection.X);
             }
+            prevEnemyPos = enemyPosition;*/
             prevLinkPos = Link.position;
         }
     }
