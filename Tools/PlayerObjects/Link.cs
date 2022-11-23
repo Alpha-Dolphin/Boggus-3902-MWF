@@ -39,7 +39,7 @@ namespace LOZ.Tools.PlayerObjects
         private PlayerConstants.Link_States state;
         private PlayerConstants.Direction direction;
 
-        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
 
         public Link()
         {

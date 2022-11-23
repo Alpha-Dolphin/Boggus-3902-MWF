@@ -11,7 +11,7 @@ namespace LOZ.Tools
 {
     internal class Keese : IEnemy, ICollidable
     {
-        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         readonly Random rand = new();
 
         Vector2 enemyDirection; Vector2 enemyPosition;

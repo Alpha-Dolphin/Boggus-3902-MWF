@@ -16,7 +16,7 @@ namespace LOZ.Tools.PlayerObjects
 {
     internal class Dodongo : IEnemy, ICollidable
     {
-        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection;
         bool directionChange = false;
         Vector2 enemyPosition;

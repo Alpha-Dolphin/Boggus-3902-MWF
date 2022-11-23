@@ -14,7 +14,7 @@ namespace LOZ.Tools
 {
     internal class Aquamentus : IEnemy, ICollidable
     {
-        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
 
         Vector2 enemyDirection;
         Vector2 enemyPosition;
