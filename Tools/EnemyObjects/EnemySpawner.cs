@@ -6,6 +6,7 @@ using LOZ.Tools.EnemyObjects;
 using LOZ.Tools.Sprites;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
+using LOZ.Tools.LevelManager;
 
 namespace LOZ.Tools
 {
@@ -23,6 +24,8 @@ namespace LOZ.Tools
         double attackTimer;
         double attackCooldown;
 
+        readonly EnemyFactory enemyFactory;
+
         int enemyHealth;
         public void SetHurtbox(Rectangle rect)
         {
@@ -37,7 +40,9 @@ namespace LOZ.Tools
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
-            spawnerSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(183, 11, 16, 16), new Rectangle(200, 11, 16, 16) });
+            spawnerSprite = new EnemySprite(Game1.SPAWNER, new[] { new Rectangle(0, 0, 16, 16)});
+
+            enemyFactory = new();
 
             enemyHealth = 1;
             
@@ -56,7 +61,12 @@ namespace LOZ.Tools
 
         public void Attack(GameTime gameTime)
         {
-            //EnemyFactory
+            int enem = 6;
+            while (enem == 6 || enem >= 9) enem = rand.Next(0, 9);
+            enemyFactory.curr = enem;
+            IEnemy newEnem = enemyFactory.NewEnemy();
+            newEnem.SetHurtbox(new Rectangle(rand.Next(-16, 16), rand.Next(-16, 16), -1, -1));
+            //room.enemyList.Add(getEnemyObject(enemy));
         }
 
         public void Damage()
@@ -113,13 +123,13 @@ namespace LOZ.Tools
             if (attackCooldown <= 0)
             {
                 attackCooldown = 25;
-                if (rand.Next() % (4950 / 2) + 50 > attackTimer)
+                if (rand.Next() % (4950 / 2) + 50 > attackTimer || true)
                 {
                     Attack(gameTime);
                 }
                 else
                 {
-                    attackTimer++;
+                    attackTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
                 }
             }
             else

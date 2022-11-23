@@ -54,6 +54,7 @@ namespace LOZ
         public static Texture2D ITEM_SPRITESHEET;
         public static Texture2D HUD_SPRITESHEET;
         public static Texture2D FONT_SPRITESHEET;
+        public static Texture2D SPAWNER;
 
         private Song backgroundMusic;
         public static MusicHandler musicBox = new MusicHandler();
@@ -131,6 +132,7 @@ namespace LOZ
             EXPLOSION = Content.Load<Texture2D>(Constants.ExplosionSpriteSheetLocation);
             HUD_SPRITESHEET = Content.Load<Texture2D>(Constants.HUDSpriteSheetLocation);
             FONT_SPRITESHEET = Content.Load<Texture2D>(Constants.FontSpriteSheetLocation);
+            SPAWNER = Content.Load<Texture2D>(Constants.SpawnerLocation);
         }
 
         protected override void Update(GameTime gameTime)

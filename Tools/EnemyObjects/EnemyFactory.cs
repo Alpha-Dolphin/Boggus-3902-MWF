@@ -29,7 +29,6 @@ namespace LOZ.Tools
         {
             if (pressed.Contains(Keys.O) && !held.Contains(Keys.O))
             {
-                //I don't know why, but the modulo operator wouldn't work so I'm doing this
                 curr = curr++ % 9;
                 return true;
             }

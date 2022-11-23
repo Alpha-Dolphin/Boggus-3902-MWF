@@ -26,7 +26,7 @@ namespace LOZ.Tools.LevelManager
 
         /*Initialize needed object factories*/
         EnvironmentFactory environmentFactory = new EnvironmentFactory();
-        EnemyFactory enemySpriteFactory = new EnemyFactory();
+        EnemyFactory enemyFactory = new EnemyFactory();
         NPCFactory npcFactory = new NPCFactory(0, Game1.NPC_SPRITESHEET);
         ItemFactory itemFactory = new ItemFactory(Game1.ITEM_SPRITESHEET);
         GateFactory gateFactory = new GateFactory();
@@ -178,9 +178,9 @@ namespace LOZ.Tools.LevelManager
             int xPlacement = int.Parse(xmlEnemy.SelectSingleNode("xPlacement").InnerText);
             int yPlacement = int.Parse(xmlEnemy.SelectSingleNode("yPlacement").InnerText);
             string type = xmlEnemy.Attributes?["type"]?.Value;
-            enemySpriteFactory.curr = (int)Enum.Parse(typeof(Enemy), type);
+            enemyFactory.curr = (int)Enum.Parse(typeof(Enemy), type);
 
-            IEnemy thisEnemy = enemySpriteFactory.NewEnemy();
+            IEnemy thisEnemy = enemyFactory.NewEnemy();
 
             thisEnemy.SetHurtbox(new Rectangle(xPlacement,yPlacement, -1, -1));
             return thisEnemy;

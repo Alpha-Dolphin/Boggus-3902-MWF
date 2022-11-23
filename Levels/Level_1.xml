@@ -96,7 +96,7 @@
 			</environment>
 			<enemies>
 				<!--One enemy element for each enemy, type attribute is the name of the object to place-->
-				<enemy type ="Wallmaster">
+				<enemy type ="Spawner">
 					<!--Placement info for where enemy spawns-->
 					<xPlacement>
 						150
