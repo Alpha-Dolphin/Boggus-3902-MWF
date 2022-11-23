@@ -29,12 +29,12 @@ namespace LOZ.Tools
         {
             if (pressed.Contains(Keys.O) && !held.Contains(Keys.O))
             {
-                curr = curr++ % 9;
+                curr = ++curr % 9;
                 return true;
             }
             else if (pressed.Contains(Keys.P) && !held.Contains(Keys.P))
             {
-                curr = curr-- % 9;
+                curr = --curr % 9;
                 return true;
             }
             return false;
