@@ -22,8 +22,9 @@ namespace LOZ
     public class Game1 : Game
     {
         public int gameState;
-        private List<IEnemy> enemyList;
+        public List<IEnemy> enemyList;
         public static List<IEnemy> enemyDieList = new();
+        public static List<IEnemy> enemyNewList = new();
         private List<IItem> itemList;
         private List<IEnvironment> blockList;
         private List<IGate> gateList;
@@ -235,8 +236,9 @@ namespace LOZ
             }
 
             enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
+            enemyList.AddRange(enemyNewList);
 
-            for(int i = 0; i < itemList.Count; i++)
+            for (int i = 0; i < itemList.Count; i++)
             {
                 if (Collision.Intersects(link.GetHurtbox(), itemList[i].GetHurtbox()))
                 {

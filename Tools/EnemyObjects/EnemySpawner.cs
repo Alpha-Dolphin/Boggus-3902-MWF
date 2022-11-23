@@ -65,8 +65,8 @@ namespace LOZ.Tools
             while (enem == 6 || enem >= 9) enem = rand.Next(0, 9);
             enemyFactory.curr = enem;
             IEnemy newEnem = enemyFactory.NewEnemy();
-            newEnem.SetHurtbox(new Rectangle(rand.Next(-16, 16), rand.Next(-16, 16), -1, -1));
-            //room.enemyList.Add(getEnemyObject(enemy));
+            newEnem.SetHurtbox(new Rectangle((int) enemyPosition.X, (int) enemyPosition.Y, -1, -1));
+            Game1.enemyNewList.Add(newEnem);
         }
 
         public void Damage()
@@ -122,9 +122,10 @@ namespace LOZ.Tools
         {
             if (attackCooldown <= 0)
             {
-                attackCooldown = 25;
-                if (rand.Next() % (4950 / 2) + 50 > attackTimer || true)
+                attackCooldown = 250;
+                if (rand.Next() % 4950 + 50 < attackTimer)
                 {
+                    attackTimer = 0;
                     Attack(gameTime);
                 }
                 else
