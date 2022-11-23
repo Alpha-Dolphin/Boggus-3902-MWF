@@ -61,11 +61,10 @@ namespace LOZ.Tools
 
         public void Attack(GameTime gameTime)
         {
-            int enem = 6;
-            while (enem == 6 || enem >= 9) enem = rand.Next(0, 9);
+            int enem = rand.Next(0, 5);
             enemyFactory.curr = enem;
             IEnemy newEnem = enemyFactory.NewEnemy();
-            newEnem.SetHurtbox(new Rectangle((int) enemyPosition.X, (int) enemyPosition.Y, -1, -1));
+            newEnem.SetHurtbox(new Rectangle((int) enemyPosition.X + rand.Next(-16,16), (int) enemyPosition.Y + rand.Next(-16, 16), -1, -1));
             Game1.enemyNewList.Add(newEnem);
         }
 

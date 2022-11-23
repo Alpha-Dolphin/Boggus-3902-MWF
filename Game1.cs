@@ -237,6 +237,8 @@ namespace LOZ
 
             enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
             enemyList.AddRange(enemyNewList);
+            //To prevent exponential enemy spawning, as funny as that is
+            enemyNewList = new();
 
             for (int i = 0; i < itemList.Count; i++)
             {
