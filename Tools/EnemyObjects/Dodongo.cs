@@ -26,6 +26,7 @@ namespace LOZ.Tools.PlayerObjects
         int enemyState;
 
         int enemyHealth;
+        double healthTimer;
 
         readonly EnemySprite dodongoSprite;
 
@@ -55,6 +56,7 @@ namespace LOZ.Tools.PlayerObjects
             enemyState = 1;
 
             enemyHealth = 10;
+            healthTimer = 0f;
 
             stateTime = 0;
 
@@ -71,13 +73,20 @@ namespace LOZ.Tools.PlayerObjects
 
         public void Damage()
         {
-            enemyHealth--;
-            if (enemyHealth <= 0) enemyState = -1;
-            soundEffectList[(int)SoundEffects.DodongoScream].Play();
+            if (healthTimer < 0f)
+            {
+                healthTimer = 1000f;
+                enemyHealth--;
+                if (enemyHealth <= 0)
+                {
+                    enemyState = -1;
+                }
+            }
         }
 
         public void Die()
         {
+            soundEffectList[(int)SoundEffects.DodongoScream].Play();
             Game1.enemyDieList.Add(this);
         }
         public Rectangle GetHurtbox()
@@ -109,6 +118,7 @@ namespace LOZ.Tools.PlayerObjects
                 AttackUpdate(gameTime);
                 if (attackTime < 0.0) MovementUpdate(gameTime);
             }
+            healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
 
         }
         private void StateHandler(GameTime gameTime)

@@ -22,6 +22,7 @@ namespace LOZ.Tools
         int enemyState;
 
         int enemyHealth;
+        double healthTimer;
 
         public readonly ISpriteEnemy aquamentusSprite;
 
@@ -53,9 +54,14 @@ namespace LOZ.Tools
             ball2 = new Ball(2);
             ball3 = new Ball(3);
 
+/*            Game1.enemyNewList.Add(ball1);
+            Game1.enemyNewList.Add(ball2);
+            Game1.enemyNewList.Add(ball3);*/
+
             enemyState = 0;
 
             enemyHealth = 20;
+            healthTimer = 0f;
 
             stateTime = 0;
 
@@ -75,9 +81,14 @@ namespace LOZ.Tools
 
         public void Damage()
         {
+            //I like the sound effect as is, I think it sounds cool
             soundEffectList[(int)SoundEffects.AquaScream].Play();
-            enemyHealth--;
-            if (enemyHealth <= 0) enemyState = -1;
+            if (healthTimer <= 0f)
+            {
+                enemyHealth--;
+                healthTimer = 1000f;
+                if (enemyHealth <= 0) enemyState = -1;
+            }
         }
 
         private void Die()
@@ -132,6 +143,8 @@ namespace LOZ.Tools
                 ball2.SetHurtbox(new Rectangle(-128, -128, -128, -128));
                 ball3.SetHurtbox(new Rectangle(-128, -128, -128, -128));
             }
+
+            healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
         private void StateHandler(GameTime gameTime)

@@ -27,7 +27,7 @@ namespace LOZ.Tools
         readonly Random rand = new();
 
         int enemyHealth;
-
+        double healthTimer;
         double moveCheck;
         double moveTime;
         double moveProb;
@@ -46,6 +46,7 @@ namespace LOZ.Tools
             stateTime = 0;
 
             enemyHealth = 4;
+            healthTimer = 0f;
 
             stalfosSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(1, 59, 16, 16) }, 1);
 
@@ -68,8 +69,15 @@ namespace LOZ.Tools
 
         public void Damage()
         {
-            enemyHealth--;
-            if (enemyHealth <= 0) enemyState = -1;
+            if (healthTimer < 0f)
+            {
+                healthTimer = 1000f;
+                enemyHealth--;
+                if (enemyHealth <= 0)
+                {
+                    enemyState = -1;
+                }
+            }
         }
 
         private void Die()
@@ -94,6 +102,7 @@ namespace LOZ.Tools
             if (enemyState == 0) MovementUpdate(gameTime);
             StateHandler(gameTime);
             stalfosSprite.Update(gameTime, enemyState);
+            healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
         private void StateHandler(GameTime gameTime)

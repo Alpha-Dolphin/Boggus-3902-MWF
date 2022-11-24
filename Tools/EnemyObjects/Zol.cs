@@ -21,6 +21,7 @@ namespace LOZ.Tools.EnemyObjects
         int enemyState;
 
         int enemyHealth;
+        double healthTimer;
 
         double stateTime;
 
@@ -48,6 +49,7 @@ namespace LOZ.Tools.EnemyObjects
             stateTime = 0.0;
 
             enemyHealth = 4;
+            healthTimer = 0f;
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;
@@ -68,8 +70,15 @@ namespace LOZ.Tools.EnemyObjects
 
         public void Damage()
         {
-            enemyHealth--;
-            if (enemyHealth <= 0) enemyState = -1;
+            if (healthTimer < 0f)
+            {
+                healthTimer = 1000f;
+                enemyHealth--;
+                if (enemyHealth <= 0)
+                {
+                    enemyState = -1;
+                }
+            }
         }
 
         private void Die()
@@ -95,6 +104,7 @@ namespace LOZ.Tools.EnemyObjects
             StateHandler(gameTime);
             if (enemyState == 0) MovementUpdate(gameTime);
             ZolSprite.Update(gameTime, enemyState);
+            healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
         private void StateHandler(GameTime gameTime)
         {

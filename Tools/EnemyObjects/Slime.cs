@@ -26,6 +26,7 @@ namespace LOZ.Tools
         int enemyState;
 
         int enemyHealth;
+        double healthTimer;
 
         double stateTime;
 
@@ -47,6 +48,7 @@ namespace LOZ.Tools
             enemyState = 1;
 
             enemyHealth = 2;
+            healthTimer = 0f;
 
             stateTime = 0.0;
 
@@ -67,8 +69,15 @@ namespace LOZ.Tools
 
         public void Damage()
         {
-            enemyHealth--;
-            if (enemyHealth <= 0) enemyState = -1;
+            if (healthTimer < 0f)
+            {
+                healthTimer = 1000f;
+                enemyHealth--;
+                if (enemyHealth <= 0)
+                {
+                    enemyState = -1;
+                }
+            }
         }
 
         private void Die()
@@ -93,6 +102,7 @@ namespace LOZ.Tools
             StateHandler(gameTime);
             if (enemyState == 0) MovementUpdate(gameTime);
             slimeSprite.Update(gameTime, enemyState);
+            healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
         private void StateHandler(GameTime gameTime)
         {

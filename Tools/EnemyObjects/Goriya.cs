@@ -24,6 +24,7 @@ namespace LOZ.Tools
         int enemyState;
 
         int enemyHealth;
+        double healthTimer;
 
         double stateTime;
 
@@ -46,11 +47,14 @@ namespace LOZ.Tools
             enemyState = 1;
 
             enemyHealth = 4;
+            healthTimer = 0f;
 
             stateTime = 0;
 
             boomerang = new EnemyObjects.Boomerang();
 
+/*            Game1.enemyNewList.Add(boomerang);
+*/
             goriyaSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(222, 11, 16, 16), new Rectangle(239, 11, 16, 16), new Rectangle(256, 11, 16, 16), new Rectangle(273, 11, 16, 16) }, 3);
 
             moveCheck = -1;
@@ -69,8 +73,12 @@ namespace LOZ.Tools
 
         public void Damage()
         {
-            enemyHealth--;
-            if (enemyHealth <= 0) enemyState = -1;
+            if (healthTimer < 0f)
+            {
+                healthTimer = 1000f;
+                enemyHealth--;
+                if (enemyHealth <= 0) enemyState = -1;
+            }
         }
 
         private void Die()
@@ -107,6 +115,7 @@ namespace LOZ.Tools
             {
                 boomerang.Update(gameTime);
             }
+            healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
         private void StateHandler(GameTime gameTime)
         {
