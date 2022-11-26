@@ -21,17 +21,11 @@ namespace LOZ.Tools
         readonly int mode;
         public EnemySprite(Texture2D sheet, Rectangle[] frames)
         {
-            //Bug fix line
-            currSheet = Game1.REGULAR_ENEMIES_SPRITESHEET;
-
             enemyFrames = frames;
             enemySheet = sheet;
         }
         public EnemySprite(Texture2D sheet, Rectangle[] frames, int special)
         {
-            //Bug fix line
-            currSheet = Game1.REGULAR_ENEMIES_SPRITESHEET;
-
             enemyFrames = frames;
             enemySheet = sheet;
 

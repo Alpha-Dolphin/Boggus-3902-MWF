@@ -111,10 +111,8 @@ namespace LOZ.Tools
                 MovementUpdate(gameTime);
                 AttackUpdate(gameTime);
             }
-            else if (enemyState == 0)
-            {
-                boomerang.Update(gameTime);
-            }
+            //Boomerang bug fix with uninitialized spritesheet texture if draw is called before all update calls
+            boomerang.Update(gameTime);
             healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
         private void StateHandler(GameTime gameTime)

@@ -12,7 +12,6 @@ namespace LOZ.Tools
 {
     internal class Ball : IEnemy, ICollidable
     {
-        Vector2 enemyDirection;
         Vector2 enemyPosition;
 
         double ballLife;
