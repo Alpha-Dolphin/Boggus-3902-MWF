@@ -1,16 +1,8 @@
-﻿using LOZ.Tools;
-using Microsoft.Xna.Framework.Content;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
-using LOZ.Tools.ItemObjects;
-using Microsoft.Xna.Framework.Graphics;
 using LOZ.Tools.EnemyObjects;
 using LOZ.Tools.PlayerObjects;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools
 {

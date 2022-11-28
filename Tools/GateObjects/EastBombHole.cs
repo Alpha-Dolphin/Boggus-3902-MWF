@@ -1,8 +1,8 @@
-﻿using LOZ.DeprecatedFiles;
-using LOZ.Tools.Sprites;
+﻿using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools.GateObjects
 {
