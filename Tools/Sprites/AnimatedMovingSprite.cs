@@ -1,15 +1,8 @@
 ﻿using LOZ.Tools.PlayerObjects;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools.Sprites
 {

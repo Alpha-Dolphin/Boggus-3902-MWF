@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using LOZ.Tools.GateObjects;
 using LOZ.Tools.HUDObjects;
 using LOZ.Tools.LevelManager;
 using LOZ.Tools.PlayerObjects;
 using LOZ.Tools.Sprites;
-using Microsoft.Xna.Framework;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools.RoomTransitionHandler
 {

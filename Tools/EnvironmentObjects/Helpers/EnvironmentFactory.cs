@@ -2,7 +2,7 @@
 
 /*TODO: Implement case logic for all environment blocks*/
 
-using LOZ.Tools.EnvironmentObjects;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools.EnvironmentObjects.Helpers
 {

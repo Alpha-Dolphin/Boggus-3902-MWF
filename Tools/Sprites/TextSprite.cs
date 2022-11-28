@@ -4,6 +4,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using LOZ.Tools.Interfaces;
 
 public class TextSprite : ISprite
 {

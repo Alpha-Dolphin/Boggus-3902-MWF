@@ -4,16 +4,10 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Reflection;
-using System.IO;
-using System.Threading;
 using LOZ.Tools.EnvironmentObjects.Helpers;
-using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.GateObjects.Helpers;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools.LevelManager
 {

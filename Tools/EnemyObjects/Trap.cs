@@ -1,8 +1,7 @@
 using LOZ.Tools.PlayerObjects;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using System;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools
 {

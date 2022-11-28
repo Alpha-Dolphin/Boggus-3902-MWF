@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using LOZ.Tools.Interfaces;
+
 namespace LOZ.Tools.GateObjects
 {
     internal class InvisibleGate : IGate
