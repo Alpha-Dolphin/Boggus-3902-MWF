@@ -35,17 +35,11 @@ public interface IHurtbox
     List<Rectangle> GetHitboxes();
 }
 
-public interface ICollision
-{
-    bool Intersects(Rectangle a, Rectangle b);
 
-    void Collide(Object a, Object b);
-}
-
-public interface IEnemy : ICharacter
+public interface IEnemy : ICollidable
 {
     void Attack(GameTime gameTime);
-    void Die();
+    void Damage();
     void Move(GameTime gameTime);
     void Draw(SpriteBatch _spriteBatch);
     void Update(GameTime gameTime);
@@ -61,9 +55,6 @@ public interface IEnemy : ICharacter
         return explostionFrames[(int)(time / (Constants.enemyEntryExitTime / 4)) % 4];
     }
 }
-
-//Can own projectiles
-public interface ICharacter : ICollidable { }
 
 
 public interface IGate:ICollidable

@@ -22,8 +22,9 @@ namespace LOZ
     public class Game1 : Game
     {
         public int gameState;
-        private List<IEnemy> enemyList;
+        public List<IEnemy> enemyList;
         public static List<IEnemy> enemyDieList = new();
+        public static List<IEnemy> enemyNewList = new();
         private List<IItem> itemList;
         private List<IEnvironment> blockList;
         private List<IGate> gateList;
@@ -38,7 +39,7 @@ namespace LOZ
         internal static GameStateTransitionHandler gameStateTransitionHandler;
 
         private List<Room> rooms;
-        public static int currentRoom = 7;
+        public static int currentRoom = 17;
         private TextSprite currentRoomIndicator = new();
 
         private HUD hud;
@@ -54,9 +55,10 @@ namespace LOZ
         public static Texture2D ITEM_SPRITESHEET;
         public static Texture2D HUD_SPRITESHEET;
         public static Texture2D FONT_SPRITESHEET;
+        public static Texture2D SPAWNER;
 
         private Song backgroundMusic;
-        private MusicHandler musicBox;
+        public static MusicHandler musicBox = new MusicHandler();
 
         public static List<SoundEffect> soundEffectList;
 
@@ -113,8 +115,6 @@ namespace LOZ
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D ItemSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\Items");
             Texture2D NPCSpriteSheet = Content.Load<Texture2D>(@"SpriteSheets\NPCs");
-
-            musicBox = new MusicHandler();
             backgroundMusic = Content.Load<Song>(@"Music\DungeonTheme");
             musicBox.SelectSong(backgroundMusic);
             musicBox.Play();
@@ -133,6 +133,7 @@ namespace LOZ
             EXPLOSION = Content.Load<Texture2D>(Constants.ExplosionSpriteSheetLocation);
             HUD_SPRITESHEET = Content.Load<Texture2D>(Constants.HUDSpriteSheetLocation);
             FONT_SPRITESHEET = Content.Load<Texture2D>(Constants.FontSpriteSheetLocation);
+            SPAWNER = Content.Load<Texture2D>(Constants.SpawnerLocation);
         }
 
         protected override void Update(GameTime gameTime)
@@ -228,11 +229,18 @@ namespace LOZ
                         Collision.CollisionChecker(gate, ene);
                     }
                 }
+                foreach (IEnemy ene2 in enemyList)
+                {
+                    if (ene != ene2 && Collision.Intersects(ene.GetHurtbox(), ene2.GetHurtbox())) Collision.CollisionChecker(ene, ene2);
+                }
             }
 
             enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
+            enemyList.AddRange(enemyNewList);
+            //To prevent exponential enemy spawning, as funny as that is
+            enemyNewList = new();
 
-            for(int i = 0; i < itemList.Count; i++)
+            for (int i = 0; i < itemList.Count; i++)
             {
                 if (Collision.Intersects(link.GetHurtbox(), itemList[i].GetHurtbox()))
                 {
@@ -285,6 +293,7 @@ namespace LOZ
 
             /*Initialize sprite drawing*/
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+
 
             /*Draw everything*/
             if (gameState != 0)

@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using LOZ.Tools;
 using LOZ.Tools.Sprites;
-using LOZ.Tools.EnemyObjects.LOZ.Tools;
 using LOZ.Tools.PlayerObjects;
 using System.Collections;
 using Microsoft.Xna.Framework.Audio;
@@ -16,13 +15,15 @@ namespace LOZ.Tools
 {
     internal class Wallmaster : IEnemy, ICollidable
     {
-        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection; Vector2 enemyPosition;
 
-        readonly WallMasterSprite wallMasterSprite;
-
+        readonly ISpriteEnemy wallMasterSprite;
+        private Vector2 prevEnemyPos;
         Vector2 prevLinkPos;
-
+        
+        int enemyHealth;
+        
         int enemyState;
 
         double stateTime;
@@ -37,10 +38,12 @@ namespace LOZ.Tools
             enemyDirection.X = 1;
             enemyDirection.Y = 0;
 
-            wallMasterSprite = new WallMasterSprite();
+            wallMasterSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(393, 11, 16, 16), new Rectangle(410, 11, 16, 16) });
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;
+
+            enemyHealth = 1;
 
             enemyState = 1;
 
@@ -56,12 +59,13 @@ namespace LOZ.Tools
             //Nothing
         }
 
-        public void Die()
+        public void Damage()
         {
-            enemyState = -1;
+            enemyHealth--;
+            if (enemyHealth <= 0) enemyState = -1;
         }
 
-        private void DeleteEnemy()
+        private void Die()
         {
             Game1.enemyDieList.Add(this);
             soundEffectList[(int)SoundEffects.EnemyDie].Play();
@@ -81,8 +85,8 @@ namespace LOZ.Tools
         public void Update(GameTime gameTime)
         {
             StateHandler(gameTime);
-            if(enemyState == 0) MovementUpdate(gameTime);
             wallMasterSprite.Update(gameTime, enemyState);
+            if (enemyState == 0) MovementUpdate(gameTime);
         }
 
         private void StateHandler(GameTime gameTime)
@@ -101,29 +105,38 @@ namespace LOZ.Tools
                 stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (stateTime > Constants.enemyEntryExitTime)
                 {
-                    DeleteEnemy();
+                    Die();
                 }
             }
         }
         private void MovementUpdate(GameTime gameTime)
         {
-            if ((enemyDirection.X != 0 && prevLinkPos.Y * enemyDirection.X < Link.position.Y) || (enemyDirection.Y != 0 && prevLinkPos.X * enemyDirection.Y < Link.position.X))
+            //In the future, implement some code if there is an object between Link and the wallmasters
+/*            if (prevEnemyPos != enemyPosition && prevLinkPos == Link.position)
+            {*/
+                if ((enemyDirection.X != 0 && prevLinkPos.Y * enemyDirection.X < Link.position.Y) || (enemyDirection.Y != 0 && prevLinkPos.X * enemyDirection.Y < Link.position.X))
+                {
+                    enemyDirection = new(0, 0);
+                    Rectangle linkRect = new((int)Link.position.X + 4, (int)Link.position.Y + 4, 8, 8);
+                    Rectangle enemyRect = GetHurtbox();
+                    Rectangle dist = Rectangle.Union(enemyRect, linkRect);
+                    if (dist.Bottom - dist.Top < dist.Right - dist.Left)
+                    {
+                        if (enemyRect.Left > linkRect.Left) enemyDirection.X = -1;
+                        else enemyDirection.X = 1;
+                    }
+                    else
+                    {
+                        if (enemyRect.Top > linkRect.Top) enemyDirection.Y = -1;
+                        else enemyDirection.Y = 1;
+                    }
+                }
+/*            }
+            else
             {
-                enemyDirection = new(0, 0);
-                Rectangle linkRect = new((int)Link.position.X, (int)Link.position.Y, 16, 16);
-                Rectangle enemyRect = GetHurtbox();
-                Rectangle dist = Rectangle.Union(enemyRect, linkRect);
-                if (dist.Bottom - dist.Top < dist.Right - dist.Left)
-                {
-                    if (enemyRect.Left > linkRect.Left) enemyDirection.X = -1;
-                    else enemyDirection.X = 1;
-                }
-                else
-                {
-                    if (enemyRect.Top > linkRect.Top) enemyDirection.Y = -1;
-                    else enemyDirection.Y = 1;
-                }
+                (enemyDirection.X, enemyDirection.Y) = (enemyDirection.Y, enemyDirection.X);
             }
+            prevEnemyPos = enemyPosition;*/
             prevLinkPos = Link.position;
         }
     }

@@ -16,9 +16,8 @@ namespace LOZ.Tools.PlayerObjects
 {
     internal class Dodongo : IEnemy, ICollidable
     {
-        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection;
-        EnemyConstants.Direction direction;
         bool directionChange = false;
         Vector2 enemyPosition;
 
@@ -26,7 +25,10 @@ namespace LOZ.Tools.PlayerObjects
 
         int enemyState;
 
-        AnimatedMovingSprite dodongoSprite;
+        int enemyHealth;
+        double healthTimer;
+
+        readonly EnemySprite dodongoSprite;
 
         readonly Random rand;
 
@@ -53,71 +55,58 @@ namespace LOZ.Tools.PlayerObjects
 
             enemyState = 1;
 
+            enemyHealth = 10;
+            healthTimer = 0f;
+
             stateTime = 0;
 
             attackTime = -1;
 
-            dodongoSprite = new AnimatedMovingSprite(Game1.BOSSES_SPRITESHEET, (int) enemyPosition.X, (int) enemyPosition.Y, 
-                new List<Rectangle>() { new Rectangle(1, 58, 16, 16), new Rectangle(35, 58, 16, 16) });
-
+            dodongoSprite = new EnemySprite(Game1.BOSSES_SPRITESHEET, new[] { new Rectangle(69, 58, 32, 16), new Rectangle(69, 58, 32, 16), new Rectangle(102, 58, 32, 16), new Rectangle(69, 58, 32, 16) });
             moveCheck = -1;
         }
 
         public void Attack(GameTime gameTime)
         {
+            //Nothing
+        }
 
+        public void Damage()
+        {
+            if (healthTimer < 0f)
+            {
+                healthTimer = 1000f;
+                enemyHealth--;
+                if (enemyHealth <= 0)
+                {
+                    enemyState = -1;
+                }
+            }
         }
 
         public void Die()
         {
-            enemyState = -1;
             soundEffectList[(int)SoundEffects.DodongoScream].Play();
-        }
-
-        public void DeleteEnemy()
-        {
             Game1.enemyDieList.Add(this);
         }
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = new Vector2(dodongoSprite.GetDestinationRectangle().Width, dodongoSprite.GetDestinationRectangle().Height);
+            Vector2 wH = dodongoSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Move(GameTime gameTime)
         {
-            EnemyConstants.Direction temp;
-
             if (attackTime < 0.0)
             {
                 enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
                 enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
-
-                Vector2 delta = new Vector2((float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25), (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25));
-                if (Math.Abs(delta.X) > 0)
-                {
-                    temp = delta.X > 0 ? EnemyConstants.Direction.Right : EnemyConstants.Direction.Left;
-                }
-                else if (Math.Abs(delta.Y) > 0)
-                {
-
-                    temp = delta.Y > 0 ? EnemyConstants.Direction.Down : EnemyConstants.Direction.Up;
-                }
-                else
-                {
-                    temp = EnemyConstants.Direction.None;
-                }
-
-                directionChange = !temp.Equals(direction);
-                direction = temp;
-
-                enemyPosition += delta;
             }
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            dodongoSprite.Draw(_spriteBatch);
+            dodongoSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
@@ -125,32 +114,11 @@ namespace LOZ.Tools.PlayerObjects
             StateHandler(gameTime);
             if (enemyState == 0)
             {
-                dodongoSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
+                dodongoSprite.Update(gameTime, enemyState, enemyDirection);
                 AttackUpdate(gameTime);
                 if (attackTime < 0.0) MovementUpdate(gameTime);
             }
-
-            if (directionChange)
-            {
-                switch (direction)
-                {
-                    case EnemyConstants.Direction.Up:
-                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
-                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_UP); break;
-                    case EnemyConstants.Direction.Left:
-                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
-                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_LEFT); break;
-                    case EnemyConstants.Direction.Right:
-                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
-                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_RIGHT); break;
-                    case EnemyConstants.Direction.Down:
-                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
-                        (int)enemyPosition.X, (int)enemyPosition.Y, EnemyConstants.GORIYA_DOWN); break;
-                    case EnemyConstants.Direction.None:
-                        dodongoSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET,
-                        (int)enemyPosition.X, (int)enemyPosition.Y, new List<Rectangle>() { dodongoSprite.GetSourceRectangle() }); break;
-                }
-            }
+            healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
 
         }
         private void StateHandler(GameTime gameTime)
@@ -169,7 +137,7 @@ namespace LOZ.Tools.PlayerObjects
                 stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (stateTime > Constants.enemyEntryExitTime)
                 {
-                    DeleteEnemy();
+                    Die();
                 }
             }
         }

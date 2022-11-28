@@ -31,7 +31,8 @@ public enum Enemy
     Dodongo,
     Wallmaster,
     Trap,
-    Aquamentus
+    Aquamentus,
+    Spawner
 }
 
 public enum NPC
@@ -134,6 +135,7 @@ public class Constants
     public const string NPCSpriteSheetLocation = "./SpriteSheets/NPCs";
     public const string ItemSpriteSheetLocation = "./SpriteSheets/Items";
     public const string HUDSpriteSheetLocation = "./SpriteSheets/HUD";
+    public const string SpawnerLocation = "./SpriteSheets/Spawner_Fragment";
     public const string AquaScreamLocation = "./SoundEffects/Enemies/AquaScream";
     public const string BossHitLocation = "./SoundEffects/Enemies/BossHit";
     public const string DodongoScreamLocation = "./SoundEffects/Enemies/DodongoScream";

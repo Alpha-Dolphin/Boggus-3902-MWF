@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 
-namespace LOZ.Tools.EnemyObjects
+namespace LOZ.Tools
 {
     internal class Rope : IEnemy, ICollidable
     {
@@ -24,6 +24,8 @@ namespace LOZ.Tools.EnemyObjects
         double stateTime;
         int enemyState;
 
+        int enemyHealth;
+
         const double moveDelay = 1000;
         public void SetHurtbox(Rectangle rect)
         {
@@ -35,7 +37,7 @@ namespace LOZ.Tools.EnemyObjects
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
 
-            RopeSprite = new RopeSprite();
+            RopeSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(126, 59, 16, 16), new Rectangle(143, 59, 16, 16) });
 
             rand = new();
 
@@ -43,6 +45,8 @@ namespace LOZ.Tools.EnemyObjects
             enemyPosition.X = X;
 
             stateTime = 0.0;
+
+            enemyHealth = 0;
 
             enemyState = 1;
 
@@ -54,12 +58,13 @@ namespace LOZ.Tools.EnemyObjects
             //Nothing
         }
 
-        public void Die()
+        public void Damage()
         {
-            enemyState = -1;
+            enemyHealth--;
+            if (enemyHealth <= 0) enemyState = -1;
         }
 
-        private void DeleteEnemy()
+        private void Die()
         {
             Game1.enemyDieList.Add(this);
         }
@@ -103,7 +108,7 @@ namespace LOZ.Tools.EnemyObjects
                 stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (stateTime > Constants.enemyEntryExitTime)
                 {
-                    DeleteEnemy();
+                    Die();
                 }
             }
         }

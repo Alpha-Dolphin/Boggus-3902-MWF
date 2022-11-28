@@ -18,7 +18,7 @@ namespace LOZ.Tools
 {
     internal class Stalfos : IEnemy, ICollidable
     {
-        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection; Vector2 enemyPosition;
         readonly ISpriteEnemy stalfosSprite;
         int enemyState;
@@ -26,6 +26,8 @@ namespace LOZ.Tools
 
         readonly Random rand = new();
 
+        int enemyHealth;
+        double healthTimer;
         double moveCheck;
         double moveTime;
         double moveProb;
@@ -43,7 +45,10 @@ namespace LOZ.Tools
             enemyState = 1;
             stateTime = 0;
 
-            stalfosSprite = new StalfosSprite();
+            enemyHealth = 4;
+            healthTimer = 0f;
+
+            stalfosSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(1, 59, 16, 16) }, 1);
 
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
@@ -62,12 +67,20 @@ namespace LOZ.Tools
             //Nothing
         }
 
-        public void Die()
+        public void Damage()
         {
-            enemyState = -1;
+            if (healthTimer < 0f)
+            {
+                healthTimer = 1000f;
+                enemyHealth--;
+                if (enemyHealth <= 0)
+                {
+                    enemyState = -1;
+                }
+            }
         }
 
-        private void DeleteEnemy()
+        private void Die()
         {
             Game1.enemyDieList.Add(this);
             soundEffectList[(int)SoundEffects.EnemyDie].Play();
@@ -89,6 +102,7 @@ namespace LOZ.Tools
             if (enemyState == 0) MovementUpdate(gameTime);
             StateHandler(gameTime);
             stalfosSprite.Update(gameTime, enemyState);
+            healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
         private void StateHandler(GameTime gameTime)
@@ -105,7 +119,7 @@ namespace LOZ.Tools
                 stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (stateTime > Constants.enemyEntryExitTime)
                 {
-                    DeleteEnemy();
+                    Die();
                 }
             }
         }

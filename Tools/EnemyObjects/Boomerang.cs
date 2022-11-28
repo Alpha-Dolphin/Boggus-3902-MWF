@@ -14,11 +14,11 @@ namespace LOZ.Tools.EnemyObjects
         Vector2 enemyDirection;
         Vector2 enemyPosition;
 
-        //readonly BoomerangSprite boomerangSprite;
-        AnimatedMovingSprite boomerangSprite;
+        readonly EnemySprite boomerangSprite;
 
         const int attackLength = 3000;
         double attackTime;
+
         public void SetHurtbox(Rectangle rect)
         {
             enemyPosition.Y = rect.Y;
@@ -29,12 +29,11 @@ namespace LOZ.Tools.EnemyObjects
         {
             attackTime = -1;
 
-            boomerangSprite = new AnimatedMovingSprite(Game1.REGULAR_ENEMIES_SPRITESHEET, (int)enemyPosition.X, (int)enemyPosition.Y,
-                new List<Rectangle> { new Rectangle(290, 11, 8, 16), new Rectangle(299, 11, 8, 16), new Rectangle(308, 11, 8, 16) });
+            boomerangSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new Rectangle[] { new Rectangle(299, 11, 8, 16) }, 2);
         }
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = new Vector2(boomerangSprite.GetDestinationRectangle().Width, boomerangSprite.GetDestinationRectangle().Height);
+            Vector2 wH = boomerangSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
@@ -58,9 +57,9 @@ namespace LOZ.Tools.EnemyObjects
             attackTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
-        public void Die()
+        public void Damage()
         {
-            Game1.enemyDieList.Add(this);
+            //Cannot be killed
         }
 
         public void Attack(GameTime gameTime)
@@ -70,13 +69,13 @@ namespace LOZ.Tools.EnemyObjects
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            boomerangSprite.Draw(_spriteBatch);
+            boomerangSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
         {
             Move(gameTime);
-            boomerangSprite.Update((int)enemyPosition.X, (int)enemyPosition.Y);
+            boomerangSprite.Update(gameTime, 0);
         }
 
         public double GetAttackTime()

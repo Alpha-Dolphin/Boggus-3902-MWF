@@ -11,7 +11,7 @@ namespace LOZ.Tools.EnemyObjects
 {
     internal class Zol : IEnemy, ICollidable
     {
-        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection;
         Vector2 enemyPosition;
         readonly ISpriteEnemy ZolSprite;
@@ -19,6 +19,9 @@ namespace LOZ.Tools.EnemyObjects
         readonly Random rand;
 
         int enemyState;
+
+        int enemyHealth;
+        double healthTimer;
 
         double stateTime;
 
@@ -37,13 +40,16 @@ namespace LOZ.Tools.EnemyObjects
             enemyDirection.X = 0;
             enemyDirection.Y = 0;
 
-            ZolSprite = new ZolSprite();
+            ZolSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(77, 11, 16, 16), new Rectangle(94, 11, 16, 16) });
 
             rand = new();
 
             enemyState = 1;
 
             stateTime = 0.0;
+
+            enemyHealth = 4;
+            healthTimer = 0f;
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;
@@ -62,12 +68,20 @@ namespace LOZ.Tools.EnemyObjects
             //Nothing
         }
 
-        public void Die()
+        public void Damage()
         {
-            enemyState = -1;
+            if (healthTimer < 0f)
+            {
+                healthTimer = 1000f;
+                enemyHealth--;
+                if (enemyHealth <= 0)
+                {
+                    enemyState = -1;
+                }
+            }
         }
 
-        private void DeleteEnemy()
+        private void Die()
         {
             Game1.enemyDieList.Add(this);
             soundEffectList[(int)SoundEffects.EnemyDie].Play();
@@ -90,6 +104,7 @@ namespace LOZ.Tools.EnemyObjects
             StateHandler(gameTime);
             if (enemyState == 0) MovementUpdate(gameTime);
             ZolSprite.Update(gameTime, enemyState);
+            healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
         private void StateHandler(GameTime gameTime)
         {
@@ -107,7 +122,7 @@ namespace LOZ.Tools.EnemyObjects
                 stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (stateTime > Constants.enemyEntryExitTime)
                 {
-                    DeleteEnemy();
+                    Die();
                 }
             }
         }

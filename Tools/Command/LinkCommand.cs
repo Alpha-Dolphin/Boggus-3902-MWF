@@ -19,7 +19,7 @@ namespace LOZ.Tools.Command
         bool attacked = false;
         bool moved = false;
         bool bombLastFrame = false;
-        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
 
         public LinkCommand(Link link)
         {

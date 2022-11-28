@@ -13,15 +13,18 @@ namespace LOZ.Tools
 {
     internal class Goriya : IEnemy
     {
-        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         Vector2 enemyDirection;
         Vector2 enemyPosition;
 
-        readonly GoriyaSprite goriyaSprite;
+        readonly EnemySprite goriyaSprite;
 
         readonly EnemyObjects.Boomerang boomerang;
 
         int enemyState;
+
+        int enemyHealth;
+        double healthTimer;
 
         double stateTime;
 
@@ -43,11 +46,16 @@ namespace LOZ.Tools
 
             enemyState = 1;
 
+            enemyHealth = 4;
+            healthTimer = 0f;
+
             stateTime = 0;
 
             boomerang = new EnemyObjects.Boomerang();
 
-            goriyaSprite = new GoriyaSprite();
+/*            Game1.enemyNewList.Add(boomerang);
+*/
+            goriyaSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(222, 11, 16, 16), new Rectangle(239, 11, 16, 16), new Rectangle(256, 11, 16, 16), new Rectangle(273, 11, 16, 16) }, 3);
 
             moveCheck = -1;
         }
@@ -63,16 +71,20 @@ namespace LOZ.Tools
             boomerang.Activate(enemyDirection, enemyPosition);
         }
 
-        public void Die()
+        public void Damage()
         {
-            enemyState = -1;
+            if (healthTimer < 0f)
+            {
+                healthTimer = 1000f;
+                enemyHealth--;
+                if (enemyHealth <= 0) enemyState = -1;
+            }
         }
 
-        private void DeleteEnemy()
+        private void Die()
         {
             Game1.enemyDieList.Add(this);
             soundEffectList[(int)SoundEffects.EnemyDie].Play();
-
         }
 
         public void Move(GameTime gameTime)
@@ -99,10 +111,9 @@ namespace LOZ.Tools
                 MovementUpdate(gameTime);
                 AttackUpdate(gameTime);
             }
-            else if (enemyState == 0)
-            {
-                boomerang.Update(gameTime);
-            }
+            //Boomerang bug fix with uninitialized spritesheet texture if draw is called before all update calls
+            boomerang.Update(gameTime);
+            healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
         private void StateHandler(GameTime gameTime)
         {
@@ -120,7 +131,7 @@ namespace LOZ.Tools
                 stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (stateTime > Constants.enemyEntryExitTime)
                 {
-                    DeleteEnemy();
+                    Die();
                 }
             }
         }

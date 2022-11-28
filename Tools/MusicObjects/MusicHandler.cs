@@ -9,7 +9,7 @@ using MediaPlayer = Microsoft.Xna.Framework.Media.MediaPlayer;
 
 namespace LOZ.Tools.MusicObjects
 {
-    internal class MusicHandler
+    public class MusicHandler
     {
         private Song currentSong;
 
@@ -20,6 +20,11 @@ namespace LOZ.Tools.MusicObjects
         public void Play()
         {
             MediaPlayer.Play(this.currentSong);
+        }
+
+        public void Stop()
+        {
+            MediaPlayer.Stop();
         }
 
         public void ToggleMute()

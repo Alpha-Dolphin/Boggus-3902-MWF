@@ -39,7 +39,7 @@ namespace LOZ.Tools.PlayerObjects
         private PlayerConstants.Link_States state;
         private PlayerConstants.Direction direction;
 
-        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
 
         public Link()
         {
@@ -215,7 +215,8 @@ namespace LOZ.Tools.PlayerObjects
                 {
                     this.state = PlayerConstants.Link_States.Dead;
                     soundEffectList[(int)SoundEffects.LinkDie].Play();
-                    Game1.ResetGame();
+                    Game1.musicBox.Stop();
+                    //Game1.ResetGame();
                 }
             }
         }

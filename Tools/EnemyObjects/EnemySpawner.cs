@@ -6,23 +6,25 @@ using LOZ.Tools.EnemyObjects;
 using LOZ.Tools.Sprites;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
+using LOZ.Tools.LevelManager;
 
 namespace LOZ.Tools
 {
-    internal class Keese : IEnemy, ICollidable
+    internal class EnemySpawner : IEnemy, ICollidable
     {
         readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
         readonly Random rand = new();
 
         Vector2 enemyDirection; Vector2 enemyPosition;
-        readonly ISpriteEnemy keeseSprite;
-
-        double moveCounter;
-        double timeToMove;
-        double moveCheck;
+        readonly ISpriteEnemy spawnerSprite;
 
         int enemyState;
         double stateTime;
+
+        double attackTimer;
+        double attackCooldown;
+
+        readonly EnemyFactory enemyFactory;
 
         int enemyHealth;
         public void SetHurtbox(Rectangle rect)
@@ -30,35 +32,40 @@ namespace LOZ.Tools
             enemyPosition.Y = rect.Y;
             enemyPosition.X = rect.X;
         }
-        public Keese(int X, int Y)
+        public EnemySpawner(int X, int Y)
         {
-            enemyDirection.X = rand.Next() % 400 / 100 - 2;
-            enemyDirection.Y = rand.Next() % 400 / 100 - 2;
+            enemyDirection.X = 0;
+            enemyDirection.Y = 0;
 
             enemyPosition.Y = Y;
             enemyPosition.X = X;
 
-            keeseSprite = new EnemySprite(Game1.REGULAR_ENEMIES_SPRITESHEET, new[] { new Rectangle(183, 11, 16, 16), new Rectangle(200, 11, 16, 16) });
+            spawnerSprite = new EnemySprite(Game1.SPAWNER, new[] { new Rectangle(0, 0, 16, 16)});
+
+            enemyFactory = new();
 
             enemyHealth = 1;
+            
+            attackTimer = 0;
+            attackCooldown = 0;
 
             stateTime = 0.0;
             enemyState = 1;
-
-            moveCounter = 0.0;
-            timeToMove = 0.0;
-            moveCheck = 0.0;
         }
 
         public Rectangle GetHurtbox()
         {
-            Vector2 wH = keeseSprite.GetWidthHeight();
+            Vector2 wH = spawnerSprite.GetWidthHeight();
             return new Rectangle((int)enemyPosition.X, (int)enemyPosition.Y, (int)wH.X, (int)wH.Y);
         }
 
         public void Attack(GameTime gameTime)
         {
-            //Nothing
+            int enem = rand.Next(0, 5);
+            enemyFactory.curr = enem;
+            IEnemy newEnem = enemyFactory.NewEnemy();
+            newEnem.SetHurtbox(new Rectangle((int) enemyPosition.X + rand.Next(-16,16), (int) enemyPosition.Y + rand.Next(-16, 16), -1, -1));
+            Game1.enemyNewList.Add(newEnem);
         }
 
         public void Damage()
@@ -75,28 +82,19 @@ namespace LOZ.Tools
 
         public void Move(GameTime gameTime)
         {
-            if (0 < moveCounter)
-            {
-                enemyPosition.X += (float)(enemyDirection.X * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
-                enemyPosition.Y += (float)(enemyDirection.Y * gameTime.ElapsedGameTime.TotalMilliseconds / 25);
-            }
-            else
-            {
-                enemyDirection.X = rand.Next() % 400 / 100 - 2;
-                enemyDirection.Y = rand.Next() % 400 / 100 - 2;
-            }
+            //No movement
         }
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            keeseSprite.Draw(_spriteBatch, enemyPosition);
+            spawnerSprite.Draw(_spriteBatch, enemyPosition);
         }
 
         public void Update(GameTime gameTime)
         {
             StateHandler(gameTime);
-            if (enemyState == 0) MovementUpdate(gameTime);
-            keeseSprite.Update(gameTime, enemyState);
+            if (enemyState == 0) AttackUpdate(gameTime);
+            spawnerSprite.Update(gameTime, enemyState);
         }
 
         private void StateHandler(GameTime gameTime)
@@ -119,26 +117,25 @@ namespace LOZ.Tools
                 }
             }
         }
-        private void MovementUpdate(GameTime gameTime)
+        private void AttackUpdate(GameTime gameTime)
         {
-            if (moveCheck <= 0)
+            if (attackCooldown <= 0)
             {
-                if (moveCounter < 0 && rand.Next() % 4950 + 50 < timeToMove)
+                attackCooldown = 250;
+                if (rand.Next() % 4950 + 50 < attackTimer)
                 {
-                    moveCounter = rand.Next() % 400 + 100;
-                    timeToMove = 0;
+                    attackTimer = 0;
+                    Attack(gameTime);
                 }
-                else if (moveCounter < 0)
+                else
                 {
-                    moveCheck = 5;
-                    timeToMove += moveCheck;
+                    attackTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
                 }
             }
             else
             {
-                moveCheck -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                attackCooldown -= gameTime.ElapsedGameTime.TotalMilliseconds;
             }
-            moveCounter -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
     }
 }

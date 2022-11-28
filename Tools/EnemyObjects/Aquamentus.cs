@@ -14,15 +14,17 @@ namespace LOZ.Tools
 {
     internal class Aquamentus : IEnemy, ICollidable
     {
-        private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
 
         Vector2 enemyDirection;
         Vector2 enemyPosition;
 
         int enemyState;
 
+        int enemyHealth;
+        double healthTimer;
+
         public readonly ISpriteEnemy aquamentusSprite;
-        //AnimatedMovingSprite aquamentusSprite;
 
         readonly Random rand;
 
@@ -52,11 +54,18 @@ namespace LOZ.Tools
             ball2 = new Ball(2);
             ball3 = new Ball(3);
 
+/*            Game1.enemyNewList.Add(ball1);
+            Game1.enemyNewList.Add(ball2);
+            Game1.enemyNewList.Add(ball3);*/
+
             enemyState = 0;
+
+            enemyHealth = 20;
+            healthTimer = 0f;
 
             stateTime = 0;
 
-            aquamentusSprite = new AquementusSprite();
+            aquamentusSprite = new EnemySprite(Game1.BOSSES_SPRITESHEET, new[] { new Rectangle(1, 11, 24, 32), new Rectangle(26, 11, 24, 32), new Rectangle(51, 11, 24, 32), new Rectangle(76, 11, 24, 32) });
 
             rand = new();
 
@@ -70,12 +79,19 @@ namespace LOZ.Tools
             ball3.Activate(enemyPosition.X, enemyPosition.Y);
         }
 
-        public void Die()
+        public void Damage()
         {
+            //I like the sound effect as is, I think it sounds cool
             soundEffectList[(int)SoundEffects.AquaScream].Play();
+            if (healthTimer <= 0f)
+            {
+                enemyHealth--;
+                healthTimer = 1000f;
+                if (enemyHealth <= 0) enemyState = -1;
+            }
         }
 
-        private void DeleteEnemy()
+        private void Die()
         {
             Game1.enemyDieList.Add(this);
         }
@@ -127,6 +143,8 @@ namespace LOZ.Tools
                 ball2.SetHurtbox(new Rectangle(-128, -128, -128, -128));
                 ball3.SetHurtbox(new Rectangle(-128, -128, -128, -128));
             }
+
+            healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
         private void StateHandler(GameTime gameTime)
@@ -145,7 +163,7 @@ namespace LOZ.Tools
                 stateTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (stateTime > Constants.enemyEntryExitTime)
                 {
-                    DeleteEnemy();
+                    Die();
                 }
             }
         }
