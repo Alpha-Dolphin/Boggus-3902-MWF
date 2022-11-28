@@ -1,12 +1,8 @@
-﻿using LOZ.Tools.EnvironmentObjects.Helpers;
-using LOZ.Tools.Sprites;
+﻿using LOZ.Tools.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools.EnvironmentObjects
 {

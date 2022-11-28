@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework.Audio;
 using LOZ.Tools.MusicObjects;
 using LOZ.Tools.SoundObjects;
 using LOZ.Tools.GameStateTransitionHandler;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ
 {

@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LOZ.Tools.NPCObjects;
 using LOZ.Tools.ItemObjects;
 using LOZ.Tools.Sprites;
@@ -11,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.HUDObjects;
 using LOZ.Tools.GateObjects;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools.LevelManager
 {

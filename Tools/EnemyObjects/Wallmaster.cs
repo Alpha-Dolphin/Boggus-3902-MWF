@@ -1,15 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
-using LOZ.Tools;
-using LOZ.Tools.Sprites;
 using LOZ.Tools.PlayerObjects;
-using System.Collections;
 using Microsoft.Xna.Framework.Audio;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools
 {

@@ -1,11 +1,11 @@
 ﻿/*Statue object*/
 
 using LOZ;
-using Microsoft.Xna.Framework.Graphics;using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using LOZ.Tools.EnvironmentObjects.Helpers;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using LOZ.Tools.Sprites;
 using System.Collections.Generic;
+using LOZ.Tools.Interfaces;
 
 /*Call update at least once before drawing*/
 class Statue : IEnvironment

@@ -1,8 +1,7 @@
-﻿using LOZ.Tools;
-using LOZ;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools
 {

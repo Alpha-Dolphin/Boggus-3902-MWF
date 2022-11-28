@@ -1,15 +1,8 @@
 ﻿using LOZ.Tools.Command;
 using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.PlayerObjects;
-using LOZ.Tools.RoomTransitionHandler;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
-using System.Threading.Tasks;
+using LOZ.Tools.Interfaces;
 
 namespace LOZ.Tools
 {

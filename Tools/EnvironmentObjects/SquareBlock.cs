@@ -1,13 +1,9 @@
-﻿using LOZ.Tools.EnvironmentObjects.Helpers;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LOZ;
 using LOZ.Tools.Sprites;
+using LOZ.Tools.Interfaces;
 
 
 internal class SquareBlock : IEnvironment
