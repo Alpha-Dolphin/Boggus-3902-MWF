@@ -68,6 +68,7 @@ namespace LOZ.Tools
                 {
                     enemyState = -1;
                 }
+                else soundEffectList[(int)SoundEffects.EnemyHit].Play();
             }
         }
 

@@ -74,6 +74,7 @@ namespace LOZ.Tools
                 healthTimer = 1000f;
                 enemyHealth--;
                 if (enemyHealth <= 0) enemyState = -1;
+                else soundEffectList[(int)SoundEffects.EnemyHit].Play();
             }
         }
 

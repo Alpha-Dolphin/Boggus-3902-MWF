@@ -74,6 +74,7 @@ namespace LOZ.Tools.PlayerObjects
                 {
                     enemyState = -1;
                 }
+                else soundEffectList[(int)SoundEffects.EnemyHit].Play();
             }
         }
 

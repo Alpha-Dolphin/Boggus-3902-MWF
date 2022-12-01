@@ -57,6 +57,8 @@ namespace LOZ.Tools
         {
             enemyHealth--;
             if (enemyHealth <= 0) enemyState = -1;
+            else
+                soundEffectList[(int)SoundEffects.EnemyHit].Play();
         }
 
         private void Die()

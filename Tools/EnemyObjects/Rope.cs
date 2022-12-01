@@ -2,11 +2,15 @@
 using Microsoft.Xna.Framework;
 using System;
 using LOZ.Tools.Interfaces;
+using Microsoft.Xna.Framework.Audio;
+using System.Collections.Generic;
 
 namespace LOZ.Tools
 {
     internal class Rope : IEnemy, ICollidable
     {
+        readonly private List<SoundEffect> soundEffectList = Game1.soundEffectList;
+
         Vector2 enemyDirection;
         Vector2 enemyPosition;
         readonly ISpriteEnemy RopeSprite;
@@ -58,6 +62,7 @@ namespace LOZ.Tools
         {
             enemyHealth--;
             if (enemyHealth <= 0) enemyState = -1;
+            else soundEffectList[(int)SoundEffects.EnemyHit].Play();
         }
 
         private void Die()
