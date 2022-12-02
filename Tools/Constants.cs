@@ -132,7 +132,7 @@ public class Constants
     public const string FontSpriteSheetLocation = "./SpriteSheets/NES - The Legend of Zelda - Fonts";
     public const string RegEnemySpriteSheetLocation = "SpriteSheets/DungeonEnemies_EmptyFlipped";
     public const string BossesSpriteSheetLocation = "./SpriteSheets/BossEnemies_EmptyFlipped";
-    public const string NPCSpriteSheetLocation = "./SpriteSheets/NPCs";
+    public const string NPCSpriteSheetLocation = "./SpriteSheets/NPCs_EmptyBackground";
     public const string ItemSpriteSheetLocation = "./SpriteSheets/Items";
     public const string HUDSpriteSheetLocation = "./SpriteSheets/HUD";
     public const string SpawnerLocation = "./SpriteSheets/Spawner_Fragment";

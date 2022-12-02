@@ -178,7 +178,7 @@ namespace LOZ
                 }
             }
 
-            hud.Update(pressed);
+            hud.Update(pressed, currentRoom);
 
             if (pressed.Contains(Keys.Q))
             {

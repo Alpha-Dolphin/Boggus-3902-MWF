@@ -59,18 +59,49 @@ namespace LOZ.Tools.PlayerObjects
             Right
         }
 
+        //Here are some logistical constants, used for the game itself or sprite classes
+
         private const int GAME_WIDTH = 256;
         private const int GAME_HEIGHT = 176;
 
         public const int DEFAULT_X = 130;
         public const int DEFAULT_Y = 120;
 
-        public static string[] DEFAULT_ITEMS = new string[] { "test" };
+        //public static string[] DEFAULT_ITEMS = new string[] { "test" };
         public const PlayerConstants.Link_States DEFAULT_STATE = PlayerConstants.Link_States.Normal;
         public const PlayerConstants.Direction DEFAULT_DIRECTION = PlayerConstants.Direction.Down;
 
         public const string LINK_SPRITESHEET_NAME = "SpriteSheets/Link_EmptyBackground";
         public static Color DEFAULT_PICTURE_COLOR = Color.White;
+
+        public static Vector2 DEFAULT_LOCATIONSHIFT = new Vector2(0, 0);
+
+
+        //Here are the constants relating to Link's gameplay
+
+        public const int INVINCIBILITY_FRAMES = 30;
+
+        public const int HEATH_PER_HEART = 2;
+        public const int MAX_HEALTH = 8;
+
+        public const int MAX_WOODEN_ARROW_RANGE = 200;
+        public const int MAX_BLUE_ARROW_RANGE = 400;
+        public const int MAX_SWORDBEAM_RANGE = 300;
+
+        public const int PROJECTILE_SPEED = 2;
+        public const int BOOMERANG_SPEED = 3;
+        public const int BOMB_EXPLOSION_DELAY = 10;
+
+        public const float BOOMERANG_SPEEDCHANGE = 0.1f;
+        public const float BOOMERANG_RETURNSPEEDCHANGE = .1f;
+        public const int BOOMERANG_RETURNRANGE = 10;
+
+        public const int DEFAULT_FRAMERATE = 10;
+
+        public const int HEART_HEALING = 2;
+        public const int FAIRY_HEALING = 10;
+
+        //Here are all of the keys involved with Link's controls
 
         public static List<Keys> LINK_KEYS = new List<Keys>(new Keys[] { MOVE_UP_KEY, MOVE_LEFT_KEY, MOVE_RIGHT_KEY, MOVE_DOWN_KEY,
             ATTACK_SWORD1, ATTACK_SWORD2, ATTACK_SPECIAL,
@@ -122,12 +153,7 @@ namespace LOZ.Tools.PlayerObjects
         public static List<Keys> DAMAGE_KEYS = new List<Keys>(new Keys[] { DAMAGE_KEY });
         private const Keys DAMAGE_KEY = Keys.E;
 
-        public const int HEATH_PER_HEART = 2;
-        public const int MAX_HEALTH = 8;
-
-        public const int DEFAULT_FRAMERATE = 10;
-
-        public static Vector2 DEFAULT_LOCATIONSHIFT = new Vector2(0, 0);
+        //This begins all of the constants for link's animations, usually where they are on the sprite sheet
 
         private const int LINK_MOVEDOWNWIDTH1 = 15;
         private const int LINK_MOVEDOWNWIDTH2 = 13;
@@ -302,8 +328,6 @@ namespace LOZ.Tools.PlayerObjects
         public static List<Rectangle> DAMAGED = new List<Rectangle> { LINK_MOVEDOWN_FRAME1, DAMAGED_RED };
         public const int DAMAGED_FRAMERATE = 5;
 
-        public const int INVINCIBILITY_FRAMES = 30;
-
         private const int USE_ITEM_UPX = 141;
         private const int USE_ITEM_UPY = 11;
         private const int USE_ITEM_UPWIDTH = 16;
@@ -327,6 +351,10 @@ namespace LOZ.Tools.PlayerObjects
         private const int USE_ITEM_DOWNWIDTH = 16;
         private const int USE_ITEM_DOWNHEIGHT = 15;
         public static List<Rectangle> USE_ITEM_DOWN_FRAMES = new List<Rectangle> { new Rectangle(USE_ITEM_DOWNX, USE_ITEM_DOWNY, USE_ITEM_DOWNWIDTH, USE_ITEM_DOWNHEIGHT) };
+
+
+        //Next up are projectiles related to Link
+
 
         private const int SWORDBEAM_WIDTH = 7;
         private const int SWORDBEAM_HEIGHT = 16;
@@ -423,14 +451,6 @@ namespace LOZ.Tools.PlayerObjects
         private static Rectangle ARROW_BLUE_DOWN = new Rectangle(ARROW_BLUE_DOWNX, ARROW_BLUE_DOWNY, ARROW_WIDTH, ARROW_HEIGHT);
         public static List<Rectangle> ARROW_BLUE_DOWN_FRAMES = new List<Rectangle> { ARROW_BLUE_DOWN };
 
-        public const int MAX_WOODEN_ARROW_RANGE = 200;
-        public const int MAX_BLUE_ARROW_RANGE = 400;
-        public const int MAX_SWORDBEAM_RANGE = 300;
-
-        public const int PROJECTILE_SPEED = 2;
-        public const int BOOMERANG_SPEED = 3;
-        public const int BOMB_EXPLOSION_DELAY = 10;
-
         private const int BOOMERANG_WOOD_WIDTH = 8;
         private const int BOOMERANG_WOOD_HEIGHT = 5;
 
@@ -444,10 +464,6 @@ namespace LOZ.Tools.PlayerObjects
         private static Rectangle BOOMERANG_WOOD_FRAME8 = new Rectangle(354, 189, BOOMERANG_WOOD_WIDTH, BOOMERANG_WOOD_WIDTH);
         public static List<Rectangle> BOOMERANG_WOOD_FRAMES = new List<Rectangle> { BOOMERANG_WOOD_FRAME1, BOOMERANG_WOOD_FRAME2, BOOMERANG_WOOD_FRAME3,
             BOOMERANG_WOOD_FRAME4, BOOMERANG_WOOD_FRAME5, BOOMERANG_WOOD_FRAME6, BOOMERANG_WOOD_FRAME7, BOOMERANG_WOOD_FRAME8 };
-
-        public const float BOOMERANG_SPEEDCHANGE = 0.1f;
-        public const int BOOMERANG_RETURNSPEEDCHANGE = 300;
-        public const int BOOMERANG_RETURNRANGE = 20;
 
         const int CANDLEFLAME_WIDTH = 16;
         const int CANDLEFLAME_HEIGHT = 16;
@@ -463,8 +479,5 @@ namespace LOZ.Tools.PlayerObjects
         static Rectangle BOMB_EXPLOSION_FRAME2 = new Rectangle(155, BOMB_EXPLOSIONY, BOMB_EXPLOSION_WIDTH, BOMB_EXPLOSION_WIDTH);
         static Rectangle BOMB_EXPLOSION_FRAME3 = new Rectangle(172, BOMB_EXPLOSIONY, BOMB_EXPLOSION_WIDTH, BOMB_EXPLOSION_WIDTH);
         public static List<Rectangle> BOMB_EXPLOSION_FRAMES = new List<Rectangle> { BOMB_EXPLOSION_FRAME1, BOMB_EXPLOSION_FRAME2, BOMB_EXPLOSION_FRAME3 };
-
-        public const int HEART_HEALING = 2;
-        public const int FAIRY_HEALING = 10;
     }
 }

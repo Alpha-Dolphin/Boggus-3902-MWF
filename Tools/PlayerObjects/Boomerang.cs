@@ -85,6 +85,7 @@ namespace LOZ.Tools.PlayerObjects
                     if (this.velocity.X >= 0) this.velocity.X -= PlayerConstants.BOOMERANG_SPEEDCHANGE;
                     else this.velocity.X += PlayerConstants.BOOMERANG_SPEEDCHANGE;
                 }
+
             } else
             {
                 MoveToOwner();
@@ -93,7 +94,12 @@ namespace LOZ.Tools.PlayerObjects
 
         private void MoveToOwner()
         {
-            this.velocity += (new Vector2(owner.GetHurtbox().X, owner.GetHurtbox().Y) - this.position) / PlayerConstants.BOOMERANG_RETURNSPEEDCHANGE;
+            float speed = this.velocity.Length();
+            Vector2 centerOfOwner = new Vector2(owner.GetHurtbox().X, owner.GetHurtbox().Y);
+            Vector2 direction = (centerOfOwner - this.position);
+            direction.Normalize();
+
+            this.velocity = direction * (speed + PlayerConstants.BOOMERANG_RETURNSPEEDCHANGE);
         }
 
         private bool CloseEnough()

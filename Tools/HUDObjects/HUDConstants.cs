@@ -10,6 +10,9 @@ namespace LOZ.Tools.HUDObjects
 {
     internal class HUDConstants
     {
+        public const int NUMROOMS = 18;
+        public const int TRIFORCE_ROOM = 5;
+
         public static Keys PAUSE_BUTTON = Keys.Escape;
         public static Keys SELECT_ITEM = Keys.Enter;
 
@@ -53,8 +56,8 @@ namespace LOZ.Tools.HUDObjects
 
         public const int MAPTOP_ROWS = 3;
         public const int MAPTOP_COLUMNS = 6;
-        public static int MAPTOP_X = 8;
-        public static int MAPTOP_Y = 16;
+        public const int MAPTOP_X = 8;
+        public const int MAPTOP_Y = 16;
 
         //0 means no blocks, 1 means top, 2 means bottom, 3 means both
         public static int[] MAPTOP_INFO = new int[]
@@ -64,10 +67,31 @@ namespace LOZ.Tools.HUDObjects
             0, 2, 3, 2, 0, 0
         };
 
+        public static Dictionary<int, (int x, int y)> LOCATIONDOT_ROOMTOPOSITION_TOP = new Dictionary<int, (int x, int y)>()
+        {
+            { 2, (18, 16) },
+            { 3, (26, 16) },
+            { 4, (26, 20) },
+            { 5, (42, 20) },
+            { 6, (50, 20) },
+            { 7, (10, 24) },
+            { 8, (18, 24) },
+            { 9, (26, 24) },
+            { 10, (34, 24) },
+            { 11, (42, 24) },
+            { 12, (18, 28) },
+            { 13, (26, 28) },
+            { 14, (34, 28) },
+            { 15, (26, 32) },
+            { 16, (18, 36) },
+            { 17, (26, 36) },
+            { 18, (34, 36) },
+        };
+
         public const int MAPFULL_ROWS = 6;
         public const int MAPFULL_COLUMNS = 6;
-        public static int MAPFULL_X = 140;
-        public static int MAPFULL_Y = 100;
+        public const int MAPFULL_X = 140;
+        public const int MAPFULL_Y = 100;
         //See full list below for numbers
         public static int[] MAPFULL_INFO = new int[]
         {
@@ -77,6 +101,48 @@ namespace LOZ.Tools.HUDObjects
             0, 10, 16, 11, 0, 0,
             0, 0, 13, 0, 0, 0,
             0, 2, 16, 3, 0, 0
+        };
+
+        public static Dictionary<(int row, int col), int> ARRAY_TO_ROOMNUMBER = new Dictionary<(int row, int col), int>()
+        {
+            { (0, 1), 2 },
+            { (0, 2), 3 },
+            { (1, 2), 4 },
+            { (1, 4), 5 },
+            { (1, 5), 6 },
+            { (2, 0), 7 },
+            { (2, 1), 8 },
+            { (2, 2), 9 },
+            { (2, 3), 10 },
+            { (2, 4), 11 },
+            { (3, 1), 12 },
+            { (3, 2), 13 },
+            { (3, 3), 14 },
+            { (4, 2), 15 },
+            { (5, 1), 16 },
+            { (5, 2), 17 },
+            { (5, 3), 18 },
+        };
+
+        public static Dictionary<int, (int x, int y)> LOCATIONDOT_ROOMTOPOSITION_FULL = new Dictionary<int, (int x, int y)>()
+        {
+            { 2, (150, 102) },
+            { 3, (158, 102) },
+            { 4, (158, 110) },
+            { 5, (174, 110) },
+            { 6, (182, 110) },
+            { 7, (142, 118) },
+            { 8, (150, 118) },
+            { 9, (158, 118) },
+            { 10, (166, 118) },
+            { 11, (174, 118) },
+            { 12, (150, 126) },
+            { 13, (158, 126) },
+            { 14, (166, 126) },
+            { 15, (158, 134) },
+            { 16, (150, 142) },
+            { 17, (158, 142) },
+            { 18, (166, 142) },
         };
 
         public static Rectangle CURRENTITEMS_BACKGROUND = new Rectangle(258, 11, 256, 56);
@@ -126,5 +192,11 @@ namespace LOZ.Tools.HUDObjects
         public static Rectangle MAP_FULL_NSE = new Rectangle(636, 108, 8, 8);
         public static Rectangle MAP_FULL_NSW = new Rectangle(645, 108, 8, 8);
         public static Rectangle MAP_FULL_NSEW = new Rectangle(654, 108, 8, 8);
+
+        public static Rectangle LOCATION_DOT = new Rectangle(519, 126, 3, 3);
+
+        private static Rectangle TRIFORCE_DOT1 = new Rectangle(528, 126, 3, 3);
+        private static Rectangle TRIFORCE_DOT2 = new Rectangle(537, 126, 3, 3);
+        public static List<Rectangle> TRIFORCE_DOT = new List<Rectangle>() { TRIFORCE_DOT1, TRIFORCE_DOT2 };
     }
 }
