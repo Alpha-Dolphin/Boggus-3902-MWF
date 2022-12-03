@@ -15,9 +15,11 @@ namespace LOZ.Tools.GameStateTransitionHandler
     {
         Rectangle sourceRectangle;
         Rectangle destinationRectangle;
-
+        int mAlphaValue = 1;
+        int mFadeIncrement = 3;
+        double mFadeDelay = .035;
         
-        public void Draw(Texture2D FontSpriteSheet, SpriteBatch spriteBatch)
+        public void Draw(Texture2D FontSpriteSheet, SpriteBatch spriteBatch, GameTime gameTime)
         {
             Texture2D blackRectangle = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             blackRectangle.SetData(new[] { Color.Black });
@@ -37,6 +39,8 @@ namespace LOZ.Tools.GameStateTransitionHandler
             sourceRectangle = new Rectangle(248, 280, 7, 7);
             destinationRectangle = new Rectangle(EnvironmentConstants.SCREEN_WIDTH / 2 - 14, EnvironmentConstants.SCREEN_HEIGHT / 2, 21, 21);
             spriteBatch.Draw(FontSpriteSheet, destinationRectangle, sourceRectangle, Color.White);
+
+            
 
         }
 

@@ -22,7 +22,7 @@ namespace LOZ
 {
     public class Game1 : Game
     {
-        public int gameState;
+        public static int gameState;
         public List<IEnemy> enemyList;
         public static List<IEnemy> enemyDieList = new();
         public static List<IEnemy> enemyNewList = new();
@@ -82,7 +82,7 @@ namespace LOZ
         {
             // TODO: Add your initialization logic here
             LoadContent();
-            gameState = 1;
+            gameState = 4;
             gameStateTransitionHandler = new GameStateTransitionHandler();
             roomTransitionHandler = new RoomTransitionHandler();
 
@@ -145,6 +145,7 @@ namespace LOZ
              * Update logic here
              */
             base.Update(gameTime);
+            
 
             if (link.GetHealth() == 0)
             {
@@ -272,6 +273,7 @@ namespace LOZ
                 {
                     if (gate.IsGateOpen())
                     {
+                        gameState = 3;
                         roomTransitionHandler.HandleTransition(rooms[currentRoom], gate, link);
                     }
                     else
@@ -304,13 +306,14 @@ namespace LOZ
                     rooms[currentRoom].Draw(spriteBatch);
                     link.Draw(spriteBatch);
                     currentRoomIndicator.Draw(spriteBatch);
+                    gameStateTransitionHandler.HandleTransition(gameState,FONT_SPRITESHEET,spriteBatch, gameTime);
                 }
 
                 hud.Draw(spriteBatch);
             }
             else
             {
-                gameStateTransitionHandler.HandleTransition(gameState,FONT_SPRITESHEET,spriteBatch);
+                gameStateTransitionHandler.HandleTransition(gameState,FONT_SPRITESHEET,spriteBatch, gameTime);
             }
             
             /*End drawing*/
