@@ -18,7 +18,7 @@ namespace LOZ.Tools.GameStateTransitionHandler
     {
         Rectangle sourceRectangle;
         Rectangle destinationRectangle;
-        int Alpha = 1;
+        int Alpha = 255;
         int FadeIncrement = 5;
         double FadeDelay = 0;
 
@@ -34,7 +34,7 @@ namespace LOZ.Tools.GameStateTransitionHandler
                 FadeDelay = 0;
 
                 //Increment/Decrement the fade value for the image
-                Alpha += FadeIncrement;
+                Alpha -= FadeIncrement;
 
                 //If the AlphaValue is equal or above the max Alpha value or
                 //has dropped below or equal to the min Alpha value, then 
@@ -44,9 +44,9 @@ namespace LOZ.Tools.GameStateTransitionHandler
                     FadeIncrement *= -1;
                 }*/
             }
-            if(Alpha >= 255)
+            if(Alpha <= 0)
             {
-                Alpha = 1;
+                Alpha = 255;
                 return 1;
             }
             else
