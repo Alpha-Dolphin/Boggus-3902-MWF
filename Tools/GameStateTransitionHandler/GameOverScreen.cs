@@ -15,11 +15,35 @@ namespace LOZ.Tools.GameStateTransitionHandler
     {
         Rectangle sourceRectangle;
         Rectangle destinationRectangle;
-        public void Draw(Texture2D FontSpriteSheet, SpriteBatch spriteBatch)
+        int Alpha = 1;
+        int FadeIncrement = 3;
+        double FadeDelay = .035;
+
+        public void Draw(Texture2D FontSpriteSheet, SpriteBatch spriteBatch, GameTime gameTime)
         {
+            
             Texture2D blackRectangle = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             blackRectangle.SetData(new[] { Color.Black });
-            spriteBatch.Draw(blackRectangle, new Rectangle(0, 0, EnvironmentConstants.SCREEN_WIDTH, EnvironmentConstants.SCREEN_HEIGHT), Color.Black);
+            FadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
+            if (FadeDelay <= 0)
+            {
+                //Reset the Fade delay
+                FadeDelay = .035;
+ 
+                //Increment/Decrement the fade value for the image
+                Alpha += FadeIncrement;
+ 
+                //If the AlphaValue is equal or above the max Alpha value or
+                //has dropped below or equal to the min Alpha value, then 
+                //reverse the fade
+                if (Alpha >= 255 || Alpha <= 0)
+                {
+                    FadeIncrement *= -1;
+                }
+
+            }
+            spriteBatch.Draw(blackRectangle, new Rectangle(0, 0, EnvironmentConstants.SCREEN_WIDTH, EnvironmentConstants.SCREEN_HEIGHT), new Color(255, 255, 255, MathHelper.Clamp(Alpha, 0, 255)));
+            
             sourceRectangle = new Rectangle(336, 40, 7, 7);
             destinationRectangle = new Rectangle(EnvironmentConstants.SCREEN_WIDTH/2-88, EnvironmentConstants.SCREEN_HEIGHT/2, 21,21);
             spriteBatch.Draw(FontSpriteSheet, destinationRectangle, sourceRectangle, Color.White);
@@ -44,6 +68,7 @@ namespace LOZ.Tools.GameStateTransitionHandler
             sourceRectangle = new Rectangle(512, 40, 7, 7);
             destinationRectangle = new Rectangle(EnvironmentConstants.SCREEN_WIDTH/2+88, EnvironmentConstants.SCREEN_HEIGHT / 2, 21, 21);
             spriteBatch.Draw(FontSpriteSheet, destinationRectangle, sourceRectangle, Color.White);
+
         }
 
     }

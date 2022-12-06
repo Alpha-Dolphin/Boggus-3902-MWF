@@ -1,11 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Levels",
+    "\\Content",
     "\\Tools",
-    "\\Tools\\EnvironmentObjects",
-    "\\Tools\\Interfaces",
-    "\\Tools\\LevelManager"
+    "\\Tools\\GameStateTransitionHandler",
+    "\\Tools\\LevelManager",
+    "\\Tools\\PlayerObjects",
+    "\\Tools\\RoomTransitionHandler"
   ],
   "SelectedNode": "\\Game1.cs",
   "PreviewInSolutionExplorer": false
