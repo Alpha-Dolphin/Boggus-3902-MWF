@@ -300,7 +300,7 @@ namespace LOZ.Tools.PlayerObjects
 
         private void UpdateAttackingHurtbox()
         {
-            int currentFrame = this.sprite.GetFrame() / sprite.frameRate;
+            aint currentFrame = this.sprite.GetFrame() / sprite.frameRate;
             Rectangle spriteRect = this.sprite.GetDestinationRectangle();
             if (currentFrame == 0)
             {
@@ -312,7 +312,7 @@ namespace LOZ.Tools.PlayerObjects
                 {
                     case PlayerConstants.Direction.Up:
                         Rectangle tempUp = PlayerConstants.SWORD_ATTACKUP_HITBOX_FRAMES[currentFrame].Value;
-                        this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y, 
+                        this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y + tempUp.Height, 
                             spriteRect.Width, spriteRect.Height - tempUp.Height);
                         break;
                     case PlayerConstants.Direction.Left:
