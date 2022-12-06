@@ -5052,7 +5052,7 @@
 						112
 					</yPlacement>
 				</tile>
-				<tile type ="Statue">
+				<tile type ="Statue2">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
 						144
@@ -5061,7 +5061,7 @@
 						48
 					</yPlacement>
 				</tile>
-				<tile type ="Statue">
+				<tile type ="Statue2">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
 						144
@@ -5070,7 +5070,7 @@
 						80
 					</yPlacement>
 				</tile>
-				<tile type ="Statue">
+				<tile type ="Statue2">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
 						144
@@ -5079,7 +5079,7 @@
 						112
 					</yPlacement>
 				</tile>
-				<tile type ="Statue">
+				<tile type ="Statue2">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
 						192
@@ -5088,7 +5088,7 @@
 						48
 					</yPlacement>
 				</tile>
-				<tile type ="Statue">
+				<tile type ="Statue2">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
 						192
@@ -5097,7 +5097,7 @@
 						80
 					</yPlacement>
 				</tile>
-				<tile type ="Statue">
+				<tile type ="Statue2">
 					<!--Placement info for where object spawns-->
 					<xPlacement>
 						192

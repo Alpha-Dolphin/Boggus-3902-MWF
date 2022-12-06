@@ -15,6 +15,9 @@ namespace LOZ.Tools.EnvironmentObjects.Helpers
                 case Environment.Statue:
                     return new Statue();
 
+                case Environment.Statue2:
+                    return new Statue2();
+
                 case Environment.SquareBlock:
                     return new SquareBlock();
 

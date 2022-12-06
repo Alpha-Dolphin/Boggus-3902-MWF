@@ -3,6 +3,7 @@
 public enum Environment
 {
     Statue,
+    Statue2,
     SquareBlock,
     PushBlock,
     Fire,
