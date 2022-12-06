@@ -17,7 +17,7 @@ namespace LOZ.Tools.GameStateTransitionHandler
         Rectangle destinationRectangle;
         int Alpha = 1;
         int FadeIncrement = 3;
-        double FadeDelay = .035;
+        double FadeDelay = 0;
 
         public void Draw(Texture2D FontSpriteSheet, SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -28,18 +28,10 @@ namespace LOZ.Tools.GameStateTransitionHandler
             if (FadeDelay <= 0)
             {
                 //Reset the Fade delay
-                FadeDelay = .035;
+                FadeDelay = 0;
  
                 //Increment/Decrement the fade value for the image
                 Alpha += FadeIncrement;
- 
-                //If the AlphaValue is equal or above the max Alpha value or
-                //has dropped below or equal to the min Alpha value, then 
-                //reverse the fade
-                if (Alpha >= 255 || Alpha <= 0)
-                {
-                    FadeIncrement *= -1;
-                }
 
             }
             spriteBatch.Draw(blackRectangle, new Rectangle(0, 0, EnvironmentConstants.SCREEN_WIDTH, EnvironmentConstants.SCREEN_HEIGHT), new Color(255, 255, 255, MathHelper.Clamp(Alpha, 0, 255)));

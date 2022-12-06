@@ -8,6 +8,6 @@
     "\\Tools\\PlayerObjects",
     "\\Tools\\RoomTransitionHandler"
   ],
-  "SelectedNode": "\\Game1.cs",
+  "SelectedNode": "\\Tools\\GameStateTransitionHandler\\GameOverScreen.cs",
   "PreviewInSolutionExplorer": false
 }
