@@ -300,7 +300,7 @@ namespace LOZ.Tools.PlayerObjects
 
         private void UpdateAttackingHurtbox()
         {
-            aint currentFrame = this.sprite.GetFrame() / sprite.frameRate;
+            int currentFrame = this.sprite.GetFrame() / sprite.frameRate;
             Rectangle spriteRect = this.sprite.GetDestinationRectangle();
             if (currentFrame == 0)
             {
