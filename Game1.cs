@@ -23,12 +23,12 @@ namespace LOZ
     public class Game1 : Game
     {
         public static int gameState;
-        public List<IEnemy> enemyList;
+        public static List<IEnemy> enemyList;
         public static List<IEnemy> enemyDieList = new();
         public static List<IEnemy> enemyNewList = new();
-        private List<IItem> itemList;
-        private List<IEnvironment> blockList;
-        private List<IGate> gateList;
+        public static List<IItem> itemList;
+        public static List<IEnvironment> blockList;
+        public static List<IGate> gateList;
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
@@ -39,7 +39,7 @@ namespace LOZ
         internal static RoomTransitionHandler roomTransitionHandler;
         internal static GameStateTransitionHandler gameStateTransitionHandler;
 
-        private List<Room> rooms;
+        public static List<Room> rooms;
         public static int currentRoom = 17;
         private TextSprite currentRoomIndicator = new();
 
@@ -139,7 +139,7 @@ namespace LOZ
 
         protected override void Update(GameTime gameTime)
         {
-            UpdateCollision();
+            Collision.UpdateCollision();
 
             /*
              * Update logic here
@@ -198,96 +198,7 @@ namespace LOZ
             previousState = currentState;
         }
 
-        private void UpdateCollision()
-        {
-            enemyList = rooms[currentRoom].enemyList;
-            itemList = rooms[currentRoom].itemList;
-            blockList = rooms[currentRoom].environmentList;
-            gateList = rooms[currentRoom].gateList;
-            foreach (IEnemy ene in enemyList)
-            {
-                if (Collision.Intersects(link.GetHurtbox(), ene.GetHurtbox()))
-                {
-                    Collision.CollisionChecker(ene, link);
-                }
-                foreach (IEnvironment bL in blockList)
-                {
-                    if (Collision.Intersects(bL.GetHurtbox(), ene.GetHurtbox()))
-                    {
-                        Collision.CollisionChecker(bL, ene);
-                    }
-                }
-                foreach (ICollidable weapon in link.GetHitboxes())
-                {
-                    if (Collision.Intersects(weapon.GetHurtbox(), ene.GetHurtbox()))
-                    {
-                        Collision.CollisionChecker(weapon, ene);
-                    }
-                }
-                foreach (IGate gate in gateList)
-                {
-                    if (Collision.Intersects(ene.GetHurtbox(), gate.GetHurtbox()))
-                    {
-                        Collision.CollisionChecker(gate, ene);
-                    }
-                }
-                foreach (IEnemy ene2 in enemyList)
-                {
-                    if (ene != ene2 && Collision.Intersects(ene.GetHurtbox(), ene2.GetHurtbox())) Collision.CollisionChecker(ene, ene2);
-                }
-            }
-
-            enemyList.RemoveAll(enem => enemyDieList.Contains(enem));
-            enemyList.AddRange(enemyNewList);
-            //To prevent exponential enemy spawning, as funny as that is
-            enemyNewList = new();
-
-            for (int i = 0; i < itemList.Count; i++)
-            {
-                if (Collision.Intersects(link.GetHurtbox(), itemList[i].GetHurtbox()))
-                {
-                    linkCommandHandler.GetItem(itemList[i]);
-                    itemList.RemoveAt(i);
-                    i--;
-                }
-            }
-
-            foreach (IEnvironment bL in blockList)
-            {
-                if (Collision.Intersects(link.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(link, bL);
-                foreach (IEnvironment bL2 in blockList)
-                {
-                    if (typeof(PushBlock) == bL.GetType() && bL != bL2)
-                    {
-                        if (Collision.Intersects(bL2.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(bL, bL2);
-                    }
-                }
-                foreach (IGate g in gateList)
-                {
-                    if (Collision.Intersects(g.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(bL, g);
-                }
-            }
-            foreach (IGate gate in gateList)
-            {
-                if (Collision.Intersects(link.GetHurtbox(), gate.GetHurtbox()))
-                {
-                    if (gate.IsGateOpen())
-                    {
-                        gameState = 3;
-                        roomTransitionHandler.HandleTransition(rooms[currentRoom], gate, link);
-                    }
-                    else
-                    {
-                        Collision.CollisionChecker(gate, link);
-                        if (LinkInventory.keys > 0 )
-                        {
-                            roomTransitionHandler.unlockDoor(gate, rooms,currentRoom);
-                            LinkInventory.keys--;
-                        }
-                    }
-                }
-            }
-        }
+        
 
         protected override void Draw(GameTime gameTime)
         {
