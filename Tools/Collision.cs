@@ -3,15 +3,109 @@ using LOZ.Tools.EnvironmentObjects;
 using LOZ.Tools.PlayerObjects;
 using Microsoft.Xna.Framework;
 using LOZ.Tools.Interfaces;
+using LOZ.Tools.LevelManager;
+using LOZ.Tools.RoomTransitionHandler;
 
 namespace LOZ.Tools
 {
     internal class Collision
     {
+        public static void UpdateCollision()
+        {
+            Game1.enemyList = Game1.rooms[Game1.currentRoom].enemyList;
+            Game1.itemList = Game1.rooms[Game1.currentRoom].itemList;
+            Game1.blockList = Game1.rooms[Game1.currentRoom].environmentList;
+            Game1.gateList = Game1.rooms[Game1.currentRoom].gateList;
+            foreach (IEnemy ene in Game1.enemyList)
+            {
+                if (Collision.Intersects(Game1.link.GetHurtbox(), ene.GetHurtbox()))
+                {
+                    Collision.CollisionChecker(ene, Game1.link);
+                }
+                foreach (IEnvironment bL in Game1.blockList)
+                {
+                    if (Collision.Intersects(bL.GetHurtbox(), ene.GetHurtbox()))
+                    {
+                        Collision.CollisionChecker(bL, ene);
+                    }
+                }
+                foreach (ICollidable weapon in Game1.link.GetHitboxes())
+                {
+                    if (Collision.Intersects(weapon.GetHurtbox(), ene.GetHurtbox()))
+                    {
+                        Collision.CollisionChecker(weapon, ene);
+                    }
+                }
+                foreach (IGate gate in Game1.gateList)
+                {
+                    if (Collision.Intersects(ene.GetHurtbox(), gate.GetHurtbox()))
+                    {
+                        Collision.CollisionChecker(gate, ene);
+                    }
+                }
+                foreach (IEnemy ene2 in Game1.enemyList)
+                {
+                    if (ene != ene2 && Collision.Intersects(ene.GetHurtbox(), ene2.GetHurtbox())) Collision.CollisionChecker(ene, ene2);
+                }
+            }
+
+            Game1.enemyList.RemoveAll(enem => Game1.enemyDieList.Contains(enem));
+            Game1.enemyList.AddRange(Game1.enemyNewList);
+            //To prevent exponential enemy spawning, as funny as that is
+            Game1.enemyNewList = new();
+
+            for (int i = 0; i < Game1.itemList.Count; i++)
+            {
+                if (Collision.Intersects(Game1.link.GetHurtbox(), Game1.itemList[i].GetHurtbox()))
+                {
+                    Game1.linkCommandHandler.GetItem(Game1.itemList[i]);
+                    Game1.itemList.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            foreach (IEnvironment bL in Game1.blockList)
+            {
+                if (Collision.Intersects(Game1.link.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(Game1.link, bL);
+                foreach (IEnvironment bL2 in Game1.blockList)
+                {
+                    if (typeof(PushBlock) == bL.GetType() && bL != bL2)
+                    {
+                        if (Collision.Intersects(bL2.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(bL, bL2);
+                    }
+                }
+                foreach (IGate g in Game1.gateList)
+                {
+                    if (Collision.Intersects(g.GetHurtbox(), bL.GetHurtbox())) Collision.CollisionChecker(bL, g);
+                }
+            }
+            foreach (IGate gate in Game1.gateList)
+            {
+                if (Collision.Intersects(Game1.link.GetHurtbox(), gate.GetHurtbox()))
+                {
+                    if (gate.IsGateOpen())
+                    {
+                        Game1.gameState = 3;
+                        Game1.roomTransitionHandler.HandleTransition(Game1.rooms[Game1.currentRoom], gate, Game1.link);
+                    }
+                    else
+                    {
+                        Collision.CollisionChecker(gate, Game1.link);
+                        if (LinkInventory.keys > 0)
+                        {
+                            Game1.roomTransitionHandler.unlockDoor(gate, Game1.rooms, Game1.currentRoom);
+                            LinkInventory.keys--;
+                        }
+                    }
+                }
+            }
+        }
+
         public static bool Intersects(Rectangle a, Rectangle b)
         {
             return a.Intersects(b);
         }
+
         public static void CollisionChecker(ICollidable a, ICollidable b)
         {
             //Link must always be the first object in the list if Link is in the list
