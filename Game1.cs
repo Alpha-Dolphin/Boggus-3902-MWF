@@ -22,7 +22,7 @@ namespace LOZ
 {
     public class Game1 : Game
     {
-        public int gameState;
+        public static int gameState;
         public List<IEnemy> enemyList;
         public static List<IEnemy> enemyDieList = new();
         public static List<IEnemy> enemyNewList = new();
@@ -277,10 +277,10 @@ namespace LOZ
                     else
                     {
                         Collision.CollisionChecker(gate, link);
-                        if (link.inventory.keys > 0 )
+                        if (LinkInventory.keys > 0 )
                         {
                             roomTransitionHandler.unlockDoor(gate, rooms,currentRoom);
-                            link.inventory.keys--;
+                            LinkInventory.keys--;
                         }
                     }
                 }

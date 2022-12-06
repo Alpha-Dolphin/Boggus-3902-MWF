@@ -11,11 +11,9 @@ namespace LOZ.Tools.PlayerObjects
     {
         public static Vector2 position;
 
-        public LinkInventory inventory;
+        private LinkProjectiles linkProjectiles;
 
         private PlayerConstants.Link_Projectiles currentSpecialWeapon;
-        private List<IProjectile> projectiles;
-        private ProjectileFactory projectileFactory;
 
         private Rectangle hurtbox;
         private Rectangle? swordHitbox;
@@ -38,17 +36,14 @@ namespace LOZ.Tools.PlayerObjects
             Link.position = new Vector2(0, 0);
             health = PlayerConstants.MAX_HEALTH;
             direction = PlayerConstants.Direction.Up;
-            inventory = new LinkInventory();
         }
 
         public Link(int xPos, int yPos, int health, PlayerConstants.Link_States state, PlayerConstants.Direction direction)
         {
             Link.position = new Vector2(xPos, yPos);
 
-            inventory = new LinkInventory();
-
             this.currentSpecialWeapon = PlayerConstants.Link_Projectiles.None;
-            this.projectiles = new List<IProjectile>();
+            this.linkProjectiles = new LinkProjectiles(this.spriteSheet);
             this.health = health;
             this.hearts = health / 2 + hearts % 2;
             this.state = state;
@@ -56,7 +51,6 @@ namespace LOZ.Tools.PlayerObjects
             this.hitboxes = new List<Rectangle>();
             this.hurtbox = new Rectangle(xPos, yPos, PlayerConstants.LINK_MOVEDOWN_FRAME1.Width, PlayerConstants.LINK_MOVEDOWN_FRAME1.Height);
 
-            this.projectileFactory = new ProjectileFactory(PlayerConstants.Link_Projectiles.BlueArrow, this.spriteSheet);
             UpdateSprite();
             this.swordHitbox = null;
         }
@@ -64,10 +58,8 @@ namespace LOZ.Tools.PlayerObjects
         {
             Link.position = new Vector2(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y);
 
-            inventory = new LinkInventory();
-
             this.currentSpecialWeapon = PlayerConstants.Link_Projectiles.None;
-            this.projectiles = new List<IProjectile>();
+            this.linkProjectiles = new LinkProjectiles(this.spriteSheet);
             this.health = PlayerConstants.MAX_HEALTH;
             this.hearts = health / 2 + hearts % 2;
             this.state = PlayerConstants.DEFAULT_STATE;
@@ -75,7 +67,6 @@ namespace LOZ.Tools.PlayerObjects
             this.hitboxes = new List<Rectangle>();
             this.hurtbox = new Rectangle(PlayerConstants.DEFAULT_X, PlayerConstants.DEFAULT_Y, PlayerConstants.LINK_MOVEDOWN_FRAME1.Width, PlayerConstants.LINK_MOVEDOWN_FRAME1.Height);
 
-            this.projectileFactory = new ProjectileFactory(PlayerConstants.Link_Projectiles.BlueArrow, this.spriteSheet);
             UpdateSprite();
             this.swordHitbox = null;
         }
@@ -187,11 +178,16 @@ namespace LOZ.Tools.PlayerObjects
         {
             switch (input)
             {
-                case 1: UpdateState(PlayerConstants.Link_States.UseItem, this.direction); CreateProjectile(PlayerConstants.Link_Projectiles.BlueArrow); break;
-                case 2: UpdateState(PlayerConstants.Link_States.UseItem, this.direction);  CreateProjectile(PlayerConstants.Link_Projectiles.WoodArrow); break;
-                case 3: UpdateState(PlayerConstants.Link_States.UseItem, this.direction);  CreateProjectile(PlayerConstants.Link_Projectiles.Boomerang); break;
-                case 4: UpdateState(PlayerConstants.Link_States.UseItem, this.direction); CreateProjectile(PlayerConstants.Link_Projectiles.CandleFlame); break;
-                case 5: UpdateState(PlayerConstants.Link_States.UseItem, this.direction); CreateProjectile(PlayerConstants.Link_Projectiles.Bomb); break;
+                case 1: UpdateState(PlayerConstants.Link_States.UseItem, this.direction); 
+                    CreateProjectile(PlayerConstants.Link_Projectiles.BlueArrow); break;
+                case 2: UpdateState(PlayerConstants.Link_States.UseItem, this.direction);  
+                    CreateProjectile(PlayerConstants.Link_Projectiles.WoodArrow); break;
+                case 3: UpdateState(PlayerConstants.Link_States.UseItem, this.direction);  
+                    CreateProjectile(PlayerConstants.Link_Projectiles.Boomerang); break;
+                case 4: UpdateState(PlayerConstants.Link_States.UseItem, this.direction); 
+                    CreateProjectile(PlayerConstants.Link_Projectiles.CandleFlame); break;
+                case 5: UpdateState(PlayerConstants.Link_States.UseItem, this.direction); 
+                    CreateProjectile(PlayerConstants.Link_Projectiles.Bomb); break;
                 default: break;
             }
         }
@@ -215,56 +211,14 @@ namespace LOZ.Tools.PlayerObjects
 
         private void CreateProjectile(PlayerConstants.Link_Projectiles projectileType)
         {
-            bool containsProjectile = false;
-            foreach(IProjectile projectile in projectiles)
-            {
-                if (projectile.GetProjectileType().Equals(projectileType))
-                {
-                    if (projectile.GetProjectileType().Equals(PlayerConstants.Link_Projectiles.Bomb)) projectile.Destroy();
-                    containsProjectile = true; 
-                    break;
-                }
-            }
-
-            if (!containsProjectile)
-            {
-                bool projectileAvailable = true;
-                if (projectileType == PlayerConstants.Link_Projectiles.Bomb)
-                {
-                    if (inventory.bombs > 0)
-                    {
-                        inventory.bombs--;
-                    } else
-                    {
-                        projectileAvailable = false;
-                    }
-                }
-
-                if (projectileAvailable)
-                {
-                    Vector2 velocity = new Vector2(0, 0);
-                    switch (this.direction)
-                    {
-                        case PlayerConstants.Direction.Up: velocity = new Vector2(0, -1); break;
-                        case PlayerConstants.Direction.Left: velocity = new Vector2(-1, 0); break;
-                        case PlayerConstants.Direction.Right: velocity = new Vector2(1, 0); break;
-                        case PlayerConstants.Direction.Down: velocity = new Vector2(0, 1); break;
-                    }
-
-                    this.projectileFactory.Update(projectileType);
-                    this.projectiles.Add(this.projectileFactory.CreateProjectile(velocity, this));
-                }
-            }
+            this.linkProjectiles.CreateProjectile(projectileType, this.direction, this);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             this.sprite.Draw(spriteBatch);
 
-            foreach (IProjectile projectile in projectiles)
-            {
-                projectile.Draw(spriteBatch);
-            }
+            this.linkProjectiles.Draw(spriteBatch);
 
             UpdateHitboxes();
         }
@@ -291,15 +245,7 @@ namespace LOZ.Tools.PlayerObjects
             if (this.invincibilityFrames > 0)
                 this.invincibilityFrames--;
 
-            for (int i = 0; i < projectiles.Count; i++)
-            {
-                if (!projectiles[i].stillExists())
-                {
-                    projectiles.RemoveAt(i);
-                    i--;
-                }
-                else projectiles[i].Update();
-            }
+            this.linkProjectiles.Update();
         }
 
         public int GetHealth()
@@ -328,25 +274,14 @@ namespace LOZ.Tools.PlayerObjects
 
         private void UpdateHitboxes()
         {
-            this.hitboxes = new List<Rectangle>();
-            
-            foreach (IProjectile projectile in projectiles)
-            {
-                List<Rectangle> temp = projectile.GetHitboxes();
-
-                foreach(Rectangle rect in temp)
-                {
-                    this.hitboxes.Add(rect);
-                }
-            }
+            this.hitboxes = linkProjectiles.UpdateHitboxes();
 
             if(this.state == PlayerConstants.Link_States.Attacking)
             {
                 UpdateSwordHitbox();
                 if (this.swordHitbox != null)
                 {
-                    this.hitboxes.Add(new Rectangle(this.swordHitbox.Value.X + this.sprite.GetX(), 
-                        this.swordHitbox.Value.Y + this.sprite.GetY(), 
+                    this.hitboxes.Add(new Rectangle(this.swordHitbox.Value.X, this.swordHitbox.Value.Y, 
                         this.swordHitbox.Value.Width, this.swordHitbox.Value.Height));
                 }
             }
@@ -377,19 +312,23 @@ namespace LOZ.Tools.PlayerObjects
                 {
                     case PlayerConstants.Direction.Up:
                         Rectangle tempUp = PlayerConstants.SWORD_ATTACKUP_HITBOX_FRAMES[currentFrame].Value;
-                        this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y - tempUp.Height, spriteRect.Width, spriteRect.Height - tempUp.Height);
+                        this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y, 
+                            spriteRect.Width, spriteRect.Height - tempUp.Height);
                         break;
                     case PlayerConstants.Direction.Left:
                         Rectangle tempLeft = PlayerConstants.SWORD_ATTACKLEFT_HITBOX_FRAMES[currentFrame].Value;
-                        this.hurtbox = new Rectangle(spriteRect.X + tempLeft.Width, spriteRect.Y, spriteRect.Width - tempLeft.Width, spriteRect.Height);
+                        this.hurtbox = new Rectangle(spriteRect.X + tempLeft.Width, spriteRect.Y, 
+                            spriteRect.Width - tempLeft.Width, spriteRect.Height);
                         break;
                     case PlayerConstants.Direction.Right:
                         Rectangle tempRight = PlayerConstants.SWORD_ATTACKRIGHT_HITBOX_FRAMES[currentFrame].Value;
-                        this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y, spriteRect.Width - tempRight.Width, spriteRect.Height);
+                        this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y, 
+                            spriteRect.Width - tempRight.Width, spriteRect.Height);
                         break;
                     case PlayerConstants.Direction.Down:
                         Rectangle tempDown = PlayerConstants.SWORD_ATTACKDOWN_HITBOX_FRAMES[currentFrame].Value;
-                        this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y, spriteRect.Width, spriteRect.Height - tempDown.Height);
+                        this.hurtbox = new Rectangle(spriteRect.X, spriteRect.Y, 
+                            spriteRect.Width, spriteRect.Height - tempDown.Height);
                         break;
                 }
             }
@@ -398,16 +337,49 @@ namespace LOZ.Tools.PlayerObjects
         private void UpdateSwordHitbox()
         {
             int currentFrame = this.sprite.GetFrame()/sprite.frameRate;
+            Rectangle destinationRectangle = this.sprite.GetDestinationRectangle();
             switch (this.direction)
             {
-                case PlayerConstants.Direction.Up: 
-                    this.swordHitbox = PlayerConstants.SWORD_ATTACKUP_HITBOX_FRAMES[currentFrame]; break;
+                case PlayerConstants.Direction.Up:
+                    this.swordHitbox = PlayerConstants.SWORD_ATTACKUP_HITBOX_FRAMES[currentFrame];
+                    if(this.swordHitbox != null)
+                    {
+                        Rectangle temp = this.swordHitbox.Value;
+                        this.swordHitbox = new Rectangle(destinationRectangle.X + temp.X, 
+                            destinationRectangle.Y + temp.Y, 
+                            temp.Width, temp.Height);
+                    }
+                    break;
                 case PlayerConstants.Direction.Left:
-                    this.swordHitbox = PlayerConstants.SWORD_ATTACKLEFT_HITBOX_FRAMES[currentFrame]; break;
+                    this.swordHitbox = PlayerConstants.SWORD_ATTACKLEFT_HITBOX_FRAMES[currentFrame];
+                    if (this.swordHitbox != null)
+                    {
+                        Rectangle temp = this.swordHitbox.Value;
+                        this.swordHitbox = new Rectangle(destinationRectangle.X + temp.X, 
+                            destinationRectangle.Y + temp.Y, 
+                            temp.Width, temp.Height);
+                    }
+                    break;
                 case PlayerConstants.Direction.Right:
-                    this.swordHitbox = PlayerConstants.SWORD_ATTACKRIGHT_HITBOX_FRAMES[currentFrame]; break;
+                    this.swordHitbox = PlayerConstants.SWORD_ATTACKRIGHT_HITBOX_FRAMES[currentFrame];
+                    if (this.swordHitbox != null)
+                    {
+                        Rectangle temp = this.swordHitbox.Value;
+                        this.swordHitbox = new Rectangle(destinationRectangle.X + temp.X, 
+                            destinationRectangle.Y + temp.Y, 
+                            temp.Width, temp.Height);
+                    }
+                    break;
                 case PlayerConstants.Direction.Down:
-                    this.swordHitbox = PlayerConstants.SWORD_ATTACKDOWN_HITBOX_FRAMES[currentFrame]; break;
+                    this.swordHitbox = PlayerConstants.SWORD_ATTACKDOWN_HITBOX_FRAMES[currentFrame];
+                    if (this.swordHitbox != null)
+                    {
+                        Rectangle temp = this.swordHitbox.Value;
+                        this.swordHitbox = new Rectangle(destinationRectangle.X + temp.X, 
+                            destinationRectangle.Y + temp.Y, 
+                            temp.Width, temp.Height);
+                    }
+                    break;
             }
         }
 
@@ -418,6 +390,7 @@ namespace LOZ.Tools.PlayerObjects
 
         public Rectangle GetHurtbox()
         {
+            UpdateHurtbox();
             return this.hurtbox;
         }
 

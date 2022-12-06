@@ -93,8 +93,10 @@ namespace LOZ.Tools.PlayerObjects
         public const int BOMB_EXPLOSION_DELAY = 10;
 
         public const float BOOMERANG_SPEEDCHANGE = 0.1f;
-        public const float BOOMERANG_RETURNSPEEDCHANGE = .1f;
+        public const float BOOMERANG_RETURNSPEEDCHANGE = 0.1f;
         public const int BOOMERANG_RETURNRANGE = 10;
+
+        public const float CANDLEFLAME_SPEEDCHANGE = -0.05f;
 
         public const int DEFAULT_FRAMERATE = 10;
 

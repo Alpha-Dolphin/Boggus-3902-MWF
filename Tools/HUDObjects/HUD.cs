@@ -145,44 +145,44 @@ namespace LOZ.Tools.HUDObjects
 
         private void UpdateInventory()
         {
-            link.inventory.bomb = link.inventory.bombs > 0;
+            LinkInventory.bomb = LinkInventory.bombs > 0;
 
             if (mapIcon == null)
             {
-                if(link.inventory.map) mapIcon = new Sprite(itemSpriteSheet, HUDConstants.MAP_ICON, new List<Rectangle>() { ItemConstants.MAP });
+                if(LinkInventory.map) mapIcon = new Sprite(itemSpriteSheet, HUDConstants.MAP_ICON, new List<Rectangle>() { ItemConstants.MAP });
             }
             if (compassIcon == null)
             {
-                if (link.inventory.compass)
+                if (LinkInventory.compass)
                     compassIcon = new Sprite(itemSpriteSheet, HUDConstants.COMPASS_ICON, new List<Rectangle>() { ItemConstants.COMPASS });
             }
             if (boomerang == null)
             {
-                if (link.inventory.boomerang) boomerang = new Sprite(itemSpriteSheet, HUDConstants.BOOMERANG, new List<Rectangle>() { ItemConstants.BOOMERANG });
+                if (LinkInventory.boomerang) boomerang = new Sprite(itemSpriteSheet, HUDConstants.BOOMERANG, new List<Rectangle>() { ItemConstants.BOOMERANG });
             }
             if (bomb == null)
             {
-                if (link.inventory.bomb) bomb = new Sprite(itemSpriteSheet, HUDConstants.BOMB, new List<Rectangle>() { ItemConstants.BOMB });
+                if (LinkInventory.bomb) bomb = new Sprite(itemSpriteSheet, HUDConstants.BOMB, new List<Rectangle>() { ItemConstants.BOMB });
             }
             if (bow == null)
             {
-                if (link.inventory.bow) bow = new Sprite(itemSpriteSheet, HUDConstants.BOW, new List<Rectangle>() { ItemConstants.BOW });
+                if (LinkInventory.bow) bow = new Sprite(itemSpriteSheet, HUDConstants.BOW, new List<Rectangle>() { ItemConstants.BOW });
             }
             if (candle == null)
             {
-                if (link.inventory.candleFlame) candle = new Sprite(itemSpriteSheet, HUDConstants.CANDLE, new List<Rectangle>() { ItemConstants.CANDLE });
+                if (LinkInventory.candleFlame) candle = new Sprite(itemSpriteSheet, HUDConstants.CANDLE, new List<Rectangle>() { ItemConstants.CANDLE });
             }
             if (potion == null)
             {
-                if (link.inventory.potion) potion = new Sprite(itemSpriteSheet, HUDConstants.POTION, new List<Rectangle>() { ItemConstants.POTION });
+                if (LinkInventory.potion) potion = new Sprite(itemSpriteSheet, HUDConstants.POTION, new List<Rectangle>() { ItemConstants.POTION });
             }
         }
 
         private void UpdateNumbers()
         {
-            rupeeNumber = CreateNumber(link.inventory.rupees, rupeeTimes);
-            keyNumber = CreateNumber(link.inventory.keys, keyTimes);
-            bombNumber = CreateNumber(link.inventory.bombs, bombTimes);
+            rupeeNumber = CreateNumber(LinkInventory.rupees, rupeeTimes);
+            keyNumber = CreateNumber(LinkInventory.keys, keyTimes);
+            bombNumber = CreateNumber(LinkInventory.bombs, bombTimes);
         }
 
         private Sprite[] CreateNumber(int value, Sprite start)
@@ -370,8 +370,8 @@ namespace LOZ.Tools.HUDObjects
                     sprite.Draw(spriteBatch);
                 }
             }
-            if (link.inventory.map) mapFull.Draw(spriteBatch);
-            if (link.inventory.compass) locationDotFull.Draw(spriteBatch);
+            if (LinkInventory.map) mapFull.Draw(spriteBatch);
+            if (LinkInventory.compass) locationDotFull.Draw(spriteBatch);
         }
 
         private void DrawHUDTop(SpriteBatch spriteBatch)
@@ -401,13 +401,13 @@ namespace LOZ.Tools.HUDObjects
             {
                 num.Draw(spriteBatch);
             }
-            if (link.inventory.map)
+            if (LinkInventory.map)
             {
                 mapTop.Draw(spriteBatch);
                 bossDot.Update(bossDot.GetX(), bossDot.GetY());
                 bossDot.Draw(spriteBatch);
             }
-            if (link.inventory.compass) locationDotTop.Draw(spriteBatch);
+            if (LinkInventory.compass) locationDotTop.Draw(spriteBatch);
         }
 
         private void UpdateHealth(Link link)
@@ -459,7 +459,7 @@ namespace LOZ.Tools.HUDObjects
             switch (selectionBoxPosition)
             {
                 case 0:
-                    if (link.inventory.boomerang)
+                    if (LinkInventory.boomerang)
                     {
                         currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.CURRENT_SPECIAL_X, HUDConstants.CURRENT_SPECIAL_Y,
                             new List<Rectangle>() { ItemConstants.BOOMERANG });
@@ -468,7 +468,7 @@ namespace LOZ.Tools.HUDObjects
                     }
                     break;
                 case 1:
-                    if (link.inventory.bomb)
+                    if (LinkInventory.bomb)
                     {
                         currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.CURRENT_SPECIAL_X, HUDConstants.CURRENT_SPECIAL_Y,
                             new List<Rectangle>() { ItemConstants.BOMB });
@@ -477,7 +477,7 @@ namespace LOZ.Tools.HUDObjects
                     }
                     break;
                 case 2:
-                    if (link.inventory.bow)
+                    if (LinkInventory.bow)
                     {
                         currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.CURRENT_SPECIAL_X, HUDConstants.CURRENT_SPECIAL_Y,
                             new List<Rectangle>() { ItemConstants.BOW });
@@ -486,7 +486,7 @@ namespace LOZ.Tools.HUDObjects
                     }
                     break;
                 case 3:
-                    if (link.inventory.candleFlame)
+                    if (LinkInventory.candleFlame)
                     {
                         currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.CURRENT_SPECIAL_X, HUDConstants.CURRENT_SPECIAL_Y,
                             new List<Rectangle>() { ItemConstants.CANDLE });
@@ -495,7 +495,7 @@ namespace LOZ.Tools.HUDObjects
                     }
                     break;
                 case 4:
-                    if (link.inventory.potion)
+                    if (LinkInventory.potion)
                     {
                         currentSpecialWeapon = new Sprite(itemSpriteSheet, HUDConstants.CURRENT_SPECIAL_X, HUDConstants.CURRENT_SPECIAL_Y,
                             new List<Rectangle>() { ItemConstants.POTION });

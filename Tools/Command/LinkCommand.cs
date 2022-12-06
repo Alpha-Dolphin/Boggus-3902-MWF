@@ -144,32 +144,32 @@ namespace LOZ.Tools.Command
         public void GetItem(IItem item)
         {
             if (typeof(Arrow) == item.GetType()) {
-                link.inventory.arrows++;
+                LinkInventory.arrows++;
                 soundEffectList[(int)SoundEffects.GetItem].Play();
             }
             else if (typeof(BlueCandle) == item.GetType())
             {
-                link.inventory.candleFlame = true;
+                LinkInventory.candleFlame = true;
                 soundEffectList[(int)SoundEffects.NewItemSong].Play();
             }
             else if (typeof(BluePotion) == item.GetType())
             {
-                link.inventory.potion = true;
+                LinkInventory.potion = true;
                 soundEffectList[(int)SoundEffects.GetItem].Play();
             }
             else if (typeof(ItemObjects.Bomb) == item.GetType())
             {
-                link.inventory.bombs++;
+                LinkInventory.bombs++;
                 soundEffectList[(int)SoundEffects.GetItem].Play();
             }
             else if (typeof(Bow) == item.GetType())
             {
-                link.inventory.bow = true;
+                LinkInventory.bow = true;
                 soundEffectList[(int)SoundEffects.NewItemSong].Play();
             }
             else if (typeof(Compass) == item.GetType())
             {
-                link.inventory.compass = true;
+                LinkInventory.compass = true;
                 soundEffectList[(int)SoundEffects.GetItem].Play();
             }
             else if (typeof(Fairy) == item.GetType())
@@ -187,26 +187,27 @@ namespace LOZ.Tools.Command
                 soundEffectList[(int)SoundEffects.GetItem].Play();
             }
             else if (typeof(Key) == item.GetType()) {
-                link.inventory.keys++;
+                LinkInventory.keys++;
                 soundEffectList[(int)SoundEffects.GetItem].Play();
             }
             else if (typeof(Map) == item.GetType())
             {
-                link.inventory.map = true;
+                LinkInventory.map = true;
                 soundEffectList[(int)SoundEffects.GetItem].Play();
             }
             else if (typeof(Rupee) == item.GetType())
             {
-                link.inventory.rupees++;
+                LinkInventory.rupees++;
                 soundEffectList[(int)SoundEffects.GetRupee].Play();
             }
             else if (typeof(TriforcePiece) == item.GetType()) {
                 soundEffectList[(int)SoundEffects.GetItem].Play();
-                link.inventory.triforcePiece = true;
+                LinkInventory.triforcePiece = true;
+                Game1.gameState = 2;
             }
             else if (typeof(WoodenBoomerang) == item.GetType())
             {
-                link.inventory.boomerang = true;
+                LinkInventory.boomerang = true;
                 soundEffectList[(int)SoundEffects.NewItemSong].Play();
             }
         }

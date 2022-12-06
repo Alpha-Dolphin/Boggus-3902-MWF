@@ -23,6 +23,7 @@ namespace LOZ.Tools.Sprites
         private int x;
         private int y;
 
+        private Rectangle sourceRectangle;
         private Rectangle destinationRectangle;
 
         private bool finish = false;
@@ -86,6 +87,11 @@ namespace LOZ.Tools.Sprites
             this.y = y;
             this.frames = frames;
             this.frameRate = frameRate;
+            sourceRectangle = frames[currentFrame / frameRate];
+            Vector2 currentLocationShift = locationShift[currentFrame / frameRate];
+            int currentX = x + (int)currentLocationShift.X;
+            int currentY = y + (int)currentLocationShift.Y;
+            destinationRectangle = new Rectangle(currentX, currentY, sourceRectangle.Width, sourceRectangle.Height);
 
             if (frames.Count <= 1) finish = true;
             this.locationShift = locationShift;
@@ -98,11 +104,6 @@ namespace LOZ.Tools.Sprites
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle sourceRectangle = frames[currentFrame / frameRate];
-            Vector2 currentLocationShift = locationShift[currentFrame / frameRate];
-            int currentX = x + (int)currentLocationShift.X;
-            int currentY = y + (int)currentLocationShift.Y;
-            destinationRectangle = new Rectangle(currentX, currentY, sourceRectangle.Width, sourceRectangle.Height);
             spriteBatch.Draw(picture, new Rectangle(destinationRectangle.X*xScale, destinationRectangle.Y*yScale, destinationRectangle.Width*xScale, destinationRectangle.Height*yScale), 
                 sourceRectangle, PlayerConstants.DEFAULT_PICTURE_COLOR);
         }
@@ -148,6 +149,12 @@ namespace LOZ.Tools.Sprites
             //Move the sprite
             this.x = x;
             this.y = y;
+
+            sourceRectangle = frames[currentFrame / frameRate];
+            Vector2 currentLocationShift = locationShift[currentFrame / frameRate];
+            int currentX = x + (int)currentLocationShift.X;
+            int currentY = y + (int)currentLocationShift.Y;
+            destinationRectangle = new Rectangle(currentX, currentY, sourceRectangle.Width, sourceRectangle.Height);
         }
 
         public bool Finished()

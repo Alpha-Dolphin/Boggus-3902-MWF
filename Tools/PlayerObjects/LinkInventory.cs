@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace LOZ.Tools.PlayerObjects
 {
-    public class LinkInventory
+    public static class LinkInventory
     {
-        public bool woodenSword { get; set; } = false;
-        public bool boomerang { get; set; } = false;
-        public bool bow { get; set; } = false;
-        public bool candleFlame { get; set; } = false;
-        public bool map { get; set; } = false;
-        public bool compass { get; set; } = false;
-        public bool potion { get; set; } = false;
-        public bool bomb { get; set; } = false;
-        public bool triforcePiece { get; set; } = false;
+        public static bool woodenSword { get; set; } = false;
+        public static bool boomerang { get; set; } = false;
+        public static bool bow { get; set; } = false;
+        public static bool candleFlame { get; set; } = false;
+        public static bool map { get; set; } = false;
+        public static bool compass { get; set; } = false;
+        public static bool potion { get; set; } = false;
+        public static bool bomb { get; set; } = false;
+        public static bool triforcePiece { get; set; } = false;
 
-        public int rupees { get; set; } = 0;
-        public int keys { get; set; } = 0;
-        public int bombs { get; set; } = 0;
-        public int arrows { get; set; } = 0;
+        public static int rupees { get; set; } = 0;
+        public static int keys { get; set; } = 0;
+        public static int bombs { get; set; } = 0;
+        public static int arrows { get; set; } = 0;
     }
 }

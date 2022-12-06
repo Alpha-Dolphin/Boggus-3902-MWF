@@ -42,11 +42,16 @@ namespace LOZ.Tools.PlayerObjects
 
         public Vector2 Update()
         {
-            if ((this.originalPosition - this.position).Length() > PlayerConstants.MAX_SWORDBEAM_RANGE) this.Destroy();
+            if ((this.originalPosition - this.position).Length() > PlayerConstants.MAX_SWORDBEAM_RANGE 
+                || this.velocity.Length() <= Math.Abs(PlayerConstants.CANDLEFLAME_SPEEDCHANGE)) this.Destroy();
 
             this.position += velocity;
 
             this.sprite.Update((int)position.X, (int)position.Y);
+
+            float currentLength = this.velocity.Length();
+            this.velocity.Normalize();
+            this.velocity *= (currentLength + PlayerConstants.CANDLEFLAME_SPEEDCHANGE);
 
             return this.position;
         }
