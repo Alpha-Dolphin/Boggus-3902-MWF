@@ -11,15 +11,16 @@ namespace LOZ.Tools.MusicObjects
 {
     public class MusicHandler
     {
-        private Song currentSong;
+        private Song CurrentSong;
+        private float Volume;
 
         public void SelectSong(Song song)
         {
-            this.currentSong = song;
+            this.CurrentSong = song;
         }
         public void Play()
         {
-            MediaPlayer.Play(this.currentSong);
+            MediaPlayer.Play(this.CurrentSong);
         }
 
         public void Stop()
@@ -27,17 +28,19 @@ namespace LOZ.Tools.MusicObjects
             MediaPlayer.Stop();
         }
 
+        public void SetVolume(float volume)
+        {
+            MediaPlayer.Volume = volume;
+        }
+
         public void ToggleMute()
         {
-            if (MediaPlayer.IsMuted)
-            {
-                MediaPlayer.IsMuted = false;
+            MediaPlayer.IsMuted = !(MediaPlayer.IsMuted);
+        }
 
-            }
-            else
-            {
-                MediaPlayer.IsMuted = true;
-            }
+        public bool IsMuted()
+        {
+            return (MediaPlayer.IsMuted);
         }
     }
 }

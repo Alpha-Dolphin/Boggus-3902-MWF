@@ -203,6 +203,7 @@ namespace LOZ.Tools.Command
             else if (typeof(TriforcePiece) == item.GetType()) {
                 soundEffectList[(int)SoundEffects.GetItem].Play();
                 LinkInventory.triforcePiece = true;
+                Game1.musicBox.Stop();
                 Game1.gameState = 2;
             }
             else if (typeof(WoodenBoomerang) == item.GetType())
