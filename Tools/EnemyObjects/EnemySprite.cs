@@ -14,7 +14,7 @@ namespace LOZ.Tools
         Texture2D currSheet;
         readonly Texture2D enemySheet;
         SpriteEffects enemySpriteEffect;
-        bool damaged;
+        bool red;
 
         double timer;
 
@@ -23,13 +23,13 @@ namespace LOZ.Tools
         {
             enemyFrames = frames;
             enemySheet = sheet;
-            damaged = false;
+            red = false;
         }
         public EnemySprite(Texture2D sheet, Rectangle[] frames, int special)
         {
             enemyFrames = frames;
             enemySheet = sheet;
-            damaged = false;
+            red = false;
 
             mode = special;
         }
@@ -43,7 +43,7 @@ namespace LOZ.Tools
                     currSheet,
                     enemyPosition * Constants.objectScale * 2,
                     anim,
-                    damaged ? Color.Red : Color.White,
+                    red ? Color.Red : Color.White,
                     (mode == 2) ? (float)(timer / 50 % 8 * Math.PI / 4) : 0f,
                     new Vector2(anim.Width / 2, anim.Height / 2),
                     2 * Constants.objectScale,
@@ -60,20 +60,22 @@ namespace LOZ.Tools
 
         public void Update(GameTime gameTime, int enemyState, bool damaged)
         {
-            this.damaged = damaged;
             if (enemyState == 0)
             {
+                this.red = damaged;
                 anim = enemyFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / (50 * enemyFrames.Length)) % enemyFrames.Length];
                 currSheet = enemySheet;
             }
             else if (enemyState == 1)
             {
+                this.red = false;
                 if (gameTime.TotalGameTime.TotalMilliseconds - timer > Constants.enemyEntryExitTime) timer = gameTime.TotalGameTime.TotalMilliseconds;
                 anim = IEnemy.Appear(timer);
                 currSheet = Game1.LINK_SPRITESHEET;
             }
             else if (enemyState == -1)
             {
+                this.red = false;
                 if (gameTime.TotalGameTime.TotalMilliseconds - timer > Constants.enemyEntryExitTime) timer = gameTime.TotalGameTime.TotalMilliseconds;
                 anim = IEnemy.Disappear(timer);
                 currSheet = Game1.EXPLOSION;
@@ -82,7 +84,7 @@ namespace LOZ.Tools
         }
         public void Update(GameTime gameTime, int enemyState, bool damaged, Vector2 enemyDirection)
         {
-            this.damaged = damaged;
+            this.red = damaged;
             if (enemyState == 0)
             {
                 if (enemyDirection.Y == 0) anim = enemyFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2 + 2];
