@@ -151,10 +151,19 @@ namespace LOZ
             {
                 gameState = 0; 
             }
+
             
             // Track current state to see if M is held or not
             KeyboardState currentState = Keyboard.GetState();
             List<Keys> pressed = controller.Update();
+            if (gameState !=4)
+            {
+                if (pressed.Contains(Keys.R) && previousState.IsKeyUp(Keys.R))
+                {
+                    ResetGame();
+                    gameState = 4;
+                }
+            }
             if (hud.Paused())
             {
                 if (pressed.Contains(Keys.Right) && previousState.IsKeyUp(Keys.Right))
