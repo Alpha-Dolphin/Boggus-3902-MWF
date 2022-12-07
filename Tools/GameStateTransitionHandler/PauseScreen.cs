@@ -15,9 +15,6 @@ namespace LOZ.Tools.GameStateTransitionHandler
     {
         Rectangle sourceRectangle;
         Rectangle destinationRectangle;
-        int mAlphaValue = 1;
-        int mFadeIncrement = 3;
-        double mFadeDelay = .035;
         
         public void Draw(Texture2D FontSpriteSheet, SpriteBatch spriteBatch, GameTime gameTime)
         {
