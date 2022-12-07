@@ -84,9 +84,9 @@ namespace LOZ.Tools
         }
         public void Update(GameTime gameTime, int enemyState, bool damaged, Vector2 enemyDirection)
         {
-            this.red = damaged;
             if (enemyState == 0)
             {
+                this.red = damaged;
                 if (enemyDirection.Y == 0) anim = enemyFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2 + 2];
                 else if (enemyDirection.Y > 0) anim = enemyFrames[0];
                 else if (enemyDirection.Y < 0) anim = enemyFrames[1];
@@ -96,12 +96,14 @@ namespace LOZ.Tools
             }
             else if (enemyState == 1)
             {
+                this.red = false;
                 if (gameTime.TotalGameTime.TotalMilliseconds - timer > Constants.enemyEntryExitTime) timer = gameTime.TotalGameTime.TotalMilliseconds;
                 anim = IEnemy.Appear(timer);
                 currSheet = Game1.LINK_SPRITESHEET;
             }
             else if (enemyState == -1)
             {
+                this.red = false;
                 if (gameTime.TotalGameTime.TotalMilliseconds - timer > Constants.enemyEntryExitTime) timer = gameTime.TotalGameTime.TotalMilliseconds;
                 anim = IEnemy.Disappear(timer);
                 currSheet = Game1.EXPLOSION;
