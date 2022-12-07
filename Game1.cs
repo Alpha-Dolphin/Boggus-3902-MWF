@@ -180,7 +180,27 @@ namespace LOZ
             }
 
             hud.Update(pressed, currentRoom);
-
+            if (pressed.Contains(Keys.P) && previousState.IsKeyUp(Keys.P))
+            {
+                if(gameState == 4)
+                {
+                    gameState = 1;
+                }else if(gameState == 1)
+                {
+                    gameState = 4;
+                }
+                
+            }
+            {
+                if (pressed.Contains(Keys.Right) && previousState.IsKeyUp(Keys.Right))
+                {
+                    hud.NextItem();
+                }
+                else if (pressed.Contains(Keys.Left) && previousState.IsKeyUp(Keys.Left))
+                {
+                    hud.PreviousItem();
+                }
+            }
             if (pressed.Contains(Keys.Q))
             {
                 this.Exit();
