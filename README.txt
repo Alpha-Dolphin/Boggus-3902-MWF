@@ -13,6 +13,7 @@ Key mappings
 	P to Pause.
 	R to restart the game when in state of win, pause or game over, 
 	Escape to open inventory and see a more detailed map.
+	M to mute music
 	
 Refactoring:
 	Link: Took out all projectile information into a different LinkProjectiles class to make Link shorter.
