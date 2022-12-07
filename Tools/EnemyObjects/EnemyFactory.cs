@@ -47,10 +47,16 @@ namespace LOZ.Tools
             else return CreateEnemySpawner();
         }
 
+        public Ball CreateBall(int m)
+        {
+            return new Ball(m);
+        }
+
         public IEnemy CreateEnemySpawner()
         {
             return new EnemySpawner(X, Y);
         }
+
         public IEnemy CreateKeese()
         {
             return new Keese(X, Y);

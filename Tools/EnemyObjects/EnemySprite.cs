@@ -14,6 +14,7 @@ namespace LOZ.Tools
         Texture2D currSheet;
         readonly Texture2D enemySheet;
         SpriteEffects enemySpriteEffect;
+        bool damaged;
 
         double timer;
 
@@ -33,17 +34,21 @@ namespace LOZ.Tools
 
         public void Draw(SpriteBatch _spriteBatch, Vector2 enemyPosition)
         {
-            _spriteBatch.Draw(
-                currSheet,
-                enemyPosition * Constants.objectScale * 2,
-                anim,
-                Color.White,
-                (mode == 2) ? (float)(timer / 50 % 8 * Math.PI / 4) : 0f,
-                new Vector2(anim.Width / 2, anim.Height / 2),
-                2 * Constants.objectScale,
-                (mode == 1 && (((int)timer /250) % 2) == 0) ? SpriteEffects.FlipHorizontally : (mode == 3) ? enemySpriteEffect : SpriteEffects.None,
-                0f
-            );
+            //Bug fix with draw being called before update has ever been called
+            if (!anim.IsEmpty)
+            {
+                _spriteBatch.Draw(
+                    currSheet,
+                    enemyPosition * Constants.objectScale * 2,
+                    anim,
+                    Color.White,
+                    (mode == 2) ? (float)(timer / 50 % 8 * Math.PI / 4) : 0f,
+                    new Vector2(anim.Width / 2, anim.Height / 2),
+                    2 * Constants.objectScale,
+                    (mode == 1 && (((int)timer / 250) % 2) == 0) ? SpriteEffects.FlipHorizontally : (mode == 3) ? enemySpriteEffect : SpriteEffects.None,
+                    0f
+                );
+            }
         }
 
         public Vector2 GetWidthHeight()

@@ -22,7 +22,8 @@ namespace LOZ.Tools
         public Ball(int mode)
         {
             ballLife = -1;
-
+            IEnemy newEnem1 = this;
+            Game1.enemyNewList.Add(newEnem1);
             ballSprite = new EnemySprite(Game1.BOSSES_SPRITESHEET, new[] { new Rectangle(101, 11, 8, 16), new Rectangle(110, 11, 8, 16), new Rectangle(119, 11, 8, 16), new Rectangle(128, 11, 8, 16) });
             m = mode % 3;
         }
