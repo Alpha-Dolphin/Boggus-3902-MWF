@@ -120,7 +120,7 @@ namespace LOZ.Tools
                 AttackUpdate(gameTime);
             }
 
-            aquamentusSprite.Update(gameTime, enemyState);
+            aquamentusSprite.Update(gameTime, enemyState, healthTimer > 0f);
 
             if (ball1.GetBallLife() > 0.0)
             {

@@ -102,7 +102,7 @@ namespace LOZ.Tools
         public void Update(GameTime gameTime)
         {
             StateHandler(gameTime);
-            goriyaSprite.Update(gameTime, enemyState, enemyDirection);
+            goriyaSprite.Update(gameTime, enemyState, healthTimer > 0f, enemyDirection);
             if (enemyState == 0 && boomerang.GetAttackTime() < 0.0)
             {
                 MovementUpdate(gameTime);

@@ -95,7 +95,7 @@ namespace LOZ.Tools
         {
             StateHandler(gameTime);
             if (enemyState == 0) MovementUpdate(gameTime);
-            keeseSprite.Update(gameTime, enemyState);
+            keeseSprite.Update(gameTime, enemyState, false);
         }
 
         private void StateHandler(GameTime gameTime)

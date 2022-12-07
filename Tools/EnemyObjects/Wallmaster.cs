@@ -81,7 +81,7 @@ namespace LOZ.Tools
         public void Update(GameTime gameTime)
         {
             StateHandler(gameTime);
-            wallMasterSprite.Update(gameTime, enemyState);
+            wallMasterSprite.Update(gameTime, enemyState, false);
             if (enemyState == 0) MovementUpdate(gameTime);
         }
 

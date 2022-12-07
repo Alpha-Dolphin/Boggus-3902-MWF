@@ -62,7 +62,7 @@ namespace LOZ.Tools
         public void Update(GameTime gameTime)
         {
             MovementUpdate(gameTime);
-            trapSprite.Update(gameTime, enemyState);
+            trapSprite.Update(gameTime, enemyState, false);
         }
 
         public void Collide(int enemyState)

@@ -70,7 +70,7 @@ namespace LOZ.Tools.EnemyObjects
         public void Update(GameTime gameTime)
         {
             Move(gameTime);
-            boomerangSprite.Update(gameTime, 0);
+            boomerangSprite.Update(gameTime, 0, false);
         }
 
         public double GetAttackTime()

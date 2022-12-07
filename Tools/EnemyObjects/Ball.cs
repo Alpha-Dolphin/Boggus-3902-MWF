@@ -68,7 +68,7 @@ namespace LOZ.Tools
         {
             Move(gameTime);
             ballLife -= gameTime.ElapsedGameTime.TotalMilliseconds;
-            ballSprite.Update(gameTime, 0);
+            ballSprite.Update(gameTime, 0, false);
         }
 
         public double GetBallLife()

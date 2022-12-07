@@ -103,7 +103,7 @@ namespace LOZ.Tools.EnemyObjects
         {
             StateHandler(gameTime);
             if (enemyState == 0) MovementUpdate(gameTime);
-            ZolSprite.Update(gameTime, enemyState);
+            ZolSprite.Update(gameTime, enemyState, healthTimer > 0f);
             healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
         private void StateHandler(GameTime gameTime)

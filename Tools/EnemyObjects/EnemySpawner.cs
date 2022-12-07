@@ -93,7 +93,7 @@ namespace LOZ.Tools
         {
             StateHandler(gameTime);
             if (enemyState == 0) AttackUpdate(gameTime);
-            spawnerSprite.Update(gameTime, enemyState);
+            spawnerSprite.Update(gameTime, enemyState, false);
         }
 
         private void StateHandler(GameTime gameTime)

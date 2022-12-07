@@ -91,7 +91,7 @@ namespace LOZ.Tools
         {
             StateHandler(gameTime);
             if (enemyState == 0) MovementUpdate(gameTime);
-            RopeSprite.Update(gameTime, enemyState);
+            RopeSprite.Update(gameTime, enemyState, false);
         }
         private void StateHandler(GameTime gameTime)
         {

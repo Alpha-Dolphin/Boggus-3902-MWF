@@ -93,7 +93,7 @@ namespace LOZ.Tools
         {
             if (enemyState == 0) MovementUpdate(gameTime);
             StateHandler(gameTime);
-            stalfosSprite.Update(gameTime, enemyState);
+            stalfosSprite.Update(gameTime, enemyState, healthTimer > 0f);
             healthTimer -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 

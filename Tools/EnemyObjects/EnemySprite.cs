@@ -23,11 +23,13 @@ namespace LOZ.Tools
         {
             enemyFrames = frames;
             enemySheet = sheet;
+            damaged = false;
         }
         public EnemySprite(Texture2D sheet, Rectangle[] frames, int special)
         {
             enemyFrames = frames;
             enemySheet = sheet;
+            damaged = false;
 
             mode = special;
         }
@@ -41,7 +43,7 @@ namespace LOZ.Tools
                     currSheet,
                     enemyPosition * Constants.objectScale * 2,
                     anim,
-                    Color.White,
+                    damaged ? Color.Red : Color.White,
                     (mode == 2) ? (float)(timer / 50 % 8 * Math.PI / 4) : 0f,
                     new Vector2(anim.Width / 2, anim.Height / 2),
                     2 * Constants.objectScale,
@@ -56,8 +58,9 @@ namespace LOZ.Tools
             return new Vector2(anim.Width, anim.Height);
         }
 
-        public void Update(GameTime gameTime, int enemyState)
+        public void Update(GameTime gameTime, int enemyState, bool damaged)
         {
+            this.damaged = damaged;
             if (enemyState == 0)
             {
                 anim = enemyFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / (50 * enemyFrames.Length)) % enemyFrames.Length];
@@ -77,8 +80,9 @@ namespace LOZ.Tools
             }
             timer += gameTime.ElapsedGameTime.TotalMilliseconds;
         }
-        public void Update(GameTime gameTime, int enemyState, Vector2 enemyDirection)
+        public void Update(GameTime gameTime, int enemyState, bool damaged, Vector2 enemyDirection)
         {
+            this.damaged = damaged;
             if (enemyState == 0)
             {
                 if (enemyDirection.Y == 0) anim = enemyFrames[(int)(gameTime.TotalGameTime.TotalMilliseconds / 100) % 2 + 2];

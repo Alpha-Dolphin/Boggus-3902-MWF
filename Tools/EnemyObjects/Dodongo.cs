@@ -108,7 +108,7 @@ namespace LOZ.Tools.PlayerObjects
             StateHandler(gameTime);
             if (enemyState == 0)
             {
-                dodongoSprite.Update(gameTime, enemyState, enemyDirection);
+                dodongoSprite.Update(gameTime, enemyState, healthTimer > 0f, enemyDirection);
                 AttackUpdate(gameTime);
                 if (attackTime < 0.0) MovementUpdate(gameTime);
             }
