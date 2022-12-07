@@ -177,6 +177,8 @@ namespace LOZ
                 {
                     hud.PreviousItem();
                 }
+
+                musicBox.SetVolume(0.4f);
             }
             else if (gameState == 4||gameState==3)
             {
@@ -189,6 +191,7 @@ namespace LOZ
                     enemy.Update(gameTime);
                     enemy.Move(gameTime);
                 }
+                musicBox.SetVolume(1f);
             }
 
             hud.Update(pressed, currentRoom);
@@ -198,7 +201,9 @@ namespace LOZ
                 if(gameState == 4)
                 {
                     gameState = 1;
-                }else if(gameState == 1)
+                    musicBox.SetVolume(0.4f);
+                }
+                else if(gameState == 1)
                 {
                     gameState = 4;
                 }
@@ -268,6 +273,11 @@ namespace LOZ
 
         public static void ResetGame()
         {
+            if (musicBox.IsMuted())
+            {
+
+            }
+            musicBox.Play();
             link.Reset();
             roomTransitionHandler.HandleTransitionAbs(17, link, 120, 140);
         }
