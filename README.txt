@@ -10,6 +10,8 @@ Key mappings
 	GAME:
 	Left click to advance room, right click to go back a room.
 	Q to quit game.
+	P to Pause.
+	R to restart the game when in state of win, pause or game over, 
 	Escape to open inventory and see a more detailed map.
 
 
