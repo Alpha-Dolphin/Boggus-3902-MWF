@@ -46,7 +46,7 @@ namespace LOZ.Tools.HUDObjects
             new Rectangle(148, 48, 16, 16),
             new Rectangle(168, 48, 16, 16),
             new Rectangle(188, 48, 16, 16),
-            new Rectangle(168, 64, 16, 16)
+            new Rectangle(128, 64, 16, 16)
         };
 
         //public static Rectangle MAPTOP = new Rectangle(30, 30, 50, 30);

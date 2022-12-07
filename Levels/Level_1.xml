@@ -167,7 +167,7 @@
 						80
 					</yPlacement>
 				</item>
-				<item type ="TriforcePiece" hidden ="false">
+				<item type ="Bomb" hidden ="false">
 					<!--Placement info for where item spawns-->
 					<xPlacement>
 						112
@@ -180,6 +180,15 @@
 					<!--Placement info for where item spawns-->
 					<xPlacement>
 						128
+					</xPlacement>
+					<yPlacement>
+						80
+					</yPlacement>
+				</item>
+				<item type ="BlueCandle" hidden ="false">
+					<!--Placement info for where item spawns-->
+					<xPlacement>
+						144
 					</xPlacement>
 					<yPlacement>
 						80
