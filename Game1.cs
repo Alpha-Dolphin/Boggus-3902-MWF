@@ -139,12 +139,15 @@ namespace LOZ
 
         protected override void Update(GameTime gameTime)
         {
-            Collision.UpdateCollision();
+            
 
             /*
              * Update logic here
              */
-            base.Update(gameTime);
+            
+                Collision.UpdateCollision();
+                base.Update(gameTime);
+           
             
 
             if (link.GetHealth() == 0)
@@ -175,7 +178,7 @@ namespace LOZ
                     hud.PreviousItem();
                 }
             }
-            else
+            else if (gameState == 4||gameState==3)
             {
                 mouseController.Update();
 
@@ -189,6 +192,7 @@ namespace LOZ
             }
 
             hud.Update(pressed, currentRoom);
+
             if (pressed.Contains(Keys.P) && previousState.IsKeyUp(Keys.P))
             {
                 if(gameState == 4)
