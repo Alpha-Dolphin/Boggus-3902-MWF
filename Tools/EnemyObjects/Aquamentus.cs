@@ -49,10 +49,6 @@ namespace LOZ.Tools
             ball2 = new Ball(2);
             ball3 = new Ball(3);
 
-/*            Game1.enemyNewList.Add(ball1);
-            Game1.enemyNewList.Add(ball2);
-            Game1.enemyNewList.Add(ball3);*/
-
             enemyState = 0;
 
             enemyHealth = 20;
