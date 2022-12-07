@@ -2,12 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\Content",
+    "\\Levels",
     "\\Tools",
+    "\\Tools\\EnvironmentObjects",
+    "\\Tools\\EnvironmentObjects\\Helpers",
     "\\Tools\\GameStateTransitionHandler",
     "\\Tools\\LevelManager",
-    "\\Tools\\PlayerObjects",
     "\\Tools\\RoomTransitionHandler"
   ],
-  "SelectedNode": "\\Tools\\GameStateTransitionHandler\\GameOverScreen.cs",
+  "SelectedNode": "\\Game1.cs",
   "PreviewInSolutionExplorer": false
 }
