@@ -194,6 +194,15 @@
 						80
 					</yPlacement>
 				</item>
+        <item type ="TriforcePiece" hidden ="false">
+          <!--Placement info for where item spawns-->
+          <xPlacement>
+            144
+          </xPlacement>
+          <yPlacement>
+            80
+          </yPlacement>
+        </item>
 			</items>
 			<gates>
 			</gates>
