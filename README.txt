@@ -1,5 +1,3 @@
-Current State: Sprint 4 functionality almost entirely implemented.
-
 Key mappings
 	
 	LINK:
@@ -15,15 +13,3 @@ Key mappings
 	Escape to open inventory and see a more detailed map.
 	M to mute music
 	Enter to select special item
-	
-Refactoring:
-	Link: Took out all projectile information into a different LinkProjectiles class to make Link shorter.
-	LinkConstants: Renamed into PlayerConstants to fit with the rest of the format, grouped up constants related to each other to make it easier to find information.
-	Interfaces split to separate files
-	GameStateTransitionManager: Added logic for room transition state
-	RoomStateTransitionScreen: Added code to do basic room transitioning 
-	Environment: Added second statue type to room 17
-
-
-Link to Sprint reflection(2 and 3): 
-https://docs.google.com/document/d/1mNnZDQ94atO60pZl9hHuoXX9RfT58vaueJyTJLCh6hU/edit?usp=sharing
